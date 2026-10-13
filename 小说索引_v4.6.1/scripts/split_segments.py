@@ -102,14 +102,20 @@ class Stager:
 
     任何一步失败都清掉暂存件，活动段集与章节索引保持原样；被取代的段与其
     章节索引一起移到 ``<lib>/.superseded/<时间戳>/`` 下，可恢复、不删除。
+
+    IDX-01：追更（--append）与分卷（--volume）是增量模式（incremental=True）：
+    本次只新增段或原位更新末段，既有在用段全部是保留段，提交时严禁把未覆盖的
+    既有段移入 .superseded（此前终态集合只含本次文件，提交即清空数据集）。
+    全量重切（--force）仍走全量语义：不在终态集合里的旧段视为被取代并隔离。
     """
 
     SUFFIX = ".new-part"
 
-    def __init__(self, lib, seg_dir, prefix):
+    def __init__(self, lib, seg_dir, prefix, incremental=False):
         self.lib = str(lib)
         self.seg_dir = str(seg_dir)
         self.prefix = prefix
+        self.incremental = bool(incremental)
         self.staged = {}      # 最终文件名 -> 暂存件路径
         self.kept = set()     # 内容未变、无需重写的既有文件
         self.temps = []
@@ -156,6 +162,10 @@ class Stager:
         if unowned:
             raise RuntimeError(f"UNOWNED_FILE_IN_SEG_DIR：{unowned[:5]}；拒绝在陌生文件在场的情况下替换")
         keep = self.final_names()
+        if self.incremental:
+            # IDX-01 增量模式：本次未覆盖的既有在用段全部是保留段，
+            # 终态集合扩大为“本次文件 + 全部既有段”，隔离扫描自然无命中。
+            keep = keep | {p for p in os.listdir(self.seg_dir) if p.endswith(".md")}
         stamp = dt.datetime.now().strftime("%Y%m%d-%H%M%S")
         moved = []
         for cur in sorted(os.listdir(self.seg_dir)):
@@ -470,8 +480,17 @@ def append_new_chapters(body_lines, chapters, seg_dir, novel, author, per_seg, v
         "chapter_range": ch_range,
         "split_mode": last_meta.get("分段方式") or "按章节切分",
     }, new_body)
-    with open(os.path.join(seg_dir, last_fname), "w", encoding="utf-8") as f:
-        f.write(content)
+    if _STAGER is not None:
+        # IDX-01：并入末段必须走 Stager 暂存（原位更新、故意覆盖 → force=True），
+        # 随事务统一校验与提交；直写会绕过校验且失败时无法回滚。
+        rc = _STAGER.write(last_fname, content, force=True)
+        if rc == "conflicted":  # force=True 下不应发生，防御性报错
+            conflicts.append(last_fname)
+            logger.warning(f"  ⚠️  {last_fname}: 并入末段未能暂存（未覆盖）")
+            return created, merged, conflicts
+    else:
+        with open(os.path.join(seg_dir, last_fname), "w", encoding="utf-8") as f:
+            f.write(content)
     logger.info(f"  ✅ {last_fname}: 并入 {len(new_chs)} 章（{new_chs[0][1]} → {new_chs[-1][1]}，章节范围 {ch_range}）")
     logger.info(f"     ℹ️  段文件名保持原样（防断点失效重跑全书），章节范围以 frontmatter 为准")
     return created, 1, conflicts
@@ -505,7 +524,8 @@ def main():
     seg_dir = os.path.join(args.lib, "小说原文", f"{novel}-{author}")
     os.makedirs(seg_dir, exist_ok=True)
     global _STAGER
-    _STAGER = Stager(args.lib, seg_dir, f"{novel}-{author}")
+    _STAGER = Stager(args.lib, seg_dir, f"{novel}-{author}",
+                     incremental=bool(args.append or args.volume))
 
     try:
         text = read_text_auto(args.source)
