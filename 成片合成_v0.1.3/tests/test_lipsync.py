@@ -51,6 +51,6 @@ def test_cli_run_lipsync_stage(tmp_path, storyboard_path, dubbing_path):
           "--dubbing", str(dubbing_path), "--out", str(plan_file)])
     rc = main(["run", "--plan", str(plan_file), "--stage", "lip-sync",
                "--out", str(tmp_path / "run")])
-    assert rc == 0
+    assert rc == 1  # lip-sync=off 报 SKIPPED，非绿必须非零
     out = json.loads((tmp_path / "run" / "lip_sync.json").read_text(encoding="utf-8"))
     assert out["mode"] == "off"

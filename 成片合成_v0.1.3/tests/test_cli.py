@@ -26,8 +26,9 @@ def test_cli_video_stage_default_stub(tmp_path, storyboard_path, dubbing_path, a
 def test_cli_assemble_then_full_pipeline_order(tmp_path, storyboard_path, dubbing_path, asset_ledger_path):
     pf = _plan_file(tmp_path, storyboard_path, dubbing_path, asset_ledger_path)
     run = tmp_path / "run"
-    for stage in ("video", "tts", "assemble"):
-        assert main(["run", "--plan", str(pf), "--stage", stage, "--out", str(run)]) == 0
+    # 桩 video/tts 全绿 exit 0；assemble 缺剪映环境 PARTIAL → exit 1
+    for stage, expected in (("video", 0), ("tts", 0), ("assemble", 1)):
+        assert main(["run", "--plan", str(pf), "--stage", stage, "--out", str(run)]) == expected
     assert (run / "assemble.json").exists()
 
 

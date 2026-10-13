@@ -105,7 +105,14 @@ def cmd_run(args):
           f"失败={res.get('failed')} 跳过={res.get('skipped')}")
     if stage == "assemble" and res["jianying"] == "NOT_RUN":
         print(f"[assemble] {res['note']}")
-    return 0
+    status = res.get("status", "")
+    if status == "SUCCEEDED":
+        return 0
+    if status == "FAILED":
+        return 2
+    if status in ("PARTIAL", "SKIPPED", "NOT_RUN"):
+        return 1
+    return 1
 
 
 def build_parser():
