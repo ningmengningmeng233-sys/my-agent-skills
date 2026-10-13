@@ -12,6 +12,7 @@ from pathlib import Path
 
 from . import ledger as L
 from .adapters import ArtifactValidationError, validate_rendered_artifact
+from .contract import load_failed_items
 
 DEFAULT_TTS_DRIFT = 0.35
 
@@ -72,7 +73,8 @@ def run_video_stage(plan, out_dir, adapter, retry_failed=False, ledger_path=None
 
     existing = {s["shot_id"] for s in shots
                 if _is_usable_artifact(clips_dir / f"{s['shot_id']}.mp4", "video")}
-    prev_failed = {f["shot_id"]: f.get("error", "") for f in _read_json(failed_file, [])}
+    # SC-01：断点状态加载前先验合法性；脏状态抛 ContractError，由 cli 收敛为 exit 2。
+    prev_failed = load_failed_items(failed_file)
 
     if retry_failed:
         targets = [s for s in shots if s["shot_id"] in prev_failed]

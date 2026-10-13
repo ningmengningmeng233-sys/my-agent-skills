@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 
 from .plan import build_plan, load_json, StoryboardError
+from .contract import ContractError, check_plan
 from . import ledger as L
 from . import stages as ST
 from .adapters import StubVideoAdapter, StubTtsAdapter, HttpVideoAdapter, HttpTtsAdapter
@@ -81,24 +82,36 @@ def cmd_run(args):
         _eprint(f"工单文件不是合法 JSON：{args.plan}")
         return 2
 
+    try:
+        check_plan(plan)
+    except ContractError as exc:
+        _eprint(f"工单不符合 render_plan 契约，已拒绝执行（文件：{args.plan}）：{exc}")
+        return 2
+
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
     lp = Path(args.ledger) if args.ledger else _default_ledger(out_dir)
     stage = args.stage
 
-    if stage == "video":
-        v, _ = _adapters()
-        res = ST.run_video_stage(plan, out_dir, v, retry_failed=args.retry_failed, ledger_path=lp)
-    elif stage == "tts":
-        _, t = _adapters()
-        thr = args.drift_threshold if args.drift_threshold is not None else ST.DEFAULT_TTS_DRIFT
-        res = ST.run_tts_stage(plan, out_dir, t, threshold=thr, ledger_path=lp)
-    elif stage == "assemble":
-        res = ST.run_assemble_stage(plan, out_dir, ledger_path=lp)
-    elif stage == "lip-sync":
-        res = ST.run_lipsync_stage(plan, mode=args.lip_sync, out_dir=out_dir, ledger_path=lp)
-    else:  # pragma: no cover - argparse 已限制
-        _eprint(f"未知阶段：{stage}")
+    try:
+        if stage == "video":
+            v, _ = _adapters()
+            res = ST.run_video_stage(plan, out_dir, v, retry_failed=args.retry_failed, ledger_path=lp)
+        elif stage == "tts":
+            _, t = _adapters()
+            thr = args.drift_threshold if args.drift_threshold is not None else ST.DEFAULT_TTS_DRIFT
+            res = ST.run_tts_stage(plan, out_dir, t, threshold=thr, ledger_path=lp)
+        elif stage == "assemble":
+            res = ST.run_assemble_stage(plan, out_dir, ledger_path=lp)
+        elif stage == "lip-sync":
+            res = ST.run_lipsync_stage(plan, mode=args.lip_sync, out_dir=out_dir, ledger_path=lp)
+        else:  # pragma: no cover - argparse 已限制
+            _eprint(f"未知阶段：{stage}")
+            return 2
+    except ContractError as exc:
+        # SC-01：阶段内的契约问题（脏断点等）同样收敛为纯中文错误 + exit 2，
+        # 与 plan 侧 StoryboardError 同一口径。
+        _eprint(f"断点状态不合法，已拒绝执行：{exc}")
         return 2
 
     print(f"[{stage}] 状态={res['status']} 成功={res.get('succeeded')} "
