@@ -1,6 +1,7 @@
 # lemon-gitguard CI 模板 v1 —— 由 gitguard.ci_workflow 生成到各仓 .github/workflows/ci.yml。
 # 手改单个仓库的工作流会被 G7 判「模板不一致」；要改条件请改本模板再重新 --write。
-name: CI-MiniMaxH3提示词_v7.4.4
+# MM-02：本子工作流已由仓库根 .github/workflows/ci.yml 矩阵 CI 统一接管，此处仅作历史/上游模板保留。
+name: CI-MiniMaxH3提示词_v7.4.5
 
 on:
   push:
