@@ -308,8 +308,21 @@ def run_assemble_stage(plan, out_dir, ledger_path=None, run_id=None):
         video_tracks.append({"shot_id": s["shot_id"], "clip": str(clip), "duration": s["duration"]})
     audio_tracks = [{"shot_id": s["shot_id"], "audio": str(audio_dir / f"{s['shot_id']}.wav")}
                     for s in plan["shots"] if s.get("dialogue")]
+    # 跨进程降级台账：lip-sync 阶段只改内存 plan 时，独立进程 assemble 重读工单
+    # 永远看不到降级；此处主动读落盘 lip_sync.json 的 degraded 列表，如实置字幕轨。
+    lip_degraded = set()
+    lip_file = out_dir / "lip_sync.json"
+    if lip_file.is_file():
+        try:
+            lip_data = json.loads(lip_file.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            lip_data = {}
+        if isinstance(lip_data, dict):
+            lip_degraded = set(lip_data.get("degraded") or [])
     subtitle_tracks = [{"shot_id": s["shot_id"],
-                        "kind": "画外音字幕" if s.get("degradation_note") else "对白字幕"}
+                        "kind": "画外音字幕"
+                        if (s.get("degradation_note") or s["shot_id"] in lip_degraded)
+                        else "对白字幕"}
                        for s in plan["shots"] if s.get("dialogue")]
 
     draft_dir = out_dir / "draft"
