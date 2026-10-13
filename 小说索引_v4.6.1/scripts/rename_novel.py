@@ -50,6 +50,12 @@ def _update_frontmatter_text(text: str, old_na: str, new_na: str, new_novel: str
             # 逐段字面量替换（不做无限次任意子串 replace）
             new_value = path_replace_book_key(value, old_na, new_na)
             new_lines.append(f"源文件: {value if new_value is None else new_value}")
+        elif stripped.startswith("对应索引:"):
+            # IDX-02：段文件 frontmatter 的对应索引随改名同步指向新索引文件名
+            _, value = stripped.split(":", 1)
+            value = value.strip().strip("'\"")
+            new_value = path_replace_book_key(value, old_na, new_na)
+            new_lines.append(f"对应索引: {value if new_value is None else new_value}")
         else:
             new_lines.append(line)
 
@@ -59,10 +65,20 @@ def _update_frontmatter_text(text: str, old_na: str, new_na: str, new_novel: str
 
 
 def _collect_targets(lib: Path, old_na: str, new_na: str) -> list[tuple[Path, Path]]:
+    """按执行顺序收集改名操作：段文件（旧目录内先改名）→ 段目录 → 章节索引 → 导航。
+
+    IDX-02（对齐同族成人索引 v4.6.3 重写机制）：段文件必须逐个同步重命名并更新
+    frontmatter，严禁只改目录名而留下旧文件名/旧 frontmatter 造成悬空脱节。
+    """
     moves: list[tuple[Path, Path]] = []
 
     raw_dir = lib / "小说原文" / old_na
-    if raw_dir.exists():
+    if raw_dir.is_dir():
+        for src in prefixed_files(raw_dir, old_na, ".md"):
+            if src.name.endswith("-idx.md"):
+                continue
+            new_name = path_replace_book_key(src.name, old_na, new_na) or src.name
+            moves.append((src, src.with_name(new_name)))
         moves.append((raw_dir, lib / "小说原文" / new_na))
 
     idx_dir = lib / "章节索引"
@@ -77,6 +93,38 @@ def _collect_targets(lib: Path, old_na: str, new_na: str) -> list[tuple[Path, Pa
         moves.append((src_nav, nav_dir / f"{new_na}.md"))
 
     return moves
+
+
+def _precheck_targets(moves: list[tuple[Path, Path]]) -> list[Path]:
+    """IDX-02 冲突预检：所有目标路径必须不存在，否则一个字节都不动。
+
+    返回冲突目标列表（为空即通过）；src == dst 的原位对跳过。
+    """
+    conflicts: list[Path] = []
+    for src, dst in moves:
+        if src != dst and dst.exists():
+            conflicts.append(dst)
+    return conflicts
+
+
+def _rollback_completed(completed: list[tuple], logger) -> None:
+    """IDX-02 逆序回滚：按已完成操作的逆序撤销（文件恢复原字节、目录改回原名）。
+
+    回滚自身失败只记录不抛——调用方已在失败路径上，不再叠加新异常。
+    """
+    for entry in reversed(completed):
+        try:
+            if entry[0] == "file":
+                _, src, dst, original = entry
+                if src != dst and dst.exists():
+                    dst.unlink()
+                src.write_bytes(original)
+            elif entry[0] == "dir":
+                _, src, dst = entry
+                if dst.exists() and not src.exists():
+                    dst.rename(src)
+        except OSError as e:
+            logger.error("回滚失败 %s: %s", entry[1], e)
 
 
 def _confirm(old_na: str, new_na: str, moves: list[tuple[Path, Path]]) -> bool:
@@ -99,31 +147,45 @@ def main() -> int:
 
     old_na = f"{args.old_novel}-{args.old_author}"
     new_na = f"{args.new_novel}-{args.new_author}"
+    if old_na == new_na:
+        logger.error("新旧书名/作者完全相同")
+        return 1
 
     moves = _collect_targets(lib, old_na, new_na)
     if not moves:
         logger.warning("未找到 %s 的相关文件", old_na)
         return 0
 
+    conflicts = _precheck_targets(moves)
+    if conflicts:
+        for dst in conflicts:
+            logger.error("目标已存在，拒绝改名（零改动）: %s", dst)
+        return 1
+
     if not args.yes and not _confirm(old_na, new_na, moves):
         logger.info("用户取消重命名")
         return 0
 
+    completed: list[tuple] = []
     for src, dst in moves:
         try:
             if src.is_dir():
                 src.rename(dst)
+                completed.append(("dir", src, dst))
                 logger.info("已重命名目录: %s -> %s", src, dst)
                 continue
 
-            text = src.read_text(encoding="utf-8")
+            original = src.read_bytes()
+            text = original.decode("utf-8")
             text = _update_frontmatter_text(text, old_na, new_na, args.new_novel, args.new_author)
             dst.write_text(text, encoding="utf-8")
             if src != dst:
                 src.unlink()
+            completed.append(("file", src, dst, original))
             logger.info("已更新: %s -> %s", src, dst)
-        except OSError as e:
+        except (OSError, UnicodeDecodeError) as e:
             logger.error("处理失败 %s: %s", src, e)
+            _rollback_completed(completed, logger)
             return 1
 
     try:
@@ -132,23 +194,29 @@ def main() -> int:
                 # 字面量逐段比对 + 单次前缀替换：LIKE 里的 `%`、`_` 是通配符，
                 # 原写法会把别的书的断点行一起改写
                 rows = db.conn.execute("SELECT segment_path, out_path FROM segment_tasks").fetchall()
-                updated = 0
-                for segment_path, out_path in rows:
-                    new_seg = path_replace_book_key(segment_path, old_na, new_na)
-                    new_out = path_replace_book_key(out_path, old_na, new_na)
-                    if new_seg is None and new_out is None:
-                        continue
-                    cur = db.conn.execute(
-                        "UPDATE segment_tasks SET segment_path = ?, out_path = ? WHERE segment_path = ?",
-                        (segment_path if new_seg is None else new_seg,
-                         out_path if new_out is None else new_out,
-                         segment_path),
-                    )
-                    updated += max(cur.rowcount, 0)
-                db.conn.commit()
+                try:
+                    updated = 0
+                    for segment_path, out_path in rows:
+                        new_seg = path_replace_book_key(segment_path, old_na, new_na)
+                        new_out = path_replace_book_key(out_path, old_na, new_na)
+                        if new_seg is None and new_out is None:
+                            continue
+                        cur = db.conn.execute(
+                            "UPDATE segment_tasks SET segment_path = ?, out_path = ? WHERE segment_path = ?",
+                            (segment_path if new_seg is None else new_seg,
+                             out_path if new_out is None else new_out,
+                             segment_path),
+                        )
+                        updated += max(cur.rowcount, 0)
+                    db.conn.commit()
+                except Exception:
+                    db.conn.rollback()
+                    raise
             logger.info("已更新 %d 条断点记录路径", updated)
-    except OSError as e:
+    except Exception as e:
+        # IDX-02：断点库失败同样触发文件侧逆序回滚，不留半改名坏死状态
         logger.error("更新断点库失败: %s", e)
+        _rollback_completed(completed, logger)
         return 1
 
     logger.info("%s 重命名为 %s 完成", old_na, new_na)
