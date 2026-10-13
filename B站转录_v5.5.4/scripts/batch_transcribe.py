@@ -42,6 +42,9 @@ import batch_state  # noqa: E402
 
 SCANNER = SCRIPT_DIR / "bilibili_scanner.py"
 TRANSCRIPT_SH = SCRIPT_DIR / "bilibili_transcript.sh"
+# 单条流水线写库成功后输出的机器可读完成标记（bilibili_transcript.sh 尾部）。
+# 批量层只认此标记：阶段性输出（如 Whisper 转写完成）不得判为成功。
+SUCCESS_MARKER = "[BILI-DONE]"
 FAV_MEDIA_ID = os.environ.get("FAV_MEDIA_ID", "")
 
 
@@ -423,7 +426,7 @@ def transcribe_video(bvid: str, page: int = 1, attempt: int = 1, max_retries: in
 
     used_stt = "Whisper" in result.stdout or "语音转文字" in result.stdout
 
-    if "✅ 转录完成" in result.stdout:
+    if SUCCESS_MARKER in result.stdout:
         saved_file = _extract_output_file(result.stdout)
         transcript_source = "unknown"
         try:

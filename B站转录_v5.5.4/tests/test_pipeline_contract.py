@@ -120,11 +120,15 @@ class AsrRunnerWiringTests(unittest.TestCase):
         self.assertIn("证据校正未完成", hook)
 
     def test_txt_and_sidecar_are_cleaned_after_write(self):
-        """写库后清理中转文件；侧车只在写库前使用，不留在 output。"""
-        match = re.search(r'rm -f "\$META_JSON".*', self.text)
-        self.assertIsNotNone(match)
-        self.assertIn("$TXT_FILE", match.group(0))
-        self.assertIn("$SEGMENTS_FILE", match.group(0))
+        """写库成功后清理中转文件；侧车只在写库前使用，不留在 output。
+
+        AT-03 起写库失败分支保留 TXT/侧车以保稿，故此处定位成功分支的清理行。
+        """
+        matches = re.findall(r'rm -f "\$META_JSON"[^\n]*', self.text)
+        self.assertTrue(matches)
+        success = [line for line in matches
+                   if "$TXT_FILE" in line and "$SEGMENTS_FILE" in line]
+        self.assertTrue(success, "写库成功分支必须清理 TXT 与分段侧车")
 
 
 class EntryPointTests(unittest.TestCase):

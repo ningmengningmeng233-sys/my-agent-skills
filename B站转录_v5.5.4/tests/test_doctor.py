@@ -8,6 +8,7 @@ from pathlib import Path
 from unittest import mock
 
 from scripts import doctor
+from scripts.transcript_db import TranscriptDB
 from tests.support import SkillTestCase
 
 
@@ -76,12 +77,14 @@ class DatabaseCheckTests(SkillTestCase):
         self.assertIn("尚未创建", item["detail"])
 
     def test_fresh_empty_database_is_not_reported_as_needing_migration(self):
-        """空库不算问题（曾把全新库误报为需要迁移）。"""
+        """空库不算问题（曾把全新库误报为需要迁移）。
+
+        AT-03 后生产建库自带完整版本化表，此处走生产路径建空库；
+        手工 transcripts 单表库按新契约应报 error（见 test_at03 用例）。
+        """
         empty = self.root / "empty.db"
-        conn = sqlite3.connect(str(empty))
-        conn.execute("CREATE TABLE transcripts (bvid TEXT, page INTEGER)")
-        conn.commit()
-        conn.close()
+        with TranscriptDB(db_path=empty):
+            pass
         with mock.patch.object(doctor, "DB_PATH", empty):
             item = doctor.check_database()
         self.assertTrue(item["ok"], item["detail"])

@@ -33,7 +33,7 @@ metadata:
 | 我要做什么 | 命令/入口（技能目录内、`.venv` 解释器执行） | 完成判据 |
 |---|---|---|
 | 开工前自检 | `scripts/doctor.py --json`（维护走 `scripts/maintenance.py doctor/verify`） | error 项全绿 |
-| 转录单链接（含 ?p=N 分P） | `bash scripts/bilibili_transcript.sh "<URL>"` | 输出 `✅ 转录完成` + 新增 `(bvid, page)` 记录 |
+| 转录单链接（含 ?p=N 分P） | `bash scripts/bilibili_transcript.sh "<URL>"` | 输出 `[BILI-DONE]` + 新增 `(bvid, page)` 记录 |
 | 收藏夹批量 | `scripts/bilibili_scanner.py` 预览，再 `scripts/batch_transcribe.py`（首次 `--limit 3`） | `state/transcript_report.csv` + 成功/失败计数 |
 | 批次暂停后恢复 | 浏览器登录后 `scripts/maintenance.py resume-batch`，重跑批量命令 | 从断点继续，已完成不重跑 |
 | 补摘要 | `scripts/fill_summaries.py`（`--stats/--dry-run`）或 `scripts/generate_summary.py --bvid … --page …` | 摘要状态不再是占位符 |
@@ -70,7 +70,7 @@ bash scripts/bilibili_transcript.sh "https://www.bilibili.com/video/BVxxxxx/?p=3
 ```
 
 1. 运行上面的命令（不写 `?p` = 第 1P）。
-2. 完成判据：输出出现 `✅ 转录完成`；SQLite 新增 `(bvid, page)` 记录；TXT 文件名带 `_P01` / `_P02` 分P标识。
+2. 完成判据：输出出现 `[BILI-DONE]`（写库成功后才输出）；SQLite 新增 `(bvid, page)` 记录；TXT 文件名带 `_P01` / `_P02` 分P标识。
 
 - 字幕自动降级：CC 字幕 → AI 字幕 → faster-whisper（三级含义与运行参数见 `references/design-decisions.md`）
 - 配了 LLM 接口时自动生成摘要；未配置或调用失败则留占位符，之后走分支 3

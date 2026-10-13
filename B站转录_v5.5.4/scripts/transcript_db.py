@@ -3,6 +3,7 @@
 
 import re
 import sqlite3
+import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -41,6 +42,19 @@ _COMPAT_COLUMNS = [
 ]
 
 
+def _ensure_versioned_schema(conn) -> None:
+    """AT-03：新库/旧库都必须带齐版本化表，否则写库入口必败。
+
+    ensure_schema 幂等且只增不改（建缺失表/列，不碰既有行）。
+    """
+    try:
+        from migrations import ensure_schema
+    except ImportError:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from migrations import ensure_schema
+    ensure_schema(conn)
+
+
 class TranscriptDB:
     def __init__(self, db_path: str | Path | None = None):
         self.db_path = Path(db_path) if db_path else DB_PATH
@@ -76,6 +90,7 @@ class TranscriptDB:
         if not exists:
             self.conn.execute(_NEW_TABLE_SQL)
             self.conn.commit()
+            _ensure_versioned_schema(self.conn)
             return
 
         original_cols = [
@@ -125,6 +140,8 @@ class TranscriptDB:
                 "ON transcripts(bvid, page)"
             )
             self.conn.commit()
+
+        _ensure_versioned_schema(self.conn)
 
     def insert(
         self,

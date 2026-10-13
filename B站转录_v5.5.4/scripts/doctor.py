@@ -190,6 +190,10 @@ def check_database() -> dict:
     if integrity != "ok":
         return _check("database", False, f"integrity_check 失败：{integrity}",
                       "用 .db/backups 下的备份恢复数据库")
+    if "transcript_versions" not in tables:
+        return _check("database", False,
+                      "缺少 transcript_versions 表（旧版建的库），写库会失败",
+                      ".venv\\Scripts\\python.exe scripts\\migrations.py --apply")
     if applied and max(applied) < SCHEMA_VERSION:
         return _check("database", False,
                       f"schema v{max(applied)} 落后于要求的 v{SCHEMA_VERSION}",

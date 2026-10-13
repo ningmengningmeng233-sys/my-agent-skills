@@ -466,7 +466,7 @@ if [ -z "$TRANSCRIPT_TEXT" ]; then
     fi
 
     if [ -n "$TXT_FILE" ] && [ -s "$TXT_FILE" ]; then
-        echo "✅ 转录完成"
+        echo "✅ Whisper 转写完成（待写库）"
         TRANSCRIPT_SOURCE="Whisper $WHISPER_MODEL 模型"
         if [ "$USE_FASTER" = true ]; then
             TRANSCRIPT_SOURCE="faster-whisper $WHISPER_MODEL 模型"
@@ -534,6 +534,16 @@ with open(sys.argv[11], 'w', encoding='utf-8') as f:
         SEGMENTS_ARG=(--segments "$SEGMENTS_WIN")
     fi
     "$PY_BIN" "$SCRIPT_DIR/record_transcript.py"         --bvid "$BVID" --page "$PAGE"         --meta "$META_JSON_WIN" --text-file "$TEXT_TMP_WIN"         "${SEGMENTS_ARG[@]}" 2>&1
+    RECORD_RC=$?
+    if [ "$RECORD_RC" -ne 0 ]; then
+        echo "[BILI-DB-FAIL] reason=record_failed rc=$RECORD_RC bvid=$BVID page=$PAGE"
+        echo "❌ 写库失败（rc=$RECORD_RC），转录稿已保留：$TXT_FILE"
+        [ -n "$SEGMENTS_FILE" ] && echo "   分段侧车已保留：$SEGMENTS_FILE"
+        echo "   待写正文已保留：$TEXT_TMP"
+        shell_log "ERROR" "写库失败(rc=$RECORD_RC)，稿件保留: $BVID P$PAGE txt=$TXT_FILE"
+        rm -f "$META_JSON"
+        exit 1
+    fi
     shell_log "INFO" "已写入数据库: $BVID P$PAGE"
     rm -f "$META_JSON" "$TEXT_TMP" "$TXT_FILE" "$SEGMENTS_FILE"
 fi
@@ -585,11 +595,19 @@ if [ -n "$BVID" ] && [ "$EVIDENCE_CORRECTION" = "true" ]; then
 fi
 
 echo ""
-echo "✅ 转录完成！"
-shell_log "SUCCESS" "转录流程完成: $BVID P$PAGE ($TRANSCRIPT_SOURCE)"
+if [ -n "$BVID" ]; then
+    # 写库成功才输出机器可读的完成标记（批量层唯一成功判据）；写库失败早已 exit 1。
+    echo "[BILI-DONE] bvid=$BVID page=$PAGE file=${OUTPUT_FILE:-}"
+    shell_log "SUCCESS" "转录流程完成: $BVID P$PAGE ($TRANSCRIPT_SOURCE)"
+else
+    echo "✅ 转录完成（未写库：未能从链接解析 BV 号）"
+    shell_log "SUCCESS" "转录流程完成（未写库）: $VIDEO_URL_NORMALIZED"
+fi
 if [ -n "$OUTPUT_FILE" ]; then
     echo "📄 文件已保存: $OUTPUT_FILE"
     echo "$OUTPUT_FILE"
-else
+elif [ -n "$BVID" ]; then
     echo "📄 转录全文已写入数据库"
+else
+    echo "📄 转录正文见本次输出（未写库）"
 fi
