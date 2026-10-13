@@ -33,6 +33,15 @@ DEFAULT_LIB = Path(v5config.get_config().lib_dir)
 DEFAULT_HOST = v5config.DEFAULT_WEB_HOST
 DEFAULT_PORT = v5config.DEFAULT_WEB_PORT
 
+# KB-03：本地控制台只服务本机。CORS 默认仅放行环回来源，禁止返回 `*`；
+# Host 非环回的请求直接 403，防止任意跨域网页读取本地知识库原文。
+_LOOPBACK_HOSTS = frozenset({"127.0.0.1", "localhost"})
+
+
+def _allowed_cors_origins(port: int) -> set[str]:
+    """该端口上唯一合法的两个环回来源。"""
+    return {f"http://127.0.0.1:{port}", f"http://localhost:{port}"}
+
 
 def get_library_stats(lib_path: Path):
     """统计知识库基本概况"""
@@ -203,14 +212,49 @@ class KnowledgeWebHandler(SimpleHTTPRequestHandler):
         cls._warm_thread = threading.Thread(target=_run, daemon=True)
         cls._warm_thread.start()
 
+    def _request_host(self) -> str:
+        """Host 头的主机部分（去端口、小写）；缺失或畸形返回空串。"""
+        host = (self.headers.get("Host") or "").strip().lower()
+        if host.startswith("["):
+            host = host[1:].split("]", 1)[0]
+        else:
+            host = host.split(":", 1)[0]
+        return host.strip()
+
+    def _host_allowed(self) -> bool:
+        """KB-03：仅允许环回 Host（localhost/127.0.0.1）。"""
+        return self._request_host() in _LOOPBACK_HOSTS
+
+    def _cors_origin(self) -> str | None:
+        """KB-03：Origin 命中本端口环回白名单才回显，否则一律不返回 CORS 头。"""
+        origin = (self.headers.get("Origin") or "").strip()
+        try:
+            port = self.server.server_address[1]
+        except Exception:
+            port = DEFAULT_PORT
+        if origin and origin in _allowed_cors_origins(port):
+            return origin
+        return None
+
+    def _send_forbidden(self) -> None:
+        self._send_json({"error": "仅允许来自本机的请求"}, 403)
+
     def do_OPTIONS(self):
+        if not self._host_allowed():
+            self._send_forbidden()
+            return
         self.send_response(200)
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "*")
+        origin = self._cors_origin()
+        if origin:
+            self.send_header("Access-Control-Allow-Origin", origin)
+            self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+            self.send_header("Access-Control-Allow-Headers", "*")
         self.end_headers()
 
     def do_GET(self):
+        if not self._host_allowed():
+            self._send_forbidden()
+            return
         url = urllib.parse.urlparse(self.path)
         path = url.path
         params = urllib.parse.parse_qs(url.query)
@@ -500,9 +544,12 @@ class KnowledgeWebHandler(SimpleHTTPRequestHandler):
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(payload)))
         self.send_header("Cache-Control", "no-store")
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "*")
+        # KB-03：仅回显命中的环回 Origin，永不返回 `*`。
+        origin = self._cors_origin()
+        if origin:
+            self.send_header("Access-Control-Allow-Origin", origin)
+            self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+            self.send_header("Access-Control-Allow-Headers", "*")
         for k, v in (extra_headers or {}).items():
             self.send_header(k, v)
         self.end_headers()
