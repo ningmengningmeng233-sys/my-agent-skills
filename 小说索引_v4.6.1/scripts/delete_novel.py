@@ -10,7 +10,7 @@ if __name__ == "__main__":  # 只有 CLI 直跑才改；被导入时不得动宿
 SKILL_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(SKILL_DIR / "scripts"))
 
-from _common import path_has_book_key, prefixed_files
+from _common import path_has_book_key, prefixed_files, validate_book_key_component
 from _logging import add_log_format_argument, configure_logging, get_logger
 from index_db import IndexDB
 
@@ -26,6 +26,11 @@ def _parse_args() -> argparse.Namespace:
 
 
 def _collect_paths(lib: Path, novel: str, author: str) -> list[Path]:
+    # IDX-04：先规范化校验输入，再对每个搜集目标做库内沙箱约束；
+    # 越界立即抛 ValueError，调用方不得执行任何删除。
+    novel = validate_book_key_component(novel, "小说名称")
+    author = validate_book_key_component(author, "作者名称")
+    lib_root = lib.resolve()
     novel_author = f"{novel}-{author}"
     paths: list[Path] = []
 
@@ -39,6 +44,10 @@ def _collect_paths(lib: Path, novel: str, author: str) -> list[Path]:
     nav_file = lib / "小说索引" / f"{novel_author}.md"
     if nav_file.exists():
         paths.append(nav_file)
+
+    for target in paths:
+        if not target.resolve().is_relative_to(lib_root):
+            raise ValueError(f"拒绝越界删除目标: {target}")
 
     return sorted(paths)
 
@@ -61,12 +70,18 @@ def main() -> int:
         logger.error("索引库不存在: %s", lib)
         return 1
 
-    paths = _collect_paths(lib, args.novel, args.author)
+    try:
+        novel = validate_book_key_component(args.novel, "小说名称")
+        author = validate_book_key_component(args.author, "作者名称")
+        paths = _collect_paths(lib, novel, author)
+    except ValueError as e:
+        logger.error("拒绝删除: %s", e)
+        return 1
     if not paths:
-        logger.warning("未找到《%s》- %s 的任何索引产物", args.novel, args.author)
+        logger.warning("未找到《%s》- %s 的任何索引产物", novel, author)
         return 0
 
-    if not args.yes and not _confirm(args.novel, args.author, paths):
+    if not args.yes and not _confirm(novel, author, paths):
         logger.info("用户取消删除")
         return 0
 
@@ -83,7 +98,7 @@ def main() -> int:
 
     try:
         with IndexDB(str(lib)) as db:
-            prefix = f"{args.novel}-{args.author}"
+            prefix = f"{novel}-{author}"
             with db._lock:
                 # 字面量逐段比对，不把书名拼进 SQL LIKE：`%`、`_` 在 LIKE 里是通配符，
                 # 原写法会把别的书的断点行一起删掉（数据丢失级）
@@ -104,7 +119,7 @@ def main() -> int:
         logger.error("清理断点库失败: %s", e)
         return 1
 
-    logger.info("《%s》- %s 删除完成", args.novel, args.author)
+    logger.info("《%s》- %s 删除完成", novel, author)
     return 0
 
 

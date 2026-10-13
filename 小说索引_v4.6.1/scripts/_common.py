@@ -93,6 +93,32 @@ def parse_frontmatter(text):
     return meta, "\n".join(lines[end + 1:])
 
 
+# IDX-04：书名/作者名规范化校验。`?`、`*`、`[`、`%`、`_` 是合法书名字符
+# （prefixed_files / path_has_book_key 只做字面量匹配），不得误伤；
+# 只拦截真正能逃出索引库的形状：`..`、斜杠、绝对路径、控制字符。
+_DRIVE_RE = re.compile(r"^[A-Za-z]:")
+
+
+def validate_book_key_component(value, field):
+    """校验单个书名/作者名输入，返回去首尾空白后的值。
+
+    非法输入抛 ``ValueError``：空值、含 ``..``、含 ``/`` 或 ``\\``、
+    绝对路径（含盘符/UNC）、NUL 或 C0 控制字符。
+    """
+    text = (value or "").strip()
+    if not text:
+        raise ValueError(f"{field}不能为空")
+    if ".." in text:
+        raise ValueError(f"{field}不得包含'..': {value!r}")
+    if "/" in text or "\\" in text:
+        raise ValueError(f"{field}不得包含路径分隔符: {value!r}")
+    if "\x00" in text or any(ord(ch) < 0x20 for ch in text):
+        raise ValueError(f"{field}包含非法控制字符")
+    if _DRIVE_RE.match(text) or Path(text).is_absolute():
+        raise ValueError(f"{field}不得为绝对路径: {value!r}")
+    return text
+
+
 _SEP_SPLIT_RE = re.compile(r"([\\/]+)")
 
 

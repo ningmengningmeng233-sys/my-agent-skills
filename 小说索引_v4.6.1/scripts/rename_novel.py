@@ -10,7 +10,12 @@ if __name__ == "__main__":  # 只有 CLI 直跑才改；被导入时不得动宿
 SKILL_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(SKILL_DIR / "scripts"))
 
-from _common import parse_frontmatter, path_replace_book_key, prefixed_files
+from _common import (
+    parse_frontmatter,
+    path_replace_book_key,
+    prefixed_files,
+    validate_book_key_component,
+)
 from _logging import add_log_format_argument, configure_logging, get_logger
 from index_db import IndexDB
 
@@ -92,6 +97,14 @@ def _collect_targets(lib: Path, old_na: str, new_na: str) -> list[tuple[Path, Pa
     if src_nav.exists():
         moves.append((src_nav, nav_dir / f"{new_na}.md"))
 
+    # IDX-04（相关入口）：改名源与目标都必须严格位于库内，越界即抛错零改动。
+    lib_root = lib.resolve()
+    for src, dst in moves:
+        if not src.resolve().is_relative_to(lib_root):
+            raise ValueError(f"拒绝越界改名来源: {src}")
+        if not dst.resolve().is_relative_to(lib_root):
+            raise ValueError(f"拒绝越界改名目标: {dst}")
+
     return moves
 
 
@@ -145,13 +158,25 @@ def main() -> int:
         logger.error("索引库不存在: %s", lib)
         return 1
 
-    old_na = f"{args.old_novel}-{args.old_author}"
-    new_na = f"{args.new_novel}-{args.new_author}"
+    try:
+        old_novel = validate_book_key_component(args.old_novel, "原小说名称")
+        old_author = validate_book_key_component(args.old_author, "原作者名称")
+        new_novel = validate_book_key_component(args.new_novel, "新小说名称")
+        new_author = validate_book_key_component(args.new_author, "新作者名称")
+    except ValueError as e:
+        logger.error("拒绝重命名: %s", e)
+        return 1
+    old_na = f"{old_novel}-{old_author}"
+    new_na = f"{new_novel}-{new_author}"
     if old_na == new_na:
         logger.error("新旧书名/作者完全相同")
         return 1
 
-    moves = _collect_targets(lib, old_na, new_na)
+    try:
+        moves = _collect_targets(lib, old_na, new_na)
+    except ValueError as e:
+        logger.error("拒绝重命名: %s", e)
+        return 1
     if not moves:
         logger.warning("未找到 %s 的相关文件", old_na)
         return 0
@@ -177,7 +202,7 @@ def main() -> int:
 
             original = src.read_bytes()
             text = original.decode("utf-8")
-            text = _update_frontmatter_text(text, old_na, new_na, args.new_novel, args.new_author)
+            text = _update_frontmatter_text(text, old_na, new_na, new_novel, new_author)
             dst.write_text(text, encoding="utf-8")
             if src != dst:
                 src.unlink()
