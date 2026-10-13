@@ -30,9 +30,9 @@ class StubVideoAdapter(VideoAdapter):
 
     def generate(self, shot):
         path = Path(shot["_clip_path"])
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_bytes(b"STUB-CLIP::" + shot["shot_id"].encode("utf-8"))
-        return str(path)
+        return _write_bytes_atomic_validated(
+            path, b"STUB-CLIP::" + shot["shot_id"].encode("utf-8"),
+            "video", is_stub_allowed=True)
 
 
 class StubTtsAdapter(TtsAdapter):
@@ -40,10 +40,11 @@ class StubTtsAdapter(TtsAdapter):
 
     def synthesize(self, shot):
         path = Path(shot["_audio_path"])
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_bytes(b"STUB-AUDIO::" + shot["shot_id"].encode("utf-8"))
+        out = _write_bytes_atomic_validated(
+            path, b"STUB-AUDIO::" + shot["shot_id"].encode("utf-8"),
+            "audio", is_stub_allowed=True)
         planned = shot.get("dialogue_planned_seconds") or shot["duration"]
-        return {"path": str(path), "duration_seconds": float(planned)}
+        return {"path": out, "duration_seconds": float(planned)}
 
 
 def _guard_credentials():
@@ -93,6 +94,30 @@ def validate_rendered_artifact(path: Path | str, expected_kind: str, is_stub_all
             raise ArtifactValidationError(f"INVALID_FORMAT: 目标文件不包含有效的音频容器魔数: {p.name}")
 
     return True
+
+
+def _write_bytes_atomic_validated(final_path: Path | str, raw_bytes: bytes,
+                                  expected_kind: str, is_stub_allowed: bool = False) -> str:
+    """先写 `*.part` 临时文件，经 validate_rendered_artifact 校验后原子替换到最终路径。
+
+    校验失败时删除临时文件并抛错：最终路径要么保持旧文件、要么不存在，
+    绝不出现直写一半的半截文件。
+    """
+    final_path = Path(final_path)
+    final_path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = final_path.with_name(final_path.name + ".part")
+    tmp_path.write_bytes(raw_bytes)
+    try:
+        validate_rendered_artifact(tmp_path, expected_kind, is_stub_allowed=is_stub_allowed)
+    except Exception:
+        try:
+            if tmp_path.exists():
+                tmp_path.unlink()
+        except OSError:
+            pass
+        raise
+    os.replace(tmp_path, final_path)
+    return str(final_path)
 
 
 def _open(req, url: str, timeout: int):
@@ -150,8 +175,8 @@ class HttpVideoAdapter(VideoAdapter):
                     if not raw_bytes:
                         raise ArtifactValidationError(
                             "MISSING_MEDIA_FIELD: video_bytes 解码为空，拒绝写入占位伪字节")
-                    clip_path.write_bytes(raw_bytes)
-                    return str(clip_path)
+                    return _write_bytes_atomic_validated(
+                        clip_path, raw_bytes, "video", is_stub_allowed=False)
             except ArtifactValidationError:
                 raise
             except urllib.error.HTTPError as exc:
@@ -224,8 +249,9 @@ class HttpTtsAdapter(TtsAdapter):
                     except (TypeError, ValueError) as exc:
                         raise ArtifactValidationError(
                             f"INVALID_DURATION: duration_seconds 非数值: {dur_raw!r}") from exc
-                    audio_path.write_bytes(raw_bytes)
-                    return {"path": str(audio_path), "duration_seconds": dur}
+                    out = _write_bytes_atomic_validated(
+                        audio_path, raw_bytes, "audio", is_stub_allowed=False)
+                    return {"path": out, "duration_seconds": dur}
             except ArtifactValidationError:
                 raise
             except urllib.error.HTTPError as exc:

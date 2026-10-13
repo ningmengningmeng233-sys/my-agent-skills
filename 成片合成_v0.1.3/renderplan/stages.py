@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 
 from . import ledger as L
+from .adapters import ArtifactValidationError, validate_rendered_artifact
 
 DEFAULT_TTS_DRIFT = 0.35
 
@@ -37,6 +38,30 @@ def _work_shot(shot, out_dir):
     return w
 
 
+def _is_usable_artifact(path, kind):
+    """断点续跑用：文件非空且通过基本校验才算 cache hit。
+
+    0 字节、无魔数的截断/垃圾文件一律判不可用（必须重新生成）；
+    有意写入的桩占位（STUB-*/stub-* 短字节）视为有效占位，不误伤离线桩链路。
+    """
+    p = Path(path)
+    if not p.is_file():
+        return False
+    try:
+        head = p.read_bytes()[:32]
+    except OSError:
+        return False
+    if not head:
+        return False
+    if head.lower().startswith(b"stub"):
+        return True
+    try:
+        validate_rendered_artifact(p, kind, is_stub_allowed=True)
+    except ArtifactValidationError:
+        return False
+    return True
+
+
 # ----------------------------------------------------------------- video
 def run_video_stage(plan, out_dir, adapter, retry_failed=False, ledger_path=None, run_id=None):
     out_dir = Path(out_dir)
@@ -45,7 +70,8 @@ def run_video_stage(plan, out_dir, adapter, retry_failed=False, ledger_path=None
     shots = plan["shots"]
     failed_file = out_dir / "failed_items.json"
 
-    existing = {s["shot_id"] for s in shots if (clips_dir / f"{s['shot_id']}.mp4").exists()}
+    existing = {s["shot_id"] for s in shots
+                if _is_usable_artifact(clips_dir / f"{s['shot_id']}.mp4", "video")}
     prev_failed = {f["shot_id"]: f.get("error", "") for f in _read_json(failed_file, [])}
 
     if retry_failed:
@@ -70,7 +96,7 @@ def run_video_stage(plan, out_dir, adapter, retry_failed=False, ledger_path=None
     final_failed = [
         {"shot_id": s["shot_id"], "stage": "video", "error": errors.get(s["shot_id"], "未产出")}
         for s in shots
-        if not (clips_dir / f"{s['shot_id']}.mp4").exists()
+        if not _is_usable_artifact(clips_dir / f"{s['shot_id']}.mp4", "video")
     ]
     _write_json(failed_file, final_failed)
 
@@ -97,7 +123,8 @@ def run_tts_stage(plan, out_dir, adapter, threshold=DEFAULT_TTS_DRIFT, ledger_pa
     audio_dir.mkdir(parents=True, exist_ok=True)
     dialogue_shots = [s for s in plan["shots"] if s.get("dialogue")]
 
-    existing = {s["shot_id"] for s in dialogue_shots if (audio_dir / f"{s['shot_id']}.wav").exists()}
+    existing = {s["shot_id"] for s in dialogue_shots
+                if _is_usable_artifact(audio_dir / f"{s['shot_id']}.wav", "audio")}
     results = []
     warnings = []
     succeeded = failed = skipped = 0
