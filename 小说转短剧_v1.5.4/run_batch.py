@@ -590,6 +590,15 @@ def main():
                 reason = "连续两轮阻塞项未减少，需人工拍板" if hb.verdict == "escalate" else "达到回炉硬顶"
                 print(f"⚠ [第 {ep_n} 集] 回炉未收敛（{reason}）——本集未交付，产线继续其余集。")
                 return
+            # DR-01：生产主路径前置形状契约——缺 type/未知 type/缺 location 不许落盘。
+            shape_hard = lint_ep_shape(ep_data)
+            if shape_hard:
+                ledger.emit("episode_shape_blocked", ep=ep_n,
+                            detail_digest=" | ".join(shape_hard)[:500])
+                raise RuntimeError(
+                    f"第 {ep_n} 集形状契约拦截（{len(shape_hard)} 条），破损数据不落盘："
+                    + " | ".join(shape_hard[:5])
+                )
             stamp_ep_meta(ep_data, outline_hash)
             safe_write_json(c_path, ep_data)
             ledger.emit("episode_cached", ep=ep_n, path=os.path.relpath(c_path, workdir))

@@ -35,6 +35,31 @@ def _resolve_speaker(speaker: str, mapping: Dict[str, str]) -> str:
     return mapping.get(speaker, speaker)
 
 
+def _require_beat_fields(ep_num: Any, sc_id: str, idx: int, beat: Dict[str, Any]) -> str:
+    """DR-01：导出前显式校验拍形状，缺 type/未知 type/缺关键字段一律抛错。
+
+    此前未知 type 直接跳过，导致破损拍从导演台本与场记表中静默消失、
+    生成空场记表仍显示成功。宁可拒导，不静默吞拍。
+    """
+    if not isinstance(beat, dict):
+        raise ValueError(f"第 {ep_num} 集 {sc_id} 第 {idx} 拍不是对象")
+    b_type = beat.get("type")
+    if b_type not in ("action", "dialogue"):
+        raise ValueError(
+            f"第 {ep_num} 集 {sc_id} 第 {idx} 拍 type 缺失或非法"
+            f"（只能 action 或 dialogue，实得 {b_type!r}）"
+        )
+    if b_type == "action":
+        if not str(beat.get("action") or "").strip():
+            raise ValueError(f"第 {ep_num} 集 {sc_id} 第 {idx} 拍是动作拍却没写 action")
+    else:
+        if not str(beat.get("speaker") or "").strip():
+            raise ValueError(f"第 {ep_num} 集 {sc_id} 第 {idx} 拍是对白拍却没写 speaker")
+        if not str(beat.get("line") or "").strip():
+            raise ValueError(f"第 {ep_num} 集 {sc_id} 第 {idx} 拍是对白拍却没写 line")
+    return b_type
+
+
 def export_to_markdown(script_data: Dict[str, Any], outline_data: Optional[Dict[str, Any]] = None) -> str:
     """导出为标准影视行业剧本排版 Markdown。
 
@@ -69,8 +94,8 @@ def export_to_markdown(script_data: Dict[str, Any], outline_data: Optional[Dict[
             loc = sc.get("location", "日/内 场景")
             lines.append(f"### 场 {sc_id}  {loc}\n")
 
-            for beat in sc.get("flow", []):
-                b_type = beat.get("type")
+            for b_idx, beat in enumerate(sc.get("flow", []), start=1):
+                b_type = _require_beat_fields(ep_num, sc_id, b_idx, beat)
                 if b_type == "action":
                     lines.append(f"△ {beat.get('action', '')}\n")
                 elif b_type == "dialogue":
@@ -99,7 +124,7 @@ def export_to_csv(script_data: Dict[str, Any], outline_data: Optional[Dict[str, 
             sc_id = sc.get("sceneId", "S01")
             loc = sc.get("location", "未指定")
             for b_idx, beat in enumerate(sc.get("flow", []), start=1):
-                b_type = beat.get("type", "unknown")
+                b_type = _require_beat_fields(ep.get("ep", 1), sc_id, b_idx, beat)
                 if b_type == "action":
                     action_txt = beat.get("action", "")
                     writer.writerow([ep_label, sc_id, loc, b_idx, "动作", "环境/主体", "-", action_txt, 2.5])
