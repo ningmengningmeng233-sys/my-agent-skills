@@ -166,12 +166,12 @@ def autofix_source_path(content, seg_path, lib_dir):
 
 
 def expand_merged_sections(content, seg_path, chapters):
-    """将 LLM 合并的小节按识别章节数拆分补齐。
+    """将 LLM 合并的小节按识别章节数拆分补齐（KB-01：严禁伪造）。
 
     触发条件：小节数量少于识别章节数（如 7 个数字条目被并成 2 节）。
-    做法：取正文第一个 ## 小节的完整块（含概要/知识点/引用/实体/交叉/标签），
-    为缺失的章节复制该结构并替换标题为识别章节名，行号区间按段文件行数均分。
-    知识点与引用原文在后续 verify_and_fix_lines / check_line_refs 门禁中复核。
+    做法：缺失章节仅生成占位小节——保留识别章节标题与段文件真实定位，
+    标明 NEEDS_REVIEW，绝不复制首节正文/引用/实体。占位节由
+    validate_index_output 判失败并经 build_one mark_failed，不得落盘为 done。
     """
     meta, body = parse_frontmatter(content)
     if not meta:
@@ -195,30 +195,45 @@ def expand_merged_sections(content, seg_path, chapters):
         return content
     try:
         seg_text = read_text_auto(seg_path)
-        total_lines = len(seg_text.splitlines())
+        seg_lines = seg_text.splitlines()
+        total_lines = len(seg_lines)
     except (OSError, ValueError):
         return content
-    template = content_secs[0] if content_secs else None
-    if template is None:
+    if not content_secs:
         return content
-    # 模板块的行号区间
-    m = re.search(r"（行号：\s*(\d+)\s*[~～\-—]\s*(\d+)", template)
-    t0, t1 = (int(m.group(1)), int(m.group(2))) if m else (1, total_lines)
-    span = max(1, (t1 - t0 + 1) // max(1, len(chapters)))
+    # 真实定位：逐章在段文件中搜标题首现行，区间为本章起至下章起前一行。
+    starts = []
+    for ch in chapters:
+        probe = ch.strip()
+        hit = None
+        if probe:
+            for idx, line in enumerate(seg_lines, 1):
+                if probe in line or probe[:10] in line:
+                    hit = idx
+                    break
+        starts.append(hit)
+    # 未命中回退为均分，保证区间单调且覆盖全文。
+    fallback_span = max(1, total_lines // max(1, len(chapters)))
+    for i, s in enumerate(starts):
+        if s is None:
+            starts[i] = min(total_lines, 1 + i * fallback_span)
+    starts = sorted(starts)
     new_secs = []
     for i, ch in enumerate(chapters):
         short = ch.strip()[:40].replace("\n", " ")
-        rs = t0 + i * span
-        re_ = min(t1, rs + span - 1) if i < len(chapters) - 1 else t1
+        rs = starts[i]
+        re_ = (starts[i + 1] - 1) if i + 1 < len(starts) else total_lines
+        if re_ < rs:
+            re_ = rs
         if i < len(content_secs):
             s = content_secs[i]
-            # 替换首行标题，保留其余结构
             rest = s.split("\n", 1)
             new_secs.append(f"{short}（行号：{rs} ~ {re_}）\n" + (rest[1] if len(rest) > 1 else ""))
         else:
-            tpl_rest = template.split("\n", 1)
-            tpl_body = tpl_rest[1] if len(tpl_rest) > 1 else ""
-            new_secs.append(f"{short}（行号：{rs} ~ {re_}）\n" + tpl_body)
+            new_secs.append(
+                f"{short}（行号：{rs} ~ {re_}）\n"
+                "\n> NEEDS_REVIEW：本节为降级占位，未复制他节正文，需人工核补概要/知识点/引用。\n"
+            )
     rebuilt = head
     for s in keep_head:
         rebuilt += "## " + s + "\n"
@@ -317,6 +332,8 @@ def validate_index_output(content, seg_path, chapters, lib_dir=None):
     idx_no = str(meta["索引序号"]).strip().strip("'\\\"")
     if m and idx_no.zfill(3) != m.group(1):
         return f"索引序号与段文件不一致: {idx_no!r} != {m.group(1)!r}"
+    if "NEEDS_REVIEW" in body:
+        return "索引含 NEEDS_REVIEW 降级占位小节，需人工核补后重跑（KB-01：降级不得伪造放行）"
     return None
 
 

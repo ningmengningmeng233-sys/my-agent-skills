@@ -75,8 +75,59 @@ def parse_ch_ranges(content):
     return out
 
 
-def classify(n, ranges):
-    """行号 n 相对章范围：'in' 章内；其余一律视为章外（含章间空隙，调用方统一统计）。"""
+def parse_ch_ranges_with_pos(content):
+    """解析章小节行号范围并附标题偏移。返回 [(章名, 起始, 结束, 标题偏移)]。"""
+    out = []
+    for m in CH_RANGE_RE.finditer(content):
+        a = int(m.group(2))
+        b = int(m.group(3)) if m.group(3) else a
+        out.append((m.group(1).strip(), a, b, m.start()))
+    return out
+
+
+def find_own_range(ref_pos, ranges_with_pos, content=None):
+    """按引用偏移定位其所属小节（最后一个标题偏移早于引用的区间）。
+
+    传入 content 时先找紧邻的 ## 标题：若该标题本身无行号区间
+    （本段概况/本段总结类），则视为无所属区间，返回 None 由调用方回退全局口径，
+    避免把全段综述引用误判为章外。
+    """
+    if content is not None:
+        last_title = None
+        last_is_ranged = False
+        last_range = None
+        for m in re.finditer(r"(?m)^##\s+.+$", content):
+            if m.start() >= ref_pos:
+                break
+            last_title = m.group(0)
+            last_is_ranged = False
+            last_range = None
+        if last_title is not None:
+            rm = re.search(r"（行号：\s*(\d+)(?:\s*[~～\-—]\s*(\d+))?）", last_title)
+            if rm:
+                a = int(rm.group(1))
+                b = int(rm.group(2)) if rm.group(2) else a
+                return (last_title.strip(), a, b, 0)
+            return None
+        return None
+    own = None
+    for item in ranges_with_pos:
+        if item[3] < ref_pos:
+            own = item
+        else:
+            break
+    return own
+
+
+def classify(n, ranges, own_range=None):
+    """行号 n 相对章范围：'in' 章内；其余一律视为章外。
+
+    KB-01 严格口径：传入 own_range 时仅校验引用落在所属小节自身区间内，
+    落在他节区间亦判章外；不传 own_range 时保留全局兜底（仅供兼容）。
+    """
+    if own_range is not None:
+        a, b = own_range[1], own_range[2]
+        return "in" if a <= n <= b else "gap"
     for name, a, b in ranges:
         if a <= n <= b:
             return "in"
@@ -122,6 +173,7 @@ def main():
             continue
         max_line = len(seg_lines)
         ranges = parse_ch_ranges(content)
+        ranges_pos = parse_ch_ranges_with_pos(content)
         if not ranges:
             # v4.2 修复：无章节小说（按字数切分）索引无「## 第X章（行号：a ~ b）」小节——
             # 此前章外判定把合法行号全标「章外」误报；无章范围时只查越界（必然错误）
@@ -129,7 +181,7 @@ def main():
         refs = []
         for m in PATTERN.finditer(content):
             n = int(m.group(3))
-            refs.append((n, n, f"金句「{m.group(2)[:20]}…」"))
+            refs.append((n, n, f"金句「{m.group(2)[:20]}…」", m.start()))
         for m in RANGE_PATTERN.finditer(content):
             phrase = m.group(1)
             if '"' in phrase or "“" in phrase or "”" in phrase:
@@ -137,9 +189,9 @@ def main():
             start = int(m.group(2))
             end = int(m.group(3)) if m.group(3) else start
             label = f"区间「{phrase}…」" if m.group(3) else f"短语「{phrase}…」"
-            refs.append((start, end, label))
+            refs.append((start, end, label, m.start()))
 
-        for start, end, label in refs:
+        for start, end, label, pos in refs:
             total += 1
             if start < 1 or end < 1 or start > max_line or end > max_line or end < start:
                 out_of_range += 1
@@ -151,11 +203,20 @@ def main():
                 details.append((os.path.basename(p), bad_line, kind, label))
                 continue
             if ranges:
-                outside = [n for n in {start, end} if classify(n, ranges) != "in"]
+                own = find_own_range(pos, ranges_pos, content)
+                if own is None:
+                    outside = [n for n in {start, end} if classify(n, ranges) != "in"]
+                    if not outside:
+                        continue
+                    dev = min(min(abs(n - a), abs(n - b)) for n in outside for _, a, b in ranges)
+                else:
+                    outside = [n for n in {start, end} if classify(n, ranges, own) != "in"]
+                    if not outside:
+                        continue
+                    dev = min(min(abs(n - own[1]), abs(n - own[2])) for n in outside)
                 if outside:
                     ch_out += 1
                     dirty_files.add(os.path.basename(p))
-                    dev = min(min(abs(n - a), abs(n - b)) for n in outside for _, a, b in ranges)
                     bkt = "minor" if dev <= 10 else ("mid" if dev <= 50 else "big")
                     buckets[bkt] += 1
                     details.append((os.path.basename(p), outside[0], f"章外(偏差{dev})", label))
