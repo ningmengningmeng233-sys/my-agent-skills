@@ -89,6 +89,12 @@ def create_task(base: str, api_key: str, body: dict, dry_run: bool,
     if status == 200 and payload.get("task_id"):
         return {"state": "CREATED", "task_id": payload["task_id"],
                 "payload_sha16": redacted_summary(body)}
+    if status == -1 or status in (502, 503, 504):
+        # 成功未知：超时或网关 5xx 时服务端是否建单未知，不得当成确定
+        # 业务拒绝而盲目重发（会重复计费）；上层应经 query 核实后再决策。
+        return {"state": "UNKNOWN_CREATE", "status": status, "response": payload,
+                "payload_sha16": redacted_summary(body),
+                "note": "not blind-resent: success unknown; verify via query"}
     if status in (401, 402, 422, 429) or status >= 500 or status == -1:
         label = {401: "AUTH_401", 402: "QUOTA_402", 422: "INVALID_422",
                  429: "RATE_429"}.get(status, f"HTTP_{status}")
