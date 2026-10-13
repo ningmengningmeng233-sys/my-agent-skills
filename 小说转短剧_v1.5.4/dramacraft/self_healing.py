@@ -74,14 +74,68 @@ def render_ai_tone_examples(hits: Optional[List[Dict[str, Any]]], limit: int = 3
     return "【AI 味改写示范】照这个路子改，别只做同义替换：\n" + "\n".join(blocks)
 
 
+def lint_authoritative_fields(
+    script_data: Dict[str, Any],
+    outline_data: Optional[Dict[str, Any]] = None,
+    expected_target_seconds: Optional[int] = None,
+    expected_ep: Optional[int] = None,
+) -> List[str]:
+    """DR-02：权威集号与时长绑定检查，禁信模型自报 ep/targetSeconds。
+
+    - 缺失 targetSeconds / 非正整数 → 硬伤；
+    - expected_ep / expected_target_seconds 给定时与模型值比对，不一致 → 硬伤；
+    - outline 给定时集号必须在大纲规划内，且大纲载明 targetSeconds 的集必须值一致。
+    返回硬伤条目（空 = 通过）。
+    """
+    hard: List[str] = []
+    eps = script_data.get("episodes", []) if isinstance(script_data, dict) else []
+    outline_eps: Dict[int, Dict[str, Any]] = {}
+    if isinstance(outline_data, dict):
+        for e in outline_data.get("episodes", []) or []:
+            if isinstance(e, dict) and isinstance(e.get("ep"), int) and not isinstance(e.get("ep"), bool):
+                outline_eps[e["ep"]] = e
+    for ep in eps:
+        if not isinstance(ep, dict):
+            hard.append("集条目不是对象（禁止信任模型输出形状）")
+            continue
+        ep_n = ep.get("ep")
+        tgt = ep.get("targetSeconds")
+        label = f"第 {ep_n} 集"
+        if expected_ep is not None and ep_n != expected_ep:
+            hard.append(f"{label}集号与权威集号 {expected_ep} 不一致（禁止信任模型自报 ep）")
+        if outline_eps and isinstance(ep_n, int) and not isinstance(ep_n, bool):
+            if ep_n not in outline_eps:
+                hard.append(f"{label}集号 {ep_n} 不在大纲规划内（禁止模型自报集号）")
+        if not (isinstance(tgt, int) and not isinstance(tgt, bool) and tgt > 0):
+            hard.append(f"{label}缺 targetSeconds（须与大纲/启动参数一致，禁止模型自报缺失）")
+            continue
+        if expected_target_seconds is not None and tgt != expected_target_seconds:
+            hard.append(
+                f"{label}的 targetSeconds {tgt}s 与权威 {expected_target_seconds}s 不一致"
+                "（禁止信任模型自报）"
+            )
+        elif outline_eps and isinstance(ep_n, int) and ep_n in outline_eps:
+            otgt = outline_eps[ep_n].get("targetSeconds")
+            if isinstance(otgt, int) and not isinstance(otgt, bool) and otgt > 0 and tgt != otgt:
+                hard.append(
+                    f"{label}的 targetSeconds {tgt}s 与大纲权威 {otgt}s 不一致"
+                    "（禁止信任模型自报）"
+                )
+    return hard
+
+
 def run_quality_gate(script_data: Dict[str, Any], outline_data: Optional[Dict[str, Any]] = None,
                      art_data: Optional[Dict[str, Any]] = None,
                      hits_collector: Optional[List[Dict[str, Any]]] = None,
-                     gates_collector: Optional[List[Dict[str, Any]]] = None) -> Tuple[bool, str, List[str]]:
+                     gates_collector: Optional[List[Dict[str, Any]]] = None,
+                     expected_target_seconds: Optional[int] = None,
+                     expected_ep: Optional[int] = None) -> Tuple[bool, str, List[str]]:
     """
     运行本地 12 道确定性质量门检测（art_data 提供时门10 refs-scenes 实扫，否则跳过）。
     优先通过 validate.mjs --json 提取机器结构化违规项与命中词，淘汰脆弱的纯文本行正则解析。
     :param gates_collector: 传入时把 validate.mjs 的原始 gates 数组原样收进去（单集验证入口要转交熔断器）
+    :param expected_target_seconds: 权威单集时长（CLI --target-seconds），给定时与模型自报比对
+    :param expected_ep: 权威集号（单集生成时的大纲集号），给定时与模型自报比对
     :return: (是否全绿通过, 完整终端报告文本, 违规条目列表)
     """
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as f_sc:
@@ -149,6 +203,25 @@ def run_quality_gate(script_data: Dict[str, Any], outline_data: Optional[Dict[st
                     in_fail_block = False
                 elif line_str.startswith("↳ 详情:") and in_fail_block:
                     failed_items.append(line_str.replace("↳ 详情:", "").strip())
+
+        # DR-02：权威绑定硬伤与 12 门结果合并——模型自报不一致即判失败，
+        # 不因 12 门全绿而放行；同时保留 12 门明细供回炉定位。
+        auth_hard = lint_authoritative_fields(
+            script_data, outline_data, expected_target_seconds, expected_ep
+        )
+        if auth_hard:
+            if gates_collector is not None:
+                gates_collector.append({
+                    "id": "auth-binding",
+                    "label": "权威集号与时长绑定（ep/targetSeconds）",
+                    "ok": False,
+                    "detail": "；".join(auth_hard),
+                })
+            failed_items = ["✗ [违规] 权威集号与时长绑定（ep/targetSeconds）"] + auth_hard + failed_items
+            output += "\n✗ [违规] 权威集号与时长绑定（ep/targetSeconds）\n"
+            for h in auth_hard:
+                output += f"    ↳ 详情: {h}\n"
+            passed = False
 
         return passed, output, failed_items
 
@@ -302,7 +375,16 @@ def generate_episode_with_healing(
         }
 
         round_hits = []
+        # DR-02：回炉前先绑权威集号/时长（直接 lint，不经 run_quality_gate kwargs，
+        # 保持既有 monkeypatch 假门签名兼容；硬伤与 12 门结果同落点进熔断）。
+        auth_hard = lint_authoritative_fields(
+            test_script, outline_data,
+            ep_meta.get("targetSeconds"), ep_meta.get("ep"),
+        )
         passed, report, failed_items = run_quality_gate(test_script, outline_data, art_data, hits_collector=round_hits)
+        if auth_hard:
+            failed_items = ["✗ [违规] 权威集号与时长绑定（ep/targetSeconds）"] + auth_hard + list(failed_items)
+            passed = False
         failed_items = list(failed_items)
         if t_gate_fn is not None and passed:
             for v in (t_gate_fn(ep_data) or []):
@@ -400,11 +482,20 @@ def _cli_main(argv=None) -> int:
     ep_doc = _load(args.ep)
     outline = _load(args.outline) if args.outline else None
     art = _load(args.art) if args.art else None
+    # DR-02：文件名 epNNN 为权威集号（run_batch 落盘命名），与模型自报 ep 比对。
+    expected_ep = None
+    m = re.search(r"ep(\d{3})\.json$", os.path.basename(args.ep))
+    if m:
+        try:
+            expected_ep = int(m.group(1))
+        except ValueError:
+            expected_ep = None
     # 裸单集件按引擎口径包壳（self_healing 的 test_script 组装就是这一句；validate.mjs 只认 episodes）
     wrapped = {"source": (outline or {}).get("title", "短剧"), "episodes": [ep_doc]}
     gates: List[Dict[str, Any]] = []
     passed, _report, failed_items = run_quality_gate(wrapped, outline, art,
-                                                    gates_collector=gates)
+                                                    gates_collector=gates,
+                                                    expected_ep=expected_ep)
     if not gates:
         # 校验器一道门都没给出（路径不存在、node 起不来、报告被吞）——没有门结果 ≠ 全绿，
         # 而且下游熔断器拒吃空 gates。按「报告不可用」硬失败，不落报告（与 exit 1 的既有纪律一致）。

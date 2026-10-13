@@ -734,7 +734,11 @@ def main():
             merged_ep_hashes[ep_n] = ep_content_hash(ep_obj)
 
     # 终验序（v1.4.0 定案）：12 门汇编终验 → 创作纵深终扫（F3+T 同场硬闸）→ 导出四件套
-    passed, report, failed = run_quality_gate(merged_script, outline_data, art_data)
+    # DR-02：终验绑定 CLI 权威时长，全剧统一值与模型自报逐集比对。
+    passed, report, failed = run_quality_gate(
+        merged_script, outline_data, art_data,
+        expected_target_seconds=args.target_seconds,
+    )
     print(report)
     if not passed:
         ledger.emit("run_finish", status="gate_failed", failed_items=len(failed))

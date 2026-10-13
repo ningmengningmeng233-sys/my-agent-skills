@@ -132,6 +132,11 @@ export function gateReport(doc, ctx = {}) {
   // 时长对照裸露：无论过不过门，逐集「估算 vs 目标」都写进报告，让反塞 targetSeconds 凑数无所遁形
   const durationDisc = [];
   const targetsSeen = new Set();
+  // DR-02：大纲权威集号/时长对照表（有大纲才对账，无大纲仅做缺失 fail-closed）。
+  const _outlineForAuth = ctx.outline ?? null;
+  const _outlineEpMap = new Map(
+    ((_outlineForAuth?.episodes ?? []).filter((e) => Number.isInteger(e?.ep))).map((e) => [e.ep, e])
+  );
 
   for (const [i, ep] of eps.entries()) {
     const st = stats.episodes[i];
@@ -145,6 +150,20 @@ export function gateReport(doc, ctx = {}) {
       const hi = ep.targetSeconds * (1 + params.tolerance);
       if (st.est < lo) bad.duration.push(`${label}欠 ${r1(lo - st.est)} 秒（估 ${st.est}s / 目标 ${ep.targetSeconds}s）`);
       if (st.est > hi) bad.duration.push(`${label}超 ${r1(st.est - hi)} 秒（估 ${st.est}s / 目标 ${ep.targetSeconds}s）`);
+    } else {
+      // DR-02：缺 targetSeconds 即硬伤（fail-closed），此前静默跳过即放行。
+      bad.duration.push(`${label}缺 targetSeconds（目标秒数须与大纲/启动参数一致，禁止模型自报缺失）`);
+    }
+    // DR-02：有大纲时集号必须在规划内，且大纲载明时长必须值一致（禁信模型自报）。
+    if (_outlineForAuth && _outlineEpMap.size > 0) {
+      if (!Number.isInteger(ep?.ep) || !_outlineEpMap.has(ep.ep)) {
+        bad.duration.push(`${label}集号 ${ep?.ep} 不在大纲规划内（禁止模型自报集号）`);
+      } else {
+        const oep = _outlineEpMap.get(ep.ep);
+        if (oep?.targetSeconds > 0 && ep?.targetSeconds > 0 && oep.targetSeconds !== ep.targetSeconds) {
+          bad.duration.push(`${label}的 targetSeconds ${ep.targetSeconds}s 与大纲权威 ${oep.targetSeconds}s 不一致（禁止信任模型自报）`);
+        }
+      }
     }
 
     // 开场钩子与结尾悬念：说明必须落在纸面
