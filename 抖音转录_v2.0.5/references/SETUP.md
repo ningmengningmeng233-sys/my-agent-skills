@@ -131,3 +131,16 @@ lock 文件里的 `nvidia-*` wheel 自带运行时，只要机器有 NVIDIA 驱�
 | `state\logs\transcript.log` | 已脱敏运行日志 | 否 |
 | `state\gpu.lock` | GPU 推理串行锁文件 | 否 |
 | `.env` | 摘要/校正 API 密钥 | 否 |
+
+## `.gitignore` 对照（包级，以仓库实际文件为准）
+
+包根 `.gitignore` 逐行如下；仓库根 `.gitignore` 另以 `*/.db/`、`*/state/`、`*/output/`、`*/logs/` 通配兜底本包同名目录：
+
+| 忽略规则 | 覆盖内容 |
+|---|---|
+| `.db/` | 转录库与迁移备份（`.db\transcripts.db`、`.db\backups\`） |
+| `logs/` | 包根直属日志目录（如有；常规运行日志在 `state\logs\`，随 `state/` 一并排除） |
+| `state/` | 抖音登录态（`state/ingest/`）、任务临时媒体、模型、脱敏日志、GPU 锁 |
+| `output/` | 渲染出的主文件与原始记录文件 |
+| `storage/` | 上游采集器浏览器存储态等第三方运行文件 |
+| `.env` | 摘要/校正 API 密钥（`.env.example` 是模板，不受影响，照常提交） |

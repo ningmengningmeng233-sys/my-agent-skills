@@ -1,0 +1,7 @@
+# 运行期目录与敏感文件：永不进 Git（与 references/SETUP.md「目录说明」逐行对应）
+.db/
+logs/
+state/
+output/
+storage/
+.env

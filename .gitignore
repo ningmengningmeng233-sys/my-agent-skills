@@ -11,3 +11,9 @@ __pycache__/
 .ruff_cache/
 .DS_Store
 Thumbs.db
+# 包级运行期目录通配兜底（DY-06；连带闭环 DR-07、AE-13 类似敏感路径）
+*/.db/
+*/state/
+*/output/
+*/logs/
+llm_nodes.json
