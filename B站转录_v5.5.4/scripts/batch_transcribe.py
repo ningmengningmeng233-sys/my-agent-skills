@@ -124,6 +124,87 @@ RISK_RESUME_COOLDOWN = 30 * 60
 STATE_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
+BATCH_PID_NAME = "batch.pid"
+
+
+def _pid_path() -> Path:
+    # 运行时从 STATE_DIR 派生，测试可整体重定向 STATE_DIR。
+    return Path(STATE_DIR) / BATCH_PID_NAME
+
+
+def _pid_is_alive(pid: object) -> bool | None:
+    """PID 是否存活：True 存活，False 不存在，None 未知（保守按存活处理）。
+
+    Windows 上不存在的 PID 报 OSError(winerror=87)，存活但无权限报
+    PermissionError；POSIX 上分别对应 ProcessLookupError / PermissionError。
+    """
+    try:
+        pid_int = int(str(pid).strip().split()[0])
+    except (TypeError, ValueError, IndexError, AttributeError):
+        return False
+    if pid_int <= 0:
+        return False
+    if pid_int == os.getpid():
+        return True
+    try:
+        os.kill(pid_int, 0)
+    except PermissionError:
+        return True
+    except ProcessLookupError:
+        return False
+    except OSError as exc:
+        if os.name == "nt" and getattr(exc, "winerror", None) == 87:
+            return False
+        if getattr(exc, "errno", None) == 3:  # ESRCH
+            return False
+        return None
+    return True
+
+
+def _read_lock_pid(path: Path | None = None) -> int | None:
+    target = Path(path) if path is not None else _pid_path()
+    try:
+        content = target.read_text(encoding="utf-8").strip().split()
+    except OSError:
+        return None
+    if not content:
+        return None
+    try:
+        return int(content[0])
+    except ValueError:
+        return None
+
+
+def acquire_batch_lock(*, pid_path: Path | None = None) -> bool:
+    """单实例排他锁：已有存活批次返回 False（调用方优雅退出）。
+
+    锁文件缺失、损坏、僵尸 PID、自身 PID 一律覆盖，不永久锁死；探测未知
+    （None）保守按存活处理，直接拦截。
+    """
+    path = Path(pid_path) if pid_path is not None else _pid_path()
+    holder = _read_lock_pid(path)
+    if holder is not None and holder != os.getpid():
+        alive = _pid_is_alive(holder)
+        if alive is None or alive:
+            return False
+    path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        path.write_text(str(os.getpid()), encoding="utf-8")
+    except OSError:
+        # 锁写不下去时不拦截：批次状态同样写不下去，正常流程会报错。
+        return True
+    return True
+
+
+def release_batch_lock(*, pid_path: Path | None = None) -> None:
+    """释放锁：仅当持有者是自己时删除，避免误解除他人。"""
+    path = Path(pid_path) if pid_path is not None else _pid_path()
+    try:
+        if _read_lock_pid(path) == os.getpid():
+            path.unlink()
+    except OSError:
+        pass
+
 
 _BASH_CANDIDATES = [
     Path(r"C:/Program Files/Git/bin/bash.exe"),
@@ -595,6 +676,12 @@ def main(argv=None):
         error("batch_transcribe", "未找到 bash，无法调用 bilibili_transcript.sh")
         return 1
 
+    if not acquire_batch_lock():
+        holder = _read_lock_pid()
+        print(f"⏸️  检测到已有批次正在运行（PID {holder}），本次退出，不重复拉起。")
+        print("   如确认该进程已不存在，可删除 state/batch.pid 后重跑。")
+        return 0
+
     print("=" * 70)
     print("📼 B站收藏夹批量转录 v2.2（分P支持）")
     print("=" * 70)
@@ -604,6 +691,7 @@ def main(argv=None):
     if not videos:
         print("没有新视频需要转录")
         info("batch_transcribe", "没有新视频，结束")
+        release_batch_lock()
         return 0
 
     processed = load_processed()
@@ -627,6 +715,7 @@ def main(argv=None):
 
     if remaining == 0:
         print("🎉 全部视频已转录完成！")
+        release_batch_lock()
         return 0
 
     ai_mode = (
@@ -658,10 +747,12 @@ def main(argv=None):
         print("\n⏸️  检测到未恢复的认证暂停。请先登录 bilibili.com，然后运行：")
         print("     .venv/Scripts/python.exe scripts/maintenance.py resume-batch")
         print("   再重新执行本脚本继续。")
+        release_batch_lock()
         return 2
 
     if state is not None and state.status == batch_state.BATCH_PAUSED_RISK:
         if not resolve_risk_pause(state):
+            release_batch_lock()
             return 2
 
     # 复用未跑完的批次状态（保留已 done 的进度），否则按本次待跑清单新建。
@@ -887,6 +978,7 @@ def main(argv=None):
         if cleaned:
             print(f"\n🧹 已清理临时媒体目录 output/_work（{cleaned} 项）")
 
+    release_batch_lock()
     return 0 if fail_count == 0 else 1
 
 

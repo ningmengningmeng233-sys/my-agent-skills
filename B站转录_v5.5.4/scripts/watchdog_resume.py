@@ -120,11 +120,14 @@ def decide(payload: dict | None, *, process_alive: bool,
     return "resume", reason
 
 
-def batch_processes() -> list[int]:
+def batch_processes() -> list[int] | None:
     """命令行里带 batch_transcribe 的进程 PID。
 
     venv 的 python.exe 是转发壳，会以同样的参数再起一个子进程，所以这里通常
     会同时命中父子两个 PID——都算「批次活着」，判重时不需要区分。
+
+    探测失败（权限错误、查询异常、命令非零退出）返回 None（未知），调用方
+    必须保守跳过，不得当成“无进程”强行续跑。
     """
     if os.name == "nt":
         query = ("Get-CimInstance Win32_Process -Filter \"Name='python.exe'\" | "
@@ -134,14 +137,18 @@ def batch_processes() -> list[int]:
             done = subprocess.run(["powershell", "-NoProfile", "-Command", query],
                                   capture_output=True, text=True, timeout=90)
         except (OSError, subprocess.SubprocessError):
-            return []
+            return None
+        if done.returncode != 0:
+            return None
         return [int(token) for token in done.stdout.split() if token.strip().isdigit()]
 
     try:
         done = subprocess.run(["ps", "-eo", "pid=,args="],
                               capture_output=True, text=True, timeout=30)
     except (OSError, subprocess.SubprocessError):
-        return []
+        return None
+    if done.returncode != 0:
+        return None
     pids: list[int] = []
     for line in done.stdout.splitlines():
         if "batch_transcribe" not in line:
@@ -329,6 +336,9 @@ def main(argv=None) -> int:
         return 0
     try:
         alive = batch_processes()
+        if alive is None:
+            write_log("跳过：批次进程探测失败（权限或查询异常），保守起见不续跑")
+            return 0
         payload = load_payload(state_path)
         revives = recent_revives()
         action, reason = decide(payload, process_alive=bool(alive),
