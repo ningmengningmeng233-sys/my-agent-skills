@@ -57,8 +57,10 @@ def load_model_capabilities() -> dict[str, Any]:
             "supported_aspect_ratios": ["16:9", "9:16", "1:1", "4:3", "21:9"],
         },
         "H3-Max": {
+            # 与 config/model-capabilities.json 单一真源对齐：H3-Max + ref2va
+            # 为 REQUIRES_CONFIRMATION（公开 V2 未列出），回退矩阵不得放行。
             "verified_status": "VERIFIED_OFFICIAL",
-            "modes": ["t2va", "fl2va", "ref2va"],
+            "modes": ["t2va", "fl2va"],
             "resolutions": ["480P", "768P"],
             "duration_seconds": {"min": 5, "max": 15},
             "supported_aspect_ratios": ["16:9", "9:16", "1:1"],
