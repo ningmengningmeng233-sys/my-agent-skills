@@ -112,6 +112,11 @@ class HttpVideoAdapter(VideoAdapter):
 
     def generate(self, shot: dict, endpoint_path: str = "/v1/video") -> str:
         clip_path = Path(shot["_clip_path"])
+        prompt = shot.get("prompt", "")
+        if not isinstance(prompt, str) or not prompt.strip():
+            raise ValueError(
+                "EMPTY_PROMPT: 镜头缺真实 prompt，拒绝发送视频渲染请求"
+                "（空请求不得付费出片）")
         clip_path.parent.mkdir(parents=True, exist_ok=True)
 
         url = f"{self.endpoint.rstrip('/')}{endpoint_path}"
@@ -119,7 +124,7 @@ class HttpVideoAdapter(VideoAdapter):
         payload = json.dumps({
             "shot_id": shot.get("shot_id"),
             "duration": shot.get("duration"),
-            "prompt": shot.get("prompt", ""),
+            "prompt": prompt,
         }).encode("utf-8")
 
         req = urllib.request.Request(url, data=payload, method="POST")
@@ -169,13 +174,22 @@ class HttpTtsAdapter(TtsAdapter):
 
     def synthesize(self, shot: dict, endpoint_path: str = "/v1/tts") -> dict:
         audio_path = Path(shot["_audio_path"])
+        dlg = shot.get("dialogue", "")
+        if not isinstance(dlg, str) or not dlg.strip():
+            alt = shot.get("dialogue_text", "")
+            if isinstance(alt, str) and alt.strip():
+                dlg = alt
+        if not isinstance(dlg, str) or not dlg.strip():
+            raise ValueError(
+                "EMPTY_DIALOGUE: 镜头缺真实台词 dialogue，拒绝发送 TTS 请求"
+                "（空请求不得付费出片）")
         audio_path.parent.mkdir(parents=True, exist_ok=True)
 
         url = f"{self.endpoint.rstrip('/')}{endpoint_path}"
-        idemp_key = f"{shot.get('shot_id', 'unknown')}:{shot.get('dialogue', '')}"
+        idemp_key = f"{shot.get('shot_id', 'unknown')}:{dlg}"
         payload = json.dumps({
             "shot_id": shot.get("shot_id"),
-            "dialogue": shot.get("dialogue", ""),
+            "dialogue": dlg,
         }).encode("utf-8")
 
         req = urllib.request.Request(url, data=payload, method="POST")

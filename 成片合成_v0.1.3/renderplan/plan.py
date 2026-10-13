@@ -212,8 +212,20 @@ def build_plan(storyboard, dubbing=None, asset_ledger=None):
                 al = align_index.get((seg["id"], cut_no))
                 speaker = al.get("speaker") if al else None
                 planned = al.get("seconds") if al else None
-                dialogue = al is not None
-                on_cam = dialogue and speaker != "VO"
+                if al is None:
+                    dialogue_text = ""
+                else:
+                    dialogue_text = al.get("line")
+                    if dialogue_text is None:
+                        dialogue_text = al.get("dialogue")
+                    if dialogue_text is None:
+                        dialogue_text = al.get("text")
+                    if not isinstance(dialogue_text, str):
+                        dialogue_text = ""
+                prompt_text = seg.get("h3Prompt") or ""
+                if not isinstance(prompt_text, str):
+                    prompt_text = ""
+                on_cam = bool(dialogue_text) and speaker != "VO"
                 shots.append({
                     "shot_id": shot_id,
                     "segment_id": seg["id"],
@@ -221,6 +233,7 @@ def build_plan(storyboard, dubbing=None, asset_ledger=None):
                     "scene_index": seg["sceneIndex"],
                     "cut_index": cut_no,
                     "prompt_ref": {"segment_id": seg["id"], "field": "h3Prompt"},
+                    "prompt": prompt_text,
                     "asset_refs": {
                         "characters": list(cut.get("characters", [])),
                         "props": list(cut.get("props", [])),
@@ -231,7 +244,7 @@ def build_plan(storyboard, dubbing=None, asset_ledger=None):
                     "camera": cut["camera"],
                     "frame": cut["frame"],
                     "duration": cut["seconds"],
-                    "dialogue": dialogue,
+                    "dialogue": dialogue_text,
                     "on_camera_dialogue": on_cam,
                     "speaker": speaker,
                     "dialogue_planned_seconds": planned,

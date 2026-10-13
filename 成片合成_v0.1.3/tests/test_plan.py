@@ -15,10 +15,11 @@ def test_build_plan_shot_fields(storyboard_dict, dubbing_path, asset_ledger_path
     ids = [s["shot_id"] for s in shots]
     assert ids == ["E01-01-f1", "E01-01-f2", "E01-01-f3"]
     s1 = shots[0]
-    # 契约字段：镜号 / 提示词引用 / 素材引用 / 时长 / 台词语
+    # 契约字段：镜号 / 提示词引用+真实提示词 / 素材引用 / 时长 / 台词文本
     assert s1["prompt_ref"] == {"segment_id": "E01-01", "field": "h3Prompt"}
+    assert s1["prompt"] == storyboard_dict["episodes"][0]["segments"][0]["h3Prompt"]
     assert s1["duration"] == 3
-    assert s1["dialogue"] is True
+    assert s1["dialogue"] == "你还记得这条渡口吗？"
     assert s1["speaker"] == "C01"
     # 素材引用含人物 C 编号且映射到台账 asset_id
     assert "C01" in s1["asset_refs"]["characters"]
