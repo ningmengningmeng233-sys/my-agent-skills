@@ -32,7 +32,7 @@ from scripts.logger import configure_logging, ensure_utf8_stdio
 from scripts.models import (CURRENT_PROCESSING_SIGNATURE, CorrectionStatus,
                             ErrorCode, JobRecord, JobStatus, QualityStatus,
                             ReuseAction, Stage, SummaryMode, SummaryStatus,
-                            utc_now)
+                            can_transition, utc_now)
 from scripts.quality import (AsrAssets, HardwareBudget, QualityReport,
                              next_strategy as default_next_strategy)
 
@@ -243,9 +243,18 @@ class _Runner:
         if queue is None:
             return
         try:
-            self.job = queue.update_status(
-                self.job.job_id, self.job.status, stage=stage,
-                checkpoint=self.checkpoint)
+            # 状态跟随阶段前进：合法前进迁移直接推进 status，同步落盘
+            # stage/checkpoint；同态或非法回退时仍以同态写入落盘，不阻塞业务。
+            target = str(stage)
+            current = str(self.job.status)
+            if target != current and can_transition(current, target):
+                self.job = queue.update_status(
+                    self.job.job_id, target, stage=stage,
+                    checkpoint=self.checkpoint)
+            else:
+                self.job = queue.update_status(
+                    self.job.job_id, current, stage=stage,
+                    checkpoint=self.checkpoint)
             queue.heartbeat(self.job.job_id)
         except ValueError:
             # 阶段推进失败不影响业务结果，仅记录

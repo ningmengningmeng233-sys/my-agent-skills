@@ -7,15 +7,17 @@
 from __future__ import annotations
 
 import json
+import re
+import time
 import uuid
 from datetime import datetime, timedelta
 from typing import Sequence
 
 from scripts.input_normalizer import strip_query_parameters
-from scripts.models import (BatchPreview, BatchStatus, JobRecord, JobStatus,
-                            NormalizedInput, PROCESSING_JOB_STATUSES,
-                            ReuseAction, Stage, TERMINAL_JOB_STATUSES,
-                            can_transition, utc_now)
+from scripts.models import (ISO_TIMESTAMP_FORMAT, BatchPreview, BatchStatus,
+                            JobRecord, JobStatus, NormalizedInput,
+                            PROCESSING_JOB_STATUSES, ReuseAction, Stage,
+                            TERMINAL_JOB_STATUSES, can_transition, utc_now)
 from scripts.transcript_db import TranscriptDB
 
 #: 无可复用版本时的保守估算：每条视频 3 分钟。
@@ -32,8 +34,53 @@ _CLAIMABLE_STATUSES = (str(JobStatus.PENDING), str(JobStatus.RETRY_WAIT))
 
 
 def _timestamp(delta_seconds: float = 0) -> str:
+    # 与 utc_now 同口径（ISO T 格式本地时间），避免字符串比较时 'T' > ' '。
     return (datetime.now() + timedelta(seconds=delta_seconds)).strftime(
-        "%Y-%m-%d %H:%M:%S")
+        ISO_TIMESTAMP_FORMAT)
+
+
+_FLOAT_RE = re.compile(r"[+-]?\d+(\.\d+)?([eE][+-]?\d+)?\Z")
+
+
+def _parse_heartbeat(value: object) -> datetime | None:
+    """兼容 ISO 8601 字符串与 float 时间戳的心跳解析。"""
+    if value is None:
+        return None
+    if isinstance(value, (int, float)):
+        try:
+            return datetime.fromtimestamp(float(value))
+        except (OSError, OverflowError, ValueError):
+            return None
+    text = str(value).strip()
+    if not text:
+        return None
+    if _FLOAT_RE.match(text):
+        try:
+            return datetime.fromtimestamp(float(text))
+        except (OSError, OverflowError, ValueError):
+            return None
+    try:
+        return datetime.fromisoformat(text)
+    except ValueError:
+        pass
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S",
+                "%Y-%m-%d %H:%M:%S.%f", "%Y-%m-%dT%H:%M:%S.%f"):
+        try:
+            return datetime.strptime(text, fmt)
+        except ValueError:
+            continue
+    return None
+
+
+def _heartbeat_age_seconds(value: object) -> float | None:
+    """心跳距今秒数；统一转 float 对齐，解析失败返回 None。"""
+    parsed = _parse_heartbeat(value)
+    if parsed is None:
+        return None
+    try:
+        return time.time() - parsed.timestamp()
+    except (OSError, OverflowError, ValueError):
+        return None
 
 
 class QueueRepository:
@@ -123,13 +170,16 @@ class QueueRepository:
              str(JobStatus.VISUAL_TEXT_ONLY))).fetchall()
         durations = []
         for row in rows:
-            try:
-                delta = (datetime.strptime(row["updated_at"], "%Y-%m-%d %H:%M:%S")
-                         - datetime.strptime(row["created_at"], "%Y-%m-%d %H:%M:%S"))
-            except (TypeError, ValueError):
+            start = _parse_heartbeat(row["created_at"])
+            end = _parse_heartbeat(row["updated_at"])
+            if start is None or end is None:
                 continue
-            if delta.total_seconds() > 1:
-                durations.append(delta.total_seconds())
+            try:
+                delta = end.timestamp() - start.timestamp()
+            except (OSError, OverflowError, ValueError):
+                continue
+            if delta > 1:
+                durations.append(delta)
         per_video = (sum(durations) / len(durations)) if durations \
             else float(DEFAULT_SECONDS_PER_VIDEO)
         return int(round(new_count * per_video))
@@ -209,12 +259,19 @@ class QueueRepository:
                       failure_code: str | None = None,
                       failure_message: str | None = None,
                       checkpoint: dict | None = None) -> JobRecord:
-        """状态迁移必须符合设计文档 15.2；非法回退直接拒绝。"""
+        """状态迁移必须符合设计文档 15.2；非法回退直接拒绝。
+
+        同态写入（target == current）不是状态迁移，而是 stage/checkpoint/心跳
+        的落盘：非终态允许，终态仍拒绝。
+        """
         job = self.get_job(job_id)
         if job is None:
             raise ValueError("job 不存在")
         target = str(status)
-        if not can_transition(job.status, target):
+        if target == str(job.status):
+            if str(job.status) in {str(s) for s in TERMINAL_JOB_STATUSES}:
+                raise ValueError(f"非法状态迁移：{job.status} → {target}")
+        elif not can_transition(job.status, target):
             raise ValueError(f"非法状态迁移：{job.status} → {target}")
         now = utc_now()
         assignments = ["status = ?", "heartbeat_at = ?", "updated_at = ?"]
@@ -380,15 +437,27 @@ class QueueRepository:
 
     def recover_stale_jobs(self, *, timeout_seconds: int = STALE_HEARTBEAT_SECONDS
                            ) -> list[JobRecord]:
-        """心跳过期的进行中 job 视为中断，带着 checkpoint 回到可领取状态。"""
-        cutoff = _timestamp(-timeout_seconds)
+        """心跳过期的进行中 job 视为中断，带着 checkpoint 回到可领取状态。
+
+        心跳格式混用（ISO T 串 / 空格串 / float 时间戳），SQL 字符串比较会误判，
+        因此全量取出进行中 job 后在 Python 侧用统一解析按 float 超时判断。
+        空心跳与不可解析心跳一律视为中断，避免僵尸 job 永久卡住。
+        """
         rows = self._conn.execute(
-            "SELECT * FROM jobs WHERE status IN ({}) AND (heartbeat_at = '' "
-            "OR heartbeat_at < ?) ORDER BY position".format(
+            "SELECT * FROM jobs WHERE status IN ({}) ORDER BY position".format(
                 ", ".join("?" for _ in PROCESSING_JOB_STATUSES)),
-            (*[str(status) for status in PROCESSING_JOB_STATUSES], cutoff)
+            tuple(str(status) for status in PROCESSING_JOB_STATUSES)
         ).fetchall()
-        recovered = [JobRecord.from_row(row) for row in rows]
+        stale_rows = []
+        for row in rows:
+            heartbeat = row["heartbeat_at"]
+            if heartbeat is None or str(heartbeat).strip() == "":
+                stale_rows.append(row)
+                continue
+            age = _heartbeat_age_seconds(heartbeat)
+            if age is None or age > timeout_seconds:
+                stale_rows.append(row)
+        recovered = [JobRecord.from_row(row) for row in stale_rows]
         if not recovered:
             return []
         now = utc_now()
