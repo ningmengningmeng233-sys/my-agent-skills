@@ -1,0 +1,19 @@
+{
+  "case_id": "d13-t2va-kitchen-quarrel",
+  "expected_mode": "t2va",
+  "expected_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d13-t2va-kitchen-quarrel",
+      "value": "老式居民楼厨房",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "meta-d13",
+      "value": "台词延后到下一镜",
+      "delivery_scope": "metadata_only",
+      "target_path": ""
+    }
+  ]
+}

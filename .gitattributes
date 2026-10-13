@@ -1,0 +1,2 @@
+# Preserve candidate and manifest bytes; bundled dependencies are intentional.
+* -text

@@ -1,0 +1,23 @@
+{
+  "case_id": "g02-i2va-watch-dial",
+  "user_prompt": "手表产品广告，以图生视频：表盘细节特写，秒针起步",
+  "model": "H3",
+  "duration_s": 8,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "scene": "黑色丝绒衬底上的银色表盘",
+  "action": "秒针从十二点位起步，走完四分之一圈后停住",
+  "camera": "微距缓推",
+  "style": "侧逆光勾出刻度倒角",
+  "assets": {
+    "first_frame": "https://cdn.example.invalid/h3refs/frames/start-g02.png"
+  },
+  "constraints": [
+    {
+      "id": "pt-g02-i2va-watch-dial",
+      "value": "黑色丝绒衬底上的银色表盘",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

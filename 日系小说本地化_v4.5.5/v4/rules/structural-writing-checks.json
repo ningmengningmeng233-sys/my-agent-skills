@@ -1,0 +1,10 @@
+{
+  "schema_version": "v4-writing-checks-1",
+  "priority": ["plot_logic", "character_consistency", "transition", "dialogue", "chapter_ending", "anti_ai_voice"],
+  "plot_logic": ["动机", "触发", "决策", "后果", "兑现"],
+  "character_consistency": ["目标", "情绪", "关系", "身体与信息", "声音"],
+  "consistency_review": ["剧情逻辑", "人物目标", "情绪关系", "身体信息", "场景转场", "章末承接"],
+  "scene_minimum": ["目标", "阻碍", "变化"],
+  "anti_ai_voice": ["空泛总结", "人物声音同质", "套话氛围", "平均节奏"],
+  "rule": "先修底层硬伤，再修场景层，最后才修文风；任意两个一致性维度不稳不得交付"
+}

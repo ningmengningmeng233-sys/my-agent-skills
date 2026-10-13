@@ -1,0 +1,71 @@
+{
+  "title": "战神归来之龙帅临门",
+  "totalEpisodes": 3,
+  "characters": [
+    {
+      "id": "C01",
+      "name": "林晨",
+      "role": "protagonist",
+      "desire": "守护妹妹，查清旧案",
+      "obstacle": "隐瞒龙帅身份沦为入赘女婿",
+      "voiceStyle": "低沉冷静，字句如刀，从不说废话"
+    },
+    {
+      "id": "C02",
+      "name": "顾雨薇",
+      "role": "antagonist",
+      "desire": "攀附权贵，保全家族利益",
+      "obstacle": "身负与林晨的入赘婚约",
+      "voiceStyle": "尖酸刻薄，习惯命令式短句"
+    },
+    {
+      "id": "C03",
+      "name": "顾浩",
+      "role": "antagonist",
+      "desire": "逃脱醉驾撞车重罪",
+      "obstacle": "面临战区长官追责",
+      "voiceStyle": "嚣张跋扈，动辄辱骂"
+    }
+  ],
+  "beats": [
+    {
+      "episode": 1,
+      "type": "家族羞辱"
+    },
+    {
+      "episode": 1,
+      "type": "身份初显"
+    },
+    {
+      "episode": 2,
+      "type": "战部围门"
+    },
+    {
+      "episode": 3,
+      "type": "当场打脸"
+    }
+  ],
+  "episodes": [
+    {
+      "ep": 1,
+      "targetSeconds": 90,
+      "hook": "林晨手按碎瓷片，鲜血在地砖蔓延",
+      "cliff": "十辆装甲车合围大宅，雪白大灯照亮暴雨",
+      "beatsClaimed": ["家族羞辱", "身份初显"]
+    },
+    {
+      "ep": 2,
+      "targetSeconds": 90,
+      "hook": "装甲车冲破顾家铁门，卫士列队拔枪",
+      "cliff": "顾雨薇跪地求饶，战部统领却向林晨躬身敬礼",
+      "beatsClaimed": ["战部围门"]
+    },
+    {
+      "ep": 3,
+      "targetSeconds": 90,
+      "hook": "统领单膝跪地，双手呈上九龙金帅印",
+      "cliff": "顾浩吓破苦胆昏死，林晨下令查封顾家全城产业",
+      "beatsClaimed": ["当场打脸"]
+    }
+  ]
+}

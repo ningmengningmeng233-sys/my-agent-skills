@@ -1,0 +1,23 @@
+{
+  "schema_version": "media-pin-1",
+  "note": "公开分享版：仅保留4个合成测试占位件。原风格包32张媒体仅授权本机私用，均未随包；完整私有钉单保存在外部恢复资料。",
+  "human_review": "pending",
+  "media": {
+    "测试/fixtures/legacy_visual/生成图片/CH_林姑娘-三视图拼版_v02.png": {
+      "sha256": "0839445b783aee909819365a9edd249f131284baeed225b170cb9faf52e7ddd6",
+      "bytes": 76
+    },
+    "测试/fixtures/legacy_visual/生成图片/CH_林姑娘-正脸_v01.png": {
+      "sha256": "0839445b783aee909819365a9edd249f131284baeed225b170cb9faf52e7ddd6",
+      "bytes": 76
+    },
+    "测试/fixtures/legacy_visual/生成图片/林姑娘_三宫格.png": {
+      "sha256": "c1b03f7d2d19d0985321fd5c710c537dfb7578081fd9df6a3888e924204ca19f",
+      "bytes": 81
+    },
+    "测试/fixtures/legacy_visual/生成图片/林姑娘_正脸.png": {
+      "sha256": "0839445b783aee909819365a9edd249f131284baeed225b170cb9faf52e7ddd6",
+      "bytes": 76
+    }
+  }
+}

@@ -1,0 +1,704 @@
+{
+  "cases": 30,
+  "mode_route_accuracy": 1.0,
+  "profile_route_accuracy": 1.0,
+  "asset_check_accuracy": 1.0,
+  "hard_constraint_retention": 1.0,
+  "audit_binding_rate": 1.0,
+  "stale_dirs": [],
+  "missing_dirs": [],
+  "run_id_mismatch": false,
+  "run_id": "20261012T195651Z-026a3939",
+  "source_commit": "fb72aad287d070b912c5793574101222ad88d115",
+  "summary_run_id": "20261012T195651Z-026a3939",
+  "expected_case_count": 30,
+  "summary_case_count": 30,
+  "template_residue_rate": 0.0,
+  "audit_pollution_rate": 0.0,
+  "cli_crashes": 0,
+  "json_parse_rate": 1.0,
+  "details": [
+    {
+      "case_id": "d01-t2va-neon-storefront",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d01-t2va-neon-storefront",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        },
+        {
+          "id": "api-d01-duration",
+          "scope": "api_parameter",
+          "ok": true,
+          "why": "retained in api_parameters.duration"
+        },
+        {
+          "id": "api-d01-ratio",
+          "scope": "api_parameter",
+          "ok": true,
+          "why": "retained in api_parameters.ratio"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d02-i2va-broken-temple",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d02-i2va-broken-temple",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        },
+        {
+          "id": "api-d02-duration",
+          "scope": "api_parameter",
+          "ok": true,
+          "why": "retained in api_parameters.duration"
+        },
+        {
+          "id": "meta-d02",
+          "scope": "metadata_only",
+          "counted": false
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d03-fl2va-rooftop-confession",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d03-fl2va-rooftop-confession",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d04-l2va-hospital-corridor",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d04-l2va-hospital-corridor",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d05-ref2va-warroom",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d05-ref2va-warroom",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        },
+        {
+          "id": "api-d05-duration",
+          "scope": "api_parameter",
+          "ok": true,
+          "why": "retained in api_parameters.duration"
+        },
+        {
+          "id": "api-d05-resolution",
+          "scope": "api_parameter",
+          "ok": true,
+          "why": "retained in api_parameters.resolution"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d06-t2va-alias-courtroom",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d06-t2va-alias-courtroom",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d07-max-t2va-drought-village",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d07-max-t2va-drought-village",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        },
+        {
+          "id": "api-d07-duration",
+          "scope": "api_parameter",
+          "ok": true,
+          "why": "retained in api_parameters.duration"
+        },
+        {
+          "id": "api-d07-ratio",
+          "scope": "api_parameter",
+          "ok": true,
+          "why": "retained in api_parameters.ratio"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d08-max-fl2va-wedding-return",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d08-max-fl2va-wedding-return",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d09-t2va-alley-ambush",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d09-t2va-alley-ambush",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        },
+        {
+          "id": "api-d09-ratio",
+          "scope": "api_parameter",
+          "ok": true,
+          "why": "retained in api_parameters.ratio"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d10-ref2va-character-pack",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d10-ref2va-character-pack",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d11-l2va-archive-key",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d11-l2va-archive-key",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        },
+        {
+          "id": "api-d11-resolution",
+          "scope": "api_parameter",
+          "ok": true,
+          "why": "retained in api_parameters.resolution"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d12-i2va-legacy-asset",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d12-i2va-legacy-asset",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d13-t2va-kitchen-quarrel",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d13-t2va-kitchen-quarrel",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        },
+        {
+          "id": "meta-d13",
+          "scope": "metadata_only",
+          "counted": false
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d14-t2va-forced-profile-dawn",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d14-t2va-forced-profile-dawn",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d15-fl2va-station-parting",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d15-fl2va-station-parting",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        },
+        {
+          "id": "api-d15-duration",
+          "scope": "api_parameter",
+          "ok": true,
+          "why": "retained in api_parameters.duration"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "d16-t2va-broken-temple-dawn",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-d16-t2va-broken-temple-dawn",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "e01-refen-ronin-snow",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-e01-refen-ronin-snow",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "e02-refen-nightmarket-i2va",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-e02-refen-nightmarket-i2va",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "e03-refen-teahouse-fl2va",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-e03-refen-teahouse-fl2va",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "g01-t2va-perfume-turntable",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-g01-t2va-perfume-turntable",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        },
+        {
+          "id": "api-g01-ratio",
+          "scope": "api_parameter",
+          "ok": true,
+          "why": "retained in api_parameters.ratio"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "g02-i2va-watch-dial",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-g02-i2va-watch-dial",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "g03-t2va-mountain-fog",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-g03-t2va-mountain-fog",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        },
+        {
+          "id": "api-g03-resolution",
+          "scope": "api_parameter",
+          "ok": true,
+          "why": "retained in api_parameters.resolution"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "g04-ref2va-sneaker-ad",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-g04-ref2va-sneaker-ad",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "g05-fl2va-lakehouse-sunrise",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-g05-fl2va-lakehouse-sunrise",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "g06-t2va-neon-typography",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-g06-t2va-neon-typography",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "g07-l2va-coffee-pour",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-g07-l2va-coffee-pour",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "g08-i2va-headphone-burst",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-g08-i2va-headphone-burst",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "g09-t2va-passsthrough",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-g09-t2va-passsthrough",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "g10-t2va-desk-sentences",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-g10-t2va-desk-sentences",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    },
+    {
+      "case_id": "g11-ref2va-liquid-ink",
+      "audit_binding_ok": true,
+      "json_parse": true,
+      "mode_ok": true,
+      "profile_ok": true,
+      "audit_failed": false,
+      "constraints": [
+        {
+          "id": "pt-g11-ref2va-liquid-ink",
+          "scope": "prompt_text",
+          "ok": true,
+          "why": "retained in prompt_text"
+        }
+      ],
+      "asset_ok": true,
+      "retention_ok": true,
+      "template_residue": false,
+      "audit_pollution": false
+    }
+  ]
+}

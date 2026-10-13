@@ -1,0 +1,25 @@
+{
+  "case_id": "d02-i2va-broken-temple",
+  "expected_mode": "i2va",
+  "expected_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d02-i2va-broken-temple",
+      "value": "破庙内",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d02-duration",
+      "value": 10,
+      "delivery_scope": "api_parameter",
+      "target_path": "duration"
+    },
+    {
+      "id": "meta-d02",
+      "value": "起始帧来自上一集定妆图",
+      "delivery_scope": "metadata_only",
+      "target_path": ""
+    }
+  ]
+}

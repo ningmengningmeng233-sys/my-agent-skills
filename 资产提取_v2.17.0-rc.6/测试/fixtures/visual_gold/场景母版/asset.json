@@ -1,0 +1,23 @@
+{
+  "asset_id": "SC_临江茶楼",
+  "type": "场景",
+  "name": "临江茶楼",
+  "priority": "P1",
+  "fact_level": "剧本事实",
+  "evidence": [
+    {
+      "segment": "段01.md",
+      "chapter": "第1章",
+      "line": "00001",
+      "quote": "临江茶楼二层临街，西侧一扇雕花木窗，楼下是青石码头"
+    }
+  ],
+  "dependencies": [],
+  "relations": [],
+  "status": "CONFIRMED",
+  "materials": [
+    "木材",
+    "石材",
+    "液体"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "case_id": "g07-l2va-coffee-pour",
+  "expected_mode": "l2va",
+  "expected_profile": "native-general",
+  "constraints": [
+    {
+      "id": "pt-g07-l2va-coffee-pour",
+      "value": "原木吧台与白瓷杯",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

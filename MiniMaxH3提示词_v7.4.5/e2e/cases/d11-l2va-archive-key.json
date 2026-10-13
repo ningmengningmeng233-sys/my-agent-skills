@@ -1,0 +1,30 @@
+{
+  "case_id": "d11-l2va-archive-key",
+  "user_prompt": "短剧档案馆暗格戏，结束帧生视频：档案盒合上后回到两人对视",
+  "scene": "地下档案馆，密集架之间的窄道只容一人",
+  "action": "管理员抽出一只灰色档案盒，翻开两页又合上，锁回暗格",
+  "style": "窄道光带把人脸切出硬阴影",
+  "audio": "密集架手轮的咔咔声与纸页翻动的脆响，无配乐",
+  "voice_signature": "管理员：平板无波气的中性声线",
+  "model": "H3",
+  "duration_s": 10,
+  "aspect_ratio": "16:9",
+  "resolution": "2K",
+  "assets": {
+    "last_frame": "https://cdn.example.invalid/h3refs/frames/end-d11.png"
+  },
+  "constraints": [
+    {
+      "id": "pt-d11-l2va-archive-key",
+      "value": "地下档案馆",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d11-resolution",
+      "value": "2K",
+      "delivery_scope": "api_parameter",
+      "target_path": "resolution"
+    }
+  ]
+}

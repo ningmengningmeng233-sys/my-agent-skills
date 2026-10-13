@@ -1,0 +1,32 @@
+素材提取器（Asset Extractor）v2.17.0-rc.5 —— 许可与来源声明
+
+一、本包自有件（SKILL.md、scripts/、references/、docs/、templates/、测试/、服饰设计/、CONTEXT/FAQ/QUICKSTART/README）
+  Copyright (c) 2026 柠檬才不萌
+  保留所有权利（Proprietary）。允许在本机内自行使用、备份与改装用于个人用途；
+  未经许可不得对外再分发、不得用于商业再许可、不得移除本声明。
+  与 SKILL.md frontmatter 的 `license: Proprietary` 同源；两处不一致时以本文件为准并须修正。
+
+二、共享内核副本（vendor/）
+  `vendor/schemas/` 收的是技能柜共享协议件（含 `ledger.py` 与 `run-ledger.schema.json`），
+  与柜内主干逐字同源，来源与摘要登记在 `vendor/schemas/VENDORED.md`。
+  这些文件按第一节同一许可条款分发，不存在跨仓覆盖许可的问题；
+  收件机不需要技能柜存在也能跑（缺件时报错指向包内路径，不指向你的数据）。
+
+三、合成夹具与示例媒体（不是真实语料、不是凭据）
+  `测试/fixtures/legacy_visual/生成图片/林姑娘_正脸.png`（76B）与
+  `.../林姑娘_三宫格.png`（81B）是逐字节可复现的合成占位图，仅用于迁移与载体反向门；
+  精确路径＋sha256 登记在候选目录的 PUBLIC_SCAN_POLICY.json。
+  测试里的 `sk-…` 字面量是**反泄漏哨兵值**（`测试/unit/test_call_events.py`、
+  `测试/unit/test_doctor.py` 断言这些串「不得出现在输出里」，`测试/unit/test_perf_ledger.py`
+  用 `sk-DRILLFAKE…` 合成值证明错误串会被打码），不指向任何真实凭据。
+  运行期错误串里的凭据形状由 `scripts/engine/perf_ledger.py` 的 `redact_error` 就地打码，
+  错误码与阶段/节点上下文逐字保留。
+
+四、被裁剪的私有层（shareable 档）
+  本包按 `--profile shareable` 构建，私人视觉能力与历史运行日志层被整档裁掉：
+  裁掉的条目逐条记在包内 `发布清单.json` 的 `excluded` 段，能力口径记在同文件
+  `capability_statement` 与 `declarations` 段。因此视觉能力低于私人包，
+  本包不得声称与私人包能力等价（构建器同时打印 VISUAL_STYLE_INCOMPLETE_FOR_SHARE）。
+
+五、第三方依赖
+  requirements.txt 所列第三方库各按上游许可证发布，本声明不改变其条款，也不重新授权。

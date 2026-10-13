@@ -1,0 +1,12 @@
+{
+  "name": "knowledge-index-v5-web-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "knowledge-index-v5 真实浏览器 E2E（Playwright + 本机 Edge）",
+  "scripts": {
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0"
+  }
+}

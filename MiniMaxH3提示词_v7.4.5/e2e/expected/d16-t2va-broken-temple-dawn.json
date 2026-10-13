@@ -1,0 +1,13 @@
+{
+  "case_id": "d16-t2va-broken-temple-dawn",
+  "expected_mode": "t2va",
+  "expected_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d16-t2va-broken-temple-dawn",
+      "value": "破庙天井",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

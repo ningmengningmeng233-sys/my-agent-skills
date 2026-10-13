@@ -1,0 +1,87 @@
+{
+  "$comment": "C01 依赖固定清单。Node 侧为 v1 公共层（C02 起安装，本工单不安装）；Python 侧 md_cg 引擎零第三方依赖（纯标准库）。版本于 2026-10-02 经只读 npm view 在 registry 逐包核实，精确锁定，不使用滚动 latest。",
+  "pinnedAt": "2026-10-02",
+  "verifiedWith": "npm view <pkg>@<version>（只读 registry 元数据查询，未安装）",
+  "runtime": {
+    "node": { "minimum": "24.2", "observed": "v24.19.0" },
+    "python": { "minimum": "3.12", "observed": "3.12.10" }
+  },
+  "npm": [
+    {
+      "name": "@modelcontextprotocol/sdk",
+      "version": "1.31.0",
+      "generation": "v1 单包（不混入 v2 双包）",
+      "license": "MIT",
+      "engines": { "node": ">=18" },
+      "registryCheck": "pass",
+      "deepImports": {
+        "server": "@modelcontextprotocol/sdk/server/mcp.js",
+        "client": "@modelcontextprotocol/sdk/client/index.js",
+        "note": "官方 v1 文档入口（https://ts.sdk.modelcontextprotocol.io/server 与 /client）；经 package.json exports 核实：./server -> dist/esm/server/index.js，./client -> dist/esm/client/index.js，./* 通配支持深层路径"
+      },
+      "dependencies": {
+        "ajv": "^8.17.1", "zod": "^3.25 || ^4.0", "cors": "^2.8.5",
+        "hono": "^4.11.4", "jose": "^6.1.3", "express": "^5.2.1",
+        "raw-body": "^3.0.0", "ajv-formats": "^3.0.1", "cross-spawn": "^7.0.5",
+        "eventsource": "^3.0.2", "content-type": "^1.0.5",
+        "pkce-challenge": "^5.0.0", "@hono/node-server": "^1.19.9 || ^2.0.5",
+        "json-schema-typed": "^8.0.2", "eventsource-parser": "^3.0.0",
+        "express-rate-limit": "^8.2.1", "zod-to-json-schema": "^3.25.1"
+      },
+      "peerDependencies": {
+        "zod": "^3.25 || ^4.0",
+        "@cfworker/json-schema": "^4.1.1"
+      },
+      "peerResolution": "v1 选用 zod ^3.25 分支，精确锁定 3.25.76；@cfworker/json-schema 为可替代 peer，未选用，不安装"
+    },
+    {
+      "name": "zod",
+      "version": "3.25.76",
+      "license": "MIT",
+      "engines": {},
+      "registryCheck": "pass",
+      "reason": "@modelcontextprotocol/sdk@1.31.0 peer dependency（^3.25 分支），SDK v1 工具 schema 用法"
+    },
+    {
+      "name": "@types/node",
+      "version": "24.19.0",
+      "license": "MIT",
+      "engines": {},
+      "registryCheck": "pass",
+      "reason": "TypeScript 对 Node 内建模块（node:fs/promises、node:child_process、node:path、node:crypto、node:process）的类型声明，devDependency。C03 首次在 TS 源（packages/scope）使用 Node 内建模块，C01 冻结本清单时无任何 TS 源引用 node:builtin，属计划缺陷补录：版本与 runtime.observed v24.19.0 对齐，精确锁定。本条由 C03 补录并回执记录偏差，待独立评审/总控追认。"
+    },
+    {
+      "name": "typescript",
+      "version": "5.9.3",
+      "license": "Apache-2.0",
+      "engines": { "node": ">=14.17" },
+      "registryCheck": "pass",
+      "reason": "构建编译器（build=tsc -p tsconfig.json，C02 固定）；NodeNext + ES2022 + strict"
+    },
+    {
+      "name": "smol-toml",
+      "version": "1.9.0",
+      "license": "BSD-3-Clause",
+      "engines": { "node": ">= 18" },
+      "registryCheck": "pass",
+      "exports": { "import": "./dist/index.js", "require": "./dist/index.cjs" },
+      "reason": "TOML 配置解析（客户端配置适配器，零原生依赖实现）"
+    },
+    {
+      "name": "yaml",
+      "version": "2.9.1",
+      "license": "ISC",
+      "engines": { "node": ">= 14.6" },
+      "registryCheck": "pass",
+      "reason": "YAML 解析（本工单审计后锁定的 YAML 库；用于 MCP 配置文件生成/校验），精确版本 2.9.1"
+    }
+  ],
+  "pythonEngine": {
+    "md_cg": {
+      "thirdPartyDependencies": [],
+      "note": "md_cg 全部 import 为标准库 + 包内相对导入 + utf8_boot.py（逐一核对 md_cg/*.py 顶层 import 清单：argparse/ast/atexit/base64/collections/concurrent/contextlib/dataclasses/errno/gc/glob/hashlib/hmac/importlib/inspect/io/itertools/json/math/os/queue/random/re/secrets/shutil/sqlite3/statistics/struct/subprocess/sys/tempfile/textwrap/threading/time/traceback/types/typing/unicodedata/unittest/urllib/uuid/weakref 及 __future__/builtins）；仓库内 md_access/aeis_core/hive 等兄弟模块仅出现在独立单元不携带的集成路径，独立运行探针（.lemon/standalone 与本次 C01 探针）均未触发",
+      "policy": "data/policy.json（数据文件，非代码依赖）"
+    }
+  },
+  "installPolicy": "C02 创建 package.json 后 npm ci --ignore-scripts 安装；lock 文件按本清单精确版本生成；O04 发布包验证依赖闭包。本工单（C01）不安装任何包。"
+}

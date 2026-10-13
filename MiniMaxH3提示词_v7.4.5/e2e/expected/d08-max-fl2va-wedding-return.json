@@ -1,0 +1,13 @@
+{
+  "case_id": "d08-max-fl2va-wedding-return",
+  "expected_mode": "fl2va",
+  "expected_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d08-max-fl2va-wedding-return",
+      "value": "退去宾客的宴会厅",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

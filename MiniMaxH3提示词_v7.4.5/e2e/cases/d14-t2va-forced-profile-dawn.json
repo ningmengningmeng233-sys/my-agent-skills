@@ -1,0 +1,22 @@
+{
+  "case_id": "d14-t2va-forced-profile-dawn",
+  "user_prompt": "短剧清晨送奶戏（显式锁定原生短剧骨架）",
+  "scene": "结霜的胡同口，三轮车链条声由远及近",
+  "action": "送奶工呵了口气搓手，把奶瓶一架一架码进木箱",
+  "style": "日出前青灰天光，呵气成白雾",
+  "audio": "奶瓶相碰的清脆连响与链条声，无配乐",
+  "voice_signature": "送奶工：含糊憨厚男声，台词只有半句",
+  "model": "H3",
+  "duration_s": 6,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "forced_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d14-t2va-forced-profile-dawn",
+      "value": "结霜的胡同口",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

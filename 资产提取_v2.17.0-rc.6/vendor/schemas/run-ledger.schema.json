@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "run-ledger.schema.json",
+  "title": "跨技能统一运行成本/效果账本（C8）",
+  "description": "一行一条 JSONL。回答「上一部 20 集短剧一共花了多少钱、返工几次、哪个门最费」。账本永不收录密钥/cookie/媒体 URL：键名匹配 x-credential-key-pattern 即被 ledger.py 拒绝。",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "skill",
+    "skill_version",
+    "run_id",
+    "ts",
+    "stage",
+    "model_node",
+    "input_units",
+    "calls",
+    "tokens_in",
+    "tokens_out",
+    "cost_cny",
+    "gate_failures",
+    "retries",
+    "artifact_paths"
+  ],
+  "properties": {
+    "skill": { "type": "string", "minLength": 1, "description": "技能名，如 小说转短剧 / 资产提取" },
+    "skill_version": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 1, "description": "一次跑批标识；与 skill+stage 组成幂等键" },
+    "ts": { "type": "string", "minLength": 1, "description": "ISO 8601 时间戳" },
+    "stage": { "type": "string", "minLength": 1, "description": "阶段/门禁名，如 剧本写作 / 关键帧生成" },
+    "model_node": { "type": "string", "minLength": 1, "description": "模型节点，如 MiniMax-M2；无节点写 未记录" },
+    "input_units": { "type": "number", "minimum": 0, "description": "输入工作量单元（集数/条目数等）" },
+    "calls": { "type": "integer", "minimum": 0, "description": "模型调用次数" },
+    "tokens_in": { "type": "integer", "minimum": 0, "description": "输入 token；不返 token 的端点写 0 并在报告侧注明" },
+    "tokens_out": { "type": "integer", "minimum": 0 },
+    "cost_cny": { "type": "number", "minimum": 0, "description": "人民币成本；无计价来源写 0" },
+    "gate_failures": { "type": "integer", "minimum": 0 },
+    "retries": { "type": "integer", "minimum": 0, "description": "回炉/重试次数" },
+    "artifact_paths": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "本地产物相对路径；禁止媒体 URL"
+    }
+  },
+  "x-credential-key-pattern": "(?i)(api_key|token|secret|cookie|authorization|password)",
+  "x-url-forbidden-array-fields": ["artifact_paths"],
+  "x-url-forbidden-pattern": "(?i)^(http://|https://)"
+}

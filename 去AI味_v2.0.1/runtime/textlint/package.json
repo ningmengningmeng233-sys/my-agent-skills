@@ -1,0 +1,15 @@
+{
+  "name": "lieflat-less-ai-tone-textlint-runtime",
+  "version": "2.0.0",
+  "private": true,
+  "description": "去AI味 v2 结构候选检测运行时：textlint 内核 + Markdown AST（Node>=20.18.0）。仅做 lint 结构候选，不使用自动写文件通路。",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.18.0"
+  },
+  "dependencies": {
+    "@textlint/markdown-to-ast": "15.8.0",
+    "@textlint/textlint-plugin-markdown": "15.8.0",
+    "textlint": "15.8.0"
+  }
+}

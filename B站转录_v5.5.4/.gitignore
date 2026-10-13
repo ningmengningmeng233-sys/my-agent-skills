@@ -1,0 +1,57 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+# 本地密钥与凭据
+.env
+.env.*
+.env.bak-*
+llm_nodes.json
+# 运行时数据（个人转录库、日志、状态、产物）
+.db/
+logs/
+state/
+output/
+# 发布包
+dist/
+
+# lemon-gitguard T3 排除层 v1
+venv/
+env/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+*.egg-info/
+outputs/
+tmp/
+.lemon/
+state/models/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+credentials.json
+*_key.json
+node_modules/
+Thumbs.db
+# 大体量可再生产物：T1 版本层不收（private.zip 走 T2 加密快照，见 manifests/t2-assets.json）
+*.zip
+*.7z
+*.rar
+*.exe
+*.dll
+*.pyd
+*.so
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.wav
+*.m4a
+*.mp3
+*.pt
+*.onnx
+*.gguf
+*.bin

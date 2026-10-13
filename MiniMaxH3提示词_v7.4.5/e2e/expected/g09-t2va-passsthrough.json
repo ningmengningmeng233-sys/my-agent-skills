@@ -1,0 +1,13 @@
+{
+  "case_id": "g09-t2va-passsthrough",
+  "expected_mode": "t2va",
+  "expected_profile": "native-general",
+  "constraints": [
+    {
+      "id": "pt-g09-t2va-passsthrough",
+      "value": "一支钢笔在信纸上写完最后一划",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

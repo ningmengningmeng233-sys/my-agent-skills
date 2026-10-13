@@ -1,0 +1,472 @@
+# 风格包清单（工单02-Task2）：每个文件的相对路径 / SHA-256 / 字节数 / 类别 / 分享许可
+# 由 scripts/sync_stylepack.py 从母版生成；修改内置包会使校验失败。
+schema_version = 1
+style = "仙侠国风电影CG"
+version = "1.0.0"
+file_count = 58
+total_bytes = 71609427
+content_sha256 = "bfb053185eb3e35cce4c143c513299f267bd75c55bf35c309203a2b6ee0f1ecc"
+
+[[files]]
+path = "SKILL.md"
+sha256 = "fe70b16be1e05588a93a66937d585260d4d41b3a72f71863993467df4018c1f4"
+bytes = 585
+category = "风格说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "generation_formula.md"
+sha256 = "96104cf1014dd6fb586ef10e050ccae702a97e0537418018ce016622d05ed536"
+bytes = 1086
+category = "生成公式"
+share_allowed = true
+required = true
+
+[[files]]
+path = "negative_prompt.md"
+sha256 = "774585ba1a7de8cca5229548add629003245033a3d9c0888e17758e70e969c88"
+bytes = 912
+category = "负面约束"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/environment.png"
+sha256 = "e3973a1706e76999862ca77714642c223e7fef72ede199ced53c358fbf07f00f"
+bytes = 1885623
+category = "环境"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/environment_base_style.md"
+sha256 = "e6178fa819720fc7a3fe547fe94e4528b99b0bc0c0711bb8aa80a0719b44b082"
+bytes = 403
+category = "环境"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/face.png"
+sha256 = "b6b754c34f44e8adadcb42e82168d63afbed3a69505377586318501a87a1156f"
+bytes = 2058912
+category = "人物脸部"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/face_base_style.md"
+sha256 = "f3c8c9bef6c3f2bc96bd96a7b119d981f5c057b33d7ea7b589de4fe4ab8c3147"
+bytes = 499
+category = "人物脸部"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/full_body.png"
+sha256 = "6afbaa48e1b7648029994266889bdf6f66aa6fd5ed2ec167d16ec1e421aeee0e"
+bytes = 2080512
+category = "人物全身"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/full_body_base_style.md"
+sha256 = "b737c9444121b21cde0d3bf3c485a5be1df9c41208b3f69704406741ae210f81"
+bytes = 476
+category = "人物全身"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/iteration_notes.md"
+sha256 = "173a6406f69b3d8ec63fd901a58282efd707e5caad528fb81596958ab34d8d88"
+bytes = 3306
+category = "迭代记录"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/ceramic.png"
+sha256 = "9a318821fc6b664e84501fd45e132d0350df1a9a6eb2fdd53ddbcb1ed05cb8f6"
+bytes = 1701737
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/ceramic_base_style.md"
+sha256 = "9fd6e928d58757e08528b3ddebab0b8fa840222bcd2ed5aa5fead04c30b1fa6d"
+bytes = 215
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/emissive.png"
+sha256 = "847464c9dd6df6cf83bc37ccddda300e9da4ae757a76662cd50724e9d0373cc9"
+bytes = 1630249
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/emissive_base_style.md"
+sha256 = "052981ebc7626e2d619d1b6cca0255a80c5e7f94de7529400c27bf8fc9e8a3c6"
+bytes = 191
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/fabric.png"
+sha256 = "e6615cc11c0bedd165b34af70d2c0f97aaf334ead223fe9fb2c0632d4cf1a282"
+bytes = 2474598
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/fabric_base_style.md"
+sha256 = "164d1613c782c2c402f9bf7b9025ee4cca96846ed7c566b92a3a4ec55a28961a"
+bytes = 267
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/foliage.png"
+sha256 = "9b6334b7792f6edc2511c685a8371869c2df9546fc7f6cc7b8546504d5d706ef"
+bytes = 2020792
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/foliage_base_style.md"
+sha256 = "e000e1b09e2a69e73c21d308dea2b117fe62019c4f23a6cce516195aacba56a4"
+bytes = 266
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/glass.png"
+sha256 = "3c3171f58177a6b01b9f15430bb6d7c5847ae54f613b25dc80c1dde1adce540f"
+bytes = 1762852
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/glass_base_style.md"
+sha256 = "03a3f5fe95b44f87c6186fe86a2e2ddb996a8fc051d395f878316d93782219b6"
+bytes = 206
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/hair.png"
+sha256 = "73b80b658193e05202343b0d134d4cb342eea5b17f9143b2cafee11509311b74"
+bytes = 2115609
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/hair_base_style.md"
+sha256 = "800f4a79e9a766e3df4476627c0298539bd62dc503eacfd974c3c56da3c8245a"
+bytes = 235
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/leather.png"
+sha256 = "6d03bf3f5cf9ef7c24e31cd703eb5931fa474ff18cd304dd364ad49cc9c05e79"
+bytes = 1728049
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/leather_base_style.md"
+sha256 = "3003b8f9bfc73d99f4db7a1aedafde18966f4b3065455d7b8d1f62e084a5aaf7"
+bytes = 212
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/liquid.png"
+sha256 = "7ce1ea9e3c594b3c6f4f00c720430130fb427d1a73d52b17a1d89e69ff32fd82"
+bytes = 1779563
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/liquid_base_style.md"
+sha256 = "9e4eb8467a4a1d09520959fb79959bf12c6433d0b2d06dc003bdbf8e1fb8612d"
+bytes = 224
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/makeup.png"
+sha256 = "a13a007d89a6b567b54c0f0496c8d18b0a8e536a80e69a23e00cef93f6c1a21e"
+bytes = 1757879
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/makeup_base_style.md"
+sha256 = "743df5cb295492ba9d4d05b6c551f8f50aaa72093547210a48181bca3cb492f3"
+bytes = 249
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/metal.png"
+sha256 = "9bc8c079e0a0dcfe67965d4fe57067a9d9d3a74c16dab4ff6ab0040d0045122c"
+bytes = 1998372
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/metal_base_style.md"
+sha256 = "2e44929ddde6a158fb3b34cf5251edca7febd7f7ec248d33bc50d6c3a1d6ebf4"
+bytes = 242
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/paper.png"
+sha256 = "96660f7850bc10b17f5bfe520c37cccd193bac8d3e9134ab6fd7a9bfe07b39fe"
+bytes = 1945315
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/paper_base_style.md"
+sha256 = "0495fa809376c9d03f8f36fbd806e14201ee9af58d8eb3c0203e70a93a69f3e9"
+bytes = 209
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/plastic.png"
+sha256 = "ffc709947b6eb8aa49ea4b31cbcdf6f6777b5746f60f976458fd86ae552157d9"
+bytes = 1610657
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/plastic_base_style.md"
+sha256 = "9f986e22d6981ffca2675f58e779406b3c14c2dd916dd08eb99761fb35b63e37"
+bytes = 201
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/rubber.png"
+sha256 = "cc809c6535d7ebc416cd8adbba754fdde0b4dbba0b0da5988d4fb075e361a9ac"
+bytes = 1699042
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/rubber_base_style.md"
+sha256 = "9617c98ec3f464011ce20be8730487e44fbdab81917a48767cc81d7cb836a9f0"
+bytes = 203
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/skin.png"
+sha256 = "65b28f545ab96ced10ba59d7b4018eb9e9598fbb8ac2ca4e8d5a2fc75c25f132"
+bytes = 1834311
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/skin_base_style.md"
+sha256 = "c110cc81009157e033f0ded2641e57c6ed0f96ae1bbd7ed71e412d98c906f43b"
+bytes = 243
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/stone.png"
+sha256 = "5fad32851666424d929ab9c5e25b4a2f56ac9216ca5d26c9ef6654810e9abc25"
+bytes = 1979575
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/stone_base_style.md"
+sha256 = "733c73fd53a436c0c1618000c2e6d46034c19e5d7a865bc402b1165b1098549b"
+bytes = 200
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/materials/wood.png"
+sha256 = "1c1ea5eea150fc6fc0e2387875bf88b671b8e87604613a2ac2e9770faebc05f0"
+bytes = 1874957
+category = "材料参考图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/materials/wood_base_style.md"
+sha256 = "256451faf09a54ff5bcccb3682d636e6835be969e999f02873818231cda5f128"
+bytes = 210
+category = "材质说明"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/object.png"
+sha256 = "16d3a50fac6b3b4954d8dff308e2940561bd405a38ad07da0dae2fec6c4c5e35"
+bytes = 1860696
+category = "物件"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/object_base_style.md"
+sha256 = "8bf6ea8b7d4dc9cfbba5a00924fd84c81882ea5cf2333081e126ce3f454a3b5a"
+bytes = 342
+category = "物件"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/router.md"
+sha256 = "a1be0ad00021e1f114af48c5fc3eefa6104d7125cee9d28785fee33e471a2318"
+bytes = 1796
+category = "参考路由器"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/shared_style_invariants.md"
+sha256 = "2e3c13caed1d1cdeda4efdd5a99bf518a7ffe48bb42fa58b64a7d3fcd9526a3c"
+bytes = 1869
+category = "共享不变量"
+share_allowed = true
+required = true
+
+[[files]]
+path = "references/sources/character-1.png"
+sha256 = "3e3ef82d5933321181485c2aef397fc6730680eb5e950974c0bd2a6ed8198555"
+bytes = 1821536
+category = "来源图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/sources/character-2.png"
+sha256 = "ab78ed8d57fe84eb77bc6e94875370a2e80de2026ce7d3355c42cc435481764e"
+bytes = 1906742
+category = "来源图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/sources/character-3.png"
+sha256 = "e62a6628f56956e18e599a8d740b85869739ac554531c15b8b57fed36d7912e0"
+bytes = 2091431
+category = "来源图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/sources/character-4.png"
+sha256 = "b7672a64504e93188b977b90422aa3267c4f9a71fd82d67611c12d7bb7ab709e"
+bytes = 2055603
+category = "来源图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/sources/character-5.png"
+sha256 = "dec3888bec0caa2f3e3d222b136746b545307ef7d6d15df75c7cba1ca3860fb1"
+bytes = 1834242
+category = "来源图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/sources/character-6.png"
+sha256 = "c00f6fd28a30f58922b1d33efea29832fce2cc93c093d5a95a747094d395add0"
+bytes = 1808947
+category = "来源图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/sources/environment-1.png"
+sha256 = "2764d16cc59fb32823ba9f9e66a14374027172e03fcf06eee4571da84d58dfd3"
+bytes = 4242151
+category = "来源图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/sources/environment-2.png"
+sha256 = "81022aa304d9b3c5745c469ba24a9caf671f3c918d6bde4d9bf1760b42f13c1f"
+bytes = 4027640
+category = "来源图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/sources/environment-3.png"
+sha256 = "632d671b72b51d84844a3ebca040975dd489eaa871152c7b1dd46263989d59a4"
+bytes = 3791654
+category = "来源图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/sources/environment-4.png"
+sha256 = "255731bb3d27265139b543f079a4c9fe5793bcff1e5672a2575672e37709a4ca"
+bytes = 2460325
+category = "来源图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/sources/environment-5.png"
+sha256 = "48df4a8fb23661bf3f3f175acd7fe8f4a1cfbe9fdded5a6397fe6e2bd965aa0f"
+bytes = 4176218
+category = "来源图"
+share_allowed = false
+required = false
+
+[[files]]
+path = "references/sources/environment-6.png"
+sha256 = "a563b9df8d1a7358f97a4673b4e937e834853b93c1489daa5c1f1c9b6a2dc23a"
+bytes = 3578791
+category = "来源图"
+share_allowed = false
+required = false

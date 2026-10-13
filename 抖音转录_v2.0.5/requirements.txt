@@ -1,0 +1,16 @@
+# 本仓第三方依赖清单（gitguard.scan_deps 生成 于 2026-09-23 从 git 跟踪的 .py import 扫描生成；只列名、不锁版本；运行期下载目录（如 state/）里的第三方脚本不算本仓依赖）
+# 校验方：`python -m gitguard.ci --repo <本仓> --stage deps`，离线只查**当前解释器**装没装，绝不 pip install。
+# 标「CI 解释器未装」只说明治理仓 CI 那一个解释器没有，技能自带 .venv 里可能早就装着（P41；技能文档钦定的运行时是 .venv，见 SKILL.md 与 scripts/doctor.py 的 venv 检查）；缺口逐条挂到期豁免，见 manifests/ci-deps-exceptions.json。
+anyio          # 导入名 anyio
+ctranslate2          # 导入名 ctranslate2
+faster-whisper          # 导入名 faster_whisper
+httpx          # 导入名 httpx
+loguru          # 导入名 loguru
+numpy          # 导入名 numpy
+pillow          # 导入名 PIL
+playwright          # 导入名 playwright
+pydantic          # 导入名 pydantic
+python-dotenv          # 导入名 dotenv
+rapidocr          # CI 解释器未装（导入名 rapidocr）；技能自带 .venv 已装 3.9.2 → 缺口在解释器，不在本机
+requests          # 导入名 requests
+sherpa-onnx          # CI 解释器未装（导入名 sherpa_onnx）；技能自带 .venv 已装 1.13.8 → 缺口在解释器，不在本机

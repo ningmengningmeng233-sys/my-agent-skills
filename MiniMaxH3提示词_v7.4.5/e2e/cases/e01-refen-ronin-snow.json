@@ -1,0 +1,21 @@
+{
+  "case_id": "e01-refen-ronin-snow",
+  "user_prompt": "用 ref2va 多模态参考生成这版雪夜拔刀戏",
+  "prompt_body": "subject_definitions:\n<Picture 1> is a shrine courtyard keyframe reference with snow coverage.\n<Video 1> is the camera motion reference.\n<Audio 1> is the ambient bed to reuse.\n<Subject 1> is a weathered ronin in a dark kimono kneeling by the lantern.\n\nsummary: [reference generation] One continuous take of a ronin drawing his blade under falling snow in a shrine courtyard.\n\nretention_analysis:\n<Picture 1> fully_preserved: courtyard layout, torii axis and snow coverage.\n<Video 1> partially_preserved: pacing only, framing rebuilt.\n<Audio 1> fully_copy: ambient bed kept intact.\n<Subject 1> attribute_transfer: wardrobe silhouette and props inherited.\n\ndetailed_description:\nPhotorealistic cinematic look, practical neon and lamp sources, shallow 35mm depth, natural skin texture.\n[Shot 1] The camera holds the courtyard of <Picture 1> as <Subject 1> kneels stage left of the stone lantern, facing the torii gate along a locked 180-degree axis, snow settling on his shoulders.\n[Shot 2] At 00:03.500, following the dolly pace of <Video 1>, <Subject 1> grips the tsuka with his right hand, thumbs the guard free with a soft click, and draws the blade in a rising arc; meltwater runs along the edge while the camera closes in.\n\noverall_soundscape: Wind hum through the eaves, cloth rustle as weight shifts, the blade's thin ring as it clears the scabbard, snow faintly ticking off the lantern cap.\n\nnon_diegetic_music: none, diegetic ambience carries the whole scene.\n",
+  "model": "H3",
+  "duration_s": 10,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "assets": {
+    "image": "https://cdn.example.invalid/h3refs/images/ref-e01.png",
+    "audio": "https://cdn.example.invalid/h3refs/audios/bed-e01.wav"
+  },
+  "constraints": [
+    {
+      "id": "pt-e01-refen-ronin-snow",
+      "value": "torii gate",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

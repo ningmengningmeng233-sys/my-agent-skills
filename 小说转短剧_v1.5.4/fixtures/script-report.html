@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="zh"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>战神归来之龙帅临门 · 剧本（第 1–3 集）</title>
+<style>
+:root{
+  --paper:#eceded; --panel:#f5f6f5; --side:#e4e6e3; --ink:#191d21; --ink-2:#5b636a; --ink-3:#8c9298;
+  --rule:#d2d5d0; --rule-2:#c2c6bf; --seal:#8a3324; --seal-2:#c56a4e; --seal-soft:#8a332412; --ok:#3d6b4f;
+  --band:#3d6b4f22;
+  --serif:"Songti SC","STSong","Source Han Serif SC","Noto Serif CJK SC",Georgia,serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
+.page{max-width:1600px;margin:0 auto;padding:24px 32px 90px}
+h1,h2,h3{margin:0;font-weight:400}
+
+.hd{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:12px}
+.hd h1{font:400 28px/1.1 var(--serif);letter-spacing:.06em}
+.hd .sub{font-size:13px;color:var(--ink-2)}
+.hd .right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.gatepill{display:inline-flex;align-items:center;gap:6px;font:500 12px/1 var(--sans);border-radius:99px;padding:6px 12px}
+.gatepill.pass{color:var(--ok);border:1px solid var(--ok)}
+.gatepill.fail{color:var(--seal);border:1px solid var(--seal);background:var(--seal-soft)}
+.expo{font:500 11px/1 var(--sans);color:var(--ink-2);background:var(--panel);
+  border:1px solid var(--rule-2);border-radius:2px;padding:7px 11px;cursor:pointer;transition:.15s}
+.expo:hover{border-color:var(--seal);color:var(--seal)}
+.expo:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:18px 0 6px}
+@media(max-width:980px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:11px 14px 9px}
+.kpi .l{font:500 10px/1 var(--sans);letter-spacing:.18em;color:var(--ink-3)}
+.kpi .v{font:400 28px/1.15 var(--serif);margin-top:5px}
+.kpi .v small{font:400 14px var(--serif);color:var(--ink-2)}
+.kpi .d{font-size:11px;color:var(--ink-2);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kpi.accent{border-top:2px solid var(--seal)}
+.galert{margin:14px 0 0;border:1px solid var(--seal);background:var(--seal-soft);border-radius:2px;
+  padding:10px 14px;font-size:13px}
+.galert b{color:var(--seal)}
+.galert span{display:block;font-size:12px;color:var(--ink-2)}
+
+section.top-sec{margin-top:34px}
+.sec-h{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule-2);padding-bottom:8px;margin-bottom:16px}
+.sec-h .no{font:500 12px/1 var(--mono);color:var(--seal)}
+.sec-h h2{font:400 20px/1.2 var(--serif);letter-spacing:.05em}
+.sec-h .note{margin-left:auto;font-size:12px;color:var(--ink-3)}
+
+/* duration gauge */
+.timing{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:16px 20px 10px}
+.trow{display:grid;grid-template-columns:44px minmax(0,1fr) 220px;gap:12px;align-items:center;padding:5px 0}
+.tep{font:500 12px/1 var(--mono);color:var(--ink-2)}
+.track{position:relative;height:18px;background:var(--paper);border:1px solid var(--rule);border-radius:2px;overflow:hidden}
+.band{position:absolute;top:0;bottom:0;background:var(--band)}
+.fill{position:absolute;top:2px;bottom:2px;border-radius:1px}
+.fill.dlg{left:0;background:var(--seal)}
+.fill.act{background:var(--seal-2)}
+.tval{font:500 12px/1.5 var(--sans);color:var(--ink-2)}
+.tval.okc{color:var(--ok)}
+.tval .over{color:var(--seal);font-weight:600}
+.legend{display:flex;gap:18px;font-size:12px;color:var(--ink-2);margin:8px 0 2px}
+.legend i{font-style:normal;display:inline-flex;align-items:center;gap:6px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px}
+
+/* episode scripts: two per row; scene area clips at 300px with a fade, expandable */
+.eps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.eps.solo{grid-template-columns:minmax(0,1fr)}
+@media(max-width:1100px){.eps{grid-template-columns:minmax(0,1fr)}}
+.ep{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:18px 22px}
+.scenes{position:relative}
+.scenes.clip{max-height:300px;overflow:hidden}
+.scenes.clip::after{content:'';position:absolute;left:0;right:0;bottom:0;height:70px;
+  background:linear-gradient(180deg,transparent,var(--panel));pointer-events:none}
+.scmore{display:block;width:100%;margin-top:8px;font:500 11.5px/1 var(--sans);letter-spacing:.06em;
+  color:var(--ink-2);background:var(--paper);border:1px solid var(--rule-2);border-radius:2px;
+  padding:7px 0;cursor:pointer;transition:.15s}
+.scmore:hover{border-color:var(--seal);color:var(--seal)}
+.scmore:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+.ep-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--rule-2);padding-bottom:10px}
+.ep-n{font:400 22px/1 var(--serif);letter-spacing:.04em;color:var(--seal)}
+.ep-est{font-size:12.5px;color:var(--ink-2)}
+.bt{font-style:normal;font-size:11px;padding:2px 8px;border:1px solid var(--seal);border-radius:99px;color:var(--seal)}
+.hk{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:10px;font-size:13px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.hk.cliff{border-bottom:0;border-top:1px solid var(--rule)}
+.hk b{font:500 11px/1.9 var(--sans);letter-spacing:.14em;color:var(--seal);white-space:nowrap}
+.scene-blk{margin-top:14px}
+.scene-h{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-bottom:8px}
+.scene-h b{font:500 13px var(--serif);letter-spacing:.06em}
+.chip{font:400 10.5px/1.6 var(--mono);border:1px solid var(--rule-2);border-radius:2px;
+  padding:0 6px;background:var(--paper);color:var(--ink-2)}
+.chip.lite{border-color:var(--seal-2);color:var(--seal-2)}
+.chip.prop{border-color:var(--seal);color:var(--seal)}
+.act-line{margin:8px 0;font:400 13.5px/1.9 var(--sans);color:var(--ink-2)}
+.act-line.hooked,.dlg-line.hooked{border-left:2px solid var(--seal);padding-left:10px;background:var(--seal-soft)}
+.hookat{font-style:normal;font-size:11px;padding:1px 8px;border:1px solid var(--seal);border-radius:99px;color:var(--seal);margin-left:8px;white-space:nowrap}
+.dlg-line{display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:12px;align-items:baseline;
+  padding:5px 0 5px 10px;border-left:2px solid var(--rule-2)}
+.dlg-line:hover{border-left-color:var(--seal)}
+.who{font:500 13px/1.6 var(--serif)}
+.who i{display:block;font:400 11px var(--sans);color:var(--ink-3);font-style:normal}
+.said{font:400 14.5px/1.8 var(--serif)}
+.dlg-line .copy{opacity:0;transition:.15s}
+.dlg-line:hover .copy{opacity:1}
+
+/* tables */
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--rule);font-size:13px}
+th,td{padding:8px 12px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+th{font:500 11px/1 var(--sans);letter-spacing:.1em;color:var(--ink-3);background:var(--side)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-family:var(--mono);font-size:12px;color:var(--ink-2);white-space:nowrap}
+
+/* line book: two per row; lists capped at 6 rows, scroll vertically */
+.casts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+@media(max-width:1100px){.casts{grid-template-columns:minmax(0,1fr)}}
+.cast-blk{background:var(--panel);border:1px solid var(--rule);border-radius:2px;padding:14px 18px}
+.cast-h{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule-2);padding-bottom:8px}
+.cast-h b{font:400 17px/1.2 var(--serif);letter-spacing:.04em}
+.cast-meta{font-size:12px;color:var(--ink-2)}
+.cast-h .copy{margin-left:auto}
+.cast-lines{margin:8px 0 0;padding:0 6px 0 0;list-style:none;max-height:186px;overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--rule-2) transparent}
+.cast-lines::-webkit-scrollbar{width:6px}
+.cast-lines::-webkit-scrollbar-thumb{background:var(--rule-2);border-radius:3px}
+.cast-lines li{display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:12px;align-items:baseline;
+  padding:4.5px 0;border-top:1px solid var(--rule);font-size:13px}
+.cast-lines li:first-child{border-top:0}
+.cast-lines i{font:400 11px/1.8 var(--mono);color:var(--ink-3);font-style:normal}
+.cast-lines span{font-family:var(--serif)}
+.cast-lines em{font-style:normal;font-size:11.5px;color:var(--ink-3)}
+
+.copy{flex:none;font:500 11px/1 var(--sans);color:var(--ink-2);background:var(--paper);
+  border:1px solid var(--rule-2);border-radius:2px;padding:4px 10px;cursor:pointer;transition:.15s}
+.copy:hover{border-color:var(--seal);color:var(--seal)}
+.copy:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+.copy[data-done]{border-color:var(--seal);color:var(--seal)}
+.copy.mini{padding:2px 7px;font-size:10.5px}
+
+.gate{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:2px 28px}
+@media(max-width:900px){.gate{grid-template-columns:1fr}}
+.gate li{display:flex;gap:8px;padding:5px 0;font-size:12.5px;line-height:1.55}
+.gate .m{flex:none;font-weight:700}
+.gate li.ok .m{color:var(--ok)}
+.gate li.bad .m{color:var(--seal)}
+.gate li.bad{background:var(--seal-soft);border-radius:2px;padding-left:6px}
+.gate small{display:block;color:var(--ink-3)}
+.gsum{margin:10px 0 0;font-size:12px;color:var(--ink-2)}
+.gsum b{color:var(--seal)}
+
+.foot{margin-top:40px;font-size:11px;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:14px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{
+  .expo,.copy,.scmore{display:none!important}
+  .scenes.clip{max-height:none}
+  .scenes.clip::after{display:none}
+  .cast-lines{max-height:none;overflow:visible}
+  .eps,.casts{grid-template-columns:minmax(0,1fr)}
+  .page{max-width:none;padding:0}
+  section.top-sec,.ep,.cast-blk{page-break-inside:avoid}
+  body{background:#fff}
+}
+</style></head><body>
+<div class="page">
+
+<header class="hd">
+  <h1>战神归来之龙帅临门</h1>
+  <span class="sub">剧本 · 第 1–3 集</span>
+  <span class="right">
+    <span class="gatepill pass">✓ 质量门 10 / 10</span>
+    <button class="expo" data-name="战神归来之龙帅临门-script.json">导出 JSON</button>
+  </span>
+</header>
+
+<div class="kpis">
+  <div class="kpi accent"><div class="l">集数</div><div class="v">3</div><div class="d">4 场戏</div></div>
+  <div class="kpi"><div class="l">预估总时长</div><div class="v">4 分 2 秒</div><div class="d">目标 4 分 30 秒</div></div>
+  <div class="kpi"><div class="l">台词</div><div class="v">28 <small>句</small></div><div class="d">约 124.1 秒对白</div></div>
+  <div class="kpi"><div class="l">台词占比</div><div class="v">51<small>%</small></div><div class="d">其余是画面与动作</div></div>
+  <div class="kpi"><div class="l">平均每场</div><div class="v">60.4 <small>秒</small></div><div class="d">换景是统计不是门——AI 换景不要钱</div></div>
+</div>
+
+
+<section class="top-sec" id="sec-timing">
+  <div class="sec-h"><span class="no">01</span><h2>时长仪表</h2><span class="note">绿带 = 目标 ±15%；台词按语速折算，动作按节拍估时</span></div>
+  <div class="timing">
+    <div class="legend">
+      <i><span class="sw" style="background:var(--seal)"></span>台词</i>
+      <i><span class="sw" style="background:var(--seal-2)"></span>动作</i>
+      <i><span class="sw" style="background:var(--band)"></span>目标区间</i>
+    </div>
+<div class="trow">
+  <span class="tep">E01</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:39.2%"></span>
+    <span class="fill act" style="left:39.2%;width:35.8%"></span>
+  </div>
+  <span class="tval okc">83.8s / 90s</span>
+</div>
+<div class="trow">
+  <span class="tep">E02</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:35.4%"></span>
+    <span class="fill act" style="left:35.4%;width:35.8%"></span>
+  </div>
+  <span class="tval okc">79.6s / 90s</span>
+</div>
+<div class="trow">
+  <span class="tep">E03</span>
+  <div class="track">
+    <span class="band" style="left:68.4%;width:24.2%"></span>
+    <span class="fill dlg" style="width:36.4%"></span>
+    <span class="fill act" style="left:36.4%;width:33.5%"></span>
+  </div>
+  <span class="tval okc">78.2s / 90s</span>
+</div>
+  </div>
+</section>
+
+<section class="top-sec" id="sec-script">
+  <div class="sec-h"><span class="no">02</span><h2>分集剧本</h2><span class="note">一排两集 · 场次信息超高自动截断，点开看全部</span></div>
+  <div class="eps">
+<article class="ep" id="ep-1">
+  <header class="ep-h">
+    <span class="ep-n">E01</span>
+    <span class="ep-est">预估 83.8 秒 / 目标 90 秒</span>
+    <i class="bt">家族羞辱</i><i class="bt">身份初显</i>
+  </header>
+  <div class="hk"><b>开场钩子</b><span>林晨手按碎瓷片，鲜血在地砖蔓延 <i class="hookat">第 1 场第 2 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S01 S01</span>
+    
+    <span class="chip">林晨</span><span class="chip">顾雨薇</span><span class="chip">顾浩</span>
+    
+  </header>
+  <p class="act-line">顾浩端着热茶猛地泼在地上，抬起锃亮的皮鞋，狠狠踹在林晨后背。</p>
+<p class="act-line hooked" title="开场钩子">林晨踉跄扑倒，右手掌心死死按在地上碎裂的青瓷茶杯碎片上，鲜血涌出地砖。</p>
+<div class="dlg-line"><span class="who">顾浩<i>踩着林晨手背，冷笑着晃动高脚酒杯</i></span><span class="said">让你倒杯茶都倒不好，顾家养条狗都比你有用！</span><button class="copy mini" data-copy="让你倒杯茶都倒不好，顾家养条狗都比你有用！">复制</button></div>
+<p class="act-line">林晨咬牙支撑住地面，掌心的碎瓷片扎得更深，没有发出一声哀鸣。</p>
+<p class="act-line">顾雨薇踩着红色高跟鞋大步走近，从手包中抽出一叠打印纸，重重砸在林晨脸上。</p>
+<div class="dlg-line"><span class="who">顾雨薇<i>双手抱胸，居高临下俯视着他</i></span><span class="said">把字签了，去巡抚衙门替我哥顶醉驾撞人的重罪。</span><button class="copy mini" data-copy="把字签了，去巡抚衙门替我哥顶醉驾撞人的重罪。">复制</button></div>
+<p class="act-line">白纸散落一地，上面印着加黑加粗的四个大字：离婚协议书。</p>
+<div class="dlg-line"><span class="who">林晨<i>拔出手掌上深深嵌着的碎瓷片，血滴在纸上</i></span><span class="said">……老爷子昨天刚进重症监护室。</span><button class="copy mini" data-copy="……老爷子昨天刚进重症监护室。">复制</button></div>
+<div class="dlg-line"><span class="who">顾雨薇<i>冷哼一声，高跟鞋踢开地上的碎片</i></span><span class="said">老头子快咽气了，现在顾家上下我说了算！</span><button class="copy mini" data-copy="老头子快咽气了，现在顾家上下我说了算！">复制</button></div>
+<p class="act-line">顾浩快步绕到林晨面前，伸手揪住林晨领口，将他整个人往上狠狠提拽。</p>
+<div class="dlg-line"><span class="who">顾浩<i>恶狠狠咬牙切齿，唾沫星子喷在林晨脸上</i></span><span class="said">不签，老子今晚就派人拔了你病重妹妹的氧气管！</span><button class="copy mini" data-copy="不签，老子今晚就派人拔了你病重妹妹的氧气管！">复制</button></div>
+<p class="act-line">林晨眼眸骤然一缩，右臂肌肉暴起，硬生生按住茶几边缘。</p>
+<div class="dlg-line"><span class="who">林晨<i>声音低沉冰冷，字字带杀意</i></span><span class="said">你敢动晚晚一根头发，我平了你顾家。</span><button class="copy mini" data-copy="你敢动晚晚一根头发，我平了你顾家。">复制</button></div>
+<p class="act-line">顾浩甩手一巴掌抽在林晨脸上，林晨偏过头，嘴角溢出一丝鲜血。</p>
+<div class="dlg-line"><span class="who">顾浩<i>哈哈大笑，抬手抓起桌上的黑色签字笔塞进林晨手里</i></span><span class="said">平了顾家？你先保住你这条狗命再说，快签！</span><button class="copy mini" data-copy="平了顾家？你先保住你这条狗命再说，快签！">复制</button></div>
+<p class="act-line">林晨握住钢笔，在协议末尾刷刷划下自己的名字，并在签字处按上一道刺目血手印。</p>
+<div class="dlg-line"><span class="who">林晨<i>把笔拍在茶几上，缓缓站起身</i></span><span class="said">字签完了。希望你们不要后悔。</span><button class="copy mini" data-copy="字签完了。希望你们不要后悔。">复制</button></div>
+<p class="act-line">顾雨薇捡起协议吹干墨迹，得意洋洋折好收进皮包，朝门外挥手。</p>
+<div class="dlg-line"><span class="who">顾雨薇<i>尖酸吩咐门外站岗的黑衣保镖</i></span><span class="said">保镖！把他给我扔出顾家大门，看着恶心！</span><button class="copy mini" data-copy="保镖！把他给我扔出顾家大门，看着恶心！">复制</button></div>
+<p class="act-line">两名保镖大步上前扭住林晨双手，推搡着将他推出了大门。</p>
+</section>
+<section class="scene-blk">
+  <header class="scene-h">
+    <b>第 2 场</b>
+    <span class="chip">S02 S02</span>
+    
+    <span class="chip">林晨</span>
+    
+  </header>
+  <p class="act-line">两名保镖将林晨猛地推翻在雨水积洼里，铁门轰然闭合落锁。</p>
+<p class="act-line">天空暴雨倾盆，林晨抹了一把脸上的冰水，缓缓站起身躯。</p>
+<p class="act-line">他的脊背如标枪般笔挺，伸手从怀中贴身处摸出一枚九龙玄金令。</p>
+<div class="dlg-line"><span class="who">林晨<i>按下令牌背面的隐秘通讯按钮，对准麦克风</i></span><span class="said">北境龙骑近卫何在？</span><button class="copy mini" data-copy="北境龙骑近卫何在？">复制</button></div>
+<p class="act-line">令牌内置扩音器传出数百名战士整齐划一的咆哮声。</p>
+<div class="dlg-line"><span class="who">林晨<i>语气平静得毫无温度，下达最终指令</i></span><span class="said">第一装甲师进城，封死顾家所有进出路口。</span><button class="copy mini" data-copy="第一装甲师进城，封死顾家所有进出路口。">复制</button></div>
+<p class="act-line">长街尽头瞬间亮起十数道雪白战术大灯，十辆防暴装甲车如钢铁巨兽破雨合围！</p>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>十辆装甲车合围大宅，雪白大灯照亮暴雨</span></div>
+</article>
+<article class="ep" id="ep-2">
+  <header class="ep-h">
+    <span class="ep-n">E02</span>
+    <span class="ep-est">预估 79.6 秒 / 目标 90 秒</span>
+    <i class="bt">战部围门</i>
+  </header>
+  <div class="hk"><b>开场钩子</b><span>装甲车冲破顾家铁门，卫士列队拔枪 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S01 S01</span>
+    
+    <span class="chip">林晨</span><span class="chip">顾雨薇</span><span class="chip">顾浩</span>
+    
+  </header>
+  <p class="act-line hooked" title="开场钩子">重型装甲车一记暴击撞碎顾家铸铁大门，钢铁碎块四散飞溅，轰然压停在院落中央。</p>
+<p class="act-line">顾雨薇与顾浩端着红酒杯仓皇冲出客厅台阶，酒液洒了满身。</p>
+<div class="dlg-line"><span class="who">顾浩<i>双腿发软，指着装甲车扯着嗓子大叫</i></span><span class="said">你们是谁部下的兵？知不知道这是顾家私宅！</span><button class="copy mini" data-copy="你们是谁部下的兵？知不知道这是顾家私宅！">复制</button></div>
+<p class="act-line">车厢两翼铁门整齐弹开，上百名全副武装的黑甲卫士翻身跳下，战靴踏溅起齐膝水花。</p>
+<p class="act-line">咔嚓一声脆响，数十柄突击步枪黑洞洞的枪口齐刷刷锁定顾浩二人眉心。</p>
+<div class="dlg-line"><span class="who">顾雨薇<i>吓得高跟鞋扭到，慌忙扔掉酒杯举起双手</i></span><span class="said">各位长官别开枪！我们是正经商人，遵纪守法！</span><button class="copy mini" data-copy="各位长官别开枪！我们是正经商人，遵纪守法！">复制</button></div>
+<p class="act-line">为首的战部统领身披黑色战袍大步走出车队，肩扛两颗金星，目光如电。</p>
+<div class="dlg-line"><span class="who">顾浩<i>认出了统领军衔，满脸谄媚连滚带爬迎上前</i></span><span class="said">将军！我是顾家大少顾浩，我认识战区赵副官！</span><button class="copy mini" data-copy="将军！我是顾家大少顾浩，我认识战区赵副官！">复制</button></div>
+<p class="act-line">统领反手一记重重的铁掌抽在顾浩脸上，打得他牙齿崩飞两颗，整个人横飞撞碎假山。</p>
+<div class="dlg-line"><span class="who">顾浩<i>捂着血肉模糊的面颊，在泥浆里哀嚎打滚</i></span><span class="said">我的牙！长官您为什么打我！</span><button class="copy mini" data-copy="我的牙！长官您为什么打我！">复制</button></div>
+<p class="act-line">顾雨薇吓得魂飞魄散，扑通一声重重跪倒在烂泥地上，拽住统领裤腿苦苦哀求。</p>
+<div class="dlg-line"><span class="who">顾雨薇<i>眼泪糊花浓妆，吓得浑身筛糠般发抖</i></span><span class="said">长官饶命！要多少钱我们赔，求长官高抬贵手！</span><button class="copy mini" data-copy="长官饶命！要多少钱我们赔，求长官高抬贵手！">复制</button></div>
+<p class="act-line">统领抬脚将顾雨薇狠狠踢翻，扶着腰间配刀，目不斜视径直穿过院落。</p>
+<p class="act-line">统领快步走到独自站在雨幕中的林晨面前，整肃军容，猛地挺直身板立正。</p>
+<div class="dlg-line"><span class="who">顾雨薇<i>从泥泞里探出头，看见林晨大喊大叫</i></span><span class="said">长官！这个乞丐是入赘废柴，你们快毙了他！</span><button class="copy mini" data-copy="长官！这个乞丐是入赘废柴，你们快毙了他！">复制</button></div>
+<p class="act-line">在顾雨薇与顾浩惊恐欲绝的目光中，战部统领单膝重重砸进积水，右拳狠击胸前战甲！</p>
+<p class="act-line">统领迈着沉重的战靴跨入院落，右手搭在配枪上，环顾四周慌乱的保镖。</p>
+<div class="dlg-line"><span class="who">顾雨薇<i>连滚带爬后退，指着大厅内瑟瑟发抖的保镖大声喝斥</i></span><span class="said">你们这帮废物还愣着干什么？快护送我和大少爷进屋！</span><button class="copy mini" data-copy="你们这帮废物还愣着干什么？快护送我和大少爷进屋！">复制</button></div>
+<p class="act-line">七八名顾家保镖刚拔出橡胶警棍，两名卫士抬枪便是一记枪托猛砸，当场将保镖砸翻在地。</p>
+<p class="act-line">顾浩吓得尿流满地，连滚带爬躲在假山石后，死命抓紧顾雨薇的高跟鞋。</p>
+<div class="dlg-line"><span class="who">顾浩<i>哭爹喊娘，眼泪鼻涕横流</i></span><span class="said">别开枪！长官饶命！我让我爸给你们战区捐款一个亿！</span><button class="copy mini" data-copy="别开枪！长官饶命！我让我爸给你们战区捐款一个亿！">复制</button></div>
+<p class="act-line">统领冷笑一声，抽出腰间手枪直接顶在顾浩脑门上，吓得顾浩狂翻白眼。</p>
+<p class="act-line">统领收起配枪，转身大步跨到站在雨中的林晨面前，立定敬礼。</p>
+<p class="act-line">暴雨狂风吹得顾家老宅的院门剧烈摇晃，战部统领面无表情注视着院内众人。</p>
+<div class="dlg-line"><span class="who">林晨<i>林晨微微颔首，目光平视大门方向</i></span><span class="said">传令下去，三分钟内肃清现场。</span><button class="copy mini" data-copy="传令下去，三分钟内肃清现场。">复制</button></div>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>顾雨薇跪地求饶，战部统领却向林晨躬身敬礼</span></div>
+</article>
+<article class="ep" id="ep-3">
+  <header class="ep-h">
+    <span class="ep-n">E03</span>
+    <span class="ep-est">预估 78.2 秒 / 目标 90 秒</span>
+    <i class="bt">当场打脸</i>
+  </header>
+  <div class="hk"><b>开场钩子</b><span>统领单膝跪地，双手呈上九龙金帅印 <i class="hookat">第 1 场第 1 拍兑现</i></span></div>
+  <div class="scenes clip">
+  <section class="scene-blk">
+  <header class="scene-h">
+    <b>第 1 场</b>
+    <span class="chip">S01 S01</span>
+    
+    <span class="chip">林晨</span><span class="chip">顾雨薇</span><span class="chip">顾浩</span>
+    
+  </header>
+  <p class="act-line hooked" title="开场钩子">统领双手高高举起一只紫檀木金漆大盒，单膝跪地，头颅深深低下。</p>
+<p class="act-line">木盒咔嗒弹开，一尊九龙缠绕的实心纯金统帅大印在探照灯下散发滔天威严。</p>
+<div class="dlg-line"><span class="who">顾雨薇<i>跪在泥地里捂住嘴巴，两眼瞪大满是不可思议</i></span><span class="said">九龙帅印……战部统领竟然向这个上门女婿下跪？</span><button class="copy mini" data-copy="九龙帅印……战部统领竟然向这个上门女婿下跪？">复制</button></div>
+<p class="act-line">顾浩从花坛碎石堆里挣扎着爬出半截身子，满嘴血沫，指着林晨直打摆子。</p>
+<div class="dlg-line"><span class="who">顾浩<i>声音颤抖破音，极度恐惧连声尖叫</i></span><span class="said">假的！一定是演员！他连五十块零花钱都要伸手要！</span><button class="copy mini" data-copy="假的！一定是演员！他连五十块零花钱都要伸手要！">复制</button></div>
+<p class="act-line">两名卫士快步上前，枪托重重砸在顾浩后颈，将他死死压在泥水里动弹不得。</p>
+<p class="act-line">林晨单手拿起黄金帅印，迈步走下台阶，皮鞋停在顾雨薇脸前三寸处。</p>
+<div class="dlg-line"><span class="who">林晨<i>居高临下俯视顾雨薇，眼神如看蝼蚁</i></span><span class="said">老太爷的恩情我还了三年。今天，债清了。</span><button class="copy mini" data-copy="老太爷的恩情我还了三年。今天，债清了。">复制</button></div>
+<p class="act-line">顾雨薇拼命膝行上前抱住林晨的皮鞋，哭得眼泪鼻涕横流，拼命磕头求饶。</p>
+<div class="dlg-line"><span class="who">顾雨薇<i>撕心裂肺哀求，脑袋在水泥地上撞出血痕</i></span><span class="said">老公我错了！我刚才糊涂了，我们不要离婚好不好！</span><button class="copy mini" data-copy="老公我错了！我刚才糊涂了，我们不要离婚好不好！">复制</button></div>
+<p class="act-line">林晨抬脚甩开顾雨薇，从怀中摸出那份沾血的离婚协议，揉成一团砸在她脸上。</p>
+<div class="dlg-line"><span class="who">林晨<i>冷酷下令，没有一丝留恋</i></span><span class="said">查封顾家全城产业，通知执法队彻查顾浩醉驾杀人案。</span><button class="copy mini" data-copy="查封顾家全城产业，通知执法队彻查顾浩醉驾杀人案。">复制</button></div>
+<p class="act-line">顾浩听到彻查二字，白眼一翻吓得尿了裤子，当场瘫软昏死过去！</p>
+<p class="act-line">两名冷面卫士上前拽住尖叫瘫软的顾雨薇双臂，咔嚓一声拷上锃亮手铐押进装甲车！</p>
+<p class="act-line">两名卫士快步走向大厅，将顾老太爷珍藏的名贵紫檀太师椅搬出，摆放在林晨身后。</p>
+<p class="act-line">林晨稳稳坐下，玄铁龙帅令在指尖飞快旋转，发出阵阵龙吟般的破空声。</p>
+<div class="dlg-line"><span class="who">顾雨薇<i>拼命用衣袖擦拭地上的泥水，痛哭流涕磕头求饶</i></span><span class="said">林晨！你看在老太爷当年救你一命的份上，饶顾家一次吧！</span><button class="copy mini" data-copy="林晨！你看在老太爷当年救你一命的份上，饶顾家一次吧！">复制</button></div>
+<p class="act-line">林晨端起警卫员递来的热茶，轻轻吹散热气，抿了一口。</p>
+<div class="dlg-line"><span class="who">林晨<i>放下茶杯，目光深邃而冷峻</i></span><span class="said">若非念及老太爷恩情，顾家今晚早已尸骨无存。</span><button class="copy mini" data-copy="若非念及老太爷恩情，顾家今晚早已尸骨无存。">复制</button></div>
+<p class="act-line">顾浩在泥水里哆哆嗦嗦伸出双手，拼命扇自己的嘴巴子，脸颊打得皮开肉绽。</p>
+<div class="dlg-line"><span class="who">顾浩<i>一边抽自己耳光一边求饶</i></span><span class="said">姐夫！是我狗眼看人低！我是畜生！您大人不记小人过！</span><button class="copy mini" data-copy="姐夫！是我狗眼看人低！我是畜生！您大人不记小人过！">复制</button></div>
+<p class="act-line">林晨站起身，将杯中残茶倾倒在顾浩面前的积水里。</p>
+<p class="act-line">装甲车引擎轰鸣咆哮，巨大的车轮压碎顾家宅院的青石板路，驶向全城各大关口。</p>
+</section>
+  </div>
+  <button class="scmore">▾ 展开全部场次</button>
+  <div class="hk cliff"><b>结尾悬念</b><span>顾浩吓破苦胆昏死，林晨下令查封顾家全城产业</span></div>
+</article>
+  </div>
+</section>
+
+<section class="top-sec" id="sec-scenes">
+  <div class="sec-h"><span class="no">03</span><h2>场次总表</h2><span class="note">自动汇总 · 模型不写</span></div>
+  <table><thead><tr><th>集</th><th>场</th><th>场景</th><th>光照</th><th>人物</th><th>台词句数</th><th>估秒</th></tr></thead>
+<tbody><tr><td>1</td><td>1</td><td>S01 S01</td><td></td><td>林晨、顾雨薇、顾浩</td><td>9</td><td>65.1</td></tr>
+<tr><td>1</td><td>2</td><td>S02 S02</td><td></td><td>林晨</td><td>2</td><td>18.7</td></tr>
+<tr><td>2</td><td>1</td><td>S01 S01</td><td></td><td>林晨、顾雨薇、顾浩</td><td>9</td><td>79.6</td></tr>
+<tr><td>3</td><td>1</td><td>S01 S01</td><td></td><td>林晨、顾雨薇、顾浩</td><td>8</td><td>78.2</td></tr></tbody></table>
+</section>
+
+<section class="top-sec" id="sec-cast">
+  <div class="sec-h"><span class="no">04</span><h2>台词本</h2><span class="note">按角色聚合 · 列表最多显示 6 行可滚动 · 直接对接 TTS 批量生成</span></div>
+  <div class="casts">
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>顾雨薇</b>
+    <span class="cast-meta">10 句 · 217 字 · 约 48.2 秒</span>
+    
+    <button class="copy" data-copy="把字签了，去巡抚衙门替我哥顶醉驾撞人的重罪。
+老头子快咽气了，现在顾家上下我说了算！
+保镖！把他给我扔出顾家大门，看着恶心！
+各位长官别开枪！我们是正经商人，遵纪守法！
+长官饶命！要多少钱我们赔，求长官高抬贵手！
+长官！这个乞丐是入赘废柴，你们快毙了他！
+你们这帮废物还愣着干什么？快护送我和大少爷进屋！
+九龙帅印……战部统领竟然向这个上门女婿下跪？
+老公我错了！我刚才糊涂了，我们不要离婚好不好！
+林晨！你看在老太爷当年救你一命的份上，饶顾家一次吧！">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E01 第 1 场</i><span>把字签了，去巡抚衙门替我哥顶醉驾撞人的重罪。</span><em>双手抱胸，居高临下俯视着他</em></li><li><i>E01 第 1 场</i><span>老头子快咽气了，现在顾家上下我说了算！</span><em>冷哼一声，高跟鞋踢开地上的碎片</em></li><li><i>E01 第 1 场</i><span>保镖！把他给我扔出顾家大门，看着恶心！</span><em>尖酸吩咐门外站岗的黑衣保镖</em></li><li><i>E02 第 1 场</i><span>各位长官别开枪！我们是正经商人，遵纪守法！</span><em>吓得高跟鞋扭到，慌忙扔掉酒杯举起双手</em></li><li><i>E02 第 1 场</i><span>长官饶命！要多少钱我们赔，求长官高抬贵手！</span><em>眼泪糊花浓妆，吓得浑身筛糠般发抖</em></li><li><i>E02 第 1 场</i><span>长官！这个乞丐是入赘废柴，你们快毙了他！</span><em>从泥泞里探出头，看见林晨大喊大叫</em></li><li><i>E02 第 1 场</i><span>你们这帮废物还愣着干什么？快护送我和大少爷进屋！</span><em>连滚带爬后退，指着大厅内瑟瑟发抖的保镖大声喝斥</em></li><li><i>E03 第 1 场</i><span>九龙帅印……战部统领竟然向这个上门女婿下跪？</span><em>跪在泥地里捂住嘴巴，两眼瞪大满是不可思议</em></li><li><i>E03 第 1 场</i><span>老公我错了！我刚才糊涂了，我们不要离婚好不好！</span><em>撕心裂肺哀求，脑袋在水泥地上撞出血痕</em></li><li><i>E03 第 1 场</i><span>林晨！你看在老太爷当年救你一命的份上，饶顾家一次吧！</span><em>拼命用衣袖擦拭地上的泥水，痛哭流涕磕头求饶</em></li></ol>
+</section>
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>顾浩</b>
+    <span class="cast-meta">9 句 · 189 字 · 约 42 秒</span>
+    
+    <button class="copy" data-copy="让你倒杯茶都倒不好，顾家养条狗都比你有用！
+不签，老子今晚就派人拔了你病重妹妹的氧气管！
+平了顾家？你先保住你这条狗命再说，快签！
+你们是谁部下的兵？知不知道这是顾家私宅！
+将军！我是顾家大少顾浩，我认识战区赵副官！
+我的牙！长官您为什么打我！
+别开枪！长官饶命！我让我爸给你们战区捐款一个亿！
+假的！一定是演员！他连五十块零花钱都要伸手要！
+姐夫！是我狗眼看人低！我是畜生！您大人不记小人过！">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E01 第 1 场</i><span>让你倒杯茶都倒不好，顾家养条狗都比你有用！</span><em>踩着林晨手背，冷笑着晃动高脚酒杯</em></li><li><i>E01 第 1 场</i><span>不签，老子今晚就派人拔了你病重妹妹的氧气管！</span><em>恶狠狠咬牙切齿，唾沫星子喷在林晨脸上</em></li><li><i>E01 第 1 场</i><span>平了顾家？你先保住你这条狗命再说，快签！</span><em>哈哈大笑，抬手抓起桌上的黑色签字笔塞进林晨手里</em></li><li><i>E02 第 1 场</i><span>你们是谁部下的兵？知不知道这是顾家私宅！</span><em>双腿发软，指着装甲车扯着嗓子大叫</em></li><li><i>E02 第 1 场</i><span>将军！我是顾家大少顾浩，我认识战区赵副官！</span><em>认出了统领军衔，满脸谄媚连滚带爬迎上前</em></li><li><i>E02 第 1 场</i><span>我的牙！长官您为什么打我！</span><em>捂着血肉模糊的面颊，在泥浆里哀嚎打滚</em></li><li><i>E02 第 1 场</i><span>别开枪！长官饶命！我让我爸给你们战区捐款一个亿！</span><em>哭爹喊娘，眼泪鼻涕横流</em></li><li><i>E03 第 1 场</i><span>假的！一定是演员！他连五十块零花钱都要伸手要！</span><em>声音颤抖破音，极度恐惧连声尖叫</em></li><li><i>E03 第 1 场</i><span>姐夫！是我狗眼看人低！我是畜生！您大人不记小人过！</span><em>一边抽自己耳光一边求饶</em></li></ol>
+</section>
+<section class="cast-blk">
+  <header class="cast-h">
+    <b>林晨</b>
+    <span class="cast-meta">9 句 · 152 字 · 约 33.8 秒</span>
+    
+    <button class="copy" data-copy="……老爷子昨天刚进重症监护室。
+你敢动晚晚一根头发，我平了你顾家。
+字签完了。希望你们不要后悔。
+北境龙骑近卫何在？
+第一装甲师进城，封死顾家所有进出路口。
+传令下去，三分钟内肃清现场。
+老太爷的恩情我还了三年。今天，债清了。
+查封顾家全城产业，通知执法队彻查顾浩醉驾杀人案。
+若非念及老太爷恩情，顾家今晚早已尸骨无存。">复制全部台词</button>
+  </header>
+  <ol class="cast-lines"><li><i>E01 第 1 场</i><span>……老爷子昨天刚进重症监护室。</span><em>拔出手掌上深深嵌着的碎瓷片，血滴在纸上</em></li><li><i>E01 第 1 场</i><span>你敢动晚晚一根头发，我平了你顾家。</span><em>声音低沉冰冷，字字带杀意</em></li><li><i>E01 第 1 场</i><span>字签完了。希望你们不要后悔。</span><em>把笔拍在茶几上，缓缓站起身</em></li><li><i>E01 第 2 场</i><span>北境龙骑近卫何在？</span><em>按下令牌背面的隐秘通讯按钮，对准麦克风</em></li><li><i>E01 第 2 场</i><span>第一装甲师进城，封死顾家所有进出路口。</span><em>语气平静得毫无温度，下达最终指令</em></li><li><i>E02 第 1 场</i><span>传令下去，三分钟内肃清现场。</span><em>林晨微微颔首，目光平视大门方向</em></li><li><i>E03 第 1 场</i><span>老太爷的恩情我还了三年。今天，债清了。</span><em>居高临下俯视顾雨薇，眼神如看蝼蚁</em></li><li><i>E03 第 1 场</i><span>查封顾家全城产业，通知执法队彻查顾浩醉驾杀人案。</span><em>冷酷下令，没有一丝留恋</em></li><li><i>E03 第 1 场</i><span>若非念及老太爷恩情，顾家今晚早已尸骨无存。</span><em>放下茶杯，目光深邃而冷峻</em></li></ol>
+</section>
+  </div>
+</section>
+
+<section class="top-sec" id="sec-gates">
+  <div class="sec-h"><span class="no">05</span><h2>质量门</h2></div>
+  <ul class="gate">
+  <li class="ok"><span class="m">✓</span><span>每集时长在目标 ±15% 内</span></li>
+  <li class="ok"><span class="m">✓</span><span>单句台词 ≤ 35 字</span></li>
+  <li class="ok"><span class="m">✓</span><span>说话人在本场人物里，或明确标画外音 VO</span></li>
+  <li class="ok"><span class="m">✓</span><span>每集开场钩子与结尾悬念都落在纸面</span></li>
+  <li class="ok"><span class="m">✓</span><span>钩子的具象在全集前 3 拍内兑现（hookBeat 认领）</span></li>
+  <li class="ok"><span class="m">✓</span><span>每场至少一个动作节拍——纯对白的场是广播剧</span></li>
+  <li class="ok"><span class="m">✓</span><span>动作描述叙述体，台词只进 dialogue 字段</span></li>
+  <li class="ok"><span class="m">✓</span><span>大纲爽点逐集认领</span></li>
+  <li class="ok"><span class="m">✓</span><span>角色引用对账大纲</span></li>
+  <li class="ok"><span class="m">✓</span><span>场景／光照／道具对账美术设定<small>未提供 art.json，本门跳过（视为通过）</small></span></li>
+</ul>
+  <p class="gsum">全部通过</p>
+</section>
+
+<p class="foot">剧本由模型依据大纲与美术设定生成，时长与引用由脚本确定性检查。分镜与首帧提示词是下一层的事，不在本报告里。</p>
+</div>
+
+<script type="application/json" id="script-data">{"source":"战神归来之龙帅临门","version":"1.1.0","episodes":[{"ep":1,"targetSeconds":90,"hook":"林晨手按碎瓷片，鲜血在地砖蔓延","hookBeat":[1,2],"cliff":"十辆装甲车合围大宅，雪白大灯照亮暴雨","beatsClaimed":["家族羞辱","身份初显"],"scenes":[{"sceneId":"S01","location":"顾家客厅","characters":["C01","C02","C03"],"flow":[{"type":"action","action":"顾浩端着热茶猛地泼在地上，抬起锃亮的皮鞋，狠狠踹在林晨后背。"},{"type":"action","action":"林晨踉跄扑倒，右手掌心死死按在地上碎裂的青瓷茶杯碎片上，鲜血涌出地砖。"},{"type":"dialogue","speaker":"C03","delivery":"踩着林晨手背，冷笑着晃动高脚酒杯","line":"让你倒杯茶都倒不好，顾家养条狗都比你有用！"},{"type":"action","action":"林晨咬牙支撑住地面，掌心的碎瓷片扎得更深，没有发出一声哀鸣。"},{"type":"action","action":"顾雨薇踩着红色高跟鞋大步走近，从手包中抽出一叠打印纸，重重砸在林晨脸上。"},{"type":"dialogue","speaker":"C02","delivery":"双手抱胸，居高临下俯视着他","line":"把字签了，去巡抚衙门替我哥顶醉驾撞人的重罪。"},{"type":"action","action":"白纸散落一地，上面印着加黑加粗的四个大字：离婚协议书。"},{"type":"dialogue","speaker":"C01","delivery":"拔出手掌上深深嵌着的碎瓷片，血滴在纸上","line":"……老爷子昨天刚进重症监护室。"},{"type":"dialogue","speaker":"C02","delivery":"冷哼一声，高跟鞋踢开地上的碎片","line":"老头子快咽气了，现在顾家上下我说了算！"},{"type":"action","action":"顾浩快步绕到林晨面前，伸手揪住林晨领口，将他整个人往上狠狠提拽。"},{"type":"dialogue","speaker":"C03","delivery":"恶狠狠咬牙切齿，唾沫星子喷在林晨脸上","line":"不签，老子今晚就派人拔了你病重妹妹的氧气管！"},{"type":"action","action":"林晨眼眸骤然一缩，右臂肌肉暴起，硬生生按住茶几边缘。"},{"type":"dialogue","speaker":"C01","delivery":"声音低沉冰冷，字字带杀意","line":"你敢动晚晚一根头发，我平了你顾家。"},{"type":"action","action":"顾浩甩手一巴掌抽在林晨脸上，林晨偏过头，嘴角溢出一丝鲜血。"},{"type":"dialogue","speaker":"C03","delivery":"哈哈大笑，抬手抓起桌上的黑色签字笔塞进林晨手里","line":"平了顾家？你先保住你这条狗命再说，快签！"},{"type":"action","action":"林晨握住钢笔，在协议末尾刷刷划下自己的名字，并在签字处按上一道刺目血手印。"},{"type":"dialogue","speaker":"C01","delivery":"把笔拍在茶几上，缓缓站起身","line":"字签完了。希望你们不要后悔。"},{"type":"action","action":"顾雨薇捡起协议吹干墨迹，得意洋洋折好收进皮包，朝门外挥手。"},{"type":"dialogue","speaker":"C02","delivery":"尖酸吩咐门外站岗的黑衣保镖","line":"保镖！把他给我扔出顾家大门，看着恶心！"},{"type":"action","action":"两名保镖大步上前扭住林晨双手，推搡着将他推出了大门。"}]},{"sceneId":"S02","location":"顾家大门外泥泞路","characters":["C01"],"flow":[{"type":"action","action":"两名保镖将林晨猛地推翻在雨水积洼里，铁门轰然闭合落锁。"},{"type":"action","action":"天空暴雨倾盆，林晨抹了一把脸上的冰水，缓缓站起身躯。"},{"type":"action","action":"他的脊背如标枪般笔挺，伸手从怀中贴身处摸出一枚九龙玄金令。"},{"type":"dialogue","speaker":"C01","delivery":"按下令牌背面的隐秘通讯按钮，对准麦克风","line":"北境龙骑近卫何在？"},{"type":"action","action":"令牌内置扩音器传出数百名战士整齐划一的咆哮声。"},{"type":"dialogue","speaker":"C01","delivery":"语气平静得毫无温度，下达最终指令","line":"第一装甲师进城，封死顾家所有进出路口。"},{"type":"action","action":"长街尽头瞬间亮起十数道雪白战术大灯，十辆防暴装甲车如钢铁巨兽破雨合围！"}]}]},{"ep":2,"targetSeconds":90,"hook":"装甲车冲破顾家铁门，卫士列队拔枪","hookBeat":[1,1],"cliff":"顾雨薇跪地求饶，战部统领却向林晨躬身敬礼","beatsClaimed":["战部围门"],"scenes":[{"sceneId":"S01","location":"顾家前院大门","characters":["C01","C02","C03"],"flow":[{"type":"action","action":"重型装甲车一记暴击撞碎顾家铸铁大门，钢铁碎块四散飞溅，轰然压停在院落中央。"},{"type":"action","action":"顾雨薇与顾浩端着红酒杯仓皇冲出客厅台阶，酒液洒了满身。"},{"type":"dialogue","speaker":"C03","delivery":"双腿发软，指着装甲车扯着嗓子大叫","line":"你们是谁部下的兵？知不知道这是顾家私宅！"},{"type":"action","action":"车厢两翼铁门整齐弹开，上百名全副武装的黑甲卫士翻身跳下，战靴踏溅起齐膝水花。"},{"type":"action","action":"咔嚓一声脆响，数十柄突击步枪黑洞洞的枪口齐刷刷锁定顾浩二人眉心。"},{"type":"dialogue","speaker":"C02","delivery":"吓得高跟鞋扭到，慌忙扔掉酒杯举起双手","line":"各位长官别开枪！我们是正经商人，遵纪守法！"},{"type":"action","action":"为首的战部统领身披黑色战袍大步走出车队，肩扛两颗金星，目光如电。"},{"type":"dialogue","speaker":"C03","delivery":"认出了统领军衔，满脸谄媚连滚带爬迎上前","line":"将军！我是顾家大少顾浩，我认识战区赵副官！"},{"type":"action","action":"统领反手一记重重的铁掌抽在顾浩脸上，打得他牙齿崩飞两颗，整个人横飞撞碎假山。"},{"type":"dialogue","speaker":"C03","delivery":"捂着血肉模糊的面颊，在泥浆里哀嚎打滚","line":"我的牙！长官您为什么打我！"},{"type":"action","action":"顾雨薇吓得魂飞魄散，扑通一声重重跪倒在烂泥地上，拽住统领裤腿苦苦哀求。"},{"type":"dialogue","speaker":"C02","delivery":"眼泪糊花浓妆，吓得浑身筛糠般发抖","line":"长官饶命！要多少钱我们赔，求长官高抬贵手！"},{"type":"action","action":"统领抬脚将顾雨薇狠狠踢翻，扶着腰间配刀，目不斜视径直穿过院落。"},{"type":"action","action":"统领快步走到独自站在雨幕中的林晨面前，整肃军容，猛地挺直身板立正。"},{"type":"dialogue","speaker":"C02","delivery":"从泥泞里探出头，看见林晨大喊大叫","line":"长官！这个乞丐是入赘废柴，你们快毙了他！"},{"type":"action","action":"在顾雨薇与顾浩惊恐欲绝的目光中，战部统领单膝重重砸进积水，右拳狠击胸前战甲！"},{"type":"action","action":"统领迈着沉重的战靴跨入院落，右手搭在配枪上，环顾四周慌乱的保镖。"},{"type":"dialogue","speaker":"C02","delivery":"连滚带爬后退，指着大厅内瑟瑟发抖的保镖大声喝斥","line":"你们这帮废物还愣着干什么？快护送我和大少爷进屋！"},{"type":"action","action":"七八名顾家保镖刚拔出橡胶警棍，两名卫士抬枪便是一记枪托猛砸，当场将保镖砸翻在地。"},{"type":"action","action":"顾浩吓得尿流满地，连滚带爬躲在假山石后，死命抓紧顾雨薇的高跟鞋。"},{"type":"dialogue","speaker":"C03","delivery":"哭爹喊娘，眼泪鼻涕横流","line":"别开枪！长官饶命！我让我爸给你们战区捐款一个亿！"},{"type":"action","action":"统领冷笑一声，抽出腰间手枪直接顶在顾浩脑门上，吓得顾浩狂翻白眼。"},{"type":"action","action":"统领收起配枪，转身大步跨到站在雨中的林晨面前，立定敬礼。"},{"type":"action","action":"暴雨狂风吹得顾家老宅的院门剧烈摇晃，战部统领面无表情注视着院内众人。"},{"type":"dialogue","speaker":"C01","delivery":"林晨微微颔首，目光平视大门方向","line":"传令下去，三分钟内肃清现场。"}]}]},{"ep":3,"targetSeconds":90,"hook":"统领单膝跪地，双手呈上九龙金帅印","hookBeat":[1,1],"cliff":"顾浩吓破苦胆昏死，林晨下令查封顾家全城产业","beatsClaimed":["当场打脸"],"scenes":[{"sceneId":"S01","location":"顾家前院大门","characters":["C01","C02","C03"],"flow":[{"type":"action","action":"统领双手高高举起一只紫檀木金漆大盒，单膝跪地，头颅深深低下。"},{"type":"action","action":"木盒咔嗒弹开，一尊九龙缠绕的实心纯金统帅大印在探照灯下散发滔天威严。"},{"type":"dialogue","speaker":"C02","delivery":"跪在泥地里捂住嘴巴，两眼瞪大满是不可思议","line":"九龙帅印……战部统领竟然向这个上门女婿下跪？"},{"type":"action","action":"顾浩从花坛碎石堆里挣扎着爬出半截身子，满嘴血沫，指着林晨直打摆子。"},{"type":"dialogue","speaker":"C03","delivery":"声音颤抖破音，极度恐惧连声尖叫","line":"假的！一定是演员！他连五十块零花钱都要伸手要！"},{"type":"action","action":"两名卫士快步上前，枪托重重砸在顾浩后颈，将他死死压在泥水里动弹不得。"},{"type":"action","action":"林晨单手拿起黄金帅印，迈步走下台阶，皮鞋停在顾雨薇脸前三寸处。"},{"type":"dialogue","speaker":"C01","delivery":"居高临下俯视顾雨薇，眼神如看蝼蚁","line":"老太爷的恩情我还了三年。今天，债清了。"},{"type":"action","action":"顾雨薇拼命膝行上前抱住林晨的皮鞋，哭得眼泪鼻涕横流，拼命磕头求饶。"},{"type":"dialogue","speaker":"C02","delivery":"撕心裂肺哀求，脑袋在水泥地上撞出血痕","line":"老公我错了！我刚才糊涂了，我们不要离婚好不好！"},{"type":"action","action":"林晨抬脚甩开顾雨薇，从怀中摸出那份沾血的离婚协议，揉成一团砸在她脸上。"},{"type":"dialogue","speaker":"C01","delivery":"冷酷下令，没有一丝留恋","line":"查封顾家全城产业，通知执法队彻查顾浩醉驾杀人案。"},{"type":"action","action":"顾浩听到彻查二字，白眼一翻吓得尿了裤子，当场瘫软昏死过去！"},{"type":"action","action":"两名冷面卫士上前拽住尖叫瘫软的顾雨薇双臂，咔嚓一声拷上锃亮手铐押进装甲车！"},{"type":"action","action":"两名卫士快步走向大厅，将顾老太爷珍藏的名贵紫檀太师椅搬出，摆放在林晨身后。"},{"type":"action","action":"林晨稳稳坐下，玄铁龙帅令在指尖飞快旋转，发出阵阵龙吟般的破空声。"},{"type":"dialogue","speaker":"C02","delivery":"拼命用衣袖擦拭地上的泥水，痛哭流涕磕头求饶","line":"林晨！你看在老太爷当年救你一命的份上，饶顾家一次吧！"},{"type":"action","action":"林晨端起警卫员递来的热茶，轻轻吹散热气，抿了一口。"},{"type":"dialogue","speaker":"C01","delivery":"放下茶杯，目光深邃而冷峻","line":"若非念及老太爷恩情，顾家今晚早已尸骨无存。"},{"type":"action","action":"顾浩在泥水里哆哆嗦嗦伸出双手，拼命扇自己的嘴巴子，脸颊打得皮开肉绽。"},{"type":"dialogue","speaker":"C03","delivery":"一边抽自己耳光一边求饶","line":"姐夫！是我狗眼看人低！我是畜生！您大人不记小人过！"},{"type":"action","action":"林晨站起身，将杯中残茶倾倒在顾浩面前的积水里。"},{"type":"action","action":"装甲车引擎轰鸣咆哮，巨大的车轮压碎顾家宅院的青石板路，驶向全城各大关口。"}]}]}]}</script>
+<script>
+const L = {"copied":"已复制","failed":"复制失败","show":"▾ 展开全部场次","hide":"▴ 收起场次"};
+
+// episode scripts: scene areas clip at 300px; short ones unclip, tall ones toggle
+document.querySelectorAll('.scmore').forEach((btn) => {
+  const zone = btn.previousElementSibling;
+  if (zone.scrollHeight <= 320) {
+    zone.classList.remove('clip');
+    btn.remove();
+    return;
+  }
+  btn.addEventListener('click', () => {
+    const clipped = zone.classList.toggle('clip');
+    btn.textContent = clipped ? L.show : L.hide;
+    if (clipped) zone.closest('.ep').scrollIntoView({ block: 'nearest' });
+  });
+});
+
+// copy buttons (a single line / a character's whole line book)
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('.copy');
+  if (!btn) return;
+  e.preventDefault();
+  const label = btn.textContent;
+  try {
+    await navigator.clipboard.writeText(btn.dataset.copy);
+    btn.textContent = L.copied;
+    btn.dataset.done = '1';
+  } catch {
+    btn.textContent = L.failed;
+  }
+  setTimeout(() => { btn.textContent = label; delete btn.dataset.done; }, 1600);
+});
+
+// export: the report carries the full script.json; the download is it verbatim
+document.querySelector('.expo').addEventListener('click', (e) => {
+  const btn = e.currentTarget;
+  const url = URL.createObjectURL(
+    new Blob([document.getElementById('script-data').textContent], { type: 'application/json' }),
+  );
+  const a = Object.assign(document.createElement('a'), { href: url, download: btn.dataset.name });
+  a.click();
+  // don't revoke right away — Safari kills the blob before the download finishes reading it
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+});
+</script>
+</body></html>

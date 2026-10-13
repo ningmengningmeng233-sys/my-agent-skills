@@ -1,0 +1,27 @@
+{
+  "case_id": "d13-t2va-kitchen-quarrel",
+  "user_prompt": "短剧厨房争执戏，台词与动作并行推进",
+  "scene": "老式居民楼厨房，油烟机嗡嗡作响",
+  "action": "母亲把搪瓷锅重重墩在灶上，汤汁溅上台面，她没有擦",
+  "style": "白炽灯小功率，油渍反光发黏",
+  "audio": "搪瓷墩灶的哐当与油烟机轰鸣，无配乐",
+  "voice_signature": "母亲：高嗓压不住的中年女声，语速快",
+  "model": "H3",
+  "duration_s": 9,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "constraints": [
+    {
+      "id": "pt-d13-t2va-kitchen-quarrel",
+      "value": "老式居民楼厨房",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "meta-d13",
+      "value": "台词延后到下一镜",
+      "delivery_scope": "metadata_only",
+      "target_path": ""
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "asset_id": "PR_旧琴",
+  "type": "道具",
+  "name": "旧琴",
+  "priority": "P2",
+  "fact_level": "剧本事实",
+  "evidence": [
+    {
+      "segment": "段01.md",
+      "chapter": "第1章",
+      "line": "00001",
+      "quote": "案上摆着一张旧琴，桐木面板泛着暗光"
+    }
+  ],
+  "dependencies": [],
+  "relations": [],
+  "status": "CONFIRMED",
+  "materials": [
+    "木材",
+    "自发光"
+  ]
+}

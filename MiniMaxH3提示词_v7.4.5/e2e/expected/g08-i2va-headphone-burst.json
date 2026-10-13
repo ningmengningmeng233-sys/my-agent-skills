@@ -1,0 +1,13 @@
+{
+  "case_id": "g08-i2va-headphone-burst",
+  "expected_mode": "i2va",
+  "expected_profile": "native-general",
+  "constraints": [
+    {
+      "id": "pt-g08-i2va-headphone-burst",
+      "value": "深灰渐变悬浮棚拍台",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

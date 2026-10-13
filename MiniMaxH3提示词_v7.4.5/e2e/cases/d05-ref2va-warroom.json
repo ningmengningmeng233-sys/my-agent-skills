@@ -1,0 +1,37 @@
+{
+  "case_id": "d05-ref2va-warroom",
+  "user_prompt": "短剧指挥部重场戏，多模态参考：沿用角色图、场景图与上一段台词语速",
+  "scene": "作战指挥部内，墙上钉着手绘地图",
+  "action": "参谋长用红铅笔在地图上划出一道弧线，抬眼环视众人",
+  "style": "钨丝吊灯暖光压住冷灰墙色",
+  "audio": "铅笔划过纸面的沙沙声与电台底噪，无配乐",
+  "voice_signature": "参谋长：浑厚男中音，语速慢而有力",
+  "model": "H3",
+  "duration_s": 12,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "assets": {
+    "image": "https://cdn.example.invalid/h3refs/images/ref-d05.png",
+    "audio": "https://cdn.example.invalid/h3refs/audios/bed-d05.wav"
+  },
+  "constraints": [
+    {
+      "id": "pt-d05-ref2va-warroom",
+      "value": "作战指挥部内",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d05-duration",
+      "value": 12,
+      "delivery_scope": "api_parameter",
+      "target_path": "duration"
+    },
+    {
+      "id": "api-d05-resolution",
+      "value": "768P",
+      "delivery_scope": "api_parameter",
+      "target_path": "resolution"
+    }
+  ]
+}

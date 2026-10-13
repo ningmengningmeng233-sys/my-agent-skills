@@ -1,0 +1,29 @@
+知识库转录（Knowledge Transcript Index）v5.4.4 —— 许可与来源声明
+
+一、本包自有件（SKILL.md、scripts/、web/、tests/、templates/、references/、docs/adr/、start_web.ps1 等）
+  Copyright (c) 2026 柠檬才不萌
+  保留所有权利（Proprietary）。允许在本机内自行使用、备份与改装用于个人用途；
+  未经许可不得对外再分发、不得用于商业再许可、不得移除本声明。
+  与 SKILL.md frontmatter 的 `license: Proprietary` 同源；两处不一致时以本文件为准并须修正。
+
+二、与成人文学索引共享的孪生内核（不是第三方，也不是本包独有）
+  本仓与 `成人文学索引_v4.8.3` 共用同一份索引内核（18 份同名 `scripts/*.py`），
+  分叉与归属登记在技能柜共享内核 `schemas/twin-kernel.json`，由 `schemas/contract_check.py` 门住静默漂移。
+  这两个文件属于**开发柜**，不随本包分发；独立安装的自检请用
+  `python scripts/check_package.py --as-package`，包内文档中的柜根路径已在
+  `scripts/package_governance/CABINET_ONLY_REFS.json` 逐条标注适用范围。
+  两侧同许可条款（Proprietary © 2026 柠檬才不萌），不存在跨仓覆盖许可的问题。
+
+三、合成密钥字面量（演练用，非凭据）
+  `scripts/failover_drill.py` 内含三条 `sk-` 形状的合成 key，用于离线验证
+  「401 → 判定额度耗尽 → 顺切下一节点 → 日志脱敏」这条链路，不发任何真实请求。
+  逐条申报见 `scripts/package_governance/DECLARED_TEST_SECRETS.json`（判定 TEST_PLACEHOLDER）。
+  判定为合成件的依据：行内含 DRILLFAKE/DO-NOT-LOG 标记、且
+  `tests/test_failover_drill.py` 断言这些字面量不得出现在任何输出语料中。
+
+四、样例与数据
+  examples/ 与 `索引库/` 为骨架与合成示例；本包不分发任何真实转录库或用户数据。
+  用户自备的 `.env`、`llm_nodes.json`（节点与通道配置）不属于分发内容，包内只带 `.example` 模板。
+
+五、第三方依赖
+  requirements.txt 所列第三方库各按上游许可证发布，本声明不改变其条款，也不重新授权。

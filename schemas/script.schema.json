@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "script.schema.json",
+  "title": "script.json — 机读剧本契约（小说转短剧 → 分镜/资产提取的交接文件）",
+  "description": "逆向自现存真实产物：小说转短剧_v1.4.0/fixtures/sample_script.json（dramacraft 导出方言）与 skills_runtime/novel-script/examples/渡口-script.json（novel-script 原生方言）。两方言差异（beat 是否有 type、场次是否有 location、顶层是否有 version/params）在本契约里以可选字段共存；权威操作契约另见 小说转短剧_v1.4.0/references/WORKFLOW.md 第二节。",
+  "x-contract": {
+    "name": "script",
+    "version": "1.0.0",
+    "owner": "小说转短剧_v1.4.0（dramacraft 导出器 exporter.py）",
+    "consumers": ["novel-storyboard（seed 输入）", "资产提取_v2.17.0-rc.5工作树（当前只吃纯文本，机器契约未接——见 PIPELINE.md 断点 D4）"],
+    "derived_from": [
+      "小说转短剧_v1.4.0/fixtures/sample_script.json",
+      "小说转短剧_v1.4.0/references/WORKFLOW.md §2（ep###.json beat 契约）",
+      "小说转短剧_v1.4.0/skills_runtime/novel-script/references/schema.md",
+      "小说转短剧_v1.4.0/skills_runtime/novel-script/examples/渡口-script.json"
+    ]
+  },
+  "type": "object",
+  "required": ["source", "episodes"],
+  "properties": {
+    "source": {
+      "type": "string",
+      "description": "剧名/原著名。两种方言都有。"
+    },
+    "version": {
+      "type": "string",
+      "description": "剧本内容版本号（dramacraft 导出方言有，novel-script 原生方言无）。"
+    },
+    "params": {
+      "type": "object",
+      "description": "时长折算参数（novel-script 原生方言）。可省略即用默认。",
+      "properties": {
+        "charsPerSecond": { "type": "number", "description": "台词字数→秒折算率，默认 4.5" },
+        "actionSeconds": { "type": "number", "description": "单个动作拍秒数，默认 2.5" },
+        "tolerance": { "type": "number", "description": "每集时长容差比例，默认 0.15" },
+        "maxLineChars": { "type": "number", "description": "单句台词字数上限，默认 35" }
+      },
+      "additionalProperties": true
+    },
+    "episodes": {
+      "type": "array",
+      "minItems": 1,
+      "description": "分集数组，一集一项；文件覆盖一个集数区间（通常一批 ≤3 集）。",
+      "items": { "$ref": "#/$defs/episode" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "episode": {
+      "type": "object",
+      "required": ["ep", "targetSeconds", "hook", "cliff", "scenes"],
+      "properties": {
+        "ep": { "type": "integer", "minimum": 1, "description": "集号，同一文件内不重复" },
+        "targetSeconds": { "type": "number", "minimum": 1, "description": "该集目标秒数；dramacraft 要求全剧统一（大纲 O3 门）" },
+        "hook": { "type": "string", "minLength": 1, "description": "开场钩子的物理画面说明" },
+        "cliff": { "type": "string", "minLength": 1, "description": "结尾悬念的物理画面说明" },
+        "hookBeat": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "integer", "minimum": 1 },
+          "description": "钩子认领位置 [场, 拍]，必须落在全集前 3 拍内（G5 门）"
+        },
+        "beatsClaimed": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "认领的大纲爽点 type 列表；无认领为空数组"
+        },
+        "foreshadowsPaid": {
+          "type": "array",
+          "description": "伏笔兑现认领（dramacraft 账本，WORKFLOW §11.2）；聚合导出时是否保留以 exporter.py 实测为准",
+          "items": {
+            "type": "object",
+            "required": ["id", "evidence"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^F\\d{3}$", "description": "伏笔编号，对账大纲 episodes[].foreshadows" },
+              "evidence": { "type": "string", "description": "「第N集第N场：证据」格式" }
+            },
+            "additionalProperties": true
+          }
+        },
+        "scenes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/scene" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "scene": {
+      "type": "object",
+      "required": ["sceneId", "characters", "flow"],
+      "properties": {
+        "sceneId": { "type": "string", "pattern": "^S\\d{2,3}$", "description": "场次编号（S01 式），对账 art.json 场景登记" },
+        "location": { "type": "string", "description": "地点自由文本（dramacraft 方言有，novel-script 方言无）" },
+        "lighting": { "type": "string", "description": "该场光照状态名，必须是 art.json 里该场景登记过的状态（G10 门）；可省略" },
+        "characters": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^C\\d{2,3}$" },
+          "description": "本场出场角色 C 编号，对账 outline.json；空镜为空数组"
+        },
+        "props": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^P\\d{2,3}$" },
+          "description": "本场叙事道具 P 编号，对账 art.json；可省略"
+        },
+        "flow": {
+          "type": "array",
+          "minItems": 1,
+          "description": "节拍流，动作与台词交替，按发生顺序；每场 ≥1 个动作拍（G3/G6 门）",
+          "items": { "$ref": "#/$defs/beat" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "beat": {
+      "description": "一拍一条：动作拍或台词拍，二选一。dramacraft 方言带 type 判别字段，novel-script 方言不带（以字段有无判别）。",
+      "oneOf": [
+        { "$ref": "#/$defs/actionBeat" },
+        { "$ref": "#/$defs/dialogueBeat" }
+      ]
+    },
+    "actionBeat": {
+      "type": "object",
+      "required": ["action"],
+      "properties": {
+        "type": { "const": "action", "description": "节拍判别字段（dramacraft 方言）" },
+        "action": { "type": "string", "minLength": 1, "description": "单一可拍物理动词句；禁引号台词（G7）、禁文学病禁词（G11）" }
+      },
+      "additionalProperties": false
+    },
+    "dialogueBeat": {
+      "type": "object",
+      "required": ["speaker", "line"],
+      "properties": {
+        "type": { "const": "dialogue", "description": "节拍判别字段（dramacraft 方言）" },
+        "speaker": { "type": "string", "pattern": "^(C\\d{2,3}|VO)$", "description": "本场 characters 内的 C 编号，或 VO（画外音）（G3 门）" },
+        "line": { "type": "string", "minLength": 1, "description": "台词本体，非空白字符 ≤35 字（G2 门），禁 AI 辩论腔模式（G12 门）" },
+        "delivery": { "type": "string", "description": "表演提示：语气/伴随动作/潜台词；可省略，建议都写" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

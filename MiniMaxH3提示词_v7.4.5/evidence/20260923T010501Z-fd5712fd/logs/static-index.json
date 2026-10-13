@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "gate": "static",
+  "run_id": "20260923T010501Z-fd5712fd",
+  "source_commit": "073014410c58131b3d3392245940b6a57bb20571",
+  "exit_code": 0,
+  "started_at": "2026-09-23T01:05:01.081841+00:00",
+  "finished_at": "2026-09-23T01:05:04.366663+00:00",
+  "suites": [
+    {
+      "suite": "test_closure_evidence_registry.py",
+      "exit_code": 0,
+      "passed": 5,
+      "total": 5,
+      "started_at": "2026-09-23T01:05:01.081841+00:00",
+      "finished_at": "2026-09-23T01:05:01.313780+00:00",
+      "log": "logs/static-test_closure_evidence_registry.py.log",
+      "log_sha256": "fd45e7191387322a174e62f156126c2a3ca173dec221f83af2c75188865f9f5f"
+    },
+    {
+      "suite": "test_duration_docs_consistency.py",
+      "exit_code": 0,
+      "passed": 9,
+      "total": 9,
+      "started_at": "2026-09-23T01:05:01.313780+00:00",
+      "finished_at": "2026-09-23T01:05:01.503623+00:00",
+      "log": "logs/static-test_duration_docs_consistency.py.log",
+      "log_sha256": "1318e59772d1344373536e2e6665680bffd96e382acfc2c5147f0a98c885b4f8"
+    },
+    {
+      "suite": "test_duration_planner.py",
+      "exit_code": 0,
+      "passed": 116,
+      "total": 116,
+      "started_at": "2026-09-23T01:05:01.504622+00:00",
+      "finished_at": "2026-09-23T01:05:01.745006+00:00",
+      "log": "logs/static-test_duration_planner.py.log",
+      "log_sha256": "57d092e1fc3083eda999f3961e6d429c7a4d182addec93e8cc89289b23b7b6d3"
+    },
+    {
+      "suite": "test_duration_policy.py",
+      "exit_code": 0,
+      "passed": 59,
+      "total": 59,
+      "started_at": "2026-09-23T01:05:01.745006+00:00",
+      "finished_at": "2026-09-23T01:05:02.213383+00:00",
+      "log": "logs/static-test_duration_policy.py.log",
+      "log_sha256": "19588abbfeaaed614bb3025587dd94c7732c9b962cf58aeb9a5c990d3e9ca41b"
+    },
+    {
+      "suite": "test_episode_contract.py",
+      "exit_code": 0,
+      "passed": 158,
+      "total": 158,
+      "started_at": "2026-09-23T01:05:02.213383+00:00",
+      "finished_at": "2026-09-23T01:05:03.659333+00:00",
+      "log": "logs/static-test_episode_contract.py.log",
+      "log_sha256": "eced6896da6698b6199da325a05a1d1abeb5dbef7350e8fa1fd3809a4a971b69"
+    },
+    {
+      "suite": "test_reference_loading_routes.py",
+      "exit_code": 0,
+      "passed": 6,
+      "total": 6,
+      "started_at": "2026-09-23T01:05:03.660333+00:00",
+      "finished_at": "2026-09-23T01:05:03.824567+00:00",
+      "log": "logs/static-test_reference_loading_routes.py.log",
+      "log_sha256": "256ffbae7b3308629324b3cbbc5be3a844c668c85e25e78598870b78bd1f9808"
+    },
+    {
+      "suite": "test_script_duration.py",
+      "exit_code": 0,
+      "passed": 46,
+      "total": 46,
+      "started_at": "2026-09-23T01:05:03.825106+00:00",
+      "finished_at": "2026-09-23T01:05:04.008404+00:00",
+      "log": "logs/static-test_script_duration.py.log",
+      "log_sha256": "ef276660aaf41880c52cd0d2e656a53ef6c621f9e1d2dd91dfe0a6ba641e7f53"
+    },
+    {
+      "suite": "test_skill_context_budget.py",
+      "exit_code": 0,
+      "passed": 43,
+      "total": 43,
+      "started_at": "2026-09-23T01:05:04.008404+00:00",
+      "finished_at": "2026-09-23T01:05:04.366663+00:00",
+      "log": "logs/static-test_skill_context_budget.py.log",
+      "log_sha256": "62c1b7c86ed0521c90be5cf6b5f3945c713e6460995e4b3ff8a2e8a61a7e1f75"
+    }
+  ]
+}

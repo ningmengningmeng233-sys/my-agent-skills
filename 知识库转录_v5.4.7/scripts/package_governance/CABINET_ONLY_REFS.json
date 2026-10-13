@@ -1,0 +1,23 @@
+{
+ "schema_version": "cabinet-only-refs-1",
+ "why": "包内文档引用了只在开发柜存在的路径，收件人照做必然失败；逐条登记后新增未登记即红、登记失效也红。",
+ "references": [
+  {
+   "reference": "schemas/twin-kernel.json",
+   "declared_in": [
+    "SKILL.md#孪生内核登记段",
+    "SKILL.md frontmatter pipeline-contract"
+   ],
+   "meaning": "与成人文学索引的 18 份同名 scripts 分叉登记簿",
+   "recipient_action": "独立安装不需要它；包内自检请用 python scripts/check_package.py --as-package"
+  },
+  {
+   "reference": "schemas/contract_check.py",
+   "declared_in": [
+    "SKILL.md#孪生内核自检句"
+   ],
+   "meaning": "柜根侧跨仓契约自检（报 TWIN_UNEXPLAINED_DRIFT / TWIN_REGISTRY_STALE）",
+   "recipient_action": "不要执行；它是开发柜的门，不在发布包内"
+  }
+ ]
+}

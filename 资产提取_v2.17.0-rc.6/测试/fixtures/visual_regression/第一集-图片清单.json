@@ -1,0 +1,675 @@
+{
+  "library_label": "资产反推_DBIO修仙记-第01集_v2.15.0-rc.2",
+  "scan_mode": "read_only",
+  "file_count": 83,
+  "buckets": {
+    "参考输入": 1,
+    "视觉资产": 82
+  },
+  "files": [
+    {
+      "path": "参考输入/人物/老罗-身份参考.png",
+      "bytes": 1739686,
+      "sha256": "3e60af03e615e947bcaf8a6ed1fac031f5070334e1b22e750ba7db6aedf9d82e",
+      "mime": "image/png",
+      "width": 941,
+      "height": 1672
+    },
+    {
+      "path": "视觉资产/人物/二柱/二柱_EP01普通乡村童装全身立绘_2x3.png",
+      "bytes": 1964373,
+      "sha256": "2dec38fca1b2a518021413e2447f518adb93c16b22d6c35325b79eb96d1fa8c0",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/二柱/二柱_EP01高精度CG全身立绘_2x3.png",
+      "bytes": 1791414,
+      "sha256": "453caa9284cd02b2686e3260f2215edd497e5cd6b749d7932cf0c297aa676c63",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/二柱/二柱_EP01高精度CG正式正面全身立绘_2x3.png",
+      "bytes": 2098149,
+      "sha256": "e03108d14c9d8bd17a628350ffdbb62623b8142c6ee8c2472014e579fcec1abb",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/二柱/二柱_EP01高精度CG背面立绘_2x3.png",
+      "bytes": 1984793,
+      "sha256": "f3b052fc7bddff49fde9e3533d389ee5764643face34996f9800a9ae9c964d79",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/二柱/二柱_EP01高精度仙侠CG正式正面全身立绘_2x3.png",
+      "bytes": 2080280,
+      "sha256": "1f072905839e060697c486e8ea8a91f5826c0a9b6b4c535f2c0d4dd1cbbb8572",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/二柱/二柱_EP01高精度仙侠CG正式背面全身立绘_2x3.png",
+      "bytes": 2049688,
+      "sha256": "63b56290aa078f6fd75d518a9da79996a953c51a61bc1419cf4829f8303667b5",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/二柱/二柱_EP01高精度仙侠CG正式身份近景_3x4.png",
+      "bytes": 2401162,
+      "sha256": "52b87c883f9207cc0c30675424f6d51cdc96f8b7a550495b3eb0f7be99fb2e69",
+      "mime": "image/png",
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "path": "视觉资产/人物/刁三/刁三_EP01井台持刀动作参考_2x3.png",
+      "bytes": 2968346,
+      "sha256": "21b00df6b65b40338f7ebe22a5a579d861383b4dd8f8f4e8429ee648ed02f6d3",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/刁三/刁三_EP01持刀立绘_2x3.png",
+      "bytes": 2174395,
+      "sha256": "70cca71bcf5d13337b48976d05289d5450c9095fdbaf11a305db41bb29e8b58e",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/刁三/刁三_EP01高精度CG持刀全身立绘_2x3.png",
+      "bytes": 1997676,
+      "sha256": "fc9e78a5c39a7e31c97b1d6954d2b75721c69a382e9139c1a5f28939225ce2c1",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/刁三/刁三_EP01高精度CG正式持刀全身立绘_2x3.png",
+      "bytes": 2246246,
+      "sha256": "ff46effde8dbaa1f51a1591343e99a7e5f49f11851301d641a9f3567bf70442a",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/村民/村民_EP01立绘_2x3.png",
+      "bytes": 2060936,
+      "sha256": "c56dfa67bf79be099278c488b071f41fa58b9b9f7ab217c73fb7a47d80e8986f",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/村民/村民_EP01高精度CG通用正式正面立绘_2x3.png",
+      "bytes": 2016432,
+      "sha256": "6ab04d2f91d17620348391502fcc40ed5d3ddfc213cbe5d32756daaef07f7d76",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/村民/村民_EP01高精度CG通用立绘_2x3.png",
+      "bytes": 1926405,
+      "sha256": "971f3a38fac4bfdd2b56f5d2ceb6d4603331a15326b11a2c2082c7ca4c58c9e5",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/村民/村民_EP01高精度CG通用背面立绘_2x3.png",
+      "bytes": 1889249,
+      "sha256": "2ad79672d635b3f64e801268d5bc8abd5b858aca590ffe0927538db78fd61b54",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/村长/村长_EP01井台举火把指挥动作参考_2x3.png",
+      "bytes": 2514282,
+      "sha256": "5defbe286fe66344a1ede16d42a2e53cd3f5be3e02f1690d274cfda47bd12a37",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/村长/村长_EP01后脑身份近景_1x1.png",
+      "bytes": 2440725,
+      "sha256": "16924d2e2add03f18ddf329d3bd20ea696136ba594ce36520741b221bfcf431d",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/人物/村长/村长_EP01正脸身份近景_1x1.png",
+      "bytes": 2334615,
+      "sha256": "17f23a2119e1617ba513898c736e91a7c0baa61457ebd5f5c398d56e2d8a5a02",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/人物/村长/村长_EP01背面立绘_2x3.png",
+      "bytes": 2053645,
+      "sha256": "73e645ad3af9086d8fdd7e36e6e2014e4c1934b840b13d73b36efc91a40989e2",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/村长/村长_EP01落难服装立绘_2x3.png",
+      "bytes": 2042478,
+      "sha256": "bf34ea53e15a532a455b9238949a0140eadeda479ceaac3745e444d4893152b6",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/村长/村长_EP01高精度CG正式正面全身立绘_2x3.png",
+      "bytes": 2292794,
+      "sha256": "a5009b383e071715a5b560d68460ba017eeb07f7130878fde74b0095bb09cf02",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/栓子/栓子_EP01正脸身份近景_1x1.png",
+      "bytes": 2237721,
+      "sha256": "baf1278d1c94ded7709764bd27543b1ba8cda05f045d65f28af412838e3150ca",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/人物/栓子/栓子_EP01背面正式立绘_2x3.png",
+      "bytes": 2077774,
+      "sha256": "00c03b131b04f3ee582755483b47dd735c751706def7dd510fefa5b27b2a7004",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/栓子/栓子_EP01落难服装立绘_2x3.png",
+      "bytes": 1994952,
+      "sha256": "a238bb96238166c12861c943954019682b1c571777551abf8f86beeed3e0b682",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/栓子/栓子_EP01高精度CG正式正面全身立绘_2x3.png",
+      "bytes": 2240685,
+      "sha256": "fbc6b4cc7144c1debaea203c1f7b21c67666de7b3c53cfa46330196b2b9847df",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/栓子娘/栓子娘_EP01正脸身份近景_1x1.png",
+      "bytes": 2385988,
+      "sha256": "fa32a4489804cc57658591c9ba663c514e1c1df90f7b317f4a8307fcbb08eac3",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/人物/栓子娘/栓子娘_EP01立绘_2x3.png",
+      "bytes": 2164762,
+      "sha256": "3004b45909593bda15975597a2a2fd05b8e47fcd16a2f4fe6fb7b7266d1dc5b6",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/栓子娘/栓子娘_EP01立绘_2x3_常态版.png",
+      "bytes": 2008789,
+      "sha256": "1bf956a239035825fc39e7bf558c98f4cf2733e6c91c01023f9ce7b890754bd6",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/栓子娘/栓子娘_EP01高精度CG正式正面全身立绘_2x3.png",
+      "bytes": 2614932,
+      "sha256": "cb4104f6994a1da6f29a0a89ae78edbe6859b4a94ca1b3e2d9386a089ea8b9a4",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/栓子娘/栓子娘_EP01高精度CG背面立绘_2x3.png",
+      "bytes": 2007800,
+      "sha256": "36fa5b68adf3d2a0be72b8f3e0cdf818d19b81efc1a620c595ea01c76a123188",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/老罗/老罗_EP01后脑身份近景_1x1.png",
+      "bytes": 2036403,
+      "sha256": "b20a513eac2707d8817e2d5da875ab0dbb67e504e89b0b221fc377429a67ad3b",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/人物/老罗/老罗_EP01白衣正式全身立绘_2x3.png",
+      "bytes": 1851248,
+      "sha256": "5ff19ce0db2ae202b884616472b290e1ad8fb3f70009f0b49b041e8f1a6cc5a6",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/老罗/老罗_EP01白衣正脸身份近景_3x4.png",
+      "bytes": 2181555,
+      "sha256": "230631d5e7c73700a090535b77a632dc284c5c8806fe7e05999346d1bae5a5e2",
+      "mime": "image/png",
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "path": "视觉资产/人物/老罗/老罗_EP01白衣背面正式立绘_2x3.png",
+      "bytes": 1926077,
+      "sha256": "1e21231baddfff52bb27300c236dde67981805590fd1efb43864e980c0df8cd3",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/老罗/老罗_EP01落难服装立绘_2x3.png",
+      "bytes": 2123404,
+      "sha256": "d5bbbf87ca31107aa3cfb2492874a89f7e8bd3e58da0352f5f535fba3221c036",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/人物/老罗/老罗_源头脸部特写_3x4.png",
+      "bytes": 2034078,
+      "sha256": "90da3fa106499241e38b2abd945680a12b873027ee67a10b3603f353c3e5b187",
+      "mime": "image/png",
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "path": "视觉资产/场景/地底暗河_EP01高精度CG正式场景母版_16x9.png",
+      "bytes": 2377985,
+      "sha256": "79586488787a522a2e737aa7acd1ce0a03a77a4f664387770610f1a70d2b4a18",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/场景/地底暗河_场景母版_16x9.png",
+      "bytes": 2637338,
+      "sha256": "34ec0ed47f156ddf86110f3b07232ea7c83205b995a687d79acd64e3c2ad1fda",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/场景/村口井台_EP01高精度CG正式场景母版_16x9.png",
+      "bytes": 3046921,
+      "sha256": "43c58ee91bc48dcbace3f708c5d035e1d3d70b162de17e37affdd6f13537ed28",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/场景/村口井台_场景母版_16x9.png",
+      "bytes": 3083616,
+      "sha256": "443c7434deaa7bcbb97982feaa40315b7eeef2f5e82c2b46885b0f6cbdad7f75",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/场景/浊河滩_EP01高精度CG正式场景母版_16x9.png",
+      "bytes": 2665872,
+      "sha256": "c42c6a64a1ca672de8bd69d54122fcc091ab9175cd6053e10caaf650323cb536",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/场景/浊河滩_场景母版_16x9.png",
+      "bytes": 2592131,
+      "sha256": "b6a0d56ec487426659a80a3e406d855cfbb2aced59aa11ca6a0a8ad862545d25",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/场景/石砌暗渠闸口_EP01高精度CG正式场景母版_16x9.png",
+      "bytes": 2791622,
+      "sha256": "0c915d3b2b75af0b49e3902dac925d85a02028d097dbf9c9b93da185f216a512",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/场景/石砌暗渠闸口_场景母版_16x9.png",
+      "bytes": 2655969,
+      "sha256": "ee0e280f8564525e1f7d314665958623d2f675c82a7538f6ccfe4187637f9e97",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/服装/村长_绸布短褂_独立正面_2x3.png",
+      "bytes": 2485808,
+      "sha256": "195ae1ff35db99e2f515f54a26e3a33b3de50bcc1cd8cad9ffad0898ee8850b3",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/服装/村长_绸布短褂_独立背面_2x3.png",
+      "bytes": 2415479,
+      "sha256": "858159107fe241d8fb7e1076cbcaf6d3501fce90aa41fb4ec4248feb916749a2",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/服装/老罗_白色仙侠长袍_独立正面_2x3.png",
+      "bytes": 2150894,
+      "sha256": "6e329e6b94097c11a1652557a39a9073e976191259e8333ff6ca06cd8d1f705d",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/服装/老罗_白色仙侠长袍_独立背面_2x3.png",
+      "bytes": 2129891,
+      "sha256": "3b7ff49758025e92089563bca5d784b92fd038eab994045b23b379f776135624",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-二柱井台目送白衣老罗_16x9.png",
+      "bytes": 2532818,
+      "sha256": "81588887d3fdd2ceaba221ad63ed5eaa1a076b9491d89f4dc33ea8c7227261ae",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-井栏铜灯与粗陶油灯特写_16x9.png",
+      "bytes": 2266942,
+      "sha256": "52b16981dcba9ae5fbbf3fee0eefe39c001ebffd919c49a7cd251194f6069d9a",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-地底暗河白衣老罗举灯观察银片_16x9.png",
+      "bytes": 2749120,
+      "sha256": "47279dd7f4fbfccc32f4815ec376eb9f025cea16050f7d3ae4fb4659642dc740",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-村口井台白衣老罗护住栓子_16x9.png",
+      "bytes": 2539069,
+      "sha256": "80efb1c3ecd1775a595fc40f1d8c042685f550e2be40decf26840f12881f37c7",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-柴刀触碰黑匣火星初绽_16x9.png",
+      "bytes": 2219092,
+      "sha256": "df988d64e6f34ea16c49ceb8d87360a7039de70634be0588273baee69d1214ae",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-栓子娘井栏护住粗陶油灯_16x9.png",
+      "bytes": 2260157,
+      "sha256": "1e146c11a479fb344f2923f7d4dcb520b46157448d862c78706fed227c5c7247",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-浊河滩发现银亮薄片_16x9.png",
+      "bytes": 2363589,
+      "sha256": "60d19bccce5821755f784c39dfd6c55e45f6c26cc9354bb14ddfa37bc8030103",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-浊河滩白衣老罗发现银亮薄片_16x9.png",
+      "bytes": 2445449,
+      "sha256": "566ba6e0250fe0f00fc4988b57a52a57411437958699e467b7e016ed9d206fac",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-火把围堵井台白衣老罗与栓子_16x9.png",
+      "bytes": 2358043,
+      "sha256": "24494cf2155d9e324ce7e2d6658e72332f541e003042d0dd2bec223f049caa98",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-白衣老罗拉绳开启暗渠闸门_16x9.png",
+      "bytes": 2785458,
+      "sha256": "ee866d753f096c98bb6844032fa5923e4721ea48351df0f965939c77cbee842a",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-白衣老罗站在石砌暗渠闸口前_16x9.png",
+      "bytes": 2820574,
+      "sha256": "25add49a86bac05e019a6ef896a51bdde2c4d070071f60d7e5e9bd0986fc25b6",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-缺角粗陶碗伸入地底暗河死水_16x9.png",
+      "bytes": 2153915,
+      "sha256": "e4c544351084295c39466633af859801b8409b768ab03ff2896829272aed1b59",
+      "mime": "image/png",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-老罗下蹲拾取银亮薄片动作特写_3x4.png",
+      "bytes": 2404171,
+      "sha256": "7dc3dcdcaef3b4f80473f19ddde0659d150699b230dab81742246894acee44b4",
+      "mime": "image/png",
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-老罗手持银亮薄片手部特写_3x4.png",
+      "bytes": 2246605,
+      "sha256": "5eb4cdeef0c7865991605c1a0b6b3528cad314788c8e1dd2b347ecb139ac1b36",
+      "mime": "image/png",
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "path": "视觉资产/概念剧照/EP01-银亮薄片浊河滩材质特写_3x4.png",
+      "bytes": 2552962,
+      "sha256": "42ae500fe3094f53efd65b3435bb5656f217ff30f56a1b8dd26b610b3c9a2bd0",
+      "mime": "image/png",
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "path": "视觉资产/道具/定澜尺_EP01高精度CG正式道具参考_1x1.png",
+      "bytes": 1626984,
+      "sha256": "b33ff3e1050c109e45bf11352d5bdd435fecd7d0ef27f697601867ad29d20788",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/道具/定澜尺_道具参考_2x3.png",
+      "bytes": 1886020,
+      "sha256": "e86bfefeb87a4beaed93788b16ea206ab65a19e7a3e8612a3113cc82bee3c516",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/道具/松明火把_EP01高精度CG正式道具参考_1x1.png",
+      "bytes": 1650370,
+      "sha256": "ca31be29bde880b2f94508bc13c278db7a344759575285af125df8707d2a2e40",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/道具/松明火把_道具参考_1x1.png",
+      "bytes": 1485638,
+      "sha256": "c5f004cd66fd1f36d33f53902a3d34f9aa64b2640b8a9130a06edec866ec052d",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/道具/柴刀_道具参考_2x3.png",
+      "bytes": 2034212,
+      "sha256": "054918705d1d415c7ffe96abea2be15c4ae104c5bed8932551cb2d3aa5694f3d",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/道具/粗陶油灯_EP01高精度CG正式道具参考_1x1.png",
+      "bytes": 2135444,
+      "sha256": "0788b0930d7542d75eee455feff434afb64899844208fefbc9583ac790213c4a",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/道具/粗陶油灯_道具参考_2x3.png",
+      "bytes": 2061433,
+      "sha256": "98d5680ee907ea6118df046577f339179f4f11d5c703e869f19f7f57c8c23d30",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/道具/缺角粗陶碗_EP01高精度CG正式道具参考_1x1.png",
+      "bytes": 2405978,
+      "sha256": "a4f39af45b2a8ac594f6a95ec7e8471ce17a86a0f2c6fb6a3825be4a35daae5d",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/道具/缺角粗陶碗_道具参考_1x1.png",
+      "bytes": 2016253,
+      "sha256": "94ad3804a2f0fbc6909097036e249d624ffa622ff996ae9cd46527d89b504c97",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/道具/铁叉农具_EP01高精度CG正式道具参考_1x1.png",
+      "bytes": 1584636,
+      "sha256": "1f135d245e772c4d0fef9cb8e82b47ca12a310327e059016c03cf9f1fb4072fd",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/道具/铁叉农具_道具参考_2x3.png",
+      "bytes": 1788591,
+      "sha256": "75beb41cfd4c78aaf3b21c9552cb60c304844b6374e10b51541d209df2d7ef88",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/道具/铜灯_EP01高精度CG正式道具参考_1x1.png",
+      "bytes": 1907888,
+      "sha256": "d274b15eeeb9398dd7cac2d43971ce0cfa4d1904762e0cd71e55fbe148f01706",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/道具/铜灯_道具参考_3x4.png",
+      "bytes": 2005187,
+      "sha256": "0c83f5e51fe9d83025e9a72b75111243cf6b828b16090af499247b2d10eebe4f",
+      "mime": "image/png",
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "path": "视觉资产/道具/银亮薄片_EP01高精度CG正式材质参考_3x4.png",
+      "bytes": 2606089,
+      "sha256": "13b3c90a88eb130d2a14582f9ed6a7562cd3dfd3cd9a237965f03b0ab8db0d0f",
+      "mime": "image/png",
+      "width": 1086,
+      "height": 1448
+    },
+    {
+      "path": "视觉资产/道具/银亮薄片_道具参考_2x3.png",
+      "bytes": 2046951,
+      "sha256": "a7c0feb876b790896f1f3cc35ed60cdc575cf08e7be66d1526b9451aa6ceeefb",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "视觉资产/道具/青石大碾盘_EP01高精度CG正式道具参考_1x1.png",
+      "bytes": 2862720,
+      "sha256": "d0a96e916d94aa08ecbc694b0383b19d1ade7c1d965b41e9eb06dac5cdeacb03",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/道具/青石大碾盘_道具参考_1x1.png",
+      "bytes": 2341307,
+      "sha256": "c77b01e4d8314e2db408ac69c61bddfa0b19048e8234ecbc6bf44fabfa56bb0e",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/道具/黑匣_EP01高精度CG正式道具参考_1x1.png",
+      "bytes": 2112544,
+      "sha256": "5fc8f02a12426e84a90dd6600c54ece41bfe9671462de3e5249f60f539291b44",
+      "mime": "image/png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "视觉资产/道具/黑匣_道具参考_2x3.png",
+      "bytes": 2058871,
+      "sha256": "c9ea4ffe7f46bf29e53e59e1144cdb4d0c529b22346d1cd0a3022801c5555645",
+      "mime": "image/png",
+      "width": 1024,
+      "height": 1536
+    }
+  ]
+}

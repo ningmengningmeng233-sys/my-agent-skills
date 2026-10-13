@@ -1,0 +1,29 @@
+MiniMax H3制作（MiniMaxH3 Craft）v7.4.4 —— 许可与来源声明
+
+一、本包自有件（SKILL.md、scripts/、references/、templates/、config/、_审查测试/、e2e/、AGENTS.md、CHANGELOG.md、文档/）
+  Copyright (c) 2026 柠檬才不萌
+  保留所有权利（Proprietary）。允许在本机内自行使用、备份与改装用于个人用途；
+  未经许可不得对外再分发、不得用于商业再许可、不得移除本声明。
+  与 SKILL.md frontmatter 的 `license: Proprietary` 同源；两处不一致时以本文件为准并须修正。
+
+二、官方文档与模型能力的关系（不重新授权）
+  `references/` 与 `config/model-capabilities.json` 里对官方约束的转述（如参考音频段数与时长上限、
+  官方相机话术分类、`[Shot N] At MM:SS.mmm` 切点写法等）事实源在 MiniMax 官方一侧，
+  正文文字为本人自写与整理。本许可只覆盖这些文字表达，**不重新授权**官方 API、模型、
+  商标或其文档本身；使用官方服务须另行接受其条款。
+
+三、派生副本：H3 写法骨架
+  SKILL.md 的 `pipeline-contract` 块声明 `h3_spec_role: derived` 并以 `derived_from` 指回
+  官方 drama-series 骨架（路径写作 `~/.agents/skills/...` 这种安装根相对形式，不写任何一台机器的家目录）。
+  该权威骨架不随本包分发；本包内与之同源的是自写的工艺化派生段。
+
+四、发布档位与裁剪（withheld）
+  本包按 `local-stable` 档位签发：运行期日志（`*.log`）按治理排除层整档不随发布面分发（裁剪模式记在
+  `release-manifest.json` 的 `withheld_patterns` / `withheld_note` 段）。
+  每份被裁日志的 sha256 与字节数已封存于随包发布的 `evidence-index.json` 与 `closure-report.json`，
+  重跑采集器即可逐字节复算——未分发不等于未验证。
+  历史证据日志中含作者机绝对路径，因此**只存在于开发柜**，不在发布面；
+  若要携带需另行脱敏并人工裁定。
+
+五、第三方依赖
+  requirements.txt 所列第三方库各按上游许可证发布，本声明不改变其条款，也不重新授权。

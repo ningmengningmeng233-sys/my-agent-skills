@@ -1,0 +1,64 @@
+[project]
+name = "asset-extract"
+version = "2.17.0rc6"
+description = "小说/剧本 → 国漫3D资产表 + 提示词 + 服饰设计"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Proprietary"}
+authors = [
+    {name = "柠檬才不萌", email = "ningmeng2233@qq.com"},
+]
+keywords = ["assets", "3d", "国漫", "小说", "prompts"]
+dependencies = [
+    "requests>=2.25",
+    "python-dotenv>=0.19",
+    "python-docx>=1.1,<2",
+    "EbookLib>=0.18,<1",
+    "beautifulsoup4>=4.12,<5",
+    # tomllib 是 3.11 才进标准库；本仓 8 处模块写 `import tomli as tomllib` 回退，
+    # 其中 5 处在模块顶层。与 requirements.txt 同步声明，由 test_py310_compat 钉死不得脱钩。
+    "tomli>=1.2,<3; python_version < '3.11'",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "flake8>=6.0",
+]
+# 视觉生产（可选下游模块）：核心资产反推不需要 Gemini 生图依赖
+visual = [
+    "google-genai>=1.0,<2",
+    "Pillow>=10.0,<12",
+]
+
+# 发布来源：仓库无远端时不在元数据中自造 URL（v2.14.0 方案 F2.1）。
+
+[tool.setuptools]
+packages = []
+
+[tool.pytest.ini_options]
+testpaths = ["测试/unit"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "C4",  # comprehensions
+    "SIM", # simplify
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

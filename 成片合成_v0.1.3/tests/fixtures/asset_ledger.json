@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "built_at": "2026-09-23T00:00:00Z",
+  "entries": [
+    {
+      "asset_id": "CH_女",
+      "stable_key": "CHR:00001:1",
+      "asset_type": "person",
+      "canonical_name": "女",
+      "ledger_status": "formal",
+      "narrative_importance": "main",
+      "production_mode": "image",
+      "required_outputs": ["base_prompt", "image_task"]
+    },
+    {
+      "asset_id": "CH_男",
+      "stable_key": "CHR:00002:1",
+      "asset_type": "person",
+      "canonical_name": "男",
+      "ledger_status": "formal",
+      "narrative_importance": "main",
+      "production_mode": "image",
+      "required_outputs": ["base_prompt", "image_task"]
+    },
+    {
+      "asset_id": "PR_船票",
+      "stable_key": "PROP:00007:1",
+      "asset_type": "prop",
+      "canonical_name": "船票",
+      "ledger_status": "formal",
+      "narrative_importance": "supporting",
+      "production_mode": "image",
+      "required_outputs": ["base_prompt", "image_task"]
+    },
+    {
+      "asset_id": "SC_渡口",
+      "stable_key": "SCN:00003:1",
+      "asset_type": "scene",
+      "canonical_name": "渡口",
+      "ledger_status": "formal",
+      "narrative_importance": "supporting",
+      "production_mode": "image",
+      "required_outputs": ["base_prompt", "image_task"]
+    },
+    {
+      "asset_id": "CH_待定",
+      "stable_key": "CHR:00009:1",
+      "asset_type": "person",
+      "canonical_name": "待定",
+      "ledger_status": "pending",
+      "narrative_importance": "minor",
+      "production_mode": "none",
+      "required_outputs": []
+    }
+  ]
+}

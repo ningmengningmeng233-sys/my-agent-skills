@@ -1,0 +1,26 @@
+{
+  "case_id": "d03-fl2va-rooftop-confession",
+  "user_prompt": "短剧天台告白戏，用首尾帧锁定从背身到转身的两个关键构图",
+  "scene": "城市天台，晚霞把栏杆染成橘红",
+  "action": "许知意从背对镜头缓缓转身，眼眶泛红却先笑了",
+  "style": "逆光晚霞勾边，补光保留面部细节",
+  "audio": "远处车流低鸣与她深吸一口气的声音，无配乐",
+  "voice_signature": "许知意：柔软上扬女声，语速中等",
+  "model": "H3",
+  "duration_s": 12,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "camera": "机位固定，仅人物完成转身",
+  "assets": {
+    "first_frame": "https://cdn.example.invalid/h3refs/frames/start-d03.png",
+    "last_frame": "https://cdn.example.invalid/h3refs/frames/end-d03.png"
+  },
+  "constraints": [
+    {
+      "id": "pt-d03-fl2va-rooftop-confession",
+      "value": "城市天台",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

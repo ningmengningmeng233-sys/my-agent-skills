@@ -1,0 +1,13 @@
+{
+  "case_id": "g05-fl2va-lakehouse-sunrise",
+  "expected_mode": "fl2va",
+  "expected_profile": "native-general",
+  "constraints": [
+    {
+      "id": "pt-g05-fl2va-lakehouse-sunrise",
+      "value": "晨雾里的湖畔木屋栈桥",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

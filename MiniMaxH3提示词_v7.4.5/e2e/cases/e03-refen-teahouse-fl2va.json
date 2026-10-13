@@ -1,0 +1,23 @@
+{
+  "case_id": "e03-refen-teahouse-fl2va",
+  "user_prompt": "Pure english prompt, keyframe completion of the teahouse pour, no Chinese",
+  "prompt_body": "subject_definitions:\n<Picture 1> is a wood-panelled teahouse interior reference.\n<Video 1> is the camera motion reference.\n<Audio 1> is the ambient bed to reuse.\n<Subject 1> is an elderly tea master seated behind a low counter.\n\nsummary: [reference generation] One continuous take of an elderly tea master pouring boiling water in a quiet teahouse.\n\nretention_analysis:\n<Picture 1> fully_preserved: counter grain, shelf of clay pots and paper-screen light.\n<Video 1> partially_preserved: pacing only, framing rebuilt.\n<Audio 1> fully_copy: ambient bed kept intact.\n<Subject 1> attribute_transfer: wardrobe silhouette and props inherited.\n\ndetailed_description:\nPhotorealistic cinematic look, practical neon and lamp sources, shallow 35mm depth, natural skin texture.\n[Shot 1] The camera rests inside <Picture 1>'s teahouse as <Subject 1> lifts the iron kettle, steam curling through the paper-screen light across the low counter.\n[Shot 2] At 00:04.200, matching the push-in pace of <Video 1>, <Subject 1> tilts the kettle in a thin steady stream, the spout kissing the rim of the clay pot as dust motes scatter in the light beam.\n\noverall_soundscape: Kettle pour, clay clink against tray, soft breathing, distant sparrow calls.\n\nnon_diegetic_music: none, diegetic ambience carries the whole scene.\n",
+  "model": "H3",
+  "duration_s": 12,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "assets": {
+    "first_frame": "https://cdn.example.invalid/h3refs/frames/start-e03.png",
+    "last_frame": "https://cdn.example.invalid/h3refs/frames/end-e03.png"
+  },
+  "forced_mode": "fl2va",
+  "forced_profile": "ref2va-en",
+  "constraints": [
+    {
+      "id": "pt-e03-refen-teahouse-fl2va",
+      "value": "paper-screen light",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

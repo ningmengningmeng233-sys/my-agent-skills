@@ -1,0 +1,4 @@
+# Python 3.7+（脚本使用 sys.stdout.reconfigure 等 3.7+ 特性）
+requests>=2.31
+python-dotenv>=1.0
+PyYAML>=6.0

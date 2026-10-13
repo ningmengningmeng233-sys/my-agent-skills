@@ -1,0 +1,13 @@
+{
+  "case_id": "g11-ref2va-liquid-ink",
+  "expected_mode": "ref2va",
+  "expected_profile": "native-general",
+  "constraints": [
+    {
+      "id": "pt-g11-ref2va-liquid-ink",
+      "value": "纯水箱体正侧机位",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

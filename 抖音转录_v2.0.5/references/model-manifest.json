@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "note": "模型文件不进入 Git；state/models 下的每个文件都以本清单的 sha256 校验。OCR 三个模型随 rapidocr wheel 分发，属于这份副本（用于按哈希校验），缺失不影响画面文字能力；UVR 与说话人分离模型为可选增强，缺失时对应能力降级。",
+  "models": [
+    {
+      "name": "ocr_det",
+      "capability": "ocr",
+      "relative_path": "state/models/ocr/PP-OCRv6_det_small.onnx",
+      "size_bytes": 9929594,
+      "sha256": "090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f",
+      "source": "rapidocr==3.9.2 wheel（site-packages/rapidocr/models）",
+      "install": ".venv\\Scripts\\python.exe -m pip install -r requirements.lock 后运行 scripts\\model_assets.py sync",
+      "required": false,
+      "note": "随 rapidocr wheel 分发并在运行时直接使用内置模型；本副本用于把版本钉死到实测哈希，可用 model_assets.py --sync 生成"
+    },
+    {
+      "name": "ocr_cls",
+      "capability": "ocr",
+      "relative_path": "state/models/ocr/ch_ppocr_mobile_v2.0_cls_mobile.onnx",
+      "size_bytes": 585532,
+      "sha256": "e47acedf663230f8863ff1ab0e64dd2d82b838fceb5957146dab185a89d6215c",
+      "source": "rapidocr==3.9.2 wheel（site-packages/rapidocr/models）",
+      "install": ".venv\\Scripts\\python.exe -m pip install -r requirements.lock 后运行 scripts\\model_assets.py sync",
+      "required": false,
+      "note": "随 rapidocr wheel 分发并在运行时直接使用内置模型；本副本用于把版本钉死到实测哈希，可用 model_assets.py --sync 生成"
+    },
+    {
+      "name": "ocr_rec",
+      "capability": "ocr",
+      "relative_path": "state/models/ocr/PP-OCRv6_rec_small.onnx",
+      "size_bytes": 21234383,
+      "sha256": "6f327246b50388f3c176ae304bd95767ea6dc0c9ae92153ef8cbe210b3c14884",
+      "source": "rapidocr==3.9.2 wheel（site-packages/rapidocr/models）",
+      "install": ".venv\\Scripts\\python.exe -m pip install -r requirements.lock 后运行 scripts\\model_assets.py sync",
+      "required": false,
+      "note": "随 rapidocr wheel 分发并在运行时直接使用内置模型；本副本用于把版本钉死到实测哈希，可用 model_assets.py --sync 生成"
+    },
+    {
+      "name": "uvr_vocals",
+      "capability": "vocals",
+      "relative_path": "state/models/sherpa/uvr/UVR-MDX-NET-Voc_FT.onnx",
+      "size_bytes": 66762795,
+      "sha256": "e411182ce2c53541fefdcc99a8f46f2fe03978eb22038b9497c1d9d95a00fad4",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/source-separation-models/UVR-MDX-NET-Voc_FT.onnx",
+      "source": "sherpa-onnx 官方 release（source-separation-models）",
+      "required": false
+    },
+    {
+      "name": "diarization_segmentation",
+      "capability": "diarization",
+      "relative_path": "state/models/sherpa/segmentation/sherpa-onnx-pyannote-segmentation-3-0/model.onnx",
+      "size_bytes": 5992913,
+      "sha256": "220ad67ca923bef2fa91f2390c786097bf305bceb5e261d4af67b38e938e1079",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-segmentation-models/sherpa-onnx-pyannote-segmentation-3-0.tar.bz2",
+      "source": "sherpa-onnx 官方 release（speaker-segmentation-models，解包后取 model.onnx）",
+      "required": false
+    },
+    {
+      "name": "diarization_segmentation_int8",
+      "capability": "diarization",
+      "relative_path": "state/models/sherpa/segmentation/sherpa-onnx-pyannote-segmentation-3-0/model.int8.onnx",
+      "size_bytes": 1540506,
+      "sha256": "d582f4b4c6b48205de7e0643c57df0df5615a3c176189be3fc461e9d18827b5d",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-segmentation-models/sherpa-onnx-pyannote-segmentation-3-0.tar.bz2",
+      "source": "sherpa-onnx 官方 release（同包内的 int8 版本，便于低配机器降级）",
+      "required": false
+    },
+    {
+      "name": "diarization_embedding",
+      "capability": "diarization",
+      "relative_path": "state/models/sherpa/embedding/3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx",
+      "size_bytes": 39593761,
+      "sha256": "1a331345f04805badbb495c775a6ddffcdd1a732567d5ec8b3d5749e3c7a5e4b",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_eres2net_base_sv_zh-cn_3dspeaker_16k.onnx",
+      "source": "sherpa-onnx 官方 release（标签名沿用上游拼写 speaker-recongition-models）",
+      "required": false
+    }
+  ]
+}

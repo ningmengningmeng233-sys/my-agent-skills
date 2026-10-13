@@ -1,0 +1,45 @@
+{
+  "source": "渡口",
+  "lang": "zh",
+  "style": "realistic",
+  "promptLang": "en",
+  "episodes": [
+    {
+      "ep": 1,
+      "segments": [
+        {
+          "id": "E01-01",
+          "sceneIndex": 1,
+          "h3Prompt": "Align to 3 cuts. [Shot 1] medium ... [Shot 2] close ... [Shot 3] wide ...",
+          "cuts": [
+            {
+              "beats": [1, 2],
+              "seconds": 3,
+              "size": "medium",
+              "camera": "Static Shot",
+              "characters": ["C01"],
+              "frame": "cinematic film still, a woman waits at a ferry landing"
+            },
+            {
+              "beats": [3, 3],
+              "seconds": 4,
+              "size": "close",
+              "camera": "Push In",
+              "characters": ["C01", "C02"],
+              "props": ["P01"],
+              "frame": "cinematic film still, close on two hands passing a paper ticket"
+            },
+            {
+              "beats": [4, 5],
+              "seconds": 2,
+              "size": "wide",
+              "camera": "Pan Right",
+              "characters": [],
+              "frame": "cinematic film still, empty river at dusk"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

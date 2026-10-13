@@ -1,0 +1,25 @@
+{
+  "case_id": "d05-ref2va-warroom",
+  "expected_mode": "ref2va",
+  "expected_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d05-ref2va-warroom",
+      "value": "作战指挥部内",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d05-duration",
+      "value": 12,
+      "delivery_scope": "api_parameter",
+      "target_path": "duration"
+    },
+    {
+      "id": "api-d05-resolution",
+      "value": "768P",
+      "delivery_scope": "api_parameter",
+      "target_path": "resolution"
+    }
+  ]
+}

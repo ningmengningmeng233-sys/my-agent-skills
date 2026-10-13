@@ -1,0 +1,24 @@
+{
+  "case_id": "g05-fl2va-lakehouse-sunrise",
+  "user_prompt": "风景广告片头，首尾帧锁定雾中船屋与日出满湖两个构图",
+  "model": "H3",
+  "duration_s": 12,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "scene": "晨雾里的湖畔木屋栈桥",
+  "action": "太阳从山后升起，雾被初阳逐层揭开，湖面从灰蓝烧成橙金",
+  "camera": "栈桥中轴前推",
+  "style": "低角度晨光，雾气体积感",
+  "assets": {
+    "first_frame": "https://cdn.example.invalid/h3refs/frames/start-g05.png",
+    "last_frame": "https://cdn.example.invalid/h3refs/frames/end-g05.png"
+  },
+  "constraints": [
+    {
+      "id": "pt-g05-fl2va-lakehouse-sunrise",
+      "value": "晨雾里的湖畔木屋栈桥",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

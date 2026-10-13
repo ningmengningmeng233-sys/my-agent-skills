@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.1.0",
+  "sources": [
+    {
+      "source_path": "cangjie-skill/skills/minimax-video-understanding/references/ref-en.txt",
+      "normalized_path": "references/official/ref-en.txt",
+      "official_counterpart": "MiniMax Official Ref2VA Spec & Prompt Syntax (English)",
+      "declared_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+      "commit_verified": false,
+      "source_sha256": "b621067b41988c4d92be715b7a98ba48338f4076ab6041d95fcf463ea7c8ccdd",
+      "normalized_sha256": "1e574f356716ad55612247ffb7bbccbcdb484ad96599d63c7dca1af186b1fab7",
+      "normalization": ["CRLF_TO_LF"],
+      "provenance_status": "UPSTREAM_COMMIT_UNVERIFIED",
+      "verification_note": "SHA-256 matches normalized file content; upstream Git commit object unverified (honest provenance declaration)"
+    },
+    {
+      "source_path": "cangjie-skill/skills/minimax-video-understanding/references/base-en.txt",
+      "normalized_path": "references/official/base-en.txt",
+      "official_counterpart": "MiniMax Official T2VA/I2VA/FL2VA/L2VA Prompt Syntax (English)",
+      "declared_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+      "commit_verified": false,
+      "source_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+      "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc",
+      "normalization": ["CRLF_TO_LF"],
+      "provenance_status": "UPSTREAM_COMMIT_UNVERIFIED",
+      "verification_note": "SHA-256 matches normalized file content; upstream Git commit object unverified (honest provenance declaration)"
+    }
+  ]
+}

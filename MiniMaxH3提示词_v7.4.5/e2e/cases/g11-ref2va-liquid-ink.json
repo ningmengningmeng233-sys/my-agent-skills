@@ -1,0 +1,24 @@
+{
+  "case_id": "g11-ref2va-liquid-ink",
+  "user_prompt": "概念特效广告：多模态参考，参考视频提供墨水在水中绽开的扩散节奏",
+  "model": "H3",
+  "duration_s": 7,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "scene": "纯水箱体正侧机位",
+  "action": "一滴靛蓝墨水入水，沿涡流弥漫展开成羽毛状云带",
+  "camera": "侧拍长焦压缩",
+  "style": "背光让絮状边缘透亮",
+  "assets": {
+    "video": "https://cdn.example.invalid/h3refs/videos/mot-g11.mp4",
+    "audio": "https://cdn.example.invalid/h3refs/audios/bed-g11.wav"
+  },
+  "constraints": [
+    {
+      "id": "pt-g11-ref2va-liquid-ink",
+      "value": "纯水箱体正侧机位",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "g06-t2va-neon-typography",
+  "user_prompt": "特效概念短片：霓虹灯管在纯黑空间里逐段点亮成箭头指示",
+  "model": "H3",
+  "duration_s": 5,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "scene": "纯黑无缝空间",
+  "action": "粉红霓虹灯管自左向右逐段点亮，最后一段折成箭头",
+  "camera": "正面机位缓慢变焦推近",
+  "style": "灯管辉光在空气里形成雾感光柱",
+  "forced_mode": "t2va",
+  "constraints": [
+    {
+      "id": "pt-g06-t2va-neon-typography",
+      "value": "纯黑无缝空间",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

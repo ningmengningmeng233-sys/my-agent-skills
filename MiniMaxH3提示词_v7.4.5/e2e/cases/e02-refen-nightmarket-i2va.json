@@ -1,0 +1,22 @@
+{
+  "case_id": "e02-refen-nightmarket-i2va",
+  "user_prompt": "official english six-field prompt for the neon night market shot",
+  "prompt_body": "subject_definitions:\n<Picture 1> is a neon night-market alley keyframe reference.\n<Video 1> is the camera motion reference.\n<Audio 1> is the ambient bed to reuse.\n<Subject 1> is a delivery rider in a reflective jacket pushing a scooter.\n\nsummary: [reference generation] One continuous take of a delivery rider threading a neon night-market alley after rain.\n\nretention_analysis:\n<Picture 1> fully_preserved: alley layout, stall canopy line and wet asphalt reflections.\n<Video 1> partially_preserved: pacing only, framing rebuilt.\n<Audio 1> fully_copy: ambient bed kept intact.\n<Subject 1> attribute_transfer: wardrobe silhouette and props inherited.\n\ndetailed_description:\nPhotorealistic cinematic look, practical neon and lamp sources, shallow 35mm depth, natural skin texture.\n[Shot 1] The camera tracks <Picture 1>'s alley as <Subject 1> wheels the scooter past steaming food stalls, neon signs pooling color on the wet asphalt along a locked axis.\n[Shot 2] At 00:02.800, following the handheld sway of <Video 1>, <Subject 1> leans past a hanging lantern, tires scribing a clean arc through a shallow puddle, the phone mount buzzing with a new order.\n\noverall_soundscape: Sizzling woks, muffled vendor calls, scooter motor hum, rain dripping off awnings.\n\nnon_diegetic_music: none, diegetic ambience carries the whole scene.\n",
+  "model": "H3",
+  "duration_s": 8,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "assets": {
+    "first_frame": "https://cdn.example.invalid/h3refs/frames/start-e02.png"
+  },
+  "forced_mode": "i2va",
+  "forced_profile": "ref2va-en",
+  "constraints": [
+    {
+      "id": "pt-e02-refen-nightmarket-i2va",
+      "value": "neon signs",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

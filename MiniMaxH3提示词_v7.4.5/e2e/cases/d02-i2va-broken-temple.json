@@ -1,0 +1,36 @@
+{
+  "case_id": "d02-i2va-broken-temple",
+  "user_prompt": "短剧破庙夜戏，以图生视频延续上一镜站位，烛火摇曳",
+  "scene": "破庙内，烛火在斑驳佛像前摇曳",
+  "action": "沈青竹从草席上缓缓起身，掌心按住胸口",
+  "style": "烛火暖光为主光源，四周深褐阴影",
+  "audio": "夜风穿庙檐的呜咽声与烛芯噼啪，无配乐",
+  "voice_signature": "沈青竹：清冽女声，音量低，语速沉稳",
+  "model": "H3",
+  "duration_s": 10,
+  "aspect_ratio": "9:16",
+  "resolution": "768P",
+  "assets": {
+    "first_frame": "https://cdn.example.invalid/h3refs/frames/start-d02.png"
+  },
+  "constraints": [
+    {
+      "id": "pt-d02-i2va-broken-temple",
+      "value": "破庙内",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d02-duration",
+      "value": 10,
+      "delivery_scope": "api_parameter",
+      "target_path": "duration"
+    },
+    {
+      "id": "meta-d02",
+      "value": "起始帧来自上一集定妆图",
+      "delivery_scope": "metadata_only",
+      "target_path": ""
+    }
+  ]
+}

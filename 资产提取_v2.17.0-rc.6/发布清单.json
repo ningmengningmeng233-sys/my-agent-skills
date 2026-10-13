@@ -1,0 +1,161 @@
+{
+  "profile": "shareable",
+  "version": "2.17.0-rc.6",
+  "file_count": 792,
+  "style_pack": "仙侠国风电影CG",
+  "style_pack_version": "1.0.0",
+  "style_pack_runtime_complete": false,
+  "style_pack_assets_complete": false,
+  "missing_runtime_references": [],
+  "missing_assets": [
+    "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/character-1.png",
+    "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/character-2.png",
+    "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/character-3.png",
+    "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/character-4.png",
+    "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/character-5.png",
+    "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/character-6.png",
+    "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/environment-1.png",
+    "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/environment-2.png",
+    "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/environment-3.png",
+    "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/environment-4.png",
+    "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/environment-5.png",
+    "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/environment-6.png"
+  ],
+  "capability_statement": "文本与合成离线能力；受限风格图片全部排除，相关视觉能力不可用",
+  "declarations": [
+    "VISUAL_STYLE_INCOMPLETE_FOR_SHARE",
+    "STYLE_MEDIA_WITHHELD_PRIVATE_ONLY"
+  ],
+  "excluded": [
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/environment.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/face.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/full_body.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/ceramic.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/emissive.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/fabric.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/foliage.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/glass.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/hair.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/leather.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/liquid.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/makeup.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/metal.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/paper.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/plastic.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/rubber.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/skin.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/stone.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/materials/wood.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/object.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/character-1.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/character-2.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/character-3.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/character-4.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/character-5.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/character-6.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/environment-1.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/environment-2.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/environment-3.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/environment-4.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/environment-5.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    },
+    {
+      "path": "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/environment-6.png",
+      "reason": "PRIVATE_ONLY_STYLE_MEDIA"
+    }
+  ],
+  "excluded_count": 32,
+  "note": "受控分享包：已按分享策略排除来源图与许可未确认文件；能力声明与私人包不同，不得声称等价"
+}

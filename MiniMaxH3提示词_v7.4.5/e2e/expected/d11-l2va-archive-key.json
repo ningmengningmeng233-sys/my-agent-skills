@@ -1,0 +1,19 @@
+{
+  "case_id": "d11-l2va-archive-key",
+  "expected_mode": "l2va",
+  "expected_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d11-l2va-archive-key",
+      "value": "地下档案馆",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d11-resolution",
+      "value": "2K",
+      "delivery_scope": "api_parameter",
+      "target_path": "resolution"
+    }
+  ]
+}

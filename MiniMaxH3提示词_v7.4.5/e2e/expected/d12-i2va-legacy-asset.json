@@ -1,0 +1,13 @@
+{
+  "case_id": "d12-i2va-legacy-asset",
+  "expected_mode": "i2va",
+  "expected_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d12-i2va-legacy-asset",
+      "value": "凌晨的渔港码头",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "case_id": "g10-t2va-desk-sentences",
+  "user_prompt": "产品展示拼装：机械键盘键帽逐颗落位",
+  "model": "H3",
+  "duration_s": 8,
+  "aspect_ratio": "9:16",
+  "resolution": "768P",
+  "scene": "胡桃木桌面",
+  "action": "黑色键帽从画外逐颗摆放进底座，最后一颗回车键压出清脆一响",
+  "camera": "正俯视",
+  "style": "顶部柔光箱，木纹细节干净",
+  "constraints": [
+    {
+      "id": "pt-g10-t2va-desk-sentences",
+      "value": "黑色键帽从画外逐颗摆放",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

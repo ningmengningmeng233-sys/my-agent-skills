@@ -1,0 +1,33 @@
+{
+  "case_id": "d07-max-t2va-drought-village",
+  "user_prompt": "短剧 drought 旱村寻水戏，使用 H3-Max 模型",
+  "scene": "干裂的村口老井台，黄土路一直白到天边",
+  "action": "村长蹲下去用手背蹭了蹭井台的裂缝，站起来朝远处走",
+  "style": "正午顶光，热浪让远景轻微扭动",
+  "audio": "蝉声稀疏，靴底碾碎干土块的咔嚓声，无配乐",
+  "voice_signature": "村长：沙哑苍老男声，语速极慢",
+  "model": "H3-Max",
+  "duration_s": 15,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "constraints": [
+    {
+      "id": "pt-d07-max-t2va-drought-village",
+      "value": "干裂的村口老井台",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d07-duration",
+      "value": 15,
+      "delivery_scope": "api_parameter",
+      "target_path": "duration"
+    },
+    {
+      "id": "api-d07-ratio",
+      "value": "16:9",
+      "delivery_scope": "api_parameter",
+      "target_path": "ratio"
+    }
+  ]
+}

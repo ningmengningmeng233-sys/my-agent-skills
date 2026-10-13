@@ -1,0 +1,44 @@
+# 道具视觉质检清单（工单03-Task5）
+
+subject = "道具"
+schema_version = 1
+note = "道具只检轮廓、材质、比例与状态，不评价场景叙事"
+
+checks = [
+    "轮廓：剪影完整可读，功能性构造清楚（PROP_SILHOUETTE_UNREADABLE）",
+    "材质：表面反应符合材质参考，无镜面高光或塑料感（MATERIAL_MISMATCH）",
+    "比例：形制比例与结构参考一致（PROP_PROPORTION_ERROR）",
+    "状态：破损/发光/浸水等状态与原文一致（PROP_STATE_MISMATCH）",
+    "风格：介质与光色符合风格基线（STYLE_MISMATCH）",
+    "裁切：道具本体完整入画（SUBJECT_CROPPED）",
+    "人物：画面中不得出现人物肢体或手持（EXTRA_SUBJECT）",
+    "拼版禁令：单张单幅，不得拼三视图（FORBIDDEN_MULTI_PANEL）",
+    "文字水印：画面不得含文字或水印（TEXT_OR_WATERMARK）",
+    "数量硬门：道具件数必须与剧本/资产事实一致，不得多一件或少一件（PROP_COUNT_MISMATCH）",
+    "状态硬门：破损/发光/浸水等状态与原文一致（PROP_STATE_MISMATCH）",
+    "裁切硬门：道具本体完整入画，不裁切关键结构（CROP_MISMATCH）",
+    "遮挡：道具与持握者、遮挡物的前后关系合理，关键结构不得被无故遮住（OCCLUSION_MISMATCH）",
+    "参考链：所用参考图必须是当前正式版本的道具图与材质参考（REFERENCE_CHAIN_INVALID）",
+]
+
+# 硬门码（规格九 / 施工单 6.2）：存在任一即不得「通过」或「通过但有备注」
+blocking_codes = [
+    "HAND_FINGER_DEFECT", "BODY_PROPORTION_DEFECT", "IDENTITY_DRIFT", "STYLE_MISMATCH",
+    "CROP_MISMATCH", "POSITION_MISMATCH", "VIEWPOINT_MISMATCH", "EYELINE_MISMATCH",
+    "AXIS_CROSSING", "OCCLUSION_MISMATCH", "PROP_COUNT_MISMATCH", "PROP_STATE_MISMATCH",
+    "SCENE_STRUCTURE_MISMATCH", "EXTRA_SUBJECT", "TEXT_OR_WATERMARK",
+    "REFERENCE_CHAIN_INVALID",
+    "PROP_SILHOUETTE_UNREADABLE", "PROP_PROPORTION_ERROR", "FORBIDDEN_MULTI_PANEL",
+]
+
+repair_hints = [
+    "PROP_SILHOUETTE_UNREADABLE = 简化背景与细节，让轮廓先可读",
+    "PROP_STATE_MISMATCH = 按原文状态重做（破损/发光/浸水等）",
+    "PROP_PROPORTION_ERROR = 回到结构参考的形制比例",
+    "MATERIAL_MISMATCH = 重注入材质参考，压低镜面高光",
+    "FORBIDDEN_MULTI_PANEL = 改为单张单幅",
+    "PROP_COUNT_MISMATCH = 按剧本恢复道具件数，多出的删除、缺失的补回",
+    "CROP_MISMATCH = 调整构图让道具完整入画",
+    "OCCLUSION_MISMATCH = 调整前后关系，关键结构不得被无故遮挡",
+    "REFERENCE_CHAIN_INVALID = 改用当前正式版本的道具图与材质参考",
+]

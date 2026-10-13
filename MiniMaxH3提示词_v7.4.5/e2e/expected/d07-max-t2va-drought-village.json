@@ -1,0 +1,25 @@
+{
+  "case_id": "d07-max-t2va-drought-village",
+  "expected_mode": "t2va",
+  "expected_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d07-max-t2va-drought-village",
+      "value": "干裂的村口老井台",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d07-duration",
+      "value": 15,
+      "delivery_scope": "api_parameter",
+      "target_path": "duration"
+    },
+    {
+      "id": "api-d07-ratio",
+      "value": "16:9",
+      "delivery_scope": "api_parameter",
+      "target_path": "ratio"
+    }
+  ]
+}

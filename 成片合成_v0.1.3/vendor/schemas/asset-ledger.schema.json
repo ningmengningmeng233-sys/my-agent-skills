@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "asset-ledger.schema.json",
+  "title": "asset-ledger.json — 类型化资产总账契约（资产提取流水线机器层事实源）",
+  "description": "逆向自现存真实产物：资产提取_v2.17.0-rc.5工作树/.process/_diag_lib/资产库/.process/asset-ledger.json 与 scripts/engine/asset_ledger.py（AssetLedgerEntry TypedDict，唯一字段事实源）。总账在旧四表 Markdown 与 .process/资产索引.json 之上建立：五类记录，每条带 ledger_status / narrative_importance / production_mode / required_outputs；所有旧 Markdown 表可由总账渲染，旧 ID 与 stable_key 原样保留、绝不重编号。",
+  "x-contract": {
+    "name": "asset-ledger",
+    "version": "1.0.0",
+    "owner": "资产提取_v2.17.0-rc.5工作树（maintenance.py build-ledger）",
+    "consumers": ["资产提取视觉生产模块（视觉任务/计划）", "下游生图与人工审核（交付清单.json 签发引用）"],
+    "derived_from": [
+      "资产提取_v2.17.0-rc.5工作树/scripts/engine/asset_ledger.py:34-56",
+      "资产提取_v2.17.0-rc.5工作树/.process/_diag_lib/资产库/.process/asset-ledger.json",
+      "资产提取_v2.17.0-rc.5工作树/.process/_diag_lib/资产库/.process/资产索引.json（上游事实库）"
+    ]
+  },
+  "type": "object",
+  "required": ["schema_version", "entries"],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1,
+      "description": "总账 schema 版本，由 asset_ledger.SCHEMA_VERSION 驱动（当前 1）"
+    },
+    "built_at": { "type": "string", "description": "构建时间戳，可选" },
+    "entries": {
+      "type": "array",
+      "description": "五类资产记录（人物/场景/道具/服装/后期元素），旧 CH_/SC_/PR_/CO_ 编号与 stable_key 原样保留",
+      "items": { "$ref": "#/$defs/ledgerEntry" }
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "ledgerEntry": {
+      "type": "object",
+      "required": ["asset_id", "stable_key", "asset_type", "canonical_name", "ledger_status", "production_mode", "required_outputs"],
+      "properties": {
+        "asset_id": {
+          "type": "string",
+          "pattern": "^(CH_|SC_|PR_|CO_|POST_).+",
+          "description": "资产编号：CH_人物 / SC_场景 / PR_道具 / CO_服装 / POST_后期元素 + 名称。注意：与 script.json 的 C01/S01/P01 编号体系不互通（PIPELINE.md 断点 D3）"
+        },
+        "stable_key": { "type": "string", "description": "跨轮次稳定键，如 CHR:00003:2（来源段:序号），追更/合并时不重编号的锚" },
+        "asset_type": {
+          "enum": ["person", "scene", "prop", "costume", "post_element"],
+          "description": "五类资产；中文类型名（人物/场景/道具/服装）只在资产索引.json 层，总账存英文键，映射唯一出处在 asset_ledger.TYPE_KEY"
+        },
+        "canonical_name": { "type": "string", "minLength": 1, "description": "主名：原文首次出现的称呼，禁术语化重命名" },
+        "aliases": { "type": "array", "items": { "type": "string" }, "description": "别名，可省略" },
+        "evidence_ids": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[0-9a-f]{12}$" },
+          "description": "原文证据哈希（sha1(行号|摘句) 前 12 位），可回溯资产索引.json evidence 的 segment/chapter/line/quote"
+        },
+        "fact_level": { "type": "string", "description": "四级事实等级（如 剧本事实/原文事实/推断/待定冲突），不强制枚举以便技能扩充" },
+        "ledger_status": {
+          "enum": ["formal", "pending", "post"],
+          "description": "formal=可投产；pending=待定/冲突未裁决；post=后期元素专册"
+        },
+        "narrative_importance": {
+          "enum": ["main", "supporting", "minor"],
+          "description": "叙事重要性，由资产索引 priority P0-P3 映射（P0→main / P1→supporting / P2,P3→minor）"
+        },
+        "production_mode": {
+          "enum": ["image", "bound", "post_only", "none"],
+          "description": "image=独立生图；bound=随人物呈现的绑定服装；post_only=后期元素永不进生图计划；none=不生产"
+        },
+        "required_outputs": {
+          "type": "array",
+          "items": { "enum": ["base_prompt", "image_task", "bound_image", "post_delivery"] },
+          "description": "该资产的必需产出清单（签发门按此对账）"
+        },
+        "relations": {
+          "type": "array",
+          "description": "显式资产关系（如 WEARS 服装绑定、APPEARS_IN 同章出场），可省略",
+          "items": {
+            "type": "object",
+            "required": ["kind", "target"],
+            "properties": {
+              "kind": { "type": "string", "description": "关系类型英文枚举，如 APPEARS_IN / WEARS" },
+              "target": { "type": "string", "description": "目标资产 asset_id" },
+              "note": { "type": "string" }
+            },
+            "additionalProperties": true
+          }
+        },
+        "source_refs": {
+          "type": "array",
+          "description": "来源引用列表（W04）：回溯剧本或原文的集/场/实体/台词定位；手工创建时明确标记为 manual",
+          "items": {
+            "type": "object",
+            "required": ["source_type", "source_id"],
+            "properties": {
+              "source_type": {
+                "enum": ["script", "novel", "manual"],
+                "description": "来源类型：script=剧本结构；novel=小说原文；manual=人工创建"
+              },
+              "source_id": {
+                "type": "string",
+                "description": "来源原始编号，如剧本的 C01/S01/P01，或 MANUAL"
+              },
+              "script_version": { "type": "string", "description": "剧本版本号，如 1.0.0" },
+              "episode": { "type": "integer", "minimum": 1, "description": "分集序号" },
+              "scene_id": { "type": "string", "pattern": "^S\\d{2,3}$", "description": "场次编号" },
+              "beat_index": { "type": "integer", "minimum": 0, "description": "节拍序号" },
+              "quote": { "type": "string", "description": "原文依据摘录" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "prompt_ids": { "type": "array", "items": { "type": "string" }, "description": "关联提示词 id 列表，编译链回填" },
+        "visual_task_ids": { "type": "array", "items": { "type": "string" }, "description": "关联视觉任务 id 列表" },
+        "positions": { "type": "string", "description": "旧四表展示字段：出场位置，渲染四表时逐字还原" },
+        "importance_level": { "type": "string", "description": "旧四表展示字段：重要性等级" },
+        "remark": { "type": "string", "description": "旧四表展示字段：备注" },
+        "alias_display": { "type": "string", "description": "旧四表展示字段：别名顿号串" },
+        "bind_display": { "type": "string", "description": "旧四表展示字段：绑定展示串" },
+        "display_order": { "type": "integer", "description": "旧四表渲染顺序，可省略默认 0" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

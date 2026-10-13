@@ -1,0 +1,21 @@
+{
+  "case_id": "d16-t2va-broken-temple-dawn",
+  "user_prompt": "短剧破庙天亮戏，收尾镜头人物与神像同框",
+  "scene": "破庙天井，晨光斜斜落在塌了半边的神像上",
+  "action": "受伤的剑客顺着柱子滑坐到地，低头抵住怀里的匣子，指节一直没有松开",
+  "style": "晨光从冷到暖的过渡，尘埃在光柱里翻滚",
+  "audio": "瓦檐滴水与远处早课钟声，无配乐",
+  "voice_signature": "剑客：忍痛的气声男声，全程无完整句",
+  "model": "H3",
+  "duration_s": 8,
+  "aspect_ratio": "21:9",
+  "resolution": "768P",
+  "constraints": [
+    {
+      "id": "pt-d16-t2va-broken-temple-dawn",
+      "value": "破庙天井",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

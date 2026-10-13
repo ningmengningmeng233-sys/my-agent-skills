@@ -1,0 +1,839 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/日系小说本地化/v4-manifest.schema.json",
+  "title": "日系小说本地化 v4 Core manifest",
+  "description": "项目级唯一状态真相。用户可查看但不得直接以手工修改绕过状态生成流程。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "project",
+    "source",
+    "project_decisions",
+    "rules",
+    "enhancements",
+    "chapters",
+    "output",
+    "manifest_revision",
+    "updated_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "v4-core-1"
+    },
+    "project_id": {
+      "$ref": "#/$defs/id"
+    },
+    "project": {
+      "$ref": "#/$defs/project"
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "project_decisions": {
+      "$ref": "#/$defs/decisionRef"
+    },
+    "rules": {
+      "$ref": "#/$defs/rules"
+    },
+    "enhancements": {
+      "$ref": "#/$defs/enhancements"
+    },
+    "chapters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/chapter"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "output": {
+      "$ref": "#/$defs/output"
+    },
+    "manifest_revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "updated_at": {
+      "$ref": "#/$defs/timestamp"
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[\\\\:*?\"<>|])[^\\r\\n]+$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "input_language",
+        "product_kind"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "body",
+            "appendix"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "author": {
+          "type": "string"
+        },
+        "input_language": {
+          "enum": [
+            "zh-CN",
+            "zh-TW",
+            "zh-HK",
+            "zh",
+            "ja",
+            "ja-JP",
+            "unknown"
+          ]
+        },
+        "product_kind": {
+          "const": "中国化中文小说成品"
+        },
+        "legacy_source": {
+          "enum": [
+            "v3",
+            "other",
+            "none"
+          ]
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "kind",
+        "files",
+        "boundary_status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "ready"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "file",
+            "folder"
+          ]
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "snapshot_path": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "snapshot_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "encoding": {
+          "type": "string",
+          "minLength": 1
+        },
+        "boundary_status": {
+          "enum": [
+            "confirmed",
+            "awaiting_confirmation",
+            "blocked"
+          ]
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceFile"
+          }
+        },
+        "excluded_files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "source_path",
+              "reason"
+            ],
+            "properties": {
+              "source_path": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "ready"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "path",
+              "sha256",
+              "snapshot_path",
+              "snapshot_sha256"
+            ],
+            "properties": {
+              "files": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "sourceFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ordinal",
+        "source_path",
+        "snapshot_path",
+        "sha256"
+      ],
+      "properties": {
+        "ordinal": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "snapshot_path": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "decisionRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "core_version",
+        "dictionary_sha256"
+      ],
+      "properties": {
+        "core_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dictionary_path": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "dictionary_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "enhancements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_assets",
+        "blind_review",
+        "platform_review"
+      ],
+      "properties": {
+        "reference_assets": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "enabled",
+            "used"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "used": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        },
+        "blind_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "enabled",
+            "required_for_pass"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "required_for_pass": {
+              "type": "boolean"
+            },
+            "provider": {
+              "type": "string"
+            }
+          }
+        },
+        "platform_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "enabled",
+            "platforms"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "platforms": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            }
+          }
+        }
+      }
+    },
+    "chapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "ordinal",
+        "title",
+        "state",
+        "paths",
+        "fingerprints",
+        "checks",
+        "blockers",
+        "decisions",
+        "enhancements",
+        "updated_at"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "body",
+            "appendix"
+          ]
+        },
+        "ordinal": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_range": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start",
+            "end"
+          ],
+          "properties": {
+            "start": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "end": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "state": {
+          "enum": [
+            "new",
+            "awaiting_boundary",
+            "parsed",
+            "awaiting_decision",
+            "ready_for_rewrite",
+            "rewriting",
+            "awaiting_checks",
+            "rework",
+            "awaiting_review",
+            "needs_review",
+            "passed",
+            "approved",
+            "delivered",
+            "paused",
+            "error"
+          ]
+        },
+        "resume_target": {
+          "type": "string"
+        },
+        "pause_reason": {
+          "type": "string"
+        },
+        "paths": {
+          "$ref": "#/$defs/chapterPaths"
+        },
+        "fingerprints": {
+          "$ref": "#/$defs/fingerprints"
+        },
+        "checks": {
+          "$ref": "#/$defs/checkSummary"
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/blocker"
+          }
+        },
+        "decisions": {
+          "$ref": "#/$defs/decisionSummary"
+        },
+        "enhancements": {
+          "$ref": "#/$defs/chapterEnhancements"
+        },
+        "last_error": {
+          "type": "string"
+        },
+        "updated_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "delivery_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "experimental_output": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "experimental_risk": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "passed",
+                  "delivered"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "blockers": {
+                "maxItems": 0
+              },
+              "checks": {
+                "properties": {
+                  "hard_gate": {
+                    "const": "pass"
+                  },
+                  "event_comparison": {
+                    "const": "pass"
+                  }
+                }
+              },
+              "decisions": {
+                "properties": {
+                  "required_open": {
+                    "const": false
+                  },
+                  "open_count": {
+                    "const": 0
+                  }
+                }
+              },
+              "enhancements": {
+                "properties": {
+                  "blind_review": {
+                    "if": {
+                      "properties": {
+                        "enabled": {
+                          "const": true
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "result": {
+                          "const": "pass"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "delivered"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "delivery_revision"
+            ]
+          }
+        }
+      ]
+    },
+    "chapterPaths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "events",
+        "decisions",
+        "output",
+        "checks",
+        "audit"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "events": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "decisions": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "output": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "checks": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "audit": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "precheck": {
+          "$ref": "#/$defs/relativePath"
+        }
+      }
+    },
+    "fingerprints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "events",
+        "project_decisions",
+        "chapter_decisions",
+        "rules",
+        "effective",
+        "output",
+        "checks"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/sha256"
+        },
+        "events": {
+          "$ref": "#/$defs/sha256"
+        },
+        "project_decisions": {
+          "$ref": "#/$defs/sha256"
+        },
+        "chapter_decisions": {
+          "$ref": "#/$defs/sha256"
+        },
+        "rules": {
+          "$ref": "#/$defs/sha256"
+        },
+        "effective": {
+          "$ref": "#/$defs/sha256"
+        },
+        "output": {
+          "$ref": "#/$defs/sha256"
+        },
+        "checks": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "checkSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hard_gate",
+        "event_comparison",
+        "last_run"
+      ],
+      "properties": {
+        "hard_gate": {
+          "enum": [
+            "pass",
+            "blocked",
+            "fail",
+            "warning",
+            "not_run"
+          ]
+        },
+        "event_comparison": {
+          "enum": [
+            "pass",
+            "blocked",
+            "fail",
+            "not_run"
+          ]
+        },
+        "last_run": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "warning_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failure_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "blocker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "kind",
+        "message",
+        "opened_at"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z0-9][A-Z0-9_.-]{1,63}$"
+        },
+        "kind": {
+          "enum": [
+            "boundary",
+            "decision",
+            "contradiction",
+            "event",
+            "check",
+            "fingerprint",
+            "manual",
+            "runtime"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "opened_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "decision_path": {
+          "$ref": "#/$defs/relativePath"
+        }
+      }
+    },
+    "decisionSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_open",
+        "open_count",
+        "revision"
+      ],
+      "properties": {
+        "required_open": {
+          "type": "boolean"
+        },
+        "open_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "chapterEnhancements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_assets_used",
+        "blind_review"
+      ],
+      "properties": {
+        "reference_assets_used": {
+          "type": "boolean"
+        },
+        "blind_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "enabled",
+            "result"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "result": {
+              "enum": [
+                "pass",
+                "blocked",
+                "fail",
+                "not_run",
+                "not_enabled"
+              ]
+            }
+          }
+        },
+        "platform_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "enabled",
+            "platform",
+            "result"
+          ],
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "platform": {
+              "type": "string",
+              "minLength": 1
+            },
+            "result": {
+              "enum": [
+                "pass",
+                "blocked",
+                "fail",
+                "not_run",
+                "not_enabled"
+              ]
+            }
+          }
+        },
+        "style_depth_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "format",
+        "last_built_from_revision"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "format": {
+          "const": "markdown正文"
+        },
+        "last_built_from_revision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "invalidated_by_rollback": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "chapters",
+            "at"
+          ],
+          "properties": {
+            "chapters": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "at": {
+              "$ref": "#/$defs/timestamp"
+            }
+          }
+        }
+      }
+    }
+  }
+}

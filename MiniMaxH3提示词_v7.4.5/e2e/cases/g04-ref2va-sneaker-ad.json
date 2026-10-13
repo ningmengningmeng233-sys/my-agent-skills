@@ -1,0 +1,24 @@
+{
+  "case_id": "g04-ref2va-sneaker-ad",
+  "user_prompt": "球鞋广告，多模态参考：参考资产提供漆面地面反射，弹跳节奏来自参考视频",
+  "model": "H3",
+  "duration_s": 6,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "scene": "亮黑漆面地台",
+  "action": "白红配色球鞋从画面上方落下，鞋底触台压弹一次站稳",
+  "camera": "低机位仰角",
+  "style": "硬顶光加侧轮廓光，反射清晰",
+  "assets": {
+    "image": "https://cdn.example.invalid/h3refs/images/ref-g04.png",
+    "video": "https://cdn.example.invalid/h3refs/videos/mot-g04.mp4"
+  },
+  "constraints": [
+    {
+      "id": "pt-g04-ref2va-sneaker-ad",
+      "value": "亮黑漆面地台",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

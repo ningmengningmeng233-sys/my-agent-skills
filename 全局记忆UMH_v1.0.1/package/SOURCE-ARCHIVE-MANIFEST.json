@@ -1,0 +1,3438 @@
+{
+  "package": "universal-memory-hub",
+  "archive": "umh-v1.tgz",
+  "archiveSha256": "bffbe822f6cfe66df5d2d361fa52e2f7b6af13a21889e194c839bd43d4f52c4a",
+  "fileCount": 686,
+  "files": [
+    {
+      "name": "DEPENDENCIES-PIN.json",
+      "sha256": "0b774f7e64ad891d9c5637f4ffc811155bcfb174af44c537cccaa653d153e85b",
+      "size": 4740
+    },
+    {
+      "name": "dist/apps/cli/connect.d.ts",
+      "sha256": "c0823d6837138d6e6a3f564ab77c2c2450d1b5968fbbb06554cbe9c142b69e60",
+      "size": 4627
+    },
+    {
+      "name": "dist/apps/cli/connect.js",
+      "sha256": "98fa007a8079d3959c4a8eed01a7b5c2b1366a019ec1c5753cac564230a7637f",
+      "size": 31464
+    },
+    {
+      "name": "dist/apps/cli/doctor.d.ts",
+      "sha256": "aa9921ec174e390ac249c98d5e4f09c2859558b1ca3c3ed3c1b49b8c9316f1d4",
+      "size": 370
+    },
+    {
+      "name": "dist/apps/cli/doctor.js",
+      "sha256": "6afefd787edc99600b163ce0217ecabdf878d05ea1f536dd7eae86abf55fb713",
+      "size": 2124
+    },
+    {
+      "name": "dist/apps/cli/lifecycle.d.ts",
+      "sha256": "14fb14d5d8e12f832c7ff7553e832f0e7247500b227f280748a846ba78e6b10c",
+      "size": 1344
+    },
+    {
+      "name": "dist/apps/cli/lifecycle.js",
+      "sha256": "864eb119f19368336fab02bc6ccdc7fff875720e2dc6574d5d32a87773d119b2",
+      "size": 8356
+    },
+    {
+      "name": "dist/apps/cli/main.d.ts",
+      "sha256": "337568c75d0081c4c4dfa8774ba60eeb861b1375320ddb27009bbcee6bbaece6",
+      "size": 1044
+    },
+    {
+      "name": "dist/apps/cli/main.js",
+      "sha256": "c28e150f7e6d86f9238f484e399fcbaab7e775d874f1ed75b2c81cca5519e2eb",
+      "size": 10834
+    },
+    {
+      "name": "dist/apps/cli/maintenance.d.ts",
+      "sha256": "bdf4227216aefdbc29a31ba89e0438754009fae75b767ccff96ff570c856b460",
+      "size": 1081
+    },
+    {
+      "name": "dist/apps/cli/maintenance.js",
+      "sha256": "e833134e8a3c7a778d0c2ca76720bb76940a9cd8d28537f1581d378b75aced81",
+      "size": 8456
+    },
+    {
+      "name": "dist/apps/cli/review.d.ts",
+      "sha256": "7abe36eece46fccb510197df3d811fd5308fb60a39eda474d5efe472b5367e54",
+      "size": 1466
+    },
+    {
+      "name": "dist/apps/cli/review.js",
+      "sha256": "0c8edafe4f8efb9e7afba57b9563b6d36636b25aa03a6ee94d5208ed769d8ede",
+      "size": 3840
+    },
+    {
+      "name": "dist/apps/gateway/main.d.ts",
+      "sha256": "1aef6336ca362e3a9271b66aaed32722ba1b55b28da04c282605fb1dd8634ad3",
+      "size": 999
+    },
+    {
+      "name": "dist/apps/gateway/main.js",
+      "sha256": "bbe9e36a2461e4a6e58aca90f57d6d6d9dac25a4e9f4d82fabcf588786f9cca9",
+      "size": 7301
+    },
+    {
+      "name": "dist/apps/service/main.d.ts",
+      "sha256": "2510d8e759828aa51e6695b50cd49c242b36eef0bdb18fe6b837f35c03a5ade2",
+      "size": 631
+    },
+    {
+      "name": "dist/apps/service/main.js",
+      "sha256": "f59f39f98d16bcf658acb0975328a3352149aaf08a1998102ff5289777ea4619",
+      "size": 2587
+    },
+    {
+      "name": "dist/packages/adapters/cherry/index.d.ts",
+      "sha256": "badbaa31f9cbc47dd9f06097334508ba991302558b05dc2141190f708bb313f8",
+      "size": 5486
+    },
+    {
+      "name": "dist/packages/adapters/cherry/index.js",
+      "sha256": "95786e6e4338a6df873638b2f23d295170d93ff05dc2175300c9c7583cc63901",
+      "size": 10932
+    },
+    {
+      "name": "dist/packages/adapters/claude/index.d.ts",
+      "sha256": "c8a16be6c29520f628aba9f3ffc6ae2cb25d0d1b170a4247adb416ce09ebe113",
+      "size": 12086
+    },
+    {
+      "name": "dist/packages/adapters/claude/index.js",
+      "sha256": "34528d4139b003091115a1db253f5d8f989db38addb0b2174382f9d6e591abdc",
+      "size": 26854
+    },
+    {
+      "name": "dist/packages/adapters/codex/index.d.ts",
+      "sha256": "863cefd8e7cd88c828b88194301b88af8c026fee56904de5af837d03c32eb012",
+      "size": 11462
+    },
+    {
+      "name": "dist/packages/adapters/codex/index.js",
+      "sha256": "e0c1cf247e962b9e58ffa8eb1df1eeb4f5f931cd79162c30d6b494e3f18f1ccf",
+      "size": 45195
+    },
+    {
+      "name": "dist/packages/adapters/config-plan.d.ts",
+      "sha256": "d633c6cde59ea26cee78ab92d2c6685e73c46fb335f88cbe594a40c8b8974664",
+      "size": 3044
+    },
+    {
+      "name": "dist/packages/adapters/config-plan.js",
+      "sha256": "520faa56502992b76afe56c85218b91dc38a558070ffb1c720eba5c15af0ad16",
+      "size": 15931
+    },
+    {
+      "name": "dist/packages/adapters/connection.d.ts",
+      "sha256": "81f98c79e0abbcb954c087a69771f2ffbf24860ef0882c9dedb8106c7603531f",
+      "size": 8744
+    },
+    {
+      "name": "dist/packages/adapters/connection.js",
+      "sha256": "5ffba12d30a8bb27c69510d828735d2b44c133f7008e2fb4244137c06dd9261c",
+      "size": 49331
+    },
+    {
+      "name": "dist/packages/adapters/contracts.d.ts",
+      "sha256": "cd851ea6d982c51240bf98bd14822a0e9dbb42c2cebafb8428c0814cd1273173",
+      "size": 4448
+    },
+    {
+      "name": "dist/packages/adapters/contracts.js",
+      "sha256": "cb75f7eddaf19ef18dc4fdd32f72490138a5a0b03ec3411716d97d5bfaa30eb2",
+      "size": 2825
+    },
+    {
+      "name": "dist/packages/adapters/dsh/index.d.ts",
+      "sha256": "0b3aba99e10cdc064765e0714fa694cbefaa3b09009f43be0dbb5935b56a490d",
+      "size": 12415
+    },
+    {
+      "name": "dist/packages/adapters/dsh/index.js",
+      "sha256": "8e0a9ca28fecdc6eb9f6ba8c85f1e85bd9e7418246e8796d702c2112d09fb6bb",
+      "size": 52906
+    },
+    {
+      "name": "dist/packages/adapters/generic/index.d.ts",
+      "sha256": "70765bff8be1cd7b8bf6381b2a1990bf9fec3dc828b7469eaa93dbe6b8c718c3",
+      "size": 3729
+    },
+    {
+      "name": "dist/packages/adapters/generic/index.js",
+      "sha256": "3966287b1ec1eb03cbd60d2fc45b8bf3c5aa6124eca4038dce1b35a7f00c45a7",
+      "size": 10743
+    },
+    {
+      "name": "dist/packages/adapters/launch.d.ts",
+      "sha256": "f6f9c2e98a7454d4d8d1f9e9868210ca2e9f78dfed08276da6b32ee9e9db298c",
+      "size": 820
+    },
+    {
+      "name": "dist/packages/adapters/launch.js",
+      "sha256": "7e9640930881c51de4477ada79c6ce23529e82d5d1bbe3031f7ff367cfb8cc17",
+      "size": 1692
+    },
+    {
+      "name": "dist/packages/adapters/minimax/index.d.ts",
+      "sha256": "10d75dc22f1c778c0b7feb704a2c9e9ee88ecab6eec58167f21331fa80e6c725",
+      "size": 13075
+    },
+    {
+      "name": "dist/packages/adapters/minimax/index.js",
+      "sha256": "1688061ecd4e7558794037cd6fb52e2c8201ad50f5b8afbe93160b993640f270",
+      "size": 34121
+    },
+    {
+      "name": "dist/packages/adapters/policy-block.d.ts",
+      "sha256": "005b33039a903cb10d21420c6c4fa9a01a4c8932e21e8412a5f53645dce129a2",
+      "size": 1356
+    },
+    {
+      "name": "dist/packages/adapters/policy-block.js",
+      "sha256": "6d078fdf7204758a629a9fc9f8713b9c04bd48335f800c22270a65c468f0b117",
+      "size": 2158
+    },
+    {
+      "name": "dist/packages/adapters/qoder/index.d.ts",
+      "sha256": "7786d625839d8d5cc9aa54af5d67b9982620fde7b7170182a5a05668a65cc4a1",
+      "size": 9964
+    },
+    {
+      "name": "dist/packages/adapters/qoder/index.js",
+      "sha256": "c8460876535cabc82b30cf8d38fdabc63fd7e55da92b56b9379e906b8be01e3a",
+      "size": 23498
+    },
+    {
+      "name": "dist/packages/adapters/registry.d.ts",
+      "sha256": "37300de7ea4666615fa6a72f7e817eec87b80e3f3a746c62f3a3ca9a209a54a4",
+      "size": 1415
+    },
+    {
+      "name": "dist/packages/adapters/registry.js",
+      "sha256": "116f932a78e9ed0f14f0f2981bf2eca300b8adf3a82153fd3f74cfc338d2f862",
+      "size": 2554
+    },
+    {
+      "name": "dist/packages/adapters/transaction.d.ts",
+      "sha256": "372e462864de38cdf9f53ea890743dcd3966e1cac194d3c75545c46ce014b422",
+      "size": 5610
+    },
+    {
+      "name": "dist/packages/adapters/transaction.js",
+      "sha256": "810e0207e4ca274b0ff30ed7038c8a0d73dbc2cab952b50dcdeb9ef5287f6986",
+      "size": 24932
+    },
+    {
+      "name": "dist/packages/adapters/zcode/index.d.ts",
+      "sha256": "666a88718659bd5cf7d0deed53e8cd97ea3e943d94afdde8e4add3834d5a8576",
+      "size": 10073
+    },
+    {
+      "name": "dist/packages/adapters/zcode/index.js",
+      "sha256": "40b38d526b25adb53a7ae903bd8b6c5ab204fe3be226bef934b35e74b987439f",
+      "size": 21409
+    },
+    {
+      "name": "dist/packages/contracts/index.d.ts",
+      "sha256": "9e9e3c9d9f19c88aa60f5231658a490729f0a3d154cd2347cbda122142a9d3aa",
+      "size": 5995
+    },
+    {
+      "name": "dist/packages/contracts/index.js",
+      "sha256": "3a0dcd1c4749489f739fd2931ceed63d80abf57e85b494c1601aa827f2efecf2",
+      "size": 10120
+    },
+    {
+      "name": "dist/packages/core/read.d.ts",
+      "sha256": "37df0535aeeeeff5c1408341ed7fb1ffaa16ef980ad85ca5d648a33b2383f977",
+      "size": 3596
+    },
+    {
+      "name": "dist/packages/core/read.js",
+      "sha256": "f388be9b2899ca1b4faa35b89cc6ecf4db98c02358f38f8294d4a02cc6a5ca67",
+      "size": 13393
+    },
+    {
+      "name": "dist/packages/core/receipt.d.ts",
+      "sha256": "8993e82a0f26f27cd39ea696144bef87fc1e4ffd22365f54fd333af4b66b5486",
+      "size": 5357
+    },
+    {
+      "name": "dist/packages/core/receipt.js",
+      "sha256": "a4be8171d1d14e17561df1de15072ac6367fcfc4c54cee62cdef9d7c8404a3b7",
+      "size": 17870
+    },
+    {
+      "name": "dist/packages/core/secrets.d.ts",
+      "sha256": "d555909f58dbc0ff6fbe46ae7df1561cb0f4bd43922641e65cabc2c0d78848b0",
+      "size": 2098
+    },
+    {
+      "name": "dist/packages/core/secrets.js",
+      "sha256": "9372483a3a2de94229094d99dcccb0299522b89d6c0f44c9369bda5c455c9d7a",
+      "size": 4079
+    },
+    {
+      "name": "dist/packages/core/validation.d.ts",
+      "sha256": "cd1eb079ea1625492fd5a5a2e78d975becd5398a1ac585e33a2f697ee89c46a7",
+      "size": 1393
+    },
+    {
+      "name": "dist/packages/core/validation.js",
+      "sha256": "8fc0c413c3d5407875009d432e2c607fdd158f4d11884cbbad0ba6f5608bd7d0",
+      "size": 3775
+    },
+    {
+      "name": "dist/packages/core/write.d.ts",
+      "sha256": "7fe01ecbb996f68d54e61c483f624027d50edba0a8bcdf949f569bbee2787fa6",
+      "size": 4838
+    },
+    {
+      "name": "dist/packages/core/write.js",
+      "sha256": "edade718a8d9008c082fc10fde0fea35d69a7aa5148be8f4725ceb5c906e16aa",
+      "size": 30287
+    },
+    {
+      "name": "dist/packages/engine/mapping.d.ts",
+      "sha256": "e599839207baf0e7aa27c57ff2a9d9214134432257b42adb6b6a40abd232bd4e",
+      "size": 3479
+    },
+    {
+      "name": "dist/packages/engine/mapping.js",
+      "sha256": "72a2afe88cba622250d5b8e019f0fb134b781b364c25e80392c0be021f182810",
+      "size": 8475
+    },
+    {
+      "name": "dist/packages/engine/mdcg.d.ts",
+      "sha256": "94d7c897dab956249aed53c10009408ed19a635f22349176ef97d0d40ae0ea41",
+      "size": 3064
+    },
+    {
+      "name": "dist/packages/engine/mdcg.js",
+      "sha256": "b950d90293d499395017d77f4b483b6f4ca65b625b94b82d047362081bd5e0ef",
+      "size": 21377
+    },
+    {
+      "name": "dist/packages/engine/transport.d.ts",
+      "sha256": "2c48e7a7db25f160fbc5d26562f93cd8d3124fb15b4fe816fa9db67779a280df",
+      "size": 3447
+    },
+    {
+      "name": "dist/packages/engine/transport.js",
+      "sha256": "465cb5f658a45d474544f90b95360b8dc58113e8416d0064c93d9d5bdbf5596a",
+      "size": 10568
+    },
+    {
+      "name": "dist/packages/gateway/rpc-client.d.ts",
+      "sha256": "ef86d022d85d0378ef87bcd28e31598a40661e6a4ca1591df8bfdb9f033eca68",
+      "size": 2591
+    },
+    {
+      "name": "dist/packages/gateway/rpc-client.js",
+      "sha256": "df9401f5897b5db1a24a32df5ef9c5b16fffa846f86af27b915936fd33885608",
+      "size": 8187
+    },
+    {
+      "name": "dist/packages/gateway/server.d.ts",
+      "sha256": "4df9ec341c7d280ceec39556cdf933c27762288e04f6584f65c1b2d83115e5a5",
+      "size": 1900
+    },
+    {
+      "name": "dist/packages/gateway/server.js",
+      "sha256": "a74feec4cdb4bb96984be943a6ea61520cf9e93ae644938a8b01eef6c8f0cabc",
+      "size": 9946
+    },
+    {
+      "name": "dist/packages/ops/backup.d.ts",
+      "sha256": "a230caad0edf487875e994a6d253bf1ad9afbd74855554a76ed6e14bceb335b5",
+      "size": 3238
+    },
+    {
+      "name": "dist/packages/ops/backup.js",
+      "sha256": "3ca90157851c80186ff57ff88c2c8efc0e41c9106cf667fbf7d2fe54a76b674b",
+      "size": 12572
+    },
+    {
+      "name": "dist/packages/ops/contracts.d.ts",
+      "sha256": "a1a7a7757bc813be766cf0d710ad026530c18dbd525f678b2f885344a571f5f1",
+      "size": 2211
+    },
+    {
+      "name": "dist/packages/ops/contracts.js",
+      "sha256": "87a6aec343030b12fb90a7b29a2d841b053fe3c492dc5ceb0c32afc71792a04e",
+      "size": 906
+    },
+    {
+      "name": "dist/packages/ops/doctor.d.ts",
+      "sha256": "24096d6bbf469349a5bb689f960d6ddf8a8e245a26eb9cb659e4742ff32bd0b8",
+      "size": 891
+    },
+    {
+      "name": "dist/packages/ops/doctor.js",
+      "sha256": "117939dbe582a8c91e1048edfee12be9b3f76e726c863169332938b47eaaeca7",
+      "size": 22051
+    },
+    {
+      "name": "dist/packages/ops/rebuild.d.ts",
+      "sha256": "85a1a09358c1903d226e46cef76afcda707b05498dc42899cb026f5a3245b8ce",
+      "size": 2550
+    },
+    {
+      "name": "dist/packages/ops/rebuild.js",
+      "sha256": "7f1f4ce281b16ca20a56f244b510bd2fb53e5b67f797009d56da1a0211f2e42d",
+      "size": 7365
+    },
+    {
+      "name": "dist/packages/ops/restore.d.ts",
+      "sha256": "dc6be8a126e1b5a8f5363fc9eb4b883f26e6dbd4873a1fe014bd962c19e314b9",
+      "size": 1671
+    },
+    {
+      "name": "dist/packages/ops/restore.js",
+      "sha256": "f1850e5352ae3c25d980f7d9f68cebaf219a9c9f75693ccee8bf67455b1db63e",
+      "size": 17404
+    },
+    {
+      "name": "dist/packages/scope/binding.d.ts",
+      "sha256": "602804aaa7933b6e4ca2ebfdfbac4e2b2dcea0a5d64c50a7abf1226b6589b930",
+      "size": 1733
+    },
+    {
+      "name": "dist/packages/scope/binding.js",
+      "sha256": "aaca306522ee3ff880574a9fec4d9b26bc5999c1d0d36fcfa3384a4eedac7061",
+      "size": 3588
+    },
+    {
+      "name": "dist/packages/scope/identity.d.ts",
+      "sha256": "342c6f1501df1376aa97f9598b79fb6a3249f3fe41dd5b6ff2eb93ade5839e08",
+      "size": 3647
+    },
+    {
+      "name": "dist/packages/scope/identity.js",
+      "sha256": "7e0418e23e33c01575960a0cb0944845f4aab02b29e2b9c4748a317a7e8c94e8",
+      "size": 13070
+    },
+    {
+      "name": "dist/packages/scope/paths.d.ts",
+      "sha256": "b4f1382d5abbb67b4acba9d9a7180a2c7d7ed7ac2df935da6a165d16e732e7ee",
+      "size": 1139
+    },
+    {
+      "name": "dist/packages/scope/paths.js",
+      "sha256": "31e9687401e8d38efa2f87bab8966dd788b56cae98c522e3f0c5c3cdca0f4c9b",
+      "size": 2153
+    },
+    {
+      "name": "dist/packages/service/owner.d.ts",
+      "sha256": "bfac7279d9fe0ff448cc962d09e650ec64f032fc0d8eefed9ec3b74620314451",
+      "size": 5836
+    },
+    {
+      "name": "dist/packages/service/owner.js",
+      "sha256": "cd3b74c64abbb692b5e08893b971f69dc049afa797e77ceeabb563c43273b12a",
+      "size": 26576
+    },
+    {
+      "name": "dist/packages/service/pool.d.ts",
+      "sha256": "0b7a5a911b0bfa30e1cd93ec8f4ebb2ad1b81db76c331c3d812858887692a1a0",
+      "size": 3765
+    },
+    {
+      "name": "dist/packages/service/pool.js",
+      "sha256": "8ddf8bd312898103f1411497f5d6d05f678d0400fe666fdb57bc3bf8aa945190",
+      "size": 9209
+    },
+    {
+      "name": "dist/packages/service/rpc.d.ts",
+      "sha256": "aaa4885f8dd0ad61ef49f23c7f8087e9ffa967186d2dba759cbe23f1275c9e6b",
+      "size": 6038
+    },
+    {
+      "name": "dist/packages/service/rpc.js",
+      "sha256": "bc6b15488c7d6cd8bd00ca3f2b3399276f08a124905c587db7862db801f5811d",
+      "size": 29510
+    },
+    {
+      "name": "package.json",
+      "sha256": "bb3c2434e6f714e7de6c85b7bfe7873e8dda335ddd2cb827fe058ad91b75c3ad",
+      "size": 687
+    },
+    {
+      "name": "README.md",
+      "sha256": "5a8870097bcfdc0f12b9c944c9b513eb596fd524a0213c018b5b107046e72171",
+      "size": 3991
+    },
+    {
+      "name": "THIRD_PARTY_NOTICES.md",
+      "sha256": "a5bafc0a0d3b503446aead0940721ac12944a94daffb58965ba5147b1acab776",
+      "size": 5010
+    },
+    {
+      "name": "UPSTREAM-PIN.json",
+      "sha256": "dd27596f6f5d73ad0cf532d79a48b4b0b8c5bc640c505f498371be9c658b688d",
+      "size": 4119
+    },
+    {
+      "name": "vendor/mdcg/data/policy.json",
+      "sha256": "d49e1e60ae8c3aeae258c836c93114b894ed2f6d3e7677401194004a663ee912",
+      "size": 5090
+    },
+    {
+      "name": "vendor/mdcg/LICENSE",
+      "sha256": "9a665e6361493b883988ef5b5b306e75138619b808cdd68d449752ed2be1c42c",
+      "size": 1092
+    },
+    {
+      "name": "vendor/mdcg/md_cg/__init__.py",
+      "sha256": "df28b92abafc3dfb0f7403d2ff9d9373b104e0a407fce8d9025f3c28dfe9d1b4",
+      "size": 271
+    },
+    {
+      "name": "vendor/mdcg/md_cg/.npmignore",
+      "sha256": "2cef11d47e76019efe485c0de0bfe9421170b42f9814e41de2cc79b6119e6f64",
+      "size": 3040
+    },
+    {
+      "name": "vendor/mdcg/md_cg/audit.py",
+      "sha256": "197eea3f262c8ba9917c50211f9353f1c97a9d7de8cfff6cb0690c4162ea60eb",
+      "size": 42397
+    },
+    {
+      "name": "vendor/mdcg/md_cg/autonomy.py",
+      "sha256": "8ac3d9dd7a9f7049db597e67e53e747ac51188858da230aae1d50f38c8e51a17",
+      "size": 18568
+    },
+    {
+      "name": "vendor/mdcg/md_cg/backfill_bigdomain.py",
+      "sha256": "ecb1a3e27af67f6403ba7936ff9922062326c6b1cb9058ef7e56ce95ff4df3c9",
+      "size": 1328
+    },
+    {
+      "name": "vendor/mdcg/md_cg/backfill_bucket_zh.py",
+      "sha256": "fd0d55de70b0fda33f8bf4c082075fc96d86494a42cfe5d2954d66dadceba826",
+      "size": 1457
+    },
+    {
+      "name": "vendor/mdcg/md_cg/backfill.py",
+      "sha256": "61196922e0c9c1bcc4aa534c730bba52d1ddcd4ac768b37523af338307e69572",
+      "size": 67818
+    },
+    {
+      "name": "vendor/mdcg/md_cg/blindspot_tickets.py",
+      "sha256": "b620508ee12cdec35c6fd6c610ec3aeef6b675b4ed002edaac7fbb40d55b7e16",
+      "size": 5844
+    },
+    {
+      "name": "vendor/mdcg/md_cg/branches.py",
+      "sha256": "fc3ac058c7e77090e90eaa2a39abf6f4a1c462bc2e1b46728e2f76a646a5093d",
+      "size": 17430
+    },
+    {
+      "name": "vendor/mdcg/md_cg/build_postings.py",
+      "sha256": "903dd45bfcb4a9e96b7bded9fa0088aff55318ff0314412fc18e4c4e21e7c242",
+      "size": 3417
+    },
+    {
+      "name": "vendor/mdcg/md_cg/ccgc.py",
+      "sha256": "e8587f930d9fbfe911e47cd34832658b3fc7ceef21e208c6c4af5dba9b13c78f",
+      "size": 61657
+    },
+    {
+      "name": "vendor/mdcg/md_cg/census.py",
+      "sha256": "a12169934594624b2d21a0b6538df008548a8bc9cab473bc60de0d891e9648bf",
+      "size": 7266
+    },
+    {
+      "name": "vendor/mdcg/md_cg/chain.py",
+      "sha256": "992839e3e8fc4062023da2e683e1a5fa8998a4ba3795e8a63eb47026c7b118f2",
+      "size": 20707
+    },
+    {
+      "name": "vendor/mdcg/md_cg/codeindex.py",
+      "sha256": "6e89080b67ebcff92a4620fc6c796053d0b3396ce37b9943ba930a2716fa3fbc",
+      "size": 31330
+    },
+    {
+      "name": "vendor/mdcg/md_cg/coldverify.py",
+      "sha256": "4f9a3b4cb57b2daa8619bb0df66c7d9a020c7a66f077ff060f48a0d658e2beca",
+      "size": 12389
+    },
+    {
+      "name": "vendor/mdcg/md_cg/comment_gate.py",
+      "sha256": "67842c95cd6fe0abb0413d75405cd1c3f380b1b1d7371eacd98d961dbc2f0e2e",
+      "size": 21276
+    },
+    {
+      "name": "vendor/mdcg/md_cg/cond_compose.py",
+      "sha256": "4daddab36014fbd4e01a225218cc9021f31bd3af7725b6086a2b23cc4a8cd3b5",
+      "size": 10415
+    },
+    {
+      "name": "vendor/mdcg/md_cg/cond_facts.py",
+      "sha256": "78f72d1cb0474aa2ede33ae2edb14744cd012ed8eb8d53298f8e21f86cd1981a",
+      "size": 7139
+    },
+    {
+      "name": "vendor/mdcg/md_cg/cond_template.json",
+      "sha256": "426086d29bd05437d4ecc49e727a8f2d3cbeb6be770b3da1b5c0dca165a1c0f1",
+      "size": 9114
+    },
+    {
+      "name": "vendor/mdcg/md_cg/condition_anchor.py",
+      "sha256": "dbf5818bc0438b7d3cd9636a25f20534d1665f49f054429384889c471ed802b3",
+      "size": 7682
+    },
+    {
+      "name": "vendor/mdcg/md_cg/conformance.py",
+      "sha256": "d7a5dad3cda73af66fb48b936b410d3e9ea0844735ce9f3938ccf0bed86c8eaf",
+      "size": 43191
+    },
+    {
+      "name": "vendor/mdcg/md_cg/consistency.py",
+      "sha256": "c789ac276cb716882e6cb93673956cd8bb40302dee9a3ad82f005ee127debad5",
+      "size": 46543
+    },
+    {
+      "name": "vendor/mdcg/md_cg/consolidate.py",
+      "sha256": "a7b1cdd0ff25dc4fb9f4f58ec333bdc8d53033473c9c13f60d3864b9ec5c3e8b",
+      "size": 84113
+    },
+    {
+      "name": "vendor/mdcg/md_cg/corpus.py",
+      "sha256": "2ba83d44eae17b7bb48052ffa4a04a617353b45ee0867218f07ad05f03eca85c",
+      "size": 7489
+    },
+    {
+      "name": "vendor/mdcg/md_cg/crosscheck.py",
+      "sha256": "5636dea346d42fd32f75f06623dc2e929f45da32d2f90517682d7fd9b9dba83f",
+      "size": 54883
+    },
+    {
+      "name": "vendor/mdcg/md_cg/crypto.py",
+      "sha256": "5383676980a16fe318fc99919b95eb0692176b29e96a2a3893e476e7c506ad7e",
+      "size": 26116
+    },
+    {
+      "name": "vendor/mdcg/md_cg/d_meta.py",
+      "sha256": "115174c2874e113cfa1fc30642cbc04e0e98f2a6141208b7e74eee46b39ed67d",
+      "size": 15737
+    },
+    {
+      "name": "vendor/mdcg/md_cg/datapath.py",
+      "sha256": "a333d4062581e9e19414c0b5cb66d1c76940686d2856c87ee5d33e0e3a0ac28d",
+      "size": 22312
+    },
+    {
+      "name": "vendor/mdcg/md_cg/docindex.py",
+      "sha256": "427f5fbe76fefcc49637f86ecfcd396b4bbde2de6073b1960a13d28a33787217",
+      "size": 27148
+    },
+    {
+      "name": "vendor/mdcg/md_cg/eval_common.py",
+      "sha256": "09c9ac5cea2e7b3b6606b74fcae0a20808b29f6bb24aa9ec5aa016bb3e738c51",
+      "size": 31265
+    },
+    {
+      "name": "vendor/mdcg/md_cg/evidence.py",
+      "sha256": "507cd0e76200fd96abc3b7e1f20283852c6221af51341a46ec0bfab4871dbf3e",
+      "size": 29138
+    },
+    {
+      "name": "vendor/mdcg/md_cg/evolution.py",
+      "sha256": "ae4b268f587373b043201c54495d064af5d7f24e921e986dc1b29f20487e579d",
+      "size": 24978
+    },
+    {
+      "name": "vendor/mdcg/md_cg/export.py",
+      "sha256": "22b5e2cca6478dc44903b4854002ba47ed08677ef0a3e6eee93680a360dc9358",
+      "size": 12812
+    },
+    {
+      "name": "vendor/mdcg/md_cg/forgetting.py",
+      "sha256": "b85935521aade006ea676dcd372413a0065de9a2dd0ea83820314759f2659d7c",
+      "size": 50715
+    },
+    {
+      "name": "vendor/mdcg/md_cg/freshness.py",
+      "sha256": "d35981384b2e9d4398b930a62a01f3e0094184ee06295d010d29123b044b7e8c",
+      "size": 28193
+    },
+    {
+      "name": "vendor/mdcg/md_cg/fsutil.py",
+      "sha256": "87efa81b430e926466be66869db7ec93346621ff1f21905d77d0912b2bbf54b1",
+      "size": 53347
+    },
+    {
+      "name": "vendor/mdcg/md_cg/generation.py",
+      "sha256": "d7f4b3d2d6bd88c569212ef77827062d6f1241fb5570a2331be8811697fa3d19",
+      "size": 22931
+    },
+    {
+      "name": "vendor/mdcg/md_cg/hotcache.py",
+      "sha256": "8c6627d5770f1643877765b208e00e100ff115296d29ba3e72ae857834ed19ec",
+      "size": 11903
+    },
+    {
+      "name": "vendor/mdcg/md_cg/hyperedge.py",
+      "sha256": "d2ee2028c84a69cba3e3afc1c16334e387a99f9f1010ffc900de62352be43fb5",
+      "size": 12285
+    },
+    {
+      "name": "vendor/mdcg/md_cg/identity.py",
+      "sha256": "cd177df0bbfba17e17d6ec543ac648511d203740372e02068446f8cc6414a207",
+      "size": 21100
+    },
+    {
+      "name": "vendor/mdcg/md_cg/insight.py",
+      "sha256": "f9633897074ea7609681f2ab86883e07ee2e8f4ca19cc77f522399b3b0ddf550",
+      "size": 29840
+    },
+    {
+      "name": "vendor/mdcg/md_cg/interop.py",
+      "sha256": "89ba360be192ab4aa555c8b312262c5ea2c530f6a24a87476ca385a1c200f425",
+      "size": 16874
+    },
+    {
+      "name": "vendor/mdcg/md_cg/judgment_manifest.py",
+      "sha256": "d02719e29b2eea0ce081ae519b51a1f9c3985e64d340fbb7e18bb5907ac29b6e",
+      "size": 9105
+    },
+    {
+      "name": "vendor/mdcg/md_cg/lexicon/build_cedict_en_zh.py",
+      "sha256": "bd4c0bcbc7dfe68335ede9d0a4d1e72fa7e177e02b332e0a13f18212b898d155",
+      "size": 17644
+    },
+    {
+      "name": "vendor/mdcg/md_cg/lexicon/build_standard_en.py",
+      "sha256": "c84d24f25bf87ce1f0d6845f610b0dd2b83ae9386ba5da607748eb28b9d71544",
+      "size": 11829
+    },
+    {
+      "name": "vendor/mdcg/md_cg/lexicon/cedict_en_zh.json",
+      "sha256": "0287c2f6b1c26409986f8beb906f98a3e48110ebeaa5fbd5276e91f8157b04f1",
+      "size": 748344
+    },
+    {
+      "name": "vendor/mdcg/md_cg/lexicon/char_atoms_clean.json",
+      "sha256": "b82bd4528e14022def9b738ed13c871d7657999be3dc21cd8ecbf75c8a2d10c5",
+      "size": 965693
+    },
+    {
+      "name": "vendor/mdcg/md_cg/lexicon/expand_en_zh.py",
+      "sha256": "b6634d89ca8a35a191ee20c61c0de2ae088c902351e9d5d8960c1c682b76981b",
+      "size": 10989
+    },
+    {
+      "name": "vendor/mdcg/md_cg/lexicon/RULES.md",
+      "sha256": "28c1293ae8afc2e27678d7822f20c14ce205f3052d90cb5cb7ab83eda01dc9c4",
+      "size": 2249
+    },
+    {
+      "name": "vendor/mdcg/md_cg/lexicon/standard_en.json",
+      "sha256": "db0d755bc6fa41b601b105ccefdc04f58b21d96c0e3053c87f5f541f38c9affd",
+      "size": 19790
+    },
+    {
+      "name": "vendor/mdcg/md_cg/lifecycle.py",
+      "sha256": "a5250a66083b3252f0530387d5ab39bd88b789a690dcd0b96a67fd552280e962",
+      "size": 15919
+    },
+    {
+      "name": "vendor/mdcg/md_cg/linkref.py",
+      "sha256": "3741c0c5a294fd4de812114374702d28f52a12d33b4ed15dbf1a59495f250648",
+      "size": 17379
+    },
+    {
+      "name": "vendor/mdcg/md_cg/links.py",
+      "sha256": "46635e8f54fa84117ba1099bf654af4e35b573073b645ab6722ffc3f0fecc5b8",
+      "size": 35753
+    },
+    {
+      "name": "vendor/mdcg/md_cg/logref.py",
+      "sha256": "a41014249206fc245064a5d3982d72a463dd0d0955eb26294b2f69c38737297e",
+      "size": 17774
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mcp_server.py",
+      "sha256": "9b2e54077a0fb92cb73de109ba3d14962c1f8713a5346b7238183ff1fc5f665e",
+      "size": 288670
+    },
+    {
+      "name": "vendor/mdcg/md_cg/md_whitebox.py",
+      "sha256": "fe8d89a3ae4e9d243e0949b1e88a6e572a8708e2445e8fd426704b9663cd6749",
+      "size": 17011
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mdcg.py",
+      "sha256": "3d08b7f01aa9ba575a39eb5873912691bc8fb36d37f10d0c0ca9081b303b1e3f",
+      "size": 309004
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mdcos.py",
+      "sha256": "9ee61fa9ded946bf94f7a6d95c383a10b42fc00cb62c18d46308ab7e95ed8ad9",
+      "size": 304473
+    },
+    {
+      "name": "vendor/mdcg/md_cg/metacognition.py",
+      "sha256": "6dccdda1275f70cc80a0854527908e14a3f3247e0d78a087e39be05e606dcb03",
+      "size": 28531
+    },
+    {
+      "name": "vendor/mdcg/md_cg/migrate_aeis.py",
+      "sha256": "dba737e11af947ebd08cb1fba342e2f2e7b6d13a1cee6f8d5528917001d2bc3e",
+      "size": 10399
+    },
+    {
+      "name": "vendor/mdcg/md_cg/migrate_roleplay.py",
+      "sha256": "48cb6585dc901803d1c2cedeeb6239d5c57ea3bebb07fadf989595e1f484e6c2",
+      "size": 14635
+    },
+    {
+      "name": "vendor/mdcg/md_cg/migrate_wisdom_graph.py",
+      "sha256": "329e65ecc9ba6c87577ea16438bf15486373802f58fffd8246b2beab23e21ba9",
+      "size": 18256
+    },
+    {
+      "name": "vendor/mdcg/md_cg/migrate.py",
+      "sha256": "f875553561966c69f02cd8b85a99a2358c50378a1d4597c14ffd088a757173c9",
+      "size": 5095
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mreview/__init__.py",
+      "sha256": "7d8ebf15c62d3ca2f1378c706b6562977dca0458104a7324d78506117b7daf56",
+      "size": 1515
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mreview/__main__.py",
+      "sha256": "e52185ee209cd245f003881668e2cec5e74282a77615f7b14347068cb2315c27",
+      "size": 6065
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mreview/bundle.py",
+      "sha256": "632be109178eab9df366c8755671c0efd8595649685f740da3ae7236c404d267",
+      "size": 10484
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mreview/candidates.py",
+      "sha256": "78181fef4928b486bf1e58a45a94a3e836f18577139205508905e5ff5d220071",
+      "size": 15630
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mreview/govern.py",
+      "sha256": "2fd51578cebdb223f91e12f86f04cafefe6c29c2736a274686c959113730f68b",
+      "size": 39233
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mreview/locate.py",
+      "sha256": "cf611dc8f269de10db1d0c010d2716fd6b6b16f4d21f4aa4b775ceda6521dfb0",
+      "size": 53849
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mreview/pipeline.py",
+      "sha256": "ae60ac6974d22a6bb3b8279e7f959eef8da9a04e53e1b04fe85311a886fd451d",
+      "size": 43019
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mreview/rules/duplication.json",
+      "sha256": "3082b8f2b0cbe86f1a3681b7ff1b4ffcd28fd43d28f230a2879b6ebf3fa980dc",
+      "size": 723
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mreview/rules/field_coverage.json",
+      "sha256": "c9dc58efed86de592c6583605d8bee40710c257113b48ccb650db533d9cd74c9",
+      "size": 2172
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mreview/rules/source_license.json",
+      "sha256": "607764bc1cb4d3a6ee37cf3fc20e5da74f605be87ac09c34cd006bf38df94aa9",
+      "size": 723
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mreview/rules/template_flow.json",
+      "sha256": "a1fbeca17faaf9e1194290ceda012b2b96e336aa001cb9d2c4927525a1fddebf",
+      "size": 728
+    },
+    {
+      "name": "vendor/mdcg/md_cg/mreview/ruleset.py",
+      "sha256": "e6671bef956093bbed852d25ab8a34408b36b1cf2938f49d0968597351e48e63",
+      "size": 14947
+    },
+    {
+      "name": "vendor/mdcg/md_cg/nodefile.py",
+      "sha256": "4a4414abd534416a7c7993197d78c7cf43111270fb55e4faa2ac0c4c862c952c",
+      "size": 43110
+    },
+    {
+      "name": "vendor/mdcg/md_cg/pooling.py",
+      "sha256": "5bb501c4134c9c6af64e1dba41b699b66a8e13f58cc7f17e39dcf339bc64d957",
+      "size": 28203
+    },
+    {
+      "name": "vendor/mdcg/md_cg/postings.py",
+      "sha256": "2d6879014c7b0ccff130cda917a447586920244fdfbe6a86ebee0a219bf97e69",
+      "size": 13981
+    },
+    {
+      "name": "vendor/mdcg/md_cg/predict.py",
+      "sha256": "fe9f6c2e5db98ac0861a94ddf00e6bbd9bede7951cda981cee0a35489425206d",
+      "size": 57297
+    },
+    {
+      "name": "vendor/mdcg/md_cg/progressive.py",
+      "sha256": "dea0af6ac90bf5e4db132daba7b99953eae62cd51332a66d486053238d933bc1",
+      "size": 7408
+    },
+    {
+      "name": "vendor/mdcg/md_cg/protect.py",
+      "sha256": "ae3227d3ce3c04a2b83b0bc92fc551c9957e81b678f4e3dd2ea22e26cbe8230f",
+      "size": 25621
+    },
+    {
+      "name": "vendor/mdcg/md_cg/protocol.py",
+      "sha256": "8f4557a6b768c66ecbdd32bdc87586b0165f83b580e501f10d96b1faffe7519e",
+      "size": 22451
+    },
+    {
+      "name": "vendor/mdcg/md_cg/protocol/md_cg_gate.proto",
+      "sha256": "bd8bc899efc89facc9adac668aae170101886a658dfda471db36574a75985408",
+      "size": 2619
+    },
+    {
+      "name": "vendor/mdcg/md_cg/provenance.py",
+      "sha256": "bcceedd4ba84fb6da116470d2a3f4c78cb612a4226962309b32522ebd8671524",
+      "size": 33254
+    },
+    {
+      "name": "vendor/mdcg/md_cg/reach.py",
+      "sha256": "4a03c4bccf3a3c1d51521cd3394916ee993cf7f40059cbeecf304e51cd722dd5",
+      "size": 31624
+    },
+    {
+      "name": "vendor/mdcg/md_cg/readcache.py",
+      "sha256": "31b70d9692aedcbc874172ff6916348b324df60144296b39f6ce8dbf17056532",
+      "size": 13499
+    },
+    {
+      "name": "vendor/mdcg/md_cg/reconcile.py",
+      "sha256": "ae101930b9688eb8ade0b1563e8f0b19d00df80108cc7829440bcb9a212fc91a",
+      "size": 13443
+    },
+    {
+      "name": "vendor/mdcg/md_cg/refindex.py",
+      "sha256": "cfe3bb791d5e80caab2a818ba54177df09b38d8b3274616e85c25747755bbcc4",
+      "size": 59660
+    },
+    {
+      "name": "vendor/mdcg/md_cg/refine.py",
+      "sha256": "aa159d8660fe9613b19cb7c7aae76adad05532398780fc13e6eec52b20b1fba0",
+      "size": 32342
+    },
+    {
+      "name": "vendor/mdcg/md_cg/review_cli.py",
+      "sha256": "ddeded891ae03647d3f7987f82662f285690e12c5f7174f0e9d9d4ba6ee57607",
+      "size": 13275
+    },
+    {
+      "name": "vendor/mdcg/md_cg/roleviews.py",
+      "sha256": "328cf2c533da68594ea7b69f8a2e4bffe729f86f9f4cdd1a5e974f77ef24c6d4",
+      "size": 4115
+    },
+    {
+      "name": "vendor/mdcg/md_cg/routing.py",
+      "sha256": "31109cc730c49b2bf06feb9dc420f84e67c5e2e9b124ff5c276cbb045df07662",
+      "size": 23570
+    },
+    {
+      "name": "vendor/mdcg/md_cg/run_tests.py",
+      "sha256": "7a7f682ffca770ec05585eb5357c87dde1aaa0f11d6d837f05780841d891c885",
+      "size": 11509
+    },
+    {
+      "name": "vendor/mdcg/md_cg/scrub.py",
+      "sha256": "aa7f04ca8a855e5d704bc235f2a7493535bdb680991517d5d923317e8d19a7aa",
+      "size": 48248
+    },
+    {
+      "name": "vendor/mdcg/md_cg/security.py",
+      "sha256": "5eb6bd530f31be483573ec4dd1f420cf557106b27a13fc566f7aba2374bc405c",
+      "size": 28218
+    },
+    {
+      "name": "vendor/mdcg/md_cg/self_state.py",
+      "sha256": "2fcbd991ef72cb7f713deacb1a7d3d794f2288a72950cd8c2f9896cd79ada501",
+      "size": 56012
+    },
+    {
+      "name": "vendor/mdcg/md_cg/selfreport.py",
+      "sha256": "30e6c68af5395145904733e018b2112cf9ae97c6bef9c9dea0978f00acf72966",
+      "size": 7551
+    },
+    {
+      "name": "vendor/mdcg/md_cg/semantic/__init__.py",
+      "sha256": "bde77627aecc6b52e720d91aa006fe9069cfabcac97f2e42bbea3453f83edaaf",
+      "size": 406
+    },
+    {
+      "name": "vendor/mdcg/md_cg/semantic/atoms.json",
+      "sha256": "13b2987a0e3a19731c25757240dbd6e1b2afa17d203591390f25fbd5bab657e7",
+      "size": 114660
+    },
+    {
+      "name": "vendor/mdcg/md_cg/semantic/canonical.py",
+      "sha256": "9724fa62dd77d3df85a3044ac72ba01af9526da38fd9eee81cf4e9ea580f62b7",
+      "size": 8019
+    },
+    {
+      "name": "vendor/mdcg/md_cg/semantic/en_normalizer.py",
+      "sha256": "c71d547e4d8b5b8fc76ab141ac4feeb0fedd38a7d2f3eb71d24a2e578e970e02",
+      "size": 19631
+    },
+    {
+      "name": "vendor/mdcg/md_cg/semantic/en_zh_map.json",
+      "sha256": "9e2a49f6fd736802173ea1195afbfc5b9742517b923ab04d793e762c8c66a838",
+      "size": 752824
+    },
+    {
+      "name": "vendor/mdcg/md_cg/semantic/export_en_zh_map.py",
+      "sha256": "7f7b26c70a7b98cc775909146e356983f1e70f48d6726e803fb895eb9ecb180d",
+      "size": 3381
+    },
+    {
+      "name": "vendor/mdcg/md_cg/semantic/REPRODUCE.md",
+      "sha256": "8b4de783e6479b2ca907fa739d406438b13903ab0cfd49dccef4988959492676",
+      "size": 10924
+    },
+    {
+      "name": "vendor/mdcg/md_cg/semantic/SCHEMA.md",
+      "sha256": "6adeea0bd7ec27e8253e03797f7309a3891150d1200d28e00570029e01360c9d",
+      "size": 1246
+    },
+    {
+      "name": "vendor/mdcg/md_cg/semantic/search_index.json",
+      "sha256": "697a0c9de948c2d9596da811d7de6c9bbee60551254fe8233116820b228a43db",
+      "size": 167270
+    },
+    {
+      "name": "vendor/mdcg/md_cg/semantic/unify_fixture.json",
+      "sha256": "0280992ad782bb4aebb39aaa18b8f0d8e07ccd83f23363fac304fb3a46c02614",
+      "size": 3540
+    },
+    {
+      "name": "vendor/mdcg/md_cg/semantic/unify.py",
+      "sha256": "fb5d9d2597d6050c1ba14b67c876a29082cca756126e52823e4270122f83e57a",
+      "size": 5563
+    },
+    {
+      "name": "vendor/mdcg/md_cg/semantic/zh_en_atoms.py",
+      "sha256": "89d3da50adadf34b396b7715498bb1b3a67f5e29c04c1f982f23998fea19fc64",
+      "size": 7040
+    },
+    {
+      "name": "vendor/mdcg/md_cg/signer.py",
+      "sha256": "d17f30f249f522df050be3008cfd476a86df483e4c04529c8f66f10e3fa47f1e",
+      "size": 27661
+    },
+    {
+      "name": "vendor/mdcg/md_cg/sleep.py",
+      "sha256": "5e56c4343938058eb946c307769718686051fd6787cf77568f845a83037e0078",
+      "size": 76882
+    },
+    {
+      "name": "vendor/mdcg/md_cg/sources.py",
+      "sha256": "975e5d6291b0a51f147ecbf0305d696643c896809b18a5a28174aeba6bcfe305",
+      "size": 46974
+    },
+    {
+      "name": "vendor/mdcg/md_cg/srcindex.py",
+      "sha256": "ae8902eaf5a12e1bbd48007e8bfb5a236db5e9820b454d4ce00edfcdb43a3381",
+      "size": 18271
+    },
+    {
+      "name": "vendor/mdcg/md_cg/statushdr.py",
+      "sha256": "8ea4e4c74c8656472b0fbc1cdcbba9993414692511db373ebaff668420257749",
+      "size": 7235
+    },
+    {
+      "name": "vendor/mdcg/md_cg/stg.py",
+      "sha256": "8c7d6a18431044d8460b6e4e73f939177921e0c58757ccce0cf8f5653517b45a",
+      "size": 21593
+    },
+    {
+      "name": "vendor/mdcg/md_cg/subgraph.py",
+      "sha256": "cbaa3563e99a19a769f65a1a77416fda1dd5105ee99ce3992a791584831844ff",
+      "size": 40463
+    },
+    {
+      "name": "vendor/mdcg/md_cg/sustain.py",
+      "sha256": "b7c002ed6b9cee1e29a91a8d7cdf58bea6f41364010b551078ab130dd8cbab6f",
+      "size": 80308
+    },
+    {
+      "name": "vendor/mdcg/md_cg/tasks.py",
+      "sha256": "647b62f4d0d85ca810f62b6dc20266f1ba17b737164e2ac949141bf137c8c8d3",
+      "size": 27229
+    },
+    {
+      "name": "vendor/mdcg/md_cg/theory.py",
+      "sha256": "71aa2fdbc1950461409c0487cea7b3e7ab8e4bcec35606241dad2436c7ceae90",
+      "size": 13666
+    },
+    {
+      "name": "vendor/mdcg/md_cg/tokens.py",
+      "sha256": "0e8ea98760224cd3eda4715e8dca050e9c0ce9ce9db6a083b45c390a4a46b93e",
+      "size": 55712
+    },
+    {
+      "name": "vendor/mdcg/md_cg/tool_face.py",
+      "sha256": "937325e36389199aa80c3e4dd49e01ba826a1284b65e01a203ce7c24e11b625e",
+      "size": 16612
+    },
+    {
+      "name": "vendor/mdcg/md_cg/trust.py",
+      "sha256": "46bef5f98adb8f6f05b8815e4a7b9c63573fa2fa06597ecd77b17075829c8fb5",
+      "size": 51788
+    },
+    {
+      "name": "vendor/mdcg/md_cg/twophase.py",
+      "sha256": "2d2640c48cbd04709ac25c6032d56833cc5cfb5ad0459c18f09fc59acce8d280",
+      "size": 12267
+    },
+    {
+      "name": "vendor/mdcg/md_cg/units.py",
+      "sha256": "7af16678a3bb4dcc21cd535e14b975a60edc040fbf33d61861c3c541bf68289a",
+      "size": 55178
+    },
+    {
+      "name": "vendor/mdcg/md_cg/vision_evidence.py",
+      "sha256": "fdc5a92a71ecad901c3f99e908d7ad912b24d98905e7ea9dcc7a9a48fa322bfc",
+      "size": 34448
+    },
+    {
+      "name": "vendor/mdcg/md_cg/weights.py",
+      "sha256": "5fef2a5130024612347315fb8f8a8d91135f69f64fbd820adcf8ce864540b0c5",
+      "size": 32106
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/__init__.py",
+      "sha256": "2e1b22835565067c80516e9ada8008d803bd9d028484429841de524b4c11e103",
+      "size": 1769
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/aeis_core/__init__.py",
+      "sha256": "bd7f9f578f61c43efd2db5f19543bbf90f846fc29a8fc32e84981dd307ef811b",
+      "size": 1497
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/aeis_core/api.py",
+      "sha256": "0582a997a0b6c722efb2d5bd39355c1b0ed196d82e498894f7d0ec249d312b5d",
+      "size": 57041
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/aeis_core/core.py",
+      "sha256": "080425df0b854cdd42b86b1774d195f8a3e70afa83783ca021e73ca8356d4499",
+      "size": 257053
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/aeis_core/semantic.py",
+      "sha256": "a037f771570c6edde0bcab1cc62b466bf24ddca4bdabb03bc76be4fc6e732bdd",
+      "size": 14577
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/aeis_core/textutil.py",
+      "sha256": "7b3e4033ba7ab8226572e37eab463222812d4a42bcf3c36938d2934bc886cc44",
+      "size": 494
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/aeis_core/time_core.py",
+      "sha256": "4fa84e5fdc935ce0f6faefd3bf5451c7d542fbdd56b361bc93692400fd105428",
+      "size": 2429
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/engine.py",
+      "sha256": "e0ae3e67077aea80e51230abe5a29ab4b98587af21ec1ca74576fcc78dff9634",
+      "size": 13987
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/安全常识.md",
+      "sha256": "7df33d0082489ff0b7b426f9725e54959d4728c7352a652088e4f878741c6b33",
+      "size": 1174
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/白箱协议.md",
+      "sha256": "6b185bb5a4abe9288f297b74c88404dc71cbe072ade40babf8c134d29ca91b53",
+      "size": 849
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/编程-Git.md",
+      "sha256": "90fa70847e1f840f7b6848bbaf32b0653d9097e2076046c05169d26df47277af",
+      "size": 526
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/编程-JS.md",
+      "sha256": "f92e7199307c4800c908abfbd4666e0a3d0e01470dc9d13bd862dca599934ea4",
+      "size": 593
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/编程概念.md",
+      "sha256": "d03ce475a14765130a9095345b911e2d09656856658797dc0c4fac841c2d0314",
+      "size": 539
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/编程语言.md",
+      "sha256": "b827787a48ba7d7d6ec1becf3ca1efc782c592b05327ea3034eab9dcfe75a53c",
+      "size": 5386
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/编译原理·知识综述.md",
+      "sha256": "d7519555284bdc7ff85bc9cb1fb559ad00ede904c4563cbb0975dcaa74437350",
+      "size": 9344
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/材料力学·知识综述.md",
+      "sha256": "5ed6c185ddb87dbba18c999fb1d65b7c0d8b2b9c1d75b073a3c6ed2a70c9f90d",
+      "size": 8231
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/操作系统·知识综述.md",
+      "sha256": "42e6b22d3ef4b35056e248cc982e36a4de5c8977c75776951cb425046c6bd073",
+      "size": 10572
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/茶文化.md",
+      "sha256": "05a70c6d81e1abfeabfc66f28a427ae529b747f1b15c429d298228a81469eb7b",
+      "size": 713
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/常微分方程·知识综述.md",
+      "sha256": "97c0684bfa24b73c4f7bc0aa40ad229ec2fd6ff7ae92eaa6645b35355db052dc",
+      "size": 13581
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/成语典故.md",
+      "sha256": "5db5c0faa47415b7d08210460fdaf3e856fd3de3243798b9c58399e316ea67db",
+      "size": 710
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/程序设计·知识综述.md",
+      "sha256": "621cf206b869622b66fb17c2d86f724c5405e827504539c37e53609ef65d19ef",
+      "size": 8492
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/宠物.md",
+      "sha256": "b2fff472a90bb2bbc448115cce4b118d4e95c9021e62f334570df67a443e962c",
+      "size": 1242
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/抽象代数·知识综述.md",
+      "sha256": "21658f98dca4a7f6b40c1dc660dd0f5dd3e27ce934e6548c56572701db8a356d",
+      "size": 8311
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/初中道德与法治·知识综述.md",
+      "sha256": "4958186d8a87a95ea42c9be766018eef9e58593c8f2b2717ad42f7f816e0b375",
+      "size": 8807
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/初中地理·知识综述.md",
+      "sha256": "d0a5c686364d73e53215207225c9bf293167126568644c263d8d0ab8f3d63510",
+      "size": 8783
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/初中化学·知识综述.md",
+      "sha256": "63ad5505c818bf2f5a12854b8abc1af4609e89243825d0b174b9a8d8a0e30cdd",
+      "size": 20826
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/初中历史·知识综述.md",
+      "sha256": "a93b45f863da13e08ce33a25fa40b4004536fc5212d76c814a287f4d1780a143",
+      "size": 17098
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/初中生物·知识综述.md",
+      "sha256": "1334baf5212225422ce4eb65b891e8866c4a7bf1b2275ef799f37f4458e570e6",
+      "size": 21686
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/初中数学·知识综述.md",
+      "sha256": "d3975f3c5e3b118696ff8af4d097fc9caaf8de45e6ea9d3aca82d033268bbd12",
+      "size": 18121
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/初中物理·知识综述.md",
+      "sha256": "3fba6b70966f7af0e6e6eb7b5cb0bffa289f48be25bffc8709da00f6359cb646",
+      "size": 29787
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/初中英语·知识综述.md",
+      "sha256": "fc8027ca328085c83bc4d54cec28bda32a05429db997aae47951fe4bfb010655",
+      "size": 9018
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/初中语文·知识综述.md",
+      "sha256": "8da6e8b007d18f9f5fc6eacbc1975ae85db8df1c5e27e3ae489257abfc53917e",
+      "size": 9963
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/传统工艺.md",
+      "sha256": "492da44f0b74cbe0d0985d7e628fde4e21124a2208a99b71b62f981091588b87",
+      "size": 9087
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/传统建筑.md",
+      "sha256": "a8c6b45225f209a21daed6ff93f87c5a91162ba3482b88ac868e71f19dd3728b",
+      "size": 1625
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/传统节日.md",
+      "sha256": "d41fe463d3f2cd76f31eec2b884a50b3c48f8dcb00efebea3fcadbc706f31235",
+      "size": 1194
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/传统乐器.md",
+      "sha256": "4765bd22843f54b36c8e8b3e17567edde0cd0ca3d30a10eb4a0f5eb0331c4cbf",
+      "size": 692
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/传统历法.md",
+      "sha256": "f8d60085f9da9ff94b3a3a7f2b000bdf77361eeaf4e714fc19109d9e5f152b92",
+      "size": 785
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/传统美德.md",
+      "sha256": "054a2fbd2b3042fc1e106d11c78cb190f940ff57271c7de1e749da7df19798c8",
+      "size": 1718
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/传统美食.md",
+      "sha256": "381569341089d6f3c2bf1ee5e00eb491522f46107bcf08d7627aa72d6b8f37c3",
+      "size": 2201
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/传统棋类.md",
+      "sha256": "87bc73105989b083de9376dae281b5136d1810b6d756bc95db024c8bdef572cb",
+      "size": 676
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/传统文化.md",
+      "sha256": "ade575eb59917cf91a3ee7baea45bd4df6123de608cf85b986c78be202b324ab",
+      "size": 5735
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/传统武术.md",
+      "sha256": "e1d05e42c9a266a12086e7b2f39134fb865e5290b5252e89db027e92e979c9d0",
+      "size": 662
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/传统养生.md",
+      "sha256": "909b1ba76b7be92ce65c0501cd172548d9939ecf2f3387bfcd872749537fc9d0",
+      "size": 763
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/传统艺术.md",
+      "sha256": "6c9d964e4c4b13940b76fbe4b7d9a777861aa74e84c3826ba519c82b7e1bfd33",
+      "size": 4540
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/存在论.md",
+      "sha256": "3674a02fc558e7145749e9c2b1fcb4af16b8e88f36e931c33dcb4caa806c1ad6",
+      "size": 2499
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/大学化学·知识综述.md",
+      "sha256": "3859f764c56fd71c4a9b548273f83b26b0d2e6eee782b1e1574e7fa3ec2bdaa7",
+      "size": 16519
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/大学思政·知识综述.md",
+      "sha256": "e1e36b78fb4525c93892b60b81a420df0725daa2c324f18540ac4253f6c64c8e",
+      "size": 9738
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/大学物理·知识综述.md",
+      "sha256": "c1fc38914ae41d5efe5ab0158784ff9a0a836639ff780f14c0dbf8c8823c2ee2",
+      "size": 20596
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/大学英语·知识综述.md",
+      "sha256": "faf61d669457fa803709b3fb76d7ddc8341f92c20b7b46cd3d80df4a8d9c149f",
+      "size": 7013
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/地理学·知识综述.md",
+      "sha256": "959a121e57fff0d5ba3152feba6502655c13e9bcc5dc3258710c5b6d8e468633",
+      "size": 18585
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/电动力学·知识综述.md",
+      "sha256": "47424f2cdb4f126e577ce290e19bfd914929f686b2c67e40bd5037187856ecbf",
+      "size": 10207
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/电路原理·知识综述.md",
+      "sha256": "1583d30a2e9bef878ea04cee8d326042b5adfdc159e273fd1d9f4e6ab4dad7d4",
+      "size": 8464
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/动物学·知识综述.md",
+      "sha256": "23d4adf0d597136ebabc6bc25b16dfb6b7411e908b9daf0d0a5eb14f1ebec65d",
+      "size": 8425
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/法律·知识综述.md",
+      "sha256": "1e09ddd7dc6e888d94d65b518ee738fa3d7ec479a7ff0164c49e0c55ead05269",
+      "size": 842
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/泛函分析·知识综述.md",
+      "sha256": "fe7ca92227d8d21e477c01c39a499c0ca2731652c23dce16683c66967f47d114",
+      "size": 10004
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/非遗艺术.md",
+      "sha256": "0a103c745db48d64ba9d668e1c053da527d61cee580fc107398577ce04079b9e",
+      "size": 2533
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/分析化学·知识综述.md",
+      "sha256": "12a9598d8d07b8f8886fa62abcdcbc1d35678a965808220ccf564b2e03d102f5",
+      "size": 9050
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/分子生物学·知识综述.md",
+      "sha256": "5aed7b1841640c73edf5f134570ef161de6fce27f2dd3029a2c1cd8b5261955d",
+      "size": 8939
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/服饰文化.md",
+      "sha256": "1a12375ec783c081184d98435418658757afd961237accf97de4a626b1a935d5",
+      "size": 1090
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/复变函数·知识综述.md",
+      "sha256": "712890fb557cabab94d03174c9806589fb79ac8225cf029fd0103b9623ab2231",
+      "size": 10479
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/概率论与数理统计·知识综述.md",
+      "sha256": "cd70888ba185ade67a27a9e5eb9cd6c435c8e992f88c80bd152b9054f2a8dc56",
+      "size": 14079
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/高等代数·知识综述.md",
+      "sha256": "9dd2e51baad37f6a563bf8571339094be9820e263589b077cc0e510c2459fe4f",
+      "size": 13176
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/高等数学·知识综述.md",
+      "sha256": "c03137f3b3bd3fe05d43930a6b18182b9419dc8f74ece84b9029ae75de8f0ad0",
+      "size": 22668
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/高分子化学·知识综述.md",
+      "sha256": "fbaa1bbb364b0e147f3f61ecf52f59d266733359b8640aeea4c2004e078a63a3",
+      "size": 8180
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/高中地理·知识综述.md",
+      "sha256": "b3a40d149ec400312c65c6058543107d31089ea761799ead7f8d97e3adf67666",
+      "size": 8269
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/高中化学·知识综述.md",
+      "sha256": "67e38c999c334da817f27a70727c50db6ca3bb8dc10d2d7040d6e50bf0c47e59",
+      "size": 32454
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/高中历史·知识综述.md",
+      "sha256": "2074fb7bfe414889a61aaba7647c18a0044277c24a972c8536bebd695822e6c7",
+      "size": 8957
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/高中生物·知识综述.md",
+      "sha256": "92a62f7d1dc327b9aeb7563b8f09a0b64ac7d7242f15197899c2d1f5f60555f3",
+      "size": 27180
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/高中数学·知识综述.md",
+      "sha256": "17dcae01d6b2db9f56c7bc26f5afec2d6023836cbc2a05c5eb9ded7d8bbfa7a7",
+      "size": 29349
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/高中思想政治·知识综述.md",
+      "sha256": "9e92c3fab66420e485ab052e34616910cc7d64683a89638ad5d9e53df17bada5",
+      "size": 10876
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/高中物理·知识综述.md",
+      "sha256": "ea9fe4b2072163f7a225cf7cd5aca1f1dc856a38d2d01403191e241a71a1bce7",
+      "size": 44614
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/高中英语·知识综述.md",
+      "sha256": "5d71943d3a2c6622b336f236568c29f9b52a033982c71accf5a9def1a9605701",
+      "size": 9273
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/高中语文·知识综述.md",
+      "sha256": "aaa301bd23b667f89bdfec52b1d751f3bc7b5be5ee1abc09a3e3cfe12df05639",
+      "size": 8767
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/工程科学.md",
+      "sha256": "cc0250b6071979a95c7e072ceac72dd1ca583b2ae2c9d89754bb42aa63daf685",
+      "size": 978
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/工程学·知识综述.md",
+      "sha256": "73c1c59fcd069f53781d964368ebc74e39718b4b821d7bcd45f294eb61ac1173",
+      "size": 38457
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/工程制图·知识综述.md",
+      "sha256": "c23ba2b801e9816b3b204eba7b0e7b4651801c4348f2454ade5ef1f37d0298a0",
+      "size": 7005
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/工艺通识.md",
+      "sha256": "0855266f50333a24c2395a2cfd6cfaf1aa8a0c08b29e3d31609b6dea3ce08bd4",
+      "size": 666
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/沟通.md",
+      "sha256": "23e71d50b39b0e9e107ff9322c2561fced586e090904ff78c54aac49fd2d1f92",
+      "size": 1145
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/古代汉语·知识综述.md",
+      "sha256": "1e2127e3dbefda8a56b85f010a74e62340c5f1308a5e3be9d331f247a2c90168",
+      "size": 8914
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/古生物.md",
+      "sha256": "c2f657851c8387655d67aa8f30aff8746c227ddb16f7dee01da1847fe8e8e1ff",
+      "size": 1252
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/固体物理·知识综述.md",
+      "sha256": "33afd10d78dce511db3b6ec788ee894f027d9eb3d5e55044c371c702fe895c4a",
+      "size": 11531
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/管理学原理·知识综述.md",
+      "sha256": "7f9fa1c4404e03b9c0baac7c4b957e48ee5ee09594b3c3a4810c577efd105fa2",
+      "size": 8398
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/光学通识.md",
+      "sha256": "7d1fa80046d9f15dba1151fd0dbb045abcb9d67266fd7e501ff5e51cf41ca0b5",
+      "size": 686
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/海洋生物.md",
+      "sha256": "398c5a164f85ea07e5a4a66c8c5f25905a91f0e2cdd6d3b3bbcb9a0a7ccf7058",
+      "size": 697
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/宏观经济学·知识综述.md",
+      "sha256": "96176eae44b8ada9cce966c40be997185896ae46cf3d3f5dfdbc23a18897e3d0",
+      "size": 8231
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/化工原理·知识综述.md",
+      "sha256": "e4d53d8fa90917174d418a255a30085fc2b52e2c041b0567316f40f82759da5f",
+      "size": 8670
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/化学·知识综述.md",
+      "sha256": "6eb4b85b72a7928f9cb56c4c66e75e5e215229240954c1f881d98528c2cedcf0",
+      "size": 119584
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/会计学原理·知识综述.md",
+      "sha256": "11a5d29345c7d6c9844becfaf666fc489e854f7b7ac0c7f746981f91a03af0c2",
+      "size": 6906
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/货币常识.md",
+      "sha256": "12413841a7e0f6c8c2abcd1a10c3945dae695b34c7f5ed01cd85ca6abb285c9b",
+      "size": 733
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/货币史.md",
+      "sha256": "afd0ad3582142ecc09af7ec7111eec3fa067dd01bec4d48eca5c6ebddfefd69d",
+      "size": 717
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/机械通识.md",
+      "sha256": "0ead0e0146bc9b1f9448e2622f0f91cdd2fd49bfa18b6df98d783af2d3fde238",
+      "size": 699
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/计算机科学·知识综述.md",
+      "sha256": "36c0f32dae35e9b554c3f84c3fb7e9052503b696454f2190c64b6cc2a73236ba",
+      "size": 291360
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/计算机网络·知识综述.md",
+      "sha256": "a8c4f8feebeca3a990591eab1e40f0d3aaf41e3874b358ff8c9608175a34e46c",
+      "size": 10246
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/计算机组成原理·知识综述.md",
+      "sha256": "02d1539ab1cfa5abe03d11195b03880c1010f25bd47995fc3e08be6620986077",
+      "size": 10368
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/家庭关系.md",
+      "sha256": "7d8383e1f0c81d3c46deaa294e34ef7604250cafcaeb5ddc1607d7a4a0ce7c45",
+      "size": 1032
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/建筑历史.md",
+      "sha256": "2853041fd4a1d9b0910919ba935dc1a5862072f9b4f5ddd08cf713bfaf70e7ac",
+      "size": 2667
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/建筑人文.md",
+      "sha256": "b89106774c86adb3273c32dbb0d60a49fba02e5f49f5245485f2310faec3513a",
+      "size": 690
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/建筑通识.md",
+      "sha256": "6b433193bd93880c49a3c1ca25bd1d72f25c9faa1ed5b6d0cec7b4820a843b40",
+      "size": 631
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/建筑艺术.md",
+      "sha256": "f4bd75f1ad79cebe70991cbe3ebfb9bf74160540dd079173655bd5ec20562267",
+      "size": 717
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/健康常识.md",
+      "sha256": "e398d44429f17fee621aa84d8173cbafe1c3e7fbdb0e8abce293dc1a8d93aeb6",
+      "size": 3194
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/健康习惯.md",
+      "sha256": "d8668580e3b3a7d428c1a71ebde128b1212cb934b2410c38af590bc4135732e1",
+      "size": 714
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/交通安全.md",
+      "sha256": "0f4f93cccae3098f0ff0d8924e4a587fc21485b3c3291bb8aa8db4eda453a3b9",
+      "size": 693
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/交通通识.md",
+      "sha256": "eb06befca8afc4ec529951f84ac1575b4656499ca06b3fbb32e1d2b335ce5bf9",
+      "size": 703
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/结构化学·知识综述.md",
+      "sha256": "2396494fdb22164152d2aafefdf04ee1c1db869d6b706e1a80c5a0f2965635cc",
+      "size": 8800
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/金融学·知识综述.md",
+      "sha256": "210a19ebbf465482d49ffbe2995f7d107e0b44429c11a93ca0e86ab49923d9de",
+      "size": 6479
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/近世服饰.md",
+      "sha256": "9583ae758f3cf4c90b538380b4f7245e22c6662de948a0ee06c3d6fda9572dc7",
+      "size": 643
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/经济史.md",
+      "sha256": "35e6cbd65bbd145687b54c963a359a631eea827e3309c210492427115052dca0",
+      "size": 2654
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/经济学·知识综述.md",
+      "sha256": "b4fe832dc2853d2caaac2c82a64aabfdb26ceaff0e0939d8f4e9c6b1800abdae",
+      "size": 15099
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/军事史.md",
+      "sha256": "b73963fc15e150efa198b565054e3dceb3f7aeb0e6e506fad44e25ad35a1d823",
+      "size": 699
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/考古常识.md",
+      "sha256": "3bf535d69a92abbe8db20870f6aefaab748e8351ed3f9cfba12c096f34e3c586",
+      "size": 4310
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/科技通识.md",
+      "sha256": "8c081ba33e6426a4b3c3beb8608dd3509a3719f0c033661a500df99ea6b76af0",
+      "size": 5241
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/科学史.md",
+      "sha256": "3c74b897b3e0347e0ee5dadf4a597f43a93e5dee3cc3d5cdf7d28349ef3d7eb5",
+      "size": 1269
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/昆虫常识.md",
+      "sha256": "68b310fb079531631a4cb3767c684582bc7c4b4b0e553ad2f8eb9a94381e564c",
+      "size": 1786
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/理论力学·知识综述.md",
+      "sha256": "1ab17d62dbd7cb8c66e295d61452c243a4a128b22e64fe8cf098944811fb7b30",
+      "size": 11290
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/历史地理.md",
+      "sha256": "bdbc019ea0fb7a2f1ad4c4a8f4a8f1a4a5950fdb9e69d0c10faf02a2ce142c07",
+      "size": 1739
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/历史学·知识综述.md",
+      "sha256": "b545338e645b5e4fe50bd04e038bf073c1b7062ec22118689238639e926c0720",
+      "size": 26879
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/量子力学·知识综述.md",
+      "sha256": "b03fc6b9950fc30efe8fcc6b0b7614e677dff52f941cda02975ed79080215d2d",
+      "size": 11852
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/逻辑学.md",
+      "sha256": "b89b8fc0e3d63d72731930b35a7fff90b8aedf471fe10bf8be583507c2b79aa6",
+      "size": 521
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/民俗.md",
+      "sha256": "546e4134136d280000bd7246183b534c36be41b8ba42b6207dc7b7a348508514",
+      "size": 3964
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/民俗历法.md",
+      "sha256": "b9e608484abb40a1513fc84fab0c949f8d03477245be682f6138d8c1fc350a45",
+      "size": 683
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/民俗器物.md",
+      "sha256": "0563b307051c19b8745800233b11963962656adaf87137afc026cf7aa91ee5a9",
+      "size": 649
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/民俗文化.md",
+      "sha256": "e8971d341e5bb57967e9e08d5446e367305f097a7da672eaacf4c99781289d24",
+      "size": 1102
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/民俗信仰.md",
+      "sha256": "027b53c6f12ea3cb2e3835bd39aa0616e9399068d23228251ce6c819e722978a",
+      "size": 1974
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/民俗雅玩.md",
+      "sha256": "9cf2797f2ada9e4b350a755f5e95e5fbc0aa9ed80e1ba0bdee9e3740de730cfd",
+      "size": 2951
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/民俗养生.md",
+      "sha256": "8eda078a0567b74cc55f4d141cd88ad7ea2d8564dcb17db8efd7b4299a2f1a81",
+      "size": 700
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/民俗语言.md",
+      "sha256": "05e4984526ea0cf9469eee77f0b9fec3e43f99235abea3f66be800bf3036c777",
+      "size": 704
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/模拟电子技术·知识综述.md",
+      "sha256": "44d37002c94bffdb6d1c3081908bb15f1bdebe211de164b55f1aaedc46d9ffb6",
+      "size": 9112
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/农业常识.md",
+      "sha256": "ed175759a367d419368f39284878456cc910e03ebed7653da41584a538464599",
+      "size": 646
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/烹饪技法.md",
+      "sha256": "bd8f4faef6928c3d548da885a2d6cfe87a23b4a5cb7621442cb80d7d2800e87d",
+      "size": 624
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/棋类规则.md",
+      "sha256": "1999b6c8faa9071ea7e2385cca44634e9304c260a90c3bc8cab56be19c9c40ba",
+      "size": 2191
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/棋牌规则.md",
+      "sha256": "59e685a0a4d08c8a449df041e1dbeefc79a3d5a824984dfca4b1b886f5c9ad43",
+      "size": 658
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/气象常识.md",
+      "sha256": "ef560d94847901d0b69f7f28c365e6b3e58ea858d7a805a499340990cc250bf9",
+      "size": 698
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/气象通识.md",
+      "sha256": "b2d29592e3a68084fd50b2a0e7048761a9fe39a4ce93fa30ad6106de683df91c",
+      "size": 723
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/器物工艺.md",
+      "sha256": "12c6a2a302a3d10bf52dbf5b6d62b3edef878d1e58a96963a99747208bbf236e",
+      "size": 671
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/前沿科技.md",
+      "sha256": "21e66f5476b6d0d8c54a8cc6a01276fdc48192a0ce8fbbd135e70b8b6d38ea7b",
+      "size": 2302
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/情感情绪仿真·知识综述.md",
+      "sha256": "9b676038759bf849ffdeac6494e75625564f72813a7d84a7d284c487e3a6cfe1",
+      "size": 21014
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/求职技能.md",
+      "sha256": "ee41cc5bc93705ab6f68d8b1d6f26d3b4aad3f8baf78a9346803b6c7110661be",
+      "size": 1498
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/曲艺常识.md",
+      "sha256": "d953c7de627add001f90447f0bfc48d874f60cd0218ac4b4af028522145a98fd",
+      "size": 638
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/热力学与统计物理·知识综述.md",
+      "sha256": "ddcbcb50ab66cf358174bf6aa0003b914183fc3e9637486850d0161953b6deb4",
+      "size": 11666
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/人工智能·知识综述.md",
+      "sha256": "97ea313b4db6b611c83bc205728391a349655b1826ebd208dd6176616a175e0a",
+      "size": 18544
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/人际沟通.md",
+      "sha256": "1a428ada7bd765a942c4c56468eb2bda80ac560b90a67242e1d9cd472fd62931",
+      "size": 1076
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/人类观察者·知识综述.md",
+      "sha256": "be52f5da269fd28465ed7733febc3f2d0bebffbf43654d08060dada78f815a0c",
+      "size": 9751
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/人体生理.md",
+      "sha256": "dbbad7c33cb8ea0d4da0d1ffcf60591e9afeee8e5e0fee9921c6521d0a8a40e7",
+      "size": 1210
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/人文通识.md",
+      "sha256": "a3a9d368fd865fe08264f5dfb8732bddd607050f138982facf3ba8ea1e31579e",
+      "size": 92524
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/人物历史.md",
+      "sha256": "75769d2f7aa88d1f2da7ba3f0c7989a8923d4e7f65f83fb5ebe164e629a7b7b1",
+      "size": 680
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/软件工程·知识综述.md",
+      "sha256": "077657cea521623dece9b24d6f90297a65f8d38472b02e6dfdd0f7fdb5158f2e",
+      "size": 10301
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/商业史.md",
+      "sha256": "0ee303bd0bd7cbc63abe37eb8a7aa42d1fe32bd8c7e91abf791f4a88bf17e868",
+      "size": 654
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/社会科学.md",
+      "sha256": "fc5273c9defcd0579ad16d6eb4485d061ab7b919fc9b02979a305db9be65cc1c",
+      "size": 1886
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/社会学·知识综述.md",
+      "sha256": "4c09684e978c92fcf75c185e21f39e1ce2ad2ae33ba064175a9f7b4663dd1eb9",
+      "size": 7830
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/社交技巧.md",
+      "sha256": "1b51b72dcee88bf842905163dcfe7f4b9bbaf88faf068b2124128cf3b2856924",
+      "size": 699
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/神话传说.md",
+      "sha256": "eb530dfcf879cc63fda2f9cac94f9619772943895be8bfdb2ee29dede3daa13c",
+      "size": 698
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/生活常识.md",
+      "sha256": "622ad8c87e8571a19ce15c70039f412401bd60f3d48c10144c57f11327078141",
+      "size": 97135
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/生活技能.md",
+      "sha256": "277f2244469ab97ddfba618312a53b196d90408b6e1ac3d5fd798b096f4b977f",
+      "size": 2549
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/生活科技.md",
+      "sha256": "598bf417910698fd24f160ef6b4337ae15afb4b048dc66c53e12b2a0627a2d22",
+      "size": 1176
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/生活通识.md",
+      "sha256": "7c8988fca6d5445d55eb01426beec2ef4e7a09ca4935fbbb15020fc3846dd248",
+      "size": 654
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/生活卫生.md",
+      "sha256": "b5dacacd32f183e1557bb49bb65c948408ec86c0b827f9f0152963f6b1274f64",
+      "size": 647
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/生理学·知识综述.md",
+      "sha256": "fc72337312446a35f60839e1e3bd8e59226b6299e4dd70d974fa4527dc0422ab",
+      "size": 7084
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/生态学·知识综述.md",
+      "sha256": "4a6ce893812b8c68893183d0d3d16ad59cb9d4866d3016e7b4c64f17a6f08b34",
+      "size": 7338
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/生物保护.md",
+      "sha256": "af69b0353e24ca09e7ce00da6ea9f0090af291b813d4e86b2457d54879bda669",
+      "size": 2336
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/生物化学·知识综述.md",
+      "sha256": "aaa706da9312e447f44efc37e7436be6aae491f5ca2dbbfd3fe8bf4b9f31081a",
+      "size": 11605
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/生物学·知识综述.md",
+      "sha256": "6f7b0eea5710a53a2d271850f294b4ccd86bbf8bac15315321e50214b981e557",
+      "size": 97912
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/时空记忆图·知识综述.md",
+      "sha256": "c8692d8bc4c036c80ec2b2a8819f359ac12f59e87db5e3bd9122d0ef063f10c9",
+      "size": 12774
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/实变函数·知识综述.md",
+      "sha256": "4aea96deadfbeb9c57344f440f9b4dac231a7e2449c41f28a8d33b964605fe47",
+      "size": 10570
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/食品科学.md",
+      "sha256": "c2e8040678233680a558be4d37ab97b33b29b18d3acf2ee22efe0ecae891a94c",
+      "size": 3767
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/世界地标.md",
+      "sha256": "e1e35a45cb04fbb704a193064cc684240b463e6bdf9a00ac42d0a637c5ef8c3a",
+      "size": 1300
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/世界文化.md",
+      "sha256": "8fbd53cb182a7084d7d658adbfa198c4c29efadfb6ddf246f6036966a1ffa021",
+      "size": 685
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/世界遗产.md",
+      "sha256": "ec72c9877fbddc68f693c8b3b5ecd6f85be36a55239e5bccc9183b326f500d37",
+      "size": 752
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/世界自然奇观.md",
+      "sha256": "fc94261774c49393533a47e78d8ea5e331dd12423a7538aae47ef8be0951598c",
+      "size": 1762
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/市场营销·知识综述.md",
+      "sha256": "88835500f6df0af3890547040b5d37a32b89a5e976df55cd85bafd48e145fa25",
+      "size": 5850
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/收藏集藏.md",
+      "sha256": "27f661ae73eac718d6a5331da16ab76db425347b6d01cf712b2e290915d8e6fd",
+      "size": 5572
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/手工常识.md",
+      "sha256": "a421e3ab16ade6cdf12ee6bbfcc70133a50904acda8b93d04eb625cd8d8bd46f",
+      "size": 676
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/书法文化.md",
+      "sha256": "dcf7799cdee63136794620dee70bb43349d73fc6592438c59e6594c05cd669f8",
+      "size": 1219
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/数据结构·知识综述.md",
+      "sha256": "53c57a23fa3c6bb7ea403c48b4714ebad2ac1f0684739259f797c11537cc5742",
+      "size": 9702
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/数据库系统·知识综述.md",
+      "sha256": "fb66d67bc2b3149b0df5c1949f086223dd023301648a7d77c5872960ba1568d9",
+      "size": 9378
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/数学·知识综述.md",
+      "sha256": "70f41e00e101cd3d77bc6639663e808c559704e2436356b24e33a7fcefec3eb1",
+      "size": 108845
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/数学分析·知识综述.md",
+      "sha256": "30b2648de4bf46b58de1b268676528512b267d06b0cfc13f44ce938486fc7733",
+      "size": 19187
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/数学物理方法·知识综述.md",
+      "sha256": "6b35b5978d8153839435094b70ea191764a001a175389206c06da1f3e985d196",
+      "size": 9011
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/数值分析·知识综述.md",
+      "sha256": "2b9794f96d32218a927a55105018608abe3fe052a55d253d11e9d6aba05cab1d",
+      "size": 10619
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/数字电路·知识综述.md",
+      "sha256": "85068a40a3ad5418f17968960abe2c03ee6d07f261174ba7644af397582db631",
+      "size": 8970
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/数字素养.md",
+      "sha256": "8fd6c105e70a956580d96d720526f3715fac0f6cbcb708ef44cbe9bb0e3005ad",
+      "size": 1261
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/思维定律.md",
+      "sha256": "52ca303914168e8da2485208d2a4e1804551604c978de750e9d914b8130d919a",
+      "size": 1811
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/算法设计与分析·知识综述.md",
+      "sha256": "aa58f7aaba002584ed33ffa591a7ab8eeaae2ec23d0823b6c2358391da9aee6c",
+      "size": 10024
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/拓扑学·知识综述.md",
+      "sha256": "716f5db6f2bf384fff44b55131d942dbc5ea531f3caa5794d9c5ef991de12604",
+      "size": 7150
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/体育.md",
+      "sha256": "3a292da816d845309987afdd45143cd300082a49d6e78c86a0bd69b10e6630f7",
+      "size": 468
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/体育运动.md",
+      "sha256": "7c87766a7b13700c84c81cc645b430a4d478fb48f436a8ba2289b4c2feec5f92",
+      "size": 663
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/天体物理·知识综述.md",
+      "sha256": "6c443df80502de3b15e8914061b51225806ce44b4b70de2498fa26c0c07966bb",
+      "size": 6781
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/天文学·知识综述.md",
+      "sha256": "e880199bd2f3b25048f037ff85c4bcfcfafe0e26f8b92ed6d6f68a941ce9f109",
+      "size": 12451
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/条件论·知识综述.md",
+      "sha256": "17009007cc3ff468eabc2e6213560bd39e24316fa00ff6ae05c8eb2dd20f002b",
+      "size": 15966
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/图像生成.md",
+      "sha256": "5e0568a36810568f6e20f3df6f2ae386ac19a2118281c35cccf8b9fc74235ea8",
+      "size": 3317
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/土木工程基础·知识综述.md",
+      "sha256": "39799b265815d5d1d919bf8a69a7a84ebc6ba8affcce54662d0916e58185ce76",
+      "size": 7409
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/外国文学·知识综述.md",
+      "sha256": "331e2ebd1d000ab5a58406437666bfb77c6571eced5bec35a03094a794cf8400",
+      "size": 6608
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/网络安全.md",
+      "sha256": "2890915df5e0542de444344280b507e49c7112ce86acb339b5c455711caa2a2c",
+      "size": 1616
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/微分几何·知识综述.md",
+      "sha256": "cfd42901a7cc3188631361e81aa5716a5eaa4ab60c88af8335220c50a9e63704",
+      "size": 7628
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/微观经济学·知识综述.md",
+      "sha256": "336dbd95392a3d3147a383282ea2b3be92b9bbdb9e956544206d106fa07a666e",
+      "size": 7860
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/微生物学·知识综述.md",
+      "sha256": "e7dca731a9be7e0d1454bf2c2ec3e3245cefc444adbafb2be71c32facd934b22",
+      "size": 10230
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/未分类.md",
+      "sha256": "b287ec4c19eb18951310338cb834aca6feb066a3674154fb5215e42531e38088",
+      "size": 2209
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/文化.md",
+      "sha256": "396f799881189e945d58edd5585e14d5057acd814360e9f5a038e63d7da5add4",
+      "size": 2169
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/文化通识.md",
+      "sha256": "1604ce6090b3054876193e629e294761cb42778be770a3eaa171aeb91a95df5e",
+      "size": 641
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/文教历史.md",
+      "sha256": "190d7c691d8830d62901a17328a65a8b7627fce6eb4e69632b14a4b64f8f9ebc",
+      "size": 678
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/文具常识.md",
+      "sha256": "19379ce34f7ea7fb2740e3eb30eb5e272ce80e1d955b2916001f3561e4cc52d5",
+      "size": 676
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/文物通识.md",
+      "sha256": "a36ccf6bb4b407bb1e6da3c46e5773f53319d6f269c7fc363b835a421989794d",
+      "size": 1177
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/文献学.md",
+      "sha256": "0123ba1b755e3a6ff845f61a2f1878c1e5c0862ef06c6162092715290cd026f1",
+      "size": 1118
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/文学理论·知识综述.md",
+      "sha256": "3811a5938d864d8b95f74eea8707b9674ee6897185de352a734d8b910738ddc7",
+      "size": 22845
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/文字起源.md",
+      "sha256": "e2e378023b4d720e89c305204e3a9b7329af92931346117820382fedeafd1d1c",
+      "size": 696
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/文字学.md",
+      "sha256": "f65d4c642e6f18682854446e389028134fe690f3d94ded61354b2d1cd81a19b6",
+      "size": 664
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/无机化学·知识综述.md",
+      "sha256": "94a6927c4b9fb61f590c631bf6ebccd73c3015e4b9724177987e29b75687fca6",
+      "size": 11630
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/物理化学·知识综述.md",
+      "sha256": "c9f51f095c8a926c606024bd1ed64907f27dc0578ca95f0f3e26da57c6dbe941",
+      "size": 11414
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/物理学·知识综述.md",
+      "sha256": "5a3bb2ba521957539bdd4ce3928a0794c1eed90ad238e69214d7fda0cb68b9e3",
+      "size": 132227
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/戏曲艺术.md",
+      "sha256": "d65f80a8dd8b9dd6d1eb163b03c7f86059baec65893c7b89aa968ca7b7ef9d53",
+      "size": 1114
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/细胞生物学·知识综述.md",
+      "sha256": "469159c8a54a87690fd661515f767ddf9b830fd529985267792209cb44db844f",
+      "size": 9879
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/现代汉语·知识综述.md",
+      "sha256": "099869e530dac5e9469c90c6ba340265c14196c148c44864fc5e1a282deafef6",
+      "size": 8370
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/线性代数·知识综述.md",
+      "sha256": "b14be665490771ce433cc8989541cfc78a4f9bfb6ba91c94d8bf98fadbb36430",
+      "size": 11559
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/小学道德与法治·知识综述.md",
+      "sha256": "3a427cb40ae0d2362dafa9a9a5c2e73a0186142bf372d89bb42c4843422043b3",
+      "size": 7905
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/小学科学·知识综述.md",
+      "sha256": "b477e62aa25cf1befd55c09be0b792e228a3502326495f341fb0b171fed644a9",
+      "size": 158181
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/小学数学·知识综述.md",
+      "sha256": "d9e5dc3da84a15bbe62468697f5da4c5b19078faf5e32b7a86d79651f66945a2",
+      "size": 27214
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/小学英语·知识综述.md",
+      "sha256": "dfbdfc50bc70b3064d21fac12df4cf968bcd083a04e7f9d367163b5e5655ca45",
+      "size": 7225
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/小学语文·知识综述.md",
+      "sha256": "8517b247419bee2e284703528c750f00f160b485f5f563c87abb3014a6e0b872",
+      "size": 8443
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/效率方法.md",
+      "sha256": "00803a0cf06278aa0bcc530dfa1e89b63223833fd495ada4be32ca803d8c97e8",
+      "size": 726
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/心理学·知识综述.md",
+      "sha256": "a7fab96b9277e1ab303a76649aee709f9f2be4b177593185818e3923f0c82b20",
+      "size": 6818
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/信息安全.md",
+      "sha256": "747a0a5aaa7529d10b18fc4be30a1106935b38034d998fa8e8e054d10d517d1b",
+      "size": 684
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/信息技术.md",
+      "sha256": "15d222b4a47b95de80cc1bd5b3bb1aaa51ee37b2ec9f5281f7718147a7267874",
+      "size": 977
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/信息论·知识综述.md",
+      "sha256": "b722af66306dbf33ac6d8f2169f5dfa4e28ad51611355af1004d866d0c99a295",
+      "size": 3663
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/学习方法.md",
+      "sha256": "fe8a4a290eb8f6eb0f2859e2473308f2824eaaf852478a62e81ac017aab2166e",
+      "size": 3150
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/养生方法.md",
+      "sha256": "5d023364f69a1849c7b43d4e5603100b5257b717bf900ba69423fb64ea1cf118",
+      "size": 705
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/医学·知识综述.md",
+      "sha256": "cab8a8e6b1b6eb6f60b31b3326b5cd76e98fec11366095da411c6d187c343134",
+      "size": 7850
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/遗传学·知识综述.md",
+      "sha256": "d8111bfe1a36b46537ce49c5b10730268781c19b00d88e5444b2bc8209307a66",
+      "size": 9129
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/艺术流派.md",
+      "sha256": "9ba06f61dd9d245cc6cec2ad1c5e97cc98ca51140b9d9b605b748b6f881fcdff",
+      "size": 682
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/艺术名家.md",
+      "sha256": "d303cc695bd048d86375078d2855ab9c78d16e52280e32829f8fff16ce60d979",
+      "size": 671
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/益智通识.md",
+      "sha256": "dbb8a61638e01b00871317b55c8ba203bf4f129572a8bc4763fde9fd659d01b9",
+      "size": 695
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/益智游戏.md",
+      "sha256": "542e79b7e595bb3bf7f7e515c376e4ea491a55df14e80a340365a8d62410a807",
+      "size": 599
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/音乐.md",
+      "sha256": "88f77a7496770085bda38d19325b24ad56dcb6461e9dc68be92b1c33b469fa82",
+      "size": 527
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/音乐常识.md",
+      "sha256": "cbe7fa37ce93fcf834866ccebc265ed642054f3417353eaa197445cdfc6ac34e",
+      "size": 1662
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/音乐名家.md",
+      "sha256": "7794ce5c63323cb0ce1902d1d5bedfd0a9d288849fd85d10761e3c576d7524e8",
+      "size": 1164
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/饮食常识.md",
+      "sha256": "4ce817b73dac881005cb89fec3e5af52127a811545a43c384e31c1e31b38d5ff",
+      "size": 1627
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/饮食文化.md",
+      "sha256": "e8af53c29e0216364d4adaa51bad6a8ab7c831d59f309b1b2ce9cb00371343ab",
+      "size": 1594
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/影视常识.md",
+      "sha256": "d0caed47a52baa1dcdb38a604e0760434b6e5e4850a442f81ba2121a487138fb",
+      "size": 1572
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/有机化学·知识综述.md",
+      "sha256": "bf1cdae15ddbc662b4dde2b90ebdc53144873d7ef2ecad12ef9820f3fa5a3a92",
+      "size": 11440
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/语言学·知识综述.md",
+      "sha256": "3cf3796bdebed63278cffab0d8f465f93363656aeeecba1a7de880fa92ec05de",
+      "size": 25176
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/园林建筑.md",
+      "sha256": "79f54b9622bd35e2a0dc179907b08488c03aacd7ddb2850f87f18d7640613b6c",
+      "size": 686
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/原子物理·知识综述.md",
+      "sha256": "8aca649da94a5a60ca55cc5fd4de0827ed2ed0beda5971e4e8cadc27edb27e68",
+      "size": 7758
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/运动常识.md",
+      "sha256": "59257e666c946cb62305feac9a7d3f34728842b0c8f7b3a20d99a20cbed92c86",
+      "size": 657
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/运动健康.md",
+      "sha256": "fda3967ba3557917c42d174cba40a7adc05b1b376068d20168b7db4de31bf7f1",
+      "size": 780
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/运动科学.md",
+      "sha256": "19701df023b731c95a20ec88b1a6b350b1afef2e18e21d8a97068375ab219e8e",
+      "size": 1160
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/哲学·知识综述.md",
+      "sha256": "4073aa9b393ae0c97e38294aa898601c8dce0b00911ff1685d802261f17f13a2",
+      "size": 7958
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/政治学·知识综述.md",
+      "sha256": "d2f720c1101a8de058121565108b7b0399156efa0a0153c251f56dd9c9b17649",
+      "size": 22614
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/植物学·知识综述.md",
+      "sha256": "240d3f2fda018a18ac58e6a25b03a9054a143fc1c546c96a1cbd83e02a1e4eb5",
+      "size": 7194
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/制度史.md",
+      "sha256": "f3d670a7a3c756697ad09b02b2c681aa207baa33dd668d0fc208f4708c429db3",
+      "size": 4202
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/智能论·知识综述.md",
+      "sha256": "e1c7c9af24ef80b30ff595eda1f60248024b5d2097b541d55bc505f5d0203afb",
+      "size": 18763
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/中国古代文学·知识综述.md",
+      "sha256": "9c81e8d6dc9183667dcb82c3b77a1a03aee4eee4c19472400938a85cf3463339",
+      "size": 9287
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/中国名胜.md",
+      "sha256": "8b15ca7a50f0fb6903be694fbdc0c8fa7d8ff093d6be5caf56658713292ddd13",
+      "size": 667
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/中国神话.md",
+      "sha256": "54661f573ccfccd330076c05e6d871e3171c59014fbaa6d91af0126b1afa045e",
+      "size": 1239
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/中国现代文学·知识综述.md",
+      "sha256": "6fed8f15664980d4d823e807675e7df45807813703995d4b99aa0cd18513de0f",
+      "size": 8953
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/中国寓言.md",
+      "sha256": "9946ba9a3015aa79b0c5fb00ba8ef0437bd9af5dde2d0f72f43be17844201c57",
+      "size": 705
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/自我意识·知识综述.md",
+      "sha256": "14d5ee267ef458a5c7058c7e02f7bdcdc8e6bff9c11d119d549724d57f1d9927",
+      "size": 32106
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/knowledge/综合·维基综述.md",
+      "sha256": "954e2d06ebd6f25fc413d8a2d02e03484de91484c4c958757c55a46b7f18839b",
+      "size": 14743
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/__init__.py",
+      "sha256": "efbba8e79d9f4d586f2d31098460e8785b48efa65b8fdc1cdf7acf15237146fa",
+      "size": 115
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/智能论3.4.md",
+      "sha256": "7507be6f57fe816fd78e0caa87bbdd5f1f53d48ce1f032aa0ae6158d82ef6f8f",
+      "size": 277149
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/guardrail-charter.md",
+      "sha256": "a68b4613b58e00285ea4dde0267adf52b9357c58b02b8f415f1531cf9e9f7e65",
+      "size": 13077
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/编译原理·知识综述.md",
+      "sha256": "7d314d09809b47fbe3a7877329283224d96ffd076df9d2d316d89231d7051dfe",
+      "size": 5157
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/材料力学·知识综述.md",
+      "sha256": "959bd1f7d7c531c716a1a2bec11c302358d98b5b200600d94ccb213cdcb1047c",
+      "size": 5049
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/操作系统·知识综述.md",
+      "sha256": "4e29c0f705592be20fa14eb1d3614f1cd49059bbe77a5355677df931cf288d1d",
+      "size": 5574
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/常微分方程·知识综述.md",
+      "sha256": "aacac12be171e7c94105bf84026d213914a3f2e612cea57b2c05dc15ecab9724",
+      "size": 7597
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/程序设计·知识综述.md",
+      "sha256": "19515b89bf8d73834dbd6c1a282bc82f292951fc710c77159b3f718e37e621e0",
+      "size": 5077
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/抽象代数·知识综述.md",
+      "sha256": "c52e441638fa4c7a67bffb4fc354eb9d78dc0495c1bfc5a48e70a7d31954268d",
+      "size": 5502
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/初中道德与法治·知识综述.md",
+      "sha256": "2330b87c7e575593c95e8b1add0bd6deee67b6c1f90f63b1e383e91624fc9e03",
+      "size": 4732
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/初中地理·知识综述.md",
+      "sha256": "ef6cb10e8c1c8579d4ab3a5094b460a50a6d8cea30365e27eb4dea5e479dfef0",
+      "size": 5114
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/初中化学·知识综述.md",
+      "sha256": "4f10593177e0ad2be078c855a2f453c9dd9e289c0d40d9f3f710395de8ae0dbc",
+      "size": 9833
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/初中历史·知识综述.md",
+      "sha256": "27dbac09481933b1383360c4ae1de8f4321d404ffe2a37b646631290f71dc4e2",
+      "size": 5247
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/初中生物·知识综述.md",
+      "sha256": "5c8cee5ebe7b277e79b5eb7ffe6af243628b0a5bd6f85f3388d8d493dd0334e4",
+      "size": 11671
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/初中数学·知识综述.md",
+      "sha256": "f0056ec7364a28542412c89f1b11433a014dc4c0fae6e021cbb54f4dbc0f319e",
+      "size": 9826
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/初中物理·知识综述.md",
+      "sha256": "0010eaa22f4d37c8a5af042287def687237b0363dde9f9b9cdd07eab40ca82a8",
+      "size": 12779
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/初中英语·知识综述.md",
+      "sha256": "23f4d22f8ff0b0b4675564a2cdd5f45f8c118a814ff6403b53f4183d3157bfc5",
+      "size": 4724
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/初中语文·知识综述.md",
+      "sha256": "0ee78a14fd678ba41ce8ae5920530d2d8916877712f9c28d7f88961a36e4ddad",
+      "size": 4850
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/大学化学·知识综述.md",
+      "sha256": "9e830a39e175b1e35406279c6148311d989cf86a76034ac4e2b35cc342a28521",
+      "size": 8824
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/大学思政·知识综述.md",
+      "sha256": "0766fa57dc8e28139630cbac2e7c519e1753e0c5679d0148c8584f4dbab733c4",
+      "size": 5752
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/大学物理·知识综述.md",
+      "sha256": "a129702624143d35486b169bab7a13d81e2da47d0a614eed75a8d51a3fe3a4f6",
+      "size": 10636
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/大学英语·知识综述.md",
+      "sha256": "40f5ddf55695c5b307dca86e94e507ee0980e3e68cf8a4dae02540f617add5d1",
+      "size": 4468
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/地理学·知识综述.md",
+      "sha256": "1ccddd2429b660a25d21f41737f75030a8e1467d31cefe7da76ad68d8dfa2b0b",
+      "size": 6861
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/电动力学·知识综述.md",
+      "sha256": "3e1b45d7e1d51b2606859cf28bc0789f157afeb79bfaa2b87d0553aefb1633c3",
+      "size": 5767
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/电路原理·知识综述.md",
+      "sha256": "31b8a0b9d42b5e1a66f242bbbf1e72807072ed0977dbe08e9b287b3a44e6583d",
+      "size": 5048
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/动物学·知识综述.md",
+      "sha256": "4a7344d28637607ac116c4b46dea29ba38c0c41a2bfbaaab263436edeed66336",
+      "size": 4757
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/泛函分析·知识综述.md",
+      "sha256": "651d9202d8e4395d6aefd7482f52a687d2ffc69ab844adb80729504d88860ae0",
+      "size": 6401
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/分析化学·知识综述.md",
+      "sha256": "7f515de26fbf4a42409f03915eea9b9ddba14f086819dba961e2fdd1cd3d9a3b",
+      "size": 5639
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/分子生物学·知识综述.md",
+      "sha256": "07bcc5d74e947382aa0d47d3522e284c72f69f4197a3501b3fb3eb2b9f2d019a",
+      "size": 5557
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/复变函数·知识综述.md",
+      "sha256": "3ae93ad2dc7ee0a6a45684925e2745c7d3bdf751cda96b7dba2cc0d359ac3ef7",
+      "size": 6352
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/概率论与数理统计·知识综述.md",
+      "sha256": "275143f445d933dd07fe0ed18ac64f9835c3e8bce5f1c26c3e0b58d765adeaba",
+      "size": 8334
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/高等代数·知识综述.md",
+      "sha256": "13fbd14b87dfa5c3957b4341728cec3587f130989269551465dc7d38fc21dd5c",
+      "size": 7896
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/高等数学·知识综述.md",
+      "sha256": "6eaf102c63defc561fe26a8067627c747c8d9486faa2cce6d5983bcb35100c8b",
+      "size": 12912
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/高分子化学·知识综述.md",
+      "sha256": "b114214086e61c37ead7cf40d418d6a92c3746278a615ba452ad0463427039b7",
+      "size": 5103
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/高中地理·知识综述.md",
+      "sha256": "7b293810f650fd9da16cdf81d795fcf9196868b8e6db2b605e016d4e5d87ec79",
+      "size": 4547
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/高中化学·知识综述.md",
+      "sha256": "6295d1f02b7545831b3330ad00039d1429873bb5bf423fff9636fe44930f31c0",
+      "size": 18449
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/高中历史·知识综述.md",
+      "sha256": "2941b49686b66d6c4b57e8a6af8f10f87b97305a1b9f6e0b52a4ca66987efa73",
+      "size": 4371
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/高中生物·知识综述.md",
+      "sha256": "f60f5d559bb46e0ce0db1d17c2367e34917cd2e9d66162af58488a4bb29d94bd",
+      "size": 16076
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/高中数学·知识综述.md",
+      "sha256": "b455a20378c5987b0da72e8cf8139405a4afb862f029e1d00e0a26896f455da7",
+      "size": 14364
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/高中思想政治·知识综述.md",
+      "sha256": "397d05d447bbeac2d8ecd8241e1dd0ce3e59e1ccc96439129746fd36980e3dc3",
+      "size": 5378
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/高中物理·知识综述.md",
+      "sha256": "8e7b75d923f6e9e9171f97af12bdd201acc55ed6524d9624e603bff70b7342b8",
+      "size": 18909
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/高中英语·知识综述.md",
+      "sha256": "3c6e9287b5f097f6fd2112cdc96ab1999dafda073ae5fde580064ba55d2c721d",
+      "size": 4840
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/高中语文·知识综述.md",
+      "sha256": "8e2a4435ee8c31789d368ce582011a91890a10e88e16570a3cce642e0d1faac2",
+      "size": 4385
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/工程学·知识综述.md",
+      "sha256": "34c3b45d58299350f6447bf7bd183a2fcb9b2ee30693acb486bcfe6987193544",
+      "size": 17703
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/工程制图·知识综述.md",
+      "sha256": "4c74a4e34cbf56c074e024f03fe81c0c52ecde9af8f5a6a891c3634cd6d9b45d",
+      "size": 4114
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/古代汉语·知识综述.md",
+      "sha256": "8362a864856a658356a9efa9f699e8d5278fda14932f6a9d810154dee9f628d9",
+      "size": 5073
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/固体物理·知识综述.md",
+      "sha256": "3efc920763e508385efd5a219734b086b1d23e0a3102548743d8f10d4e5a64d1",
+      "size": 6439
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/管理学原理·知识综述.md",
+      "sha256": "75dffd456a0513094647ef393f592e51673ef4bb2f6c18f3a496f94db04d3432",
+      "size": 4450
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/宏观经济学·知识综述.md",
+      "sha256": "f332ee0a09e3c0a08fafbe9f1aeb12b2ec7fb56b27e0428a8e47e4aae214c078",
+      "size": 5178
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/化工原理·知识综述.md",
+      "sha256": "d117f8b200f5636e508803c533f6ced07f4e6fc9e0d27a899a349e1fb01d95d0",
+      "size": 5261
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/化学·知识综述.md",
+      "sha256": "6049d8d2387f649a36df021ece7931165247cea84cfe43c568d8ccdee5a8afb3",
+      "size": 59632
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/会计学原理·知识综述.md",
+      "sha256": "67697410118d08786f196ea6e19d3b172e18938ef0207efc5b7259871ae8b14f",
+      "size": 4382
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/计算机科学·知识综述.md",
+      "sha256": "9829be49918d79df00f1b6959cd35f101baf936b2d01a20aa3a23a1d94240f6e",
+      "size": 35675
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/计算机网络·知识综述.md",
+      "sha256": "688e84cb82362cf41277c9da6ad2ade6590014bdf508f998b54131c11d440356",
+      "size": 5350
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/计算机组成原理·知识综述.md",
+      "sha256": "ab3ef46e4ecd85955e3ad471de664c00ed1a562698e2761c6c730c9269f98721",
+      "size": 5608
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/结构化学·知识综述.md",
+      "sha256": "df06d5e72850e12b73128047f6f58549fcbc8e838f354ca564ef7c7dd881d557",
+      "size": 5247
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/金融学·知识综述.md",
+      "sha256": "819dd954c083c8a75ee6816e999985c05e57053a066dc79e4cf3a9b799a6a926",
+      "size": 4418
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/经济学·知识综述.md",
+      "sha256": "ee98f80c5f2beb3b77794c6ff985ebd2a21b2d7648305f17df44ae27cf172e8d",
+      "size": 13610
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/理论力学·知识综述.md",
+      "sha256": "9ecbf055def206035662191bc5e7d7e3b6c624fdb845f85c79f7f041ac437a3c",
+      "size": 6616
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/历史学·知识综述.md",
+      "sha256": "b70e9c86ba2977ff8af8b04807a3a3095ef9bb0c2ffdbedb52e9cef97ec32857",
+      "size": 13374
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/量子力学·知识综述.md",
+      "sha256": "0ea81ba8f1341cb8d6c983ec4844b6a94f61edac75ac3e3fdb45875a1c27dcbf",
+      "size": 6919
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/模拟电子技术·知识综述.md",
+      "sha256": "82e724464fd8796240d61d88dcbbc61509effd5e7d1b3bdc213f849ecc60112d",
+      "size": 5071
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/情感情绪仿真·知识综述.md",
+      "sha256": "9b676038759bf849ffdeac6494e75625564f72813a7d84a7d284c487e3a6cfe1",
+      "size": 21014
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/热力学与统计物理·知识综述.md",
+      "sha256": "70c50f78274fce74fc3d08a604ce92a2d563351597338c4e14d53770c855a0dc",
+      "size": 6361
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/人工智能·知识综述.md",
+      "sha256": "ef81d54b606961506508cc5e2817adccdbb6abac126c125fe0d233d045e1c348",
+      "size": 5951
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/人类观察者·知识综述.md",
+      "sha256": "f45fe46e50bf1c76cac503aa2144e3ef3b12d6e869d761a42214798785cc77a4",
+      "size": 5687
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/软件工程·知识综述.md",
+      "sha256": "89080bf7eab5c10e9c0237f800ff99eea7538683dc3026df3a6ceab751c8f178",
+      "size": 4929
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/社会学·知识综述.md",
+      "sha256": "b9bf30715810b06a98aebda835a699ddd4026e2048ae3843e84008e4f2290a53",
+      "size": 7482
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/生理学·知识综述.md",
+      "sha256": "1b7d8f694fb455acc23adb915beb40b7c4a352820562be1c9ff1ed4bcc94d490",
+      "size": 4695
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/生态学·知识综述.md",
+      "sha256": "2e2975edf5fbbb23c7ea9245be6b9add51bceacf9a7380c24743b0cc2a987502",
+      "size": 4580
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/生物化学·知识综述.md",
+      "sha256": "b855effd72be65e067ce07d51581f3fd5bd2700d59218267612d0e8ebf267edb",
+      "size": 7068
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/生物学·知识综述.md",
+      "sha256": "8de8c9211bf85c6db5e9de297e55d140c0ffc57f3d3d61100d9b1400af8d36ce",
+      "size": 52517
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/时空记忆图·知识综述.md",
+      "sha256": "c8692d8bc4c036c80ec2b2a8819f359ac12f59e87db5e3bd9122d0ef063f10c9",
+      "size": 12774
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/实变函数·知识综述.md",
+      "sha256": "ba36306a4550d08a44d9aa7cf43d9c3ab4655c2558dc88853d6637bc35e758c0",
+      "size": 6774
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/市场营销·知识综述.md",
+      "sha256": "13aa375cc6e796573a68e9017ddfc8a4e25bbd14f33df97a790f9a61a9c3e807",
+      "size": 4021
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/数据结构·知识综述.md",
+      "sha256": "d0495b42e6261769e0fc984295c207bde18c4d1e48d86555b66f3079b1413f76",
+      "size": 5757
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/数据库系统·知识综述.md",
+      "sha256": "a9bdeee9d1764c22c87679deddfb7b9592a74a8b48862ba9e3c02ae1c0b8e526",
+      "size": 5100
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/数学·知识综述.md",
+      "sha256": "d6df2fe94ed092fa25f9014714cdae0b574150eaaec8b3147b9669427676a30d",
+      "size": 53252
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/数学分析·知识综述.md",
+      "sha256": "a8984c818e474f9eabbb8853faa0f5893e265911f541dac85ebf7eaabc92e708",
+      "size": 10816
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/数学物理方法·知识综述.md",
+      "sha256": "d07aa4f37412312e58c13d800146e9a041da4b9ccff1208ee30953f01678d251",
+      "size": 5404
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/数值分析·知识综述.md",
+      "sha256": "1f8e3190867a53f3ce70e8e2cacf067ed055dca91bf37e3926b1a4bfb01cd370",
+      "size": 6396
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/数字电路·知识综述.md",
+      "sha256": "4cd0d35fb1d8a692dfb421ed4a2277ab1d57e8eb4efedadd4b0ef7d929569f7d",
+      "size": 4953
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/算法设计与分析·知识综述.md",
+      "sha256": "dadb7fd536e760881de36a7f6a67bfec81971d723b5e4a4bf7899ab777c3ff9a",
+      "size": 5416
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/拓扑学·知识综述.md",
+      "sha256": "c69fb95505240d6d6e0eb01d5e6ed7e48db22d44ca6d59f750e470f7f375d09e",
+      "size": 4855
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/天体物理·知识综述.md",
+      "sha256": "97ce3dc6724452e68d0c1d1f4dacc10b6c9407a68aa2203bbbdec199d4a34e97",
+      "size": 4417
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/天文学·知识综述.md",
+      "sha256": "54f1c73a0569871347631a8258e6bf11365d8900b9622bcebe73a7a73c9f9c90",
+      "size": 9291
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/条件论·知识综述.md",
+      "sha256": "17009007cc3ff468eabc2e6213560bd39e24316fa00ff6ae05c8eb2dd20f002b",
+      "size": 15966
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/土木工程基础·知识综述.md",
+      "sha256": "a41811af7c6949e0d9b308e35ce43ebf191fbe3456c8effa1290fbb1fca52e4b",
+      "size": 4202
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/外国文学·知识综述.md",
+      "sha256": "21962685a32df94131a77faae4fb9ddeecfba2f415514aa5c674ddca3ec295cb",
+      "size": 4605
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/微分几何·知识综述.md",
+      "sha256": "24dcf045a848725fe66997692751ce5a02cc7dc49a9e4a0f775792614b438a5b",
+      "size": 5163
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/微观经济学·知识综述.md",
+      "sha256": "03b8da3d6025e526ebf7d3894d24cb3df7704bf52b154549bee66d1b7afbcd6a",
+      "size": 5194
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/微生物学·知识综述.md",
+      "sha256": "0a4971dd70fa5691b15beed352e8f8820950ce00f06f19009812a3e65849e96a",
+      "size": 4956
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/文学理论·知识综述.md",
+      "sha256": "3c799cfa2a5fb475de7ce3d4697d1b6f84499c365411078b32b252d3e5a3611f",
+      "size": 4574
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/无机化学·知识综述.md",
+      "sha256": "6f9056ca8e657a11487d0201730df9b2852d90f2ef8d19fff5846d5b124c9c53",
+      "size": 6836
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/物理化学·知识综述.md",
+      "sha256": "8280d3fb4edd2324605f2998c03b559048c4f495fe70774e84f44d7981678e6a",
+      "size": 6598
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/物理学·知识综述.md",
+      "sha256": "557ccdc1392cb738d6fb82f127203d396b26397faf9c9b69c9edf531bf155785",
+      "size": 63317
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/细胞生物学·知识综述.md",
+      "sha256": "9d8350f974d09300c33ad8621d5d09765d88f807759c1cef146ba61a6fa034e5",
+      "size": 6274
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/现代汉语·知识综述.md",
+      "sha256": "167a43c28059d77f3c03a243a85fb642df15febffc7b778be11b8fb77bb2264a",
+      "size": 4590
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/线性代数·知识综述.md",
+      "sha256": "9cc5fae09445b11b7a3a6c7c928d8896840f5120f986680132e872d802b59ea9",
+      "size": 7090
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/小学道德与法治·知识综述.md",
+      "sha256": "dc875e0201314da7dc72966b4540caa2de1926234dac99941166159da4cd8572",
+      "size": 4583
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/小学科学·知识综述.md",
+      "sha256": "f9daf23f2b630f871d39af9674b90ed8963d51335157d1a958314251abeef3ce",
+      "size": 148636
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/小学数学·知识综述.md",
+      "sha256": "5070322b62240da79a2b87e3c0a44e0b3f42736cb51c45ec370cb27e207b5014",
+      "size": 13545
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/小学英语·知识综述.md",
+      "sha256": "3f1c3de63514d44044d61823fda3dfee6bca07450a0615c46dc5742710a97e34",
+      "size": 4388
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/小学语文·知识综述.md",
+      "sha256": "b3594a3b6aef6a213be1195c72c46037d90ee1411cb8c58ed2b7ee7b4c5708a3",
+      "size": 5159
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/心理学·知识综述.md",
+      "sha256": "71e0fde0beefb3e133cb39a5f45af9dfd31e01c307ab70d5596865a05e36b19a",
+      "size": 6243
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/信息论·知识综述.md",
+      "sha256": "b722af66306dbf33ac6d8f2169f5dfa4e28ad51611355af1004d866d0c99a295",
+      "size": 3663
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/医学·知识综述.md",
+      "sha256": "018d7ccce123f7e00fc9c8d9cafdd9a3a2cb881e584d1fa692ad0233dd9d4c95",
+      "size": 6651
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/遗传学·知识综述.md",
+      "sha256": "9aa32c6fd484c60f71daf578a1d3d2ab5b228123a00cd66bf46dfb539e20cbe7",
+      "size": 5565
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/有机化学·知识综述.md",
+      "sha256": "6246dca807d1c5297c2877224ba728b50b964be500762723578f2a22ad9f1865",
+      "size": 6768
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/语言学·知识综述.md",
+      "sha256": "2a9d4a2f5a68361f5d7bc7b4d1e60ccf02a7dd1cddcd983826a0e800fcb0502a",
+      "size": 12132
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/原子物理·知识综述.md",
+      "sha256": "be2cbfa4a9aa45d7bd685e37e82ad2bd022aae46a29fb31cc95b4c35c36b6d4b",
+      "size": 4679
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/哲学·知识综述.md",
+      "sha256": "5c5829cd0cab695da0de0f349dd7855aec7bcdd31144e003b1829bebdf24c873",
+      "size": 7431
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/政治学·知识综述.md",
+      "sha256": "a78d9e5106e70596f04d3beb328cf2b16004a4ffc0b1e2af5dba207d3e22f56b",
+      "size": 9719
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/植物学·知识综述.md",
+      "sha256": "61ddfc23eb020cb2fde69c61f862347ec05ec6b293377697bb4326ef9f78bbb1",
+      "size": 4332
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/智能论·知识综述.md",
+      "sha256": "469d0740a94bb27c23d74ab19b743c749a6ed73c91a8d7176e20efdbb9d09596",
+      "size": 15071
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/中国古代文学·知识综述.md",
+      "sha256": "f6dd3beda208e83ea19edb95ca36edad3b9cfb9d37b9388ad1f8663a5c669fa3",
+      "size": 6290
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/中国现代文学·知识综述.md",
+      "sha256": "ba46b439d99313d2ddb288e5bb35c01e741a63e812303a9eff15d92ff96dd6fb",
+      "size": 4624
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/自我意识·知识综述.md",
+      "sha256": "14d5ee267ef458a5c7058c7e02f7bdcdc8e6bff9c11d119d549724d57f1d9927",
+      "size": 32106
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/seed_knowledge/wisdom_cards/综合·维基综述.md",
+      "sha256": "954e2d06ebd6f25fc413d8a2d02e03484de91484c4c958757c55a46b7f18839b",
+      "size": 14743
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/__init__.py",
+      "sha256": "4a41d2e7f5d63d9fa566edbe2eea93f93d387c3680bd017338347a289a494546",
+      "size": 319
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/answer_spec_anchor.py",
+      "sha256": "8d61664c32bcd0d86224df59ee6513a6d21d3ce9bafb3f9c02c8738336cf6c4f",
+      "size": 4240
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/browser_units.py",
+      "sha256": "61f70ff13ce66c575f6367ce46257156c68f2775a6ce0fa5e8bd0f418184222a",
+      "size": 131483
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/card_validator.py",
+      "sha256": "6d701a369f4b1f7cc0d3e565636228ce41fb7cf878e0443624e611e142cfce1f",
+      "size": 10377
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/causal_discover.py",
+      "sha256": "d5cab5173239a0cfa2cb2ed6df79f161a0209775b2853cbe109f3b86a32afd3a",
+      "size": 22006
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/chat_engine.py",
+      "sha256": "a916899faaf98079568b9f14abeda091d782e7a0b7a8778f8af22beef7d31a20",
+      "size": 92712
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/chat.html",
+      "sha256": "cf421fb7927882505f51e086e48a9cf4e1a23d1c81b3c8e3e92773b56e0805d3",
+      "size": 7377
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/code_compose.py",
+      "sha256": "e63f7ec552e49fc59b462fde438087405adc211fe1325a6a0dd66391c3833fd8",
+      "size": 52148
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/code_qa.py",
+      "sha256": "b55005d6ad7265c56f9cf9269dce1ade7e306c7ee95085adcff44a55521b1bd4",
+      "size": 5880
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/code_route_bridge.py",
+      "sha256": "fd40522b6ae3c26177bd7352b4d8e21f317cba5f3cb9fbf96a6db494125eca66",
+      "size": 4031
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/code_solidified.json",
+      "sha256": "23b8bf2ba2fdc2884446ce071238be87692d9eabdf63522196be1dca5a87e532",
+      "size": 388415
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/code_test_runner.py",
+      "sha256": "689ac7212b3f5dbaff78af35a798655e0e8e1b10b3affa102078d95824703818",
+      "size": 10452
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/codegraph_white.py",
+      "sha256": "162889579aa7f5fbeb7612f1b93900d870d47c6a61d6be291130cb4bbcf78cec",
+      "size": 13120
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/compiler_code_units.py",
+      "sha256": "42b3f38622a93938aaf6f8f2113e12688822728312c584875d2b344202267c3a",
+      "size": 158804
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/compiler_compose.py",
+      "sha256": "7e849eecd2ddfe7ac0acf2176156a35a989f54066c4338b7708bf5d05ade03a7",
+      "size": 9170
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/compose_engine.py",
+      "sha256": "cd519e71427fe064fe0c418463b28a38a4cb77920c68e8c316741d840919bc7a",
+      "size": 88760
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/condition_algebra.py",
+      "sha256": "4cfd38ee50cdffcd8fcc6764b21492917b0520dbb97ba0d567abeab881849db1",
+      "size": 5920
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/condition_frame.py",
+      "sha256": "7df193fbdbcd4e0a0960fdbc1b90719e1c7c5162ae4001c7525ce2e60ad74818",
+      "size": 14261
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/condition_kb.py",
+      "sha256": "1128d71c48bbfd958ddc4f135b865209f972e2e755b51c772b0ba5dfebcc8454",
+      "size": 5655
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/condition_vm.py",
+      "sha256": "1c9510122b30f4794ce956e313a99612fccaded4acd390e12e81601919d5b554",
+      "size": 11307
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/conflict_map.json",
+      "sha256": "c9cca83ccf796766c786f9461e97a0ae77019f8a6f09e6603936003124f976d1",
+      "size": 123732
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/core/compiler.py",
+      "sha256": "4904d903cd4c6d8f2050cfd335cb78d4649401ded3c70fdc6ba1ff7272c5cbfc",
+      "size": 13084
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/core/condition_vm.py",
+      "sha256": "805a793992b2874f43edd72f375c4f88020d3f471cef0e03ea68494586a665ea",
+      "size": 13181
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/core/lexer.py",
+      "sha256": "66a85707ff55ca47ecf314c45cd956099251b6fff91f835b16accd574fa4ef14",
+      "size": 17203
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/core/name_checker.py",
+      "sha256": "2e0e3bdb9ff4b2e79badf07ce0a4ac7ad0824f8f2d58bd6f8eb2e00ca0412115",
+      "size": 47151
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/core/parser.py",
+      "sha256": "02b13bc2288d0f219b0ee97ebafc2fba7482fa7c907a94b55478fd5464c67e00",
+      "size": 44206
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/cspmn.py",
+      "sha256": "83d363c038c65369a016be1484ba67220abffc75081d78c34f09d5267a0782d5",
+      "size": 11979
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/csre.py",
+      "sha256": "6e974dfef12966f3d2124e287a4c7af1755a93c16d07278115cbe194675f8dbf",
+      "size": 12344
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/danmaku_audit.py",
+      "sha256": "785687e05a9b89d81ef401a9baea76545f6c83f504c6270e5ea6184d6e998b53",
+      "size": 11467
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/danmaku_bridge.py",
+      "sha256": "984e01dd7cc8dbe227d20beee37b726b82022593f628e759b49f848d3afad0a7",
+      "size": 4619
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/distilled_condition_units.json",
+      "sha256": "4caefec6bbfc453ae22c385109d7e9cf3a4d86fe9e2c73527ff459d62cd5c3ae",
+      "size": 76602
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/白箱本地校验器_ZeroLLM_Verifier.md",
+      "sha256": "753a1eac7fb783606327436d3faa947321d997d1709e569afef3d6d4a36268c4",
+      "size": 20027
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/白箱自举第六阶段_收官总结.md",
+      "sha256": "dae1d93f0c47a66d4b92e1c1ebab3f21c304ea7753637f8306b80a4a464126f3",
+      "size": 160519
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/代码条件路由图_CCG设计.md",
+      "sha256": "eaeb696a13265e646776abf06b9e6091eaa9cfda45d40323155093ed17e00153",
+      "size": 8273
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/代码语义条件协议.md",
+      "sha256": "f73612030003908c95428eedb3c979dd17b8ec2086ecdfeea0ae3b58b97a2823",
+      "size": 33630
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/方向性抉择_自举vs自迭代.md",
+      "sha256": "746d57d39c560a503625cf648bda54feb7bbe1f76ae35d1f0acc4b7d1d72bfc6",
+      "size": 4478
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/局部最优与情绪偏好_理论工程.md",
+      "sha256": "2b68a223280e98d5d0f0870b3ed8a2132d7cc49b3cb65e42b109f1d4327e2042",
+      "size": 5085
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/灵枢插件分类分析.md",
+      "sha256": "27697b59f82cedfc92b5bde716d1ccc66cc1b17509980314cd61208a119c5731",
+      "size": 3514
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/灵枢AGI架构探索_文档规划.md",
+      "sha256": "b0bb7e41ac319e325debcf33dfceab32f543df63c3eeccb2b601674a130c062f",
+      "size": 3707
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/codegraph_ref_rating.md",
+      "sha256": "4060c8542c12831d207ecfcc92dd9c23ca4176e9936447dc928f787282125313",
+      "size": 2959
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/daoti_absorb_analysis.md",
+      "sha256": "3da11e5e3653f53595c48f0e46635a522c40804b822ecd1455c00dfb3175d0f4",
+      "size": 3107
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/dsh_memory_v030_stable.md",
+      "sha256": "50a6905a70795dd0c59d2f88ab9fbcd82ac545a5cff03d7155f32d1984b1cf7a",
+      "size": 1878
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/github_absorb_analysis.md",
+      "sha256": "a685d5bd824187257f91ac47c711e3bb8d87db852754aa03ccabc174dc8e6240",
+      "size": 3919
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/gliding_horse_absorb_analysis.md",
+      "sha256": "f6f9d0fc8e9a192e6e251f9b888f6ff27aa6521b5b24ee447305d396e3b72388",
+      "size": 2674
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/WB-EVAL-20260902b.json",
+      "sha256": "207bf271330a46171d3b8dfb0762c48da45b373ea32b2b0efb00453df380ce02",
+      "size": 35853
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/WB-EVAL-20260902c.json",
+      "sha256": "7a9c6ee26d4b39ee68666211653178981071272c8797c4884ea55b41bbf85a93",
+      "size": 23917
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/whitebox_capability_graph_demo.json",
+      "sha256": "aa62127af12580cd748524dcc119fced5e111d9f062ca46db8b971684cf8fa7f",
+      "size": 1147
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/whitebox_capability_graph.md",
+      "sha256": "ce212a715ce133881bd708763aff059b7fac2a26c15d4c0435db27cc74f9a8f5",
+      "size": 2334
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/docs/whitebox_code_rating_202609.md",
+      "sha256": "20355475bbffc99b98a8293864748cdc817640b55080080ad38cc32fdd8d9fd2",
+      "size": 2330
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/ds_compose.py",
+      "sha256": "de453a6b05b3bd7007649cced6d367dee4874da0e28c2de0dd3b3c9bf5694094",
+      "size": 9959
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/graph_db_units.py",
+      "sha256": "50e56158b475afbd9611f596756b7f58725f2078d65f7006d0097dc9d1562fc1",
+      "size": 155298
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/graph_qa.py",
+      "sha256": "47c9c1c9fb41131669b484454e3319cca19788f343e272dae2e755abf0bb2275",
+      "size": 5961
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/human_observer_knowledge.json",
+      "sha256": "b4899825c20899d0246f8f61258a74695f7142b9e6c88eb24303691d4edb3f39",
+      "size": 4688
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/knowledge_points.py",
+      "sha256": "96809df4c18ccb91d4e1cc6da7e49b5de5a879b0f11e54c2c15f0586001e8420",
+      "size": 15281
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/md_access.py",
+      "sha256": "056f2ddafa2507fcd507f4274087c7f2ac8746c6e88b8763fca1a741fdfd7e93",
+      "size": 19025
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/md_store.py",
+      "sha256": "09e26f5b937625bd4750fec332ff29f3ec4b3327450a990ccee5913e5e36bc1b",
+      "size": 12606
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/merge_subgraph.py",
+      "sha256": "065e4326532f32cd76b9ed5fb70f66c3bf2528608dd4e197f6d1db4631a11fdd",
+      "size": 7795
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/migrate_wisdom.py",
+      "sha256": "7044242988e03ba8a6d00a20b5610fb7e4df70c9acdafb9cba059e67c686ffb9",
+      "size": 25057
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/mini_python.py",
+      "sha256": "9ed5ea25cd5df12e43a05e41c1c2cefcaaf2085869d08eda6f143d2eb6668f0e",
+      "size": 39805
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/multilang_ir.py",
+      "sha256": "30f49ba9947ee714a4140b595f746c3d08784051c2d9e831b4f99d8af8a7603a",
+      "size": 6475
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/navigate.py",
+      "sha256": "cf8c70b3b071679a476124558db4700421a7fc83a144a88920fe072f4db2ea96",
+      "size": 11475
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/net_units.py",
+      "sha256": "f1e9a191e5ee60272af8dfbe44a190d88a917e6ceaa0464c2c43ba1486eaee61",
+      "size": 146029
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/neural_retrieve.py",
+      "sha256": "a110e513d7790ef66da985d9902be265e63f9accfe6e59057cc2f14d13d4f96f",
+      "size": 9229
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/os_units.py",
+      "sha256": "9343b0cfc3fcd5f458989bda1a5e43edfc47c62cfdcf7b2f0dc83da30121cb82",
+      "size": 137086
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/pattern_separation.py",
+      "sha256": "2f441f85a71e1ee966e462fb07110ced24c6f1335ab860eee8e3651463c74776",
+      "size": 16166
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/prereq_map.json",
+      "sha256": "2efbe3a16ed16cb1268c0c2fd452d16d6bbee1902770b2f8c9cabe46baeeb2fd",
+      "size": 4823
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/python_code_units.py",
+      "sha256": "2a48a61ad4aca9304bd1a5811e1db9201030e258f1edf3a38c53ff8a222e487f",
+      "size": 138461
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/role_compose.py",
+      "sha256": "f8b6840dd2c76a5f3b7a17bf2927b51d8c4df920da79ea448eac0ed80543869b",
+      "size": 14233
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/role_solidified.json",
+      "sha256": "be5cd8428cf69cd2d4deb0d5805a3cc5b266b2b438ff98d4e22bb989a8b23524",
+      "size": 262
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/route_memory.py",
+      "sha256": "f0d8d91e5e77c7f50cf536f886ba2dbb97ea6d877574e2d33ea96267a82a248b",
+      "size": 11309
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/scene_reconstruction.py",
+      "sha256": "3c1adaf62a8206c1183ddf5b5b91c4e021928054c3d315e04c0f96c786d410a2",
+      "size": 6149
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/se_compose.py",
+      "sha256": "b05542546b43dee5016ec86aa5263a8c6ab340476967532996b64f339b4e13fb",
+      "size": 6901
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/semantic_translate.py",
+      "sha256": "51dcb38467a45c016c3af5b14de16679602c2f5eaa55c538e25ab3f3dc576925",
+      "size": 2109160
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/snr_dashboard.py",
+      "sha256": "2dd316aeaca80e07159341cf98d1dc2dc80f5550eff42459071f3b4d6d805ee8",
+      "size": 10918
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/snr_report.json",
+      "sha256": "64a9d5a5344e9f32101c33d969366f049d61b7d7a8464dfb8bef45e686e481be",
+      "size": 1007
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/spatial_closure.py",
+      "sha256": "bf1b2d13f227d4f39301c0da07386db37e7b6bc88abafbd0a6f8eaa1a4cbf444",
+      "size": 4709
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/spatial_qa.py",
+      "sha256": "c6d9b874158de45962ec45b94256f0b2ecae12e68998678dedca39d7c1791fa6",
+      "size": 8492
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/status_terms.json",
+      "sha256": "a42ff05713e9a00e5bcc61d4a1d26cd104f329e9b0cb6b67ec228b689fcf0378",
+      "size": 1094
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/task_discipline.json",
+      "sha256": "cd1964df6d76b223711ec6e0704840172a31faffbb56b58129873e69290788e3",
+      "size": 2672
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/trigger_words_index.json",
+      "sha256": "9fa14706dcf4ced3a71106041785ad0f3d8612738d22b2a85779b8714ada6e9b",
+      "size": 95303
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/verifier.py",
+      "sha256": "e5608ae0336f772a2b39d14e6cd71cea9acb5e39ee4adea16ac94ed5c241a30a",
+      "size": 66911
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/verify_answer.py",
+      "sha256": "129fabe9f16bfea8eee08e3f5a692d2b0d651ba1e94a1db4ca9240c1f991df93",
+      "size": 4909
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/wisdom_book.py",
+      "sha256": "253ac59708241a136acf1cec86beaa05e9050067ec86bd541ed3b059229f3659",
+      "size": 227784
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/wisdom_cloud.py",
+      "sha256": "aea7b27eb2db331193096e5d25b4179f4e4ef06d255242dcb31960a5e882234f",
+      "size": 21307
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox_kb/wisdom/wisdom_ui.html",
+      "sha256": "40aecea13fdde9d0c969422fdea27ca0967da3a42bd452f3a82268748027c996",
+      "size": 51492
+    },
+    {
+      "name": "vendor/mdcg/md_cg/whitebox.py",
+      "sha256": "48c8de591628251f2161d6b5eaca91ae2a3752546cb59f52a5e00da656fdf8f0",
+      "size": 28999
+    },
+    {
+      "name": "vendor/mdcg/md_cg/writelimit.py",
+      "sha256": "9e7b263ae75fb5e5e33eb389cfbc28a1b0e5a397c796221da85b4feaa69cfc26",
+      "size": 21428
+    },
+    {
+      "name": "vendor/mdcg/md_cg/writepipe.py",
+      "sha256": "34b10effd22e98acaa885b873de36b244d03e2ae588eb673feb5250e20ebc4b7",
+      "size": 41165
+    },
+    {
+      "name": "vendor/mdcg/utf8_boot.py",
+      "sha256": "f6b3bd311519a3f7a02866cec43f3aebdaa5ca63c634f802f7b4a1e4d84533dd",
+      "size": 15593
+    }
+  ]
+}

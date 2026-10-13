@@ -1,0 +1,11 @@
+subject = "人物"
+case = "失败反例集"
+schema_version = 1
+
+blocking_codes = [
+    "STYLE_MISMATCH", "NECK_STUMP_VISIBLE", "HEAD_REMAINS_IN_COSTUME_VIEW",
+    "FORBIDDEN_MULTI_PANEL", "FRONT_BACK_INCONSISTENT", "SUBJECT_CROPPED",
+    "BODY_PROPORTION_ERROR",
+]
+human_visual_review = ""
+

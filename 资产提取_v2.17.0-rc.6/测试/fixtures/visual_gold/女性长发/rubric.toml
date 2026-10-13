@@ -1,0 +1,17 @@
+subject = "人物"
+case = "女性长发"
+schema_version = 1
+
+checks = [
+    "发型结构：发束分组与发际线连续，无断裂（HAIR_STRUCTURE_ERROR）",
+    "后脑：只呈现后脑勺发型轮廓，不得出现面部（HEAD_REMAINS_IN_COSTUME_VIEW）",
+    "正背一致：正背成对共享画布与相机参数（FRONT_BACK_INCONSISTENT）",
+]
+blocking_codes = ["STYLE_MISMATCH", "HAIR_STRUCTURE_ERROR", "FORBIDDEN_MULTI_PANEL"]
+human_visual_review = ""
+
+# 工单 T02：由本用例 checks 里点名的失败码落为显式契约（不新增码、不放宽阈值）
+expected_codes = [
+    "HEAD_REMAINS_IN_COSTUME_VIEW",
+    "FRONT_BACK_INCONSISTENT",
+]

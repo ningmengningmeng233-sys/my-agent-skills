@@ -1,0 +1,31 @@
+{
+  "schema_version": "media-pin-1",
+  "note": "五个 skills_runtime 模块 README 引用的报告/角色表样例图（本地生成，用于文档配图）",
+  "human_review": "pending",
+  "media": {
+    "skills_runtime/novel-art/assets/report.webp": {
+      "sha256": "16cd1d0f3ff3fe097a25982ee7f1d6edc3910c0d47ffd174a87563545909b72c",
+      "bytes": 154436
+    },
+    "skills_runtime/novel-characters/assets/report.webp": {
+      "sha256": "2f989189dba3d645148ba40577dbb47833cc1d1748f795b143bd888639786bbb",
+      "bytes": 129052
+    },
+    "skills_runtime/novel-characters/assets/sheet.jpg": {
+      "sha256": "9a693cc8c274f5b143d40cb221a486d21f6d7295f45539878595545b96a57707",
+      "bytes": 169114
+    },
+    "skills_runtime/novel-outline/assets/report.webp": {
+      "sha256": "232f96ad45838dfd71717c14f06dc1410b3ff94e13a5d2e16d0027097f53ef37",
+      "bytes": 46594
+    },
+    "skills_runtime/novel-script/assets/report.webp": {
+      "sha256": "ea0f7dde8e8b4a662f9420892ced730475541647276051b00341ebbfc37aabc5",
+      "bytes": 106104
+    },
+    "skills_runtime/novel-storyboard/assets/report.webp": {
+      "sha256": "4a0cc55de66ba058ca7525c6685da718a0a42b0215e5bd7ee235bfeddac2c953",
+      "bytes": 190454
+    }
+  }
+}

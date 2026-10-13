@@ -1,0 +1,27 @@
+{
+  "case_id": "d09-t2va-alley-ambush",
+  "user_prompt": "短剧巷口伏击打斗戏，注意 180 度轴线不越轴",
+  "scene": "窄巷口，雨水沿砖缝往下淌",
+  "action": "黑衣人在拐角扣住刀柄，先一步侧身撞翻迎面的人，对方后背砸进积水里弹起半跪",
+  "style": "单一路灯高反差，雨丝成银线",
+  "audio": "肉体撞水的闷响与刀鞘磕砖声，无配乐",
+  "voice_signature": "黑衣人：压得极低的气音，几乎无台词",
+  "model": "H3",
+  "duration_s": 6,
+  "aspect_ratio": "21:9",
+  "resolution": "768P",
+  "constraints": [
+    {
+      "id": "pt-d09-t2va-alley-ambush",
+      "value": "窄巷口",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d09-ratio",
+      "value": "21:9",
+      "delivery_scope": "api_parameter",
+      "target_path": "ratio"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "case_id": "d03-fl2va-rooftop-confession",
+  "expected_mode": "fl2va",
+  "expected_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d03-fl2va-rooftop-confession",
+      "value": "城市天台",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

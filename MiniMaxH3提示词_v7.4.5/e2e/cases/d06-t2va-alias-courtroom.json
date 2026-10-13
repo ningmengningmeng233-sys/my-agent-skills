@@ -1,0 +1,22 @@
+{
+  "case_id": "d06-t2va-alias-courtroom",
+  "user_prompt": "短剧庭审对质戏（本地约定别名走 t2v 入口）",
+  "scene": "旁听席满座的法庭，木质回音发闷",
+  "action": "被告律师捏起证物袋，举到与证人视线齐平的高度",
+  "style": "高窗斜光切开尘埃，冷暖分区明确",
+  "audio": "旁听席低语骤停与证物袋塑料摩擦声，无配乐",
+  "voice_signature": "被告律师：冷静清亮男声，咬字短促",
+  "model": "H3",
+  "duration_s": 7,
+  "aspect_ratio": "4:3",
+  "resolution": "768P",
+  "forced_mode": "t2v",
+  "constraints": [
+    {
+      "id": "pt-d06-t2va-alias-courtroom",
+      "value": "旁听席满座的法庭",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

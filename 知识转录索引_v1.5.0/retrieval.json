@@ -1,0 +1,56 @@
+{
+ "query": "LoRA训练",
+ "clusters": [
+  {
+   "tag": "训练流程",
+   "items": [
+    {
+     "type": "item",
+     "item_no": 3,
+     "name": "LoRA 训练基本流程",
+     "tag": "训练流程",
+     "summary": "LoRA 训练分三步：收集训练集、图片预处理（裁剪打标）、在训练器中设置并启动训练。",
+     "lines": "原 第524-554行",
+     "excerpt": "训练一个Laura其实非常简单，熟悉整体流程以后，你甚至可以在5分钟内就完成一次训练所需的所有设置。你需要经历以下的三部基本流程：第一部收集训练集，在網上搜索下载一定数量的训练集图片，一个基本的原则是训练集应当能尽量涵盖训练对象的多样化样本。第二部 图片预处理，基本就做了两件事情：裁剪加打标。裁剪是用WebUI预训练中的智能裁剪即可。最后一步我们来到Koya训练器里，在训练器的最上方选择Lora训练标签，下面有三大设置项目，分别是底模、文件夹和参数。",
+     "source_rel": "02-AI绘画与ComfyUI/60分钟速通LORA训练-绝对是你看过最好懂的AI绘画模型训练教程-StableDiffusion超详细训练原理讲解-实_Nenly同学_2024-01-09_BV16e411e7Zx.txt",
+     "index_rel": "索引库/60分钟速通LORA训练-绝对是你看过最好懂的AI绘画模型训练教程-StableDiffusion超详细训练原理讲解-实_Nenly同学_2024-01-09_BV16e411e7Zx-idx.md",
+     "proof_rel": "校对版/60分钟速通LORA训练-绝对是你看过最好懂的AI绘画模型训练教程-StableDiffusion超详细训练原理讲解-实_Nenly同学_2024-01-09_BV16e411e7Zx_校对版.txt",
+     "file": "02-AI绘画与ComfyUI/60分钟速通LORA训练-绝对是你看过最好懂的AI绘画模型训练教程-StableDiffusion超详细训练原理讲解-实_Nenly同学_2024-01-09_BV16e411e7Zx.txt",
+     "artifact_key": "60分钟速通LORA训练-绝对是你看过最好懂的AI绘画模型训练教程-StableDiffusion超详细训练原理讲解-实_Nenly同学_2024-01-09_BV16e411e7Zx",
+     "score": 0.767,
+     "kw": true,
+     "author": "Nenly同学",
+     "date": "2024-01-09",
+     "bv": "BV16e411e7Zx",
+     "candidate_no": 1
+    }
+   ]
+  },
+  {
+   "tag": "速查清单",
+   "items": [
+    {
+     "type": "item",
+     "item_no": 18,
+     "name": "LoRA 训练速查表",
+     "tag": "速查清单",
+     "summary": "涵盖训练流程、参数设置、数据集处理等关键信息的速查清单。",
+     "lines": "原 第1192-1198行、原 第2466-2480行",
+     "excerpt": "一个LoRA的训练过程是充满了各种不确定性的。虽然一套默认的参数能在大多数情况下起作用，但如果不真正理解这里面的每一个操作、每一个参数，在训练效果不佳的时候就容易束手无策。如果过拟核了就降低学习率或者减少部署，如果出鬼图了就降低维度或者提高Alpha，如果学习效果不佳那可以考虑换一种Laura或者优化器。",
+     "source_rel": "02-AI绘画与ComfyUI/60分钟速通LORA训练-绝对是你看过最好懂的AI绘画模型训练教程-StableDiffusion超详细训练原理讲解-实_Nenly同学_2024-01-09_BV16e411e7Zx.txt",
+     "index_rel": "索引库/60分钟速通LORA训练-绝对是你看过最好懂的AI绘画模型训练教程-StableDiffusion超详细训练原理讲解-实_Nenly同学_2024-01-09_BV16e411e7Zx-idx.md",
+     "proof_rel": "校对版/60分钟速通LORA训练-绝对是你看过最好懂的AI绘画模型训练教程-StableDiffusion超详细训练原理讲解-实_Nenly同学_2024-01-09_BV16e411e7Zx_校对版.txt",
+     "file": "02-AI绘画与ComfyUI/60分钟速通LORA训练-绝对是你看过最好懂的AI绘画模型训练教程-StableDiffusion超详细训练原理讲解-实_Nenly同学_2024-01-09_BV16e411e7Zx.txt",
+     "artifact_key": "60分钟速通LORA训练-绝对是你看过最好懂的AI绘画模型训练教程-StableDiffusion超详细训练原理讲解-实_Nenly同学_2024-01-09_BV16e411e7Zx",
+     "score": 0.72,
+     "kw": true,
+     "author": "Nenly同学",
+     "date": "2024-01-09",
+     "bv": "BV16e411e7Zx",
+     "candidate_no": 2
+    }
+   ]
+  }
+ ],
+ "note": ""
+}

@@ -1,0 +1,22 @@
+{
+  "asset_id": "CH_老者",
+  "type": "人物",
+  "name": "老者",
+  "priority": "P2",
+  "fact_level": "剧本事实",
+  "evidence": [
+    {
+      "segment": "段01.md",
+      "chapter": "第1章",
+      "line": "00001",
+      "quote": "老者披一件宽大褐袍，袍角被风掀起"
+    }
+  ],
+  "dependencies": [],
+  "relations": [],
+  "status": "CONFIRMED",
+  "materials": [
+    "布料",
+    "皮革"
+  ]
+}

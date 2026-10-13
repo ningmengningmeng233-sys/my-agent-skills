@@ -1,0 +1,64 @@
+{
+  "$comment": "C01 上游固定清单。SHA 为设计 v0.1 §11 冻结值；每次运行 scripts/audit/upstream.py 都会用 git rev-parse 重新核对，不符即 exit 2 拒绝产出合同。上游 clone 只读，禁止在其内开发。",
+  "pinnedAt": "2026-10-02",
+  "designRef": "文档/柠檬/设计/2026-10-01-全局共享新记忆-设计方案.md §11 复用策略与源码固定",
+  "worktree": {
+    "branch": "feat/umh-v1",
+    "baseSha": "b3f8008663938e0159c4c5d644f43fb23f637c83"
+  },
+  "upstreams": {
+    "dsh-memory": {
+      "pinnedSha": "bfbdcb923da1ef2880dd3f9f979cf419d9211eb0",
+      "origin": "https://github.com/FuRongJun-1999/dsh-memory.git",
+      "license": "MIT",
+      "licenseSha256": "9a665e6361493b883988ef5b5b306e75138619b808cdd68d449752ed2be1c42c",
+      "role": "engine",
+      "v1Handling": "首选 engine；通过 wrapper 使用，保留 Python 与原生存储",
+      "engineUnit": "完整 md_cg 运行目录（排除 test*/bench*/__pycache__）+ utf8_boot.py + data/policy.json + LICENSE；文件级清单与哈希见 docs/upstream-audit/engine-contract.json 的 distributionFiles/resourceFiles",
+      "localClone": "<repoRoot>/_upstream/dsh-memory（只读）"
+    },
+    "agent-memory-bridge": {
+      "pinnedSha": "989a9ba47e0a73e7df441821f79ad5672b6644a5",
+      "origin": "https://github.com/54Lynnn/agent-memory-bridge.git",
+      "license": "MIT",
+      "licenseSha256": "14f1685e06bf548837fe2e59df1477313754e83457003c3c5646b08e78c56f3c",
+      "role": "deferred",
+      "v1Handling": "v1 不依赖；历史导入阶段再评估 parser/resolver",
+      "knownFailures": "上游测试 27 通过 / 2 失败：resolveZCodeMemoryDir 两条断言写死 POSIX 分隔符，在 Windows 路径分隔符下失败；失败保留不改写（.lemon/audit/bridge.log）",
+      "localClone": "<repoRoot>/_upstream/agent-memory-bridge（只读）"
+    },
+    "memorax-code": {
+      "pinnedSha": "e09d2603292f21c71897c56d83d9dac93546de00",
+      "origin": "https://github.com/memorax-ai/memorax-code.git",
+      "license": "MIT",
+      "licenseSha256": "6517c5f3904cee570626849cb080b5f0cfc5d3b69187cea5dbea51524a54624b",
+      "role": "selective-reuse",
+      "v1Handling": "选择性复用锁、原子写和配置工具，参考生命周期；不引入整套 Backend",
+      "knownFailures": "adapter-common 选定 common 测试 98 通过 / 1 失败 / 2 跳过：失败发生于 Windows 文件符号链接权限（symlinked oversized/invalid preference 文件 fail-closed 用例）；失败保留不改写（.lemon/audit/memorax-common.log）",
+      "localClone": "<repoRoot>/_upstream/memorax-code（只读）"
+    }
+  },
+  "verification": {
+    "method": "git -C <clone> rev-parse HEAD 与 pinnedSha 严格相等",
+    "verifiedAt": "2026-10-02T02:41+08:00（C01 GREEN 运行）",
+    "verifiedBy": "scripts/audit/upstream.py --root .lemon/audit-c01 --output docs/upstream-audit/engine-contract.json"
+  },
+  "vendoredEngine": {
+    "$comment": "C04：md_cg 分发单元已按 C01 清单 vendor 进仓库。每次运行 python -X utf8 scripts/vendor-mdcg.py --check 可复核（上游 SHA + 逐文件 SHA256 + license 排除项）。",
+    "vendoredAt": "2026-10-02",
+    "upstream": "dsh-memory",
+    "pinnedSha": "bfbdcb923da1ef2880dd3f9f979cf419d9211eb0",
+    "stageRoot": "vendor/mdcg",
+    "vendorScript": "scripts/vendor-mdcg.py",
+    "manifestRef": "docs/upstream-audit/engine-contract.json 的 distributionFiles + resourceFiles",
+    "fileCount": 591,
+    "unitSha256": "1315d222ac4bcc699237de6cc3e97aa315b05487cb0140f2aaaa2f5a149919d3",
+    "unitSha256Method": "sha256(按 path 排序拼接的 'path:sha256\\n' 行，UTF-8)",
+    "nonMitCarried": {
+      "md_cg/lexicon/cedict_en_zh.json": "CC BY-SA 4.0",
+      "md_cg/whitebox_kb/seed_knowledge/智能论3.4.md": "CC0 1.0"
+    },
+    "excluded": "data/benchmarks/（CC BY-NC）与 test*/bench*/__pycache__ 不在清单内；vendor 脚本对清单与 vendor 树双向强制拒绝",
+    "localClone": "<repoRoot>/_upstream/dsh-memory（只读；worktree 场景位于主工作树根，脚本经 git common-dir 定位）"
+  }
+}

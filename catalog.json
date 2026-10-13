@@ -1,0 +1,166 @@
+{
+  "cabinet_revision": "2026.10.13.2",
+  "state": "LOCAL_CANDIDATE",
+  "notes": [
+    "邮箱按用户要求保留",
+    "跨系统及宿主完整验收仍未完成",
+    "素材公开版排除全部32张受限风格图，相关视觉能力不可用",
+    "补齐B站转录5.5.4、抖音转录2.0.5、小说索引4.6.1和知识转录索引1.5.0；目录收录不代表宿主安装或公开发布通过",
+    "知识转录索引1.5.0的历史来源及独立验收尚未闭合，保持待核验；B站README许可口径冲突尚未裁决"
+  ],
+  "products": [
+    {
+      "id": "minimax-h3-craft",
+      "version": "7.4.5",
+      "folder": "MiniMaxH3提示词_v7.4.5",
+      "source_version": "7.4.4",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "portable",
+      "file_count": 207
+    },
+    {
+      "id": "rtk-token-reducer",
+      "version": "92cc75f-r1",
+      "folder": "rtk-token-reducer_v92cc75f-r1",
+      "source_version": "92cc75f",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "portable",
+      "file_count": 13
+    },
+    {
+      "id": "tg-transcript",
+      "version": "1.0.1",
+      "folder": "tg转录_v1.0.1",
+      "source_version": "1.0.0",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "portable",
+      "file_count": 20
+    },
+    {
+      "id": "universal-memory-hub",
+      "version": "1.0.1",
+      "folder": "全局记忆UMH_v1.0.1",
+      "source_version": "1.0.0",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "portable",
+      "file_count": 4349
+    },
+    {
+      "id": "lieflat-less-ai-tone",
+      "version": "2.0.1",
+      "folder": "去AI味_v2.0.1",
+      "source_version": "2.0.0",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "portable",
+      "file_count": 49
+    },
+    {
+      "id": "dramacraft",
+      "version": "1.5.4",
+      "folder": "小说转短剧_v1.5.4",
+      "source_version": "1.5.3",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "portable",
+      "file_count": 166
+    },
+    {
+      "id": "adult-literature-index",
+      "version": "4.8.5",
+      "folder": "成人文学索引_v4.8.5",
+      "source_version": "4.8.4",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "portable",
+      "file_count": 69
+    },
+    {
+      "id": "media-assembly",
+      "version": "0.1.3",
+      "folder": "成片合成_v0.1.3",
+      "source_version": "0.1.2",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "portable",
+      "file_count": 35
+    },
+    {
+      "id": "skill-optimization",
+      "version": "1.0.1",
+      "folder": "技能优化_v1.0.1",
+      "source_version": "1.0.0",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "portable",
+      "file_count": 6
+    },
+    {
+      "id": "jp-novel-localization",
+      "version": "4.5.5",
+      "folder": "日系小说本地化_v4.5.5",
+      "source_version": "4.5.4",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "portable",
+      "file_count": 205
+    },
+    {
+      "id": "lemon-thinking",
+      "version": "1.1.5",
+      "folder": "柠檬思考_v1.1.5",
+      "source_version": "1.1.4",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "portable",
+      "file_count": 79
+    },
+    {
+      "id": "knowledge-index",
+      "version": "5.4.7",
+      "folder": "知识库转录_v5.4.7",
+      "source_version": "5.4.6",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "portable",
+      "file_count": 67
+    },
+    {
+      "id": "asset-extract",
+      "version": "2.17.0-rc.6",
+      "folder": "资产提取_v2.17.0-rc.6",
+      "source_version": "2.17.0-rc.5",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "shareable-text-and-offline",
+      "file_count": 775
+    },
+    {
+      "id": "douyin-auto-transcript",
+      "version": "2.0.5",
+      "folder": "抖音转录_v2.0.5",
+      "source_version": "2.0.5",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "shareable-candidate",
+      "file_count": 117
+    },
+    {
+      "id": "novel-index",
+      "version": "4.6.1",
+      "folder": "小说索引_v4.6.1",
+      "source_version": "4.6.1",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "shareable-candidate",
+      "file_count": 64
+    },
+    {
+      "id": "bilibili-auto-transcript",
+      "version": "5.5.4",
+      "folder": "B站转录_v5.5.4",
+      "source_version": "5.5.4",
+      "state": "LOCAL_CANDIDATE",
+      "profile": "shareable-candidate",
+      "file_count": 77
+    },
+    {
+      "id": "transcript-index",
+      "version": "1.5.0",
+      "folder": "知识转录索引_v1.5.0",
+      "source_version": "1.5.0",
+      "state": "LOCAL_CANDIDATE_PENDING_VERIFICATION",
+      "profile": "candidate-pending-verification",
+      "file_count": 33
+    }
+  ]
+}

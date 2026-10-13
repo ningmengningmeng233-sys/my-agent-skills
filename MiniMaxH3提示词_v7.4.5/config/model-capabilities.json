@@ -1,0 +1,326 @@
+{
+  "schema_version": "2.0.0",
+  "models": {
+    "H3": {
+      "verified_status": "VERIFIED_OFFICIAL",
+      "canonical_modes": [
+        "t2va",
+        "i2va",
+        "fl2va",
+        "l2va",
+        "ref2va"
+      ],
+      "modes": {
+        "t2va": {
+          "status": "VERIFIED_OFFICIAL",
+          "description": "文生视频 (Text-to-Video with Audio)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+            "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+          }
+        },
+        "i2va": {
+          "status": "VERIFIED_OFFICIAL",
+          "description": "图生视频 (Image-to-Video with Audio)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+            "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+          }
+        },
+        "fl2va": {
+          "status": "VERIFIED_OFFICIAL",
+          "description": "首尾帧生视频 (First-Last-Frame-to-Video with Audio)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+            "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+          }
+        },
+        "l2va": {
+          "status": "VERIFIED_OFFICIAL",
+          "description": "尾帧生视频 (Last-Frame-to-Video with Audio)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+            "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+          }
+        },
+        "ref2va": {
+          "status": "VERIFIED_OFFICIAL",
+          "description": "多模态参考生视频 (Multimodal Reference-to-Video with Audio)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "b621067b41988c4d92be715b7a98ba48338f4076ab6041d95fcf463ea7c8ccdd",
+            "normalized_sha256": "1e574f356716ad55612247ffb7bbccbcdb484ad96599d63c7dca1af186b1fab7"
+          }
+        }
+      },
+      "resolutions": [
+        "768P",
+        "2K"
+      ],
+      "duration_seconds": {
+        "min": 4,
+        "max": 15
+      },
+      "supported_aspect_ratios": [
+        "16:9",
+        "9:16",
+        "1:1",
+        "4:3",
+        "21:9"
+      ],
+      "provenance": {
+        "source_url": "https://api.minimax.chat",
+        "source_path": "references/official/source-manifest.json",
+        "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+        "commit_verified": false,
+        "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+        "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+      }
+    },
+    "H3-Max": {
+      "verified_status": "VERIFIED_OFFICIAL",
+      "canonical_modes": [
+        "t2va",
+        "i2va",
+        "fl2va",
+        "l2va",
+        "ref2va"
+      ],
+      "modes": {
+        "t2va": {
+          "status": "VERIFIED_OFFICIAL",
+          "description": "文生视频 (Text-to-Video with Audio)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+            "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+          }
+        },
+        "i2va": {
+          "status": "UNVERIFIED",
+          "description": "图生视频 (H3-Max 官方暂未支持单图独立生视频)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+            "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+          }
+        },
+        "fl2va": {
+          "status": "VERIFIED_OFFICIAL",
+          "description": "首尾帧生视频 (First-Last-Frame-to-Video with Audio)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+            "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+          }
+        },
+        "l2va": {
+          "status": "UNVERIFIED",
+          "description": "尾帧生视频 (H3-Max 官方暂未支持纯尾帧独立生视频)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+            "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+          }
+        },
+        "ref2va": {
+          "status": "REQUIRES_CONFIRMATION",
+          "description": "多模态参考生视频（公开 V2 API 未列出 H3-Max Ref2VA；需 official_agent 或更新的公开证据方可放行）",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "b621067b41988c4d92be715b7a98ba48338f4076ab6041d95fcf463ea7c8ccdd",
+            "normalized_sha256": "1e574f356716ad55612247ffb7bbccbcdb484ad96599d63c7dca1af186b1fab7"
+          }
+        }
+      },
+      "resolutions": [
+        "480P",
+        "768P"
+      ],
+      "duration_seconds": {
+        "min": 5,
+        "max": 15
+      },
+      "supported_aspect_ratios": [
+        "16:9",
+        "9:16",
+        "1:1"
+      ],
+      "notes": "Plain i2va and l2va without dual frames blocked",
+      "provenance": {
+        "source_url": "https://api.minimax.chat",
+        "source_path": "references/official/source-manifest.json",
+        "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+        "commit_verified": false,
+        "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+        "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+      }
+    },
+    "H3-Max-Turbo": {
+      "verified_status": "VERIFIED_OFFICIAL",
+      "canonical_modes": [
+        "t2va",
+        "i2va",
+        "fl2va",
+        "l2va",
+        "ref2va"
+      ],
+      "modes": {
+        "t2va": {
+          "status": "VERIFIED_OFFICIAL",
+          "description": "文生视频 (Text-to-Video with Audio)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+            "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+          }
+        },
+        "i2va": {
+          "status": "UNVERIFIED",
+          "description": "图生视频 (Turbo 型号专注于纯文本/首尾帧快速生成，不支持单图生视频)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+            "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+          }
+        },
+        "fl2va": {
+          "status": "VERIFIED_OFFICIAL",
+          "description": "首尾帧生视频 (First-Last-Frame-to-Video with Audio)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+            "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+          }
+        },
+        "l2va": {
+          "status": "UNVERIFIED",
+          "description": "尾帧生视频 (Turbo 型号官方暂未支持独立尾帧生视频)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+            "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+          }
+        },
+        "ref2va": {
+          "status": "UNVERIFIED",
+          "description": "多模态参考生视频 (Turbo 型号官方暂未支持多模态参考生视频)",
+          "provenance": {
+            "source_url": "https://api.minimax.chat",
+            "source_path": "references/official/source-manifest.json",
+            "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+            "commit_verified": false,
+            "raw_sha256": "b621067b41988c4d92be715b7a98ba48338f4076ab6041d95fcf463ea7c8ccdd",
+            "normalized_sha256": "1e574f356716ad55612247ffb7bbccbcdb484ad96599d63c7dca1af186b1fab7"
+          }
+        }
+      },
+      "resolutions": [
+        "480P",
+        "768P"
+      ],
+      "duration_seconds": {
+        "min": 5,
+        "max": 15
+      },
+      "supported_aspect_ratios": [
+        "16:9",
+        "9:16"
+      ],
+      "notes": "Fast generation; plain i2va, l2va, and ref2va blocked",
+      "provenance": {
+        "source_url": "https://api.minimax.chat",
+        "source_path": "references/official/source-manifest.json",
+        "upstream_commit": "e89c19d45cc0624cf5bcfc39a3ff1b764eb98df6",
+        "commit_verified": false,
+        "raw_sha256": "088fb632fa3cbb18c9821024fb689e6f0f356f824c8f2e6b8e43a33239b137c7",
+        "normalized_sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc"
+      }
+    }
+  },
+  "mode_rules": {
+    "t2va": {
+      "required_assets": {}
+    },
+    "i2va": {
+      "required_assets": {
+        "first_frame": 1
+      },
+      "legacy_asset_aliases": {
+        "image": "first_frame"
+      }
+    },
+    "fl2va": {
+      "required_assets": {
+        "first_frame": 1,
+        "last_frame": 1
+      }
+    },
+    "l2va": {
+      "required_assets": {
+        "last_frame": 1
+      }
+    },
+    "ref2va": {
+      "requires_any": [
+        "image",
+        "video"
+      ]
+    }
+  },
+  "mode_aliases": {
+    "t2v": "t2va",
+    "i2v": "i2va",
+    "first-last-frame": "fl2va",
+    "fl2v": "fl2va",
+    "l2v": "l2va",
+    "multimodal": "ref2va",
+    "multimodal-ref": "ref2va"
+  }
+}

@@ -1,0 +1,19 @@
+subject = "道具"
+case = "代表道具"
+schema_version = 1
+
+checks = [
+    "轮廓：剪影完整可读（PROP_SILHOUETTE_UNREADABLE）",
+    "材质：木材哑光缎面，无镜面高光（MATERIAL_MISMATCH）",
+    "比例：形制比例与结构参考一致（PROP_PROPORTION_ERROR）",
+    "状态：与原文一致（PROP_STATE_MISMATCH）",
+]
+blocking_codes = ["STYLE_MISMATCH", "PROP_SILHOUETTE_UNREADABLE", "PROP_STATE_MISMATCH", "FORBIDDEN_MULTI_PANEL"]
+human_visual_review = ""
+
+# 工单 T02：由本用例 checks 里点名的失败码落为显式契约（不新增码、不放宽阈值）
+expected_codes = [
+    "PROP_SILHOUETTE_UNREADABLE",
+    "PROP_PROPORTION_ERROR",
+    "PROP_STATE_MISMATCH",
+]

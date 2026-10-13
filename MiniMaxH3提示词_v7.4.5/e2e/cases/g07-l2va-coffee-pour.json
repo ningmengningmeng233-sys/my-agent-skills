@@ -1,0 +1,23 @@
+{
+  "case_id": "g07-l2va-coffee-pour",
+  "user_prompt": "产品展示尾帧生成：咖啡液柱落入杯中拉花定格的最后画面反推",
+  "model": "H3",
+  "duration_s": 9,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "scene": "原木吧台与白瓷杯",
+  "action": "浓缩咖啡液柱细而连续注入杯中，油脂在杯中旋转着展开叶形纹路",
+  "camera": "俯拍四十五度固定",
+  "style": "清晨窗光斜入，蒸汽可见",
+  "assets": {
+    "last_frame": "https://cdn.example.invalid/h3refs/frames/end-g07.png"
+  },
+  "constraints": [
+    {
+      "id": "pt-g07-l2va-coffee-pour",
+      "value": "原木吧台与白瓷杯",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

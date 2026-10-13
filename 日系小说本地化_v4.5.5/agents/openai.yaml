@@ -1,0 +1,7 @@
+interface:
+  display_name: "日系小说本地化"
+  short_description: "将中文日系小说改写为自然中国网文"
+  default_prompt: "Use $jp-novel-localization to localize a Chinese Japanese-style novel chapter with auditable checks."
+
+policy:
+  allow_implicit_invocation: true

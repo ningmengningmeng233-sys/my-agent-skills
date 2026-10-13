@@ -1,0 +1,25 @@
+UPSTREAM PIN — douyin-ingest 本地副本
+=================================================
+
+出处（origin URL）:   https://github.com/ltppp/douyin-ingest.git
+锁定版本（pin）:       v0.3.0
+锁定 commit:          4c8e6542f4670235e889c13f043c359d66626f59
+安装来源:             requirements.lock  ->
+                      douyin-ingest @ git+https://github.com/ltppp/douyin-ingest.git@v0.3.0
+本机来源:             .venv/Lib/site-packages/project/  (module name: project)
+拷贝日期:             2026-09-23
+拷贝范围:             仅 *.py 源码（22 个文件，约 137KB），排除 __pycache__ 与运行期产物
+入口脚本:             douyin-ingest = project.main:run  (见 dist-info/entry_points.txt)
+
+为什么留本地副本:
+  抖音访问是本 Skill 的单一入口，全部钉死在第三方 douyin-ingest v0.3.0（~4 星、约 2 个月无提交）。
+  同赛道上游（Nemo2011/bilibili-api 4.2k★、bilibili-API-collect 20k★）今年都归档过，
+  上游死亡/改版是常态失效方式。此副本用于审计与断供时应急排查，不作为绕过锁定版本运行的通道。
+
+重建（rebuild）命令:
+  .venv\Scripts\python.exe -m pip install -r requirements.lock
+  # 该命令按上面的 git 标签重装锁定版本；升级需先本地验收再改 lock 与 DOUYIN_INGEST_VERSION。
+
+安全边界:
+  本目录只是只读源码副本，不含 Cookie、登录态、密钥或媒体直链。
+  运行期采集仍只走 ingest_runner 的子进程 CLI 边界，不 import 本副本内部模块。

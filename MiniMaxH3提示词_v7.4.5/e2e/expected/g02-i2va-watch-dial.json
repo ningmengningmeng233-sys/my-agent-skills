@@ -1,0 +1,13 @@
+{
+  "case_id": "g02-i2va-watch-dial",
+  "expected_mode": "i2va",
+  "expected_profile": "native-general",
+  "constraints": [
+    {
+      "id": "pt-g02-i2va-watch-dial",
+      "value": "黑色丝绒衬底上的银色表盘",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

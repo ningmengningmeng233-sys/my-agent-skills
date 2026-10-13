@@ -1,0 +1,26 @@
+#!/bin/sh
+# 提交前测试门：任何一项失败即拒绝提交，避免"带着红灯提交"。
+# 启用（每个克隆一次）：git config core.hooksPath .githooks
+# 注意：不能用 `cmd | tail` 判断成败——管道的退出码取自 tail（恒为 0），会吞掉失败。
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT" || exit 1
+
+if [ -x ".venv/Scripts/python.exe" ]; then
+    PY=".venv/Scripts/python.exe"
+elif [ -x ".venv/bin/python" ]; then
+    PY=".venv/bin/python"
+else
+    PY="python"
+fi
+
+LOG="$(mktemp)"
+"$PY" -m unittest discover -s tests -t . >"$LOG" 2>&1
+STATUS=$?
+tail -4 "$LOG"
+rm -f "$LOG"
+
+if [ "$STATUS" -ne 0 ]; then
+    echo "[pre-commit] 测试失败（退出码 $STATUS），提交被拒绝。修好后再提交；确需跳过用 git commit --no-verify。" >&2
+    exit 1
+fi
+echo "[pre-commit] 测试通过"

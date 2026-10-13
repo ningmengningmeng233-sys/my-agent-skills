@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "baseline": "v2.16.0-rc.1",
+  "note": "质量评分只基于可机器判定的事实；「更短」不等于「更好」，提示词完整度下降会被质量门抓住。",
+  "metrics": {
+    "fact_coverage": {
+      "direction": "higher_is_better",
+      "description": "正式资产中有原文证据的比例",
+      "source": "资产索引 assets[*].evidence 非空占比"
+    },
+    "evidence_complete": {
+      "direction": "higher_is_better",
+      "description": "基础提示词证据元数据（编号/稳定键/事实等级）齐备的比例",
+      "source": "提示词正文「证据元数据」分区齐备占比"
+    },
+    "relations_valid": {
+      "direction": "higher_is_better",
+      "description": "关系端点全部存在且类型合法的比例",
+      "source": "check_asset_index 通过的关系数 / 关系总数"
+    },
+    "style_conflicts": {
+      "direction": "lower_is_better",
+      "description": "正向分区内相斥风格词命中数",
+      "source": "prompt_compiler.validate_prompt 的 STYLE_CONFLICT 计数"
+    },
+    "prompt_complete": {
+      "direction": "higher_is_better",
+      "description": "每个正式资产都有基础提示词的比例",
+      "source": "check_asset_coverage 的 coverage"
+    },
+    "review_contract": {
+      "direction": "higher_is_better",
+      "description": "审核契约（绑定哈希齐备）通过的比例",
+      "source": "review_contract 校验通过的审核请求占比"
+    }
+  },
+  "hard_failures": [
+    "任一质量指标低于 v2.16 基线即失败，即便速度目标全部达成",
+    "缺测项记 unknown 且不算通过，禁止伪报"
+  ]
+}

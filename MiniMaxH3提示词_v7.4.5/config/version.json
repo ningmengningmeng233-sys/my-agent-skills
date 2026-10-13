@@ -1,0 +1,6 @@
+{
+  "version": "7.4.5",
+  "release_name": "v7.4.1-xsy-window-note",
+  "updated_at": "2026-09-21",
+  "release_notes": "[Xs-Ys] 区间窗口本地约定加注：SKILL.md §4 核心生成规则新增一条——该窗口写法为本地自创、官方与社区均无对应，仅可作内部推演/台账记法，输出到外部系统前必须转换为官方 `[Shot N] At MM:SS.mmm` 切点写法（细则见 references/official-h3-grammar.md）。不改变任何生成规则与路由。"
+}

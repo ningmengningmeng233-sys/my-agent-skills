@@ -1,0 +1,32 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash|run_in_terminal",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"python\" -X utf8 \"${QODER_PLUGIN_ROOT}/hooks/rtk_compress.py\"",
+            "timeout": 25,
+            "async": false,
+            "shell": "bash",
+            "statusMessage": "rtk 压缩 bash 输出中…"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"python\" -X utf8 \"${QODER_PLUGIN_ROOT}/hooks/compact_stats.py\"",
+            "timeout": 15,
+            "async": false,
+            "shell": "bash"
+          }
+        ]
+      }
+    ]
+  }
+}

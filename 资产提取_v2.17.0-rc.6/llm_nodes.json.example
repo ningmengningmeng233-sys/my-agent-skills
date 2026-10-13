@@ -1,0 +1,25 @@
+{
+  "_readme": "复制为包外 llm_nodes.json 后填写（放 ASSET_ENV_PATH 同目录、技能目录或 ~/.asset-extract/）。数组顺序即消耗优先级；缺失该文件时回落到现有单端点行为。密钥只允许存在于包外文件与内存。",
+  "nodes": [
+    {
+      "name": "节点A",
+      "proto": "openai",
+      "base_url": "https://<你的端点>/v1",
+      "model": "<模型名A>",
+      "api_key": "<钥匙A>",
+      "max_tokens": 8000,
+      "max_concurrency": 4,
+      "no_proxy": false
+    },
+    {
+      "name": "节点B",
+      "proto": "openai",
+      "base_url": "https://<备用端点>/v1",
+      "model": "<模型名B>",
+      "api_key": "<钥匙B>",
+      "max_tokens": 8000,
+      "max_concurrency": 2,
+      "no_proxy": false
+    }
+  ]
+}

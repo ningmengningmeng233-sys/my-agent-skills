@@ -1,0 +1,45 @@
+# 场景视觉质检清单（工单03-Task5）
+
+subject = "场景"
+schema_version = 1
+note = "场景母版是所有变体的空间基线，锚点与连接关系不得凭空发明"
+
+checks = [
+    "风格：介质、材质、光色与大气符合风格基线（STYLE_MISMATCH）",
+    "锚点：原文写明的固定锚点必须可见且位置正确（SPACE_ANCHOR_MISSING）",
+    "空间关系：前景—中景—远景层次与体量关系可读（SPACE_RELATION_ERROR）",
+    "事实边界：未写明的结构不得发明，也不得与原文冲突（SPACE_FACT_INVENTED）",
+    "连接：出入口与连接点与资产索引一致（SPACE_RELATION_ERROR）",
+    "材质：石材/木材等表面反应符合材质参考（MATERIAL_MISMATCH）",
+    "人物：场景母版画面中不得出现人物（EXTRA_SUBJECT）",
+    "裁切：空间结构完整，不裁切主体建筑或锚点（SUBJECT_CROPPED）",
+    "拼版禁令：单张单幅，不得拼多格视图（FORBIDDEN_MULTI_PANEL）",
+    "文字水印：无文字牌匾、标注或水印（TEXT_OR_WATERMARK）",
+    "结构硬门：出入口、通道、固定物与母版一致，空间结构不得增删（SCENE_STRUCTURE_MISMATCH）",
+    "机位：拍摄方向与视角变化必须在同一空间结构内成立，不得穿越不可通行区域（VIEWPOINT_MISMATCH）",
+    "裁切硬门：结构完整入画，不裁切锚点、出入口或主体建筑（CROP_MISMATCH）",
+    "参考链：所用参考图必须是当前正式版本的场景母版（REFERENCE_CHAIN_INVALID）",
+]
+
+# 硬门码（规格九 / 施工单 6.2）：存在任一即不得「通过」或「通过但有备注」
+blocking_codes = [
+    "HAND_FINGER_DEFECT", "BODY_PROPORTION_DEFECT", "IDENTITY_DRIFT", "STYLE_MISMATCH",
+    "CROP_MISMATCH", "POSITION_MISMATCH", "VIEWPOINT_MISMATCH", "EYELINE_MISMATCH",
+    "AXIS_CROSSING", "OCCLUSION_MISMATCH", "PROP_COUNT_MISMATCH", "PROP_STATE_MISMATCH",
+    "SCENE_STRUCTURE_MISMATCH", "EXTRA_SUBJECT", "TEXT_OR_WATERMARK",
+    "REFERENCE_CHAIN_INVALID",
+    "SPACE_ANCHOR_MISSING", "SPACE_FACT_INVENTED", "SPACE_RELATION_ERROR",
+    "FORBIDDEN_MULTI_PANEL",
+]
+
+repair_hints = [
+    "SPACE_ANCHOR_MISSING = 按资产索引补回固定锚点，不得替换为其他陈设",
+    "SPACE_FACT_INVENTED = 删除原文未写明的结构，回到事实边界内",
+    "SPACE_RELATION_ERROR = 按母版重排前中远景与连接关系",
+    "STYLE_MISMATCH = 重注入风格参考，恢复大气与光色基线",
+    "FORBIDDEN_MULTI_PANEL = 改为单张单幅",
+    "SCENE_STRUCTURE_MISMATCH = 按场景母版恢复出入口、通道、固定物与空间结构",
+    "VIEWPOINT_MISMATCH = 把拍摄方向拉回母版允许的机位，不得穿越不可通行区域",
+    "CROP_MISMATCH = 调整构图让空间结构完整入画",
+    "REFERENCE_CHAIN_INVALID = 改用当前正式版本的场景母版作为参考",
+]

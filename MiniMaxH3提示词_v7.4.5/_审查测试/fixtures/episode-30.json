@@ -1,0 +1,62 @@
+{
+  "episode_id": "EPISODE_30",
+  "workflow": "native-drama-series",
+  "model": "H3",
+  "script": "时长：30秒\n【画面】雪原边缘的废弃哨塔，主角与同伴的风雪夜。",
+  "beats": [
+    {
+      "id": "B001",
+      "scene_id": "S1",
+      "kind": "action",
+      "text": "主角拉紧围巾，踩着新雪向哨塔走去，脚印一寸寸陷深。",
+      "estimated_seconds": 5.0,
+      "splittable": false,
+      "speaker_ids": []
+    },
+    {
+      "id": "B002",
+      "scene_id": "S1",
+      "kind": "action",
+      "text": "风雪扑面而来，主角抬手挡在眉前，眯眼望向塔顶。",
+      "estimated_seconds": 5.0,
+      "splittable": false,
+      "speaker_ids": []
+    },
+    {
+      "id": "B003",
+      "scene_id": "S1",
+      "kind": "action",
+      "text": "主角推开门轴锈死的木门，门后积灰簌簌落下。",
+      "estimated_seconds": 5.0,
+      "splittable": false,
+      "speaker_ids": []
+    },
+    {
+      "id": "B004",
+      "scene_id": "S1",
+      "kind": "action",
+      "text": "主角侧身挤过窄门，肩头蹭落一排冰棱。",
+      "estimated_seconds": 5.0,
+      "splittable": false,
+      "speaker_ids": []
+    },
+    {
+      "id": "B005",
+      "scene_id": "S1",
+      "kind": "action",
+      "text": "同伴举着信号灯走在前面，光柱扫过墙上旧标语。",
+      "estimated_seconds": 5.0,
+      "splittable": false,
+      "speaker_ids": []
+    },
+    {
+      "id": "B006",
+      "scene_id": "S1",
+      "kind": "action",
+      "text": "主角蹲身检查雪橇绑带，手指冻得发红仍逐一拉紧。",
+      "estimated_seconds": 5.0,
+      "splittable": false,
+      "speaker_ids": []
+    }
+  ]
+}

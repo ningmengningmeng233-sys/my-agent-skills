@@ -1,0 +1,24 @@
+{
+  "source": "坏分镜",
+  "episodes": [
+    {
+      "ep": 1,
+      "segments": [
+        {
+          "id": "SEG-1",
+          "sceneIndex": 0,
+          "cuts": [
+            {
+              "beats": [1],
+              "seconds": -2,
+              "size": "ultrawide",
+              "camera": "Static Shot",
+              "characters": ["person-1"],
+              "frame": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

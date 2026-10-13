@@ -1,0 +1,22 @@
+# B站转录 5.5.0 运行依赖锁定（本机实测版本，2026-09-16）
+# 安装：<SKILL_DIR>/.venv/Scripts/python.exe -m pip install -r requirements.lock
+# 说明：本文件补上了原 5.4.0 缺失的依赖锁定，使「换机器重建环境」可复现。
+
+faster-whisper==1.2.1
+ctranslate2==4.8.2
+requests==2.34.2
+python-dotenv==1.2.3
+yt-dlp==2026.8.19
+
+# 画面文字（硬字幕）证据：RapidOCR + ONNX Runtime（CPU 推理，不占显存）
+rapidocr==3.9.2
+onnxruntime==1.30.0
+numpy==2.5.3
+# 抽帧合成（测试夹具与图像处理）
+pillow==12.3.0
+
+# NVIDIA CUDA 12 运行时（免装 CUDA Toolkit 的 GPU 方案）
+# CTranslate2 在 Windows 上加载 cublas64_12.dll / cudnn 需要它们；
+# 缺失时 scripts/fw_whisper_main.py 会自动退回 cpu/int8（慢但可用）。
+nvidia-cublas-cu12==12.9.2.10 ; sys_platform == "win32"
+nvidia-cudnn-cu12==9.26.0.51 ; sys_platform == "win32"

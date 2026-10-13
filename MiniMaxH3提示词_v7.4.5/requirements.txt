@@ -1,0 +1,6 @@
+# 本仓第三方依赖清单（gitguard.scan_deps 生成 于 2026-09-23 从 git 跟踪的 .py import 扫描生成；只列名、不锁版本；运行期下载目录（如 state/）里的第三方脚本不算本仓依赖）
+# 校验方：`python -m gitguard.ci --repo <本仓> --stage deps`，离线只查本机装没装，绝不 pip install。
+# 标「本机未装」的是可选通道的真实缺口，已逐条挂到期豁免，见 manifests/ci-deps-exceptions.json。
+jsonschema          # 导入名 jsonschema
+numpy          # 导入名 numpy
+opencv-python          # 导入名 cv2

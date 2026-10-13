@@ -1,0 +1,18 @@
+subject = "人物"
+case = "复杂甲胄"
+schema_version = 1
+
+checks = [
+    "服装独立图：隐形人体支撑，领口肩线完整，无皮肤残端（NECK_STUMP_VISIBLE）",
+    "服装独立背面：不得出现头部/后脑勺/下巴（HEAD_REMAINS_IN_COSTUME_VIEW）",
+    "甲片结构：甲片相接与层叠关系可读（COSTUME_INCOMPLETE）",
+    "材质：金属宽而可控的高光，无镜面高光与闪光污染（MATERIAL_MISMATCH）",
+]
+blocking_codes = ["STYLE_MISMATCH", "NECK_STUMP_VISIBLE", "HEAD_REMAINS_IN_COSTUME_VIEW", "FORBIDDEN_MULTI_PANEL"]
+human_visual_review = ""
+
+# 工单 T02：由本用例 checks 里点名的失败码落为显式契约（不新增码、不放宽阈值）
+expected_codes = [
+    "NECK_STUMP_VISIBLE",
+    "HEAD_REMAINS_IN_COSTUME_VIEW",
+]

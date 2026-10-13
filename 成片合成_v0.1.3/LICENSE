@@ -1,0 +1,37 @@
+MIT License
+
+Copyright (c) 2026 柠檬才不萌
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+适用范围与来源分层（摘要，全文见 SOURCE-NOTES.md）
+
+1. 本文件覆盖的自有内容：`SKILL.md`、`renderplan/`、`requirements.txt`、
+   `tests/`（除注明者）、`references/常见坑.md`（自 `SKILL.md` 外移的自有正文）。
+   授权方式按作者 2026-10-02 裁决为 MIT，作者署名为「柠檬才不萌」（本技能 frontmatter `author` 同值）。
+2. `.github/workflows/ci.yml` 由本机的柠檬治理仓模板 `gitguard.ci_workflow` 生成，
+   属自有基础设施，不含第三方版权行；手改会被该仓的模板一致性门判红。
+3. 本包不内含第三方许可代码：运行期只用 Python 标准库（见 `requirements.txt` 说明），
+   开发期依赖 pytest 与 PyYAML 各按上游许可证发布，本声明不改变其条款、也不重新授权。
+4. 真实视频/TTS/剪辑工程交付所依赖的外部服务（渲染端点、剪映运行环境）
+   由各服务方自己的条款约束；本许可不授予任何对第三方服务的访问权。
+5. 若后续引入任何第三方片段，必须在本文件与 `SOURCE-NOTES.md` 保留其原版权与许可，
+   不得冒称自有内容。

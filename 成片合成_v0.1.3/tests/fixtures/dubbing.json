@@ -1,0 +1,8 @@
+{
+  "source": "渡口",
+  "alignments": [
+    { "segment": "E01-01", "cut": 1, "ep": 1, "speaker": "C01", "line": "你还记得这条渡口吗？", "seconds": 3 },
+    { "segment": "E01-01", "cut": 2, "ep": 1, "speaker": "C02", "line": "票还在，人却变了。", "seconds": 3.5 },
+    { "segment": "E01-01", "cut": 3, "ep": 1, "speaker": "VO", "line": "江水不曾回头。", "seconds": 1.5 }
+  ]
+}

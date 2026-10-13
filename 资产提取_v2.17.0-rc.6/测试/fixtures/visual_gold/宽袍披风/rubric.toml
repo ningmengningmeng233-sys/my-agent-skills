@@ -1,0 +1,16 @@
+subject = "人物"
+case = "宽袍披风"
+schema_version = 1
+
+checks = [
+    "服装垂坠：袍身按重力下垂，褶皱集中在受力处（COSTUME_INCOMPLETE）",
+    "大面布料安静：不做满版纹理堆砌（MATERIAL_MISMATCH）",
+    "全身图头脚完整，不被袍角裁切（SUBJECT_CROPPED）",
+]
+blocking_codes = ["STYLE_MISMATCH", "SUBJECT_CROPPED", "FORBIDDEN_MULTI_PANEL"]
+human_visual_review = ""
+
+# 工单 T02：由本用例 checks 里点名的失败码落为显式契约（不新增码、不放宽阈值）
+expected_codes = [
+    "SUBJECT_CROPPED",
+]

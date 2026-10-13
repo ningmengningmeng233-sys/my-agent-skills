@@ -1,0 +1,13 @@
+{
+  "case_id": "e01-refen-ronin-snow",
+  "expected_mode": "ref2va",
+  "expected_profile": "ref2va-en",
+  "constraints": [
+    {
+      "id": "pt-e01-refen-ronin-snow",
+      "value": "torii gate",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

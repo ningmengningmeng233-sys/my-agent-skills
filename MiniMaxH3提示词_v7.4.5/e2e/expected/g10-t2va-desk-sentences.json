@@ -1,0 +1,13 @@
+{
+  "case_id": "g10-t2va-desk-sentences",
+  "expected_mode": "t2va",
+  "expected_profile": "native-general",
+  "constraints": [
+    {
+      "id": "pt-g10-t2va-desk-sentences",
+      "value": "黑色键帽从画外逐颗摆放",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": "cabinet-only-refs-1",
+  "why": "包内文档引用了只在开发柜存在的路径，收件人照做必然失败；逐条登记后新增未登记即红、登记失效也红。",
+  "references": [
+    {
+      "reference": "schemas/contract_check.py",
+      "declared_in": [
+        "skills_runtime/novel-storyboard/references/h3-prompt.md#唯一权威句",
+        "tests/test_lip_sync_decision_c4.py#解析口径注释",
+        "LICENSE#第四节"
+      ],
+      "meaning": "技能柜共享的跨仓契约对账器（报 H3_DERIVATION_UNDECLARED / TWIN_UNEXPLAINED_DRIFT / SCHEMA_NOT_FOUND）",
+      "recipient_action": "不要执行：它在柜根、按柜根相对路径解析，不在发布包内。包内自检请用 python scripts/check_package.py --as-package"
+    },
+    {
+      "reference": "schemas/script.schema.json",
+      "declared_in": [
+        "SKILL.md#pipeline-contract dramacraft-script 的 schema 字段"
+      ],
+      "meaning": "script.json 字段契约的机器版本（柜根持有，与 成片/资产 侧共用一份）",
+      "recipient_action": "字段清单以本包 SKILL.md 的 fields 段与 skills_runtime/*/references/schema.md 为准；schema 文件缺失不影响运行，只影响柜侧对账"
+    },
+    {
+      "reference": "schemas/storyboard.schema.json",
+      "declared_in": [
+        "SKILL.md#pipeline-contract dramacraft-storyboard 的 schema 字段",
+        "skills_runtime/novel-storyboard/SKILL.md#schema 字段"
+      ],
+      "meaning": "storyboard.json 字段契约的机器版本（柜根持有）",
+      "recipient_action": "同上：读 references/schema.md 与 SKILL.md fields 段；不要按此路径去找文件"
+    },
+    {
+      "reference": "schemas/twin-kernel.json",
+      "declared_in": [
+        "LICENSE#第四节"
+      ],
+      "meaning": "两份索引库同名内核的分叉登记簿（与短剧无直接运行时关系，仅在许可声明里点名说明柜侧设施不外发）",
+      "recipient_action": "不需要它，也不存在可执行的收件动作"
+    }
+  ]
+}

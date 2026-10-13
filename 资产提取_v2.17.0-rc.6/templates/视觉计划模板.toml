@@ -1,0 +1,133 @@
+# 视觉计划模板（工单02-Task4）
+#
+# 用法：复制到 <资产库>/视觉资产/计划.toml 后按项目填写并替换全部 <...> 占位符；
+# **不要手工维护 Markdown 阅读稿**——阅读稿由本文件渲染（scripts/render_visual_plan.py）。
+#
+# 口径：
+# - TOML 是唯一机器事实源；Markdown 只读、可随时重建。
+# - 任务 ID：<资产ID>-<任务种类>-vNN（vNN 为版本序号，同资产同任务可多版本并存）。
+# - 任务种类：正脸 / 后脑 / 服装独立正面 / 服装独立背面 / 人物全身正面 / 人物全身背面 /
+#   场景母版 / 道具 / 拼版。
+# - 画幅固定（规格 6.3）：正脸·后脑·道具 = 1:1；服装独立图·人物全身 = 2:3；场景母版 = 16:9。
+# - 状态（内部英文枚举，用户界面一律中文）：
+#   PLANNED 待生成 → GENERATED 已生成待检查 → QC_PENDING 质检中 →
+#   ACCEPTED 已通过 / NEEDS_REVISION 需修改 → … → NEEDS_HUMAN_DECISION 需要人工决定；
+#   READY_AS_REFERENCE 可作为参考；NEEDS_REVIEW 需要重新检查（上游替换后）；
+#   AWAITING_MANUAL_RESULT 等待手工结果（无 API 时的手工导出）。
+# - 参考图职责只允许 identity / structure / style / material / lighting / space，
+#   职责不得越权（皮肤材质参考不能覆盖角色身份，全身风格参考不得复制其服装）。
+# - 每项资产最多自动返工 3 轮；未通过（非 ACCEPTED / READY_AS_REFERENCE）的任务
+#   不得成为下游依赖。
+# - 所有路径为资产库内相对路径（正斜杠）；版本与内容哈希固定后，母版更新只提示、
+#   不自动改变项目。
+#
+# 本模板示例（正脸已通过 → 后脑待生成 → 场景母版待生成）替换占位符后即可通过校验：
+# 校验器只看结构与固定契约，占位符 <...> 会被当作真实值原样处理。
+
+# 视觉生产计划（工单02-Task4）：TOML 是唯一机器事实源，Markdown 阅读稿由本文件渲染。
+# 任务 ID：<资产ID>-<任务种类>-vNN；所有路径为资产库内相对路径。
+# 状态为内部英文枚举（用户界面由渲染层转中文）；最多自动返工 3 轮。
+schema_version = 1
+style_name = "仙侠国风电影CG"
+style_slug = "仙侠国风电影CG"
+style_version = "1.0.0"
+style_hash = "<风格包内容哈希：references/styles/仙侠国风电影CG/1.0.0/manifest.toml 的 content_sha256>"
+engine_profile = "gemini"
+lib = "."
+asset_index_hash = "<资产索引 source_fingerprint>"
+updated_at = "<ISO8601 时间戳>"
+
+[[tasks]]
+task_id = "CH_林姑娘-后脑-v01"
+asset_id = "CH_林姑娘"
+kind = "后脑"
+status = "PLANNED"
+aspect_ratio = "1:1"
+style_slug = "仙侠国风电影CG"
+style_version = "1.0.0"
+style_hash = "<风格包内容哈希：references/styles/仙侠国风电影CG/1.0.0/manifest.toml 的 content_sha256>"
+engine = "gemini"
+model = "<生图模型>"
+max_rounds = 3
+fact_source = ".process/资产索引.json#CH_林姑娘｜发型: 高束发"
+depends_on = ["CH_林姑娘-正脸-v01"]
+user_locked = []
+notes = ""
+attempts = []
+
+[[tasks.references]]
+path = "_参考/头发.png"
+role = "structure"
+sha256 = "<参考图哈希>"
+note = "发型结构参考；不得继承正脸构图"
+
+[[tasks]]
+task_id = "CH_林姑娘-正脸-v01"
+asset_id = "CH_林姑娘"
+kind = "正脸"
+status = "READY_AS_REFERENCE"
+aspect_ratio = "1:1"
+style_slug = "仙侠国风电影CG"
+style_version = "1.0.0"
+style_hash = "<风格包内容哈希：references/styles/仙侠国风电影CG/1.0.0/manifest.toml 的 content_sha256>"
+engine = "gemini"
+model = "<生图模型>"
+max_rounds = 3
+fact_source = ".process/资产索引.json#CH_林姑娘｜摘句: 林姑娘走进茶楼"
+depends_on = []
+user_locked = ["aspect_ratio"]
+notes = ""
+
+[[tasks.references]]
+path = "_参考/脸部.png"
+role = "identity"
+sha256 = "<参考图哈希>"
+note = "身份参考"
+
+[[tasks.references]]
+path = "_参考/皮肤.png"
+role = "material"
+sha256 = "<参考图哈希>"
+note = "皮肤材质参考"
+
+[[tasks.attempts]]
+round = 1
+image = "视觉资产/任务/CH_林姑娘-正脸-v01/attempt-01/image.png"
+request = "视觉资产/任务/CH_林姑娘-正脸-v01/attempt-01/request.json"
+response = "视觉资产/任务/CH_林姑娘-正脸-v01/attempt-01/response.json"
+qc = "视觉资产/任务/CH_林姑娘-正脸-v01/attempt-01/qc.toml"
+prompt_hash = "<提示词哈希>"
+image_sha256 = "<图片哈希>"
+model = "<生图模型>"
+provider = "gemini"
+response_id = "<响应ID>"
+
+[[tasks]]
+task_id = "SC_茶楼-场景母版-v01"
+asset_id = "SC_茶楼"
+kind = "场景母版"
+status = "PLANNED"
+aspect_ratio = "16:9"
+style_slug = "仙侠国风电影CG"
+style_version = "1.0.0"
+style_hash = "<风格包内容哈希：references/styles/仙侠国风电影CG/1.0.0/manifest.toml 的 content_sha256>"
+engine = "gemini"
+model = "<生图模型>"
+max_rounds = 3
+fact_source = ".process/资产索引.json#SC_茶楼｜空间: 二层临街木楼"
+depends_on = []
+user_locked = []
+notes = ""
+attempts = []
+
+[[tasks.references]]
+path = "_参考/环境.png"
+role = "space"
+sha256 = "<参考图哈希>"
+note = "空间结构参考"
+
+[[tasks.references]]
+path = "_参考/木材.png"
+role = "material"
+sha256 = "<参考图哈希>"
+note = "木材材质参考"

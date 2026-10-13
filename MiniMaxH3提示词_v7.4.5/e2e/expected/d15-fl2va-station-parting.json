@@ -1,0 +1,19 @@
+{
+  "case_id": "d15-fl2va-station-parting",
+  "expected_mode": "fl2va",
+  "expected_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d15-fl2va-station-parting",
+      "value": "绿皮车站台",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d15-duration",
+      "value": 15,
+      "delivery_scope": "api_parameter",
+      "target_path": "duration"
+    }
+  ]
+}

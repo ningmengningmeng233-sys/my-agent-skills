@@ -1,0 +1,76 @@
+# 风格包分享策略（规格 2.8 / 工单04-Task4）
+#
+# 私人完整包与受控分享包分别构建：
+# - private   ：完整内容（含来源图与全部蒸馏参考），只在本机/受控环境使用；
+# - shareable ：排除来源图与许可未确认文件；缺运行必需参考时必须声明不完整。
+#
+# 本文件是打包器读取的唯一策略源；改这里即改变分享包内容，改前请确认许可。
+
+schema_version = 1
+
+# 分享包一律排除的相对路径前缀（相对仓库根）
+shareable_exclude_prefixes = [
+    "references/styles/仙侠国风电影CG/1.0.0/private/references/sources/",
+    # 风格包 private/SKILL.md 是 reference-only 装载说明，但风格包 manifest.toml
+    # 将其登记为 required + share_allowed：排除它会使分享包风格校验报
+    # STYLEPACK_UNAVAILABLE（run03 实测 14/17，恢复随包后回到 15/17 诚实缺口）。
+    # 它位于包内 5 层深处，不在宿主技能发现层级上，不构成幽灵技能；必须随包。
+]
+
+# 分享包额外排除的文件名/后缀（无论 profile）
+shareable_exclude_names = [
+    "旧版产物登记.json",
+]
+
+# 运行必需参考：缺失即声明 VISUAL_STYLE_INCOMPLETE_FOR_SHARE（不得声称与私人包等价）
+required_for_runtime = [
+    "generation_formula.md",
+    "negative_prompt.md",
+    "references/router.md",
+    "references/shared_style_invariants.md",
+    "references/face_base_style.md",
+    "references/full_body_base_style.md",
+    "references/environment_base_style.md",
+    "references/object_base_style.md",
+]
+
+# 两包都必须拒绝的敏感物（零容忍）
+sensitive_patterns = [
+    ".env（真实密钥文件，.env.example 除外）",
+    "真实密钥字面值（AIza... / sk-... 等）",
+    "绝对桌面路径（本机用户桌面目录的绝对写法）",
+    "生成缓存（__pycache__ / *.pyc / .asset_state.db）",
+    "用户资产库目录（资产库/ 资产库备份/）",
+    "references/styles/ 下未登记进 manifest 的图片",
+]
+
+# 两包名称必须不同（防止把私人包误当分享包分发）
+private_package_name = "资产提取-v{version}-private.zip"
+shareable_package_name = "资产提取-v{version}-shareable.zip"
+
+# 分享包按后缀一律排除（运行期日志、缓存、本地库文件）
+shareable_exclude_suffixes = [".png", ".jpg", ".jpeg", ".webp", ".gif", ".mp4", ".mov", ".log", ".pyc", ".sqlite", ".sqlite3", ".db"]
+
+# 分享包按路径子串排除：用户数据与原稿目录
+shareable_exclude_name_substrings = ["用户库", "原稿", "私藏", "token", "cookie", "secret"]
+
+# 敏感词按路径子串匹配会误伤「找敏感词的工具本身」。这里只允许逐条写精确相对路径，
+# 不做前缀匹配；豁免文件仍要过内容级密钥闸，不是免检通行证。
+# 缺陷现场：scripts/secret_scan.py 曾被裁掉，导致分享包里 测试/run_all_checks.py 跑出 14/17。
+shareable_exclude_exempt = [
+    "scripts/secret_scan.py",
+]
+
+# 需要在风格包 manifest 里登记且有许可依据才允许分享的媒体后缀
+shareable_media_suffixes = [".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp"]
+
+# 媒体登记要求只约束「风格包参考图」（第三方画风素材，须许可依据）。
+# 技能自己生成的测试夹具图片不属于该类，按前缀放行；缺省为空表示一律要登记。
+shareable_media_exempt_prefixes = [
+    "测试/fixtures/legacy_visual/",
+    "测试/fixtures/live_visual/",
+    "测试/fixtures/asset_compiler_regression/",
+]
+
+# 跨技能统一总账的包内受控副本所在目录（收件人单独安装时用它，见 engine/perf_ledger.py）
+shareable_vendor_prefixes = ["vendor/schemas/"]

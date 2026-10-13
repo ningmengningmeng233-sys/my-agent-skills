@@ -1,0 +1,720 @@
+# 风格登记表（规格 5）：用户面向中文正式名称 + 兼容别名 + 生命周期 + 验证等级
+# 由 references/画风库.md 派生；一致性由 测试/unit/test_style_registry.py 钉死。
+# 字段含义：
+#   id               内部稳定标识（只在兼容映射与诊断中出现，不进普通列表）
+#   name             用户面向的正式中文名称
+#   aliases          兼容别名（编号、旧名、俗称）；冲突别名解析时报错，不取第一个命中
+#   status           active / deprecated / disabled / removable（规格 10）
+#   validation_level omni_verified（已用视觉母版重建验证）/ legacy_unverified（旧版未验证）
+#   kind             style（可选风格）/ reference（速查表，不作为风格提供）
+#   pack_slug/pack_version/pack_hash 版本化风格包三元组（无内置包时留空）
+#   shareable        是否允许进入受控分享包（含私人参考母版者为 false）
+schema_version = 1
+
+[[styles]]
+id = "A1"
+name = "国漫三维基础风"
+aliases = ["A1", "中式国漫三维基础风", "全题材默认兜底", "国漫三维", "国漫三维基础风（全题材默认兜底）", "默认画风"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "A2"
+name = "仙侠奇幻风"
+aliases = ["A2"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "A3"
+name = "权谋暗黑风"
+aliases = ["A3"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "A4"
+name = "山水田园风"
+aliases = ["A4"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "A5"
+name = "战场史诗风"
+aliases = ["A5"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "A6"
+name = "江南烟雨风"
+aliases = ["A6"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "A7"
+name = "色调速查"
+aliases = ["A7", "色调速查（跨 A 系微调）", "跨 A 系微调"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "B1"
+name = "二维水墨动画风"
+aliases = ["B1", "二维水墨动画风（传统水墨）", "传统水墨", "传统水墨风", "国风水墨", "水墨", "水墨动画"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "B2"
+name = "剪纸拼贴动画风"
+aliases = ["B2", "剪纸拼贴", "剪纸拼贴动画风（纸片质感）", "国风纸片拼贴", "纸片拼贴", "纸片质感", "纸片质感风"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "B3"
+name = "白描工笔线稿风"
+aliases = ["B3", "工笔", "浅底勾边", "浅底勾边风", "白描", "白描工笔", "白描工笔线稿风（浅底勾边）"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "C1"
+name = "少年热血风"
+aliases = ["C1"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "C2"
+name = "青年暗黑动漫风"
+aliases = ["C2", "青年黑暗", "青年黑暗风"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "C3"
+name = "魔法少女风"
+aliases = ["C3"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "C4"
+name = "机甲风"
+aliases = ["C4"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "C5"
+name = "异世界穿越动漫风"
+aliases = ["C5", "异世界", "异世界风"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "C6"
+name = "现代都市日常风"
+aliases = ["C6", "写实国漫三维", "日常风", "现代都市日常风（写实国漫三维）", "生活日常", "都市日常"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "C7"
+name = "运动风"
+aliases = ["C7"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "C8"
+name = "恐怖暗黑风"
+aliases = ["C8"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "C9"
+name = "恋爱喜剧风"
+aliases = ["C9"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "C10"
+name = "赛博朋克风"
+aliases = ["C10"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "C11"
+name = "动漫通用"
+aliases = ["C11", "动漫通用（跨 C 系）", "跨 C 系"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "D1"
+name = "手绘水彩治愈风"
+aliases = ["D1", "手绘水彩治愈风（日式绘本感）", "日式治愈", "日式绘本感", "治愈水彩"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "D2"
+name = "吉卜力动画风"
+aliases = ["D2", "吉卜力", "吉卜力动画风（宫崎骏式手绘）", "宫崎骏", "宫崎骏式手绘"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "D3"
+name = "美式三维卡通风"
+aliases = ["D3", "皮克斯", "皮克斯式", "皮克斯式风", "美式三维卡通风（皮克斯式）", "美式卡通", "迪士尼"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "D4"
+name = "铅笔素描"
+aliases = ["D4"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "D5"
+name = "水彩手绘"
+aliases = ["D5"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "D6"
+name = "日式黑白漫画风"
+aliases = ["D6", "日式漫画", "日式黑白漫画风（网点纸）", "网点纸", "网点纸风", "黑白漫画"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "D7"
+name = "Q版萌系"
+aliases = ["D7"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "E1"
+name = "电影感写实CG风"
+aliases = ["E1", "电影感", "电影感写实CG风（电影级光影）", "电影级光影"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "E2"
+name = "电影特效写实三维渲染"
+aliases = ["CGI", "CGI风", "E2", "三维渲染", "电影特效写实三维渲染（CGI）", "电脑特效"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "F1"
+name = "科技感风格十二路"
+aliases = ["F1"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "reference"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "F2"
+name = "音乐风格十色"
+aliases = ["F2"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "reference"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "F3"
+name = "产品展示"
+aliases = ["360 转盘", "F3", "产品展示（360 转盘）"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "reference"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "F4"
+name = "时尚画册"
+aliases = ["F4"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "reference"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "F5"
+name = "美食"
+aliases = ["F5"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "reference"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "F6"
+name = "房产"
+aliases = ["F6"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "reference"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "G1"
+name = "镜头运动速查"
+aliases = ["G1", "运镜", "运镜风", "镜头运动速查（运镜）"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "reference"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "G2"
+name = "灯光速查"
+aliases = ["G2", "十五+ 布光", "灯光速查（十五+ 布光）"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "reference"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "G3"
+name = "调色预设速查"
+aliases = ["10+", "10+风", "G3", "调色预设速查（10+）"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "reference"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "G4"
+name = "通用负面速查"
+aliases = ["G4"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "reference"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "G5"
+name = "节奏与时间轴"
+aliases = ["G5"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "reference"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H1"
+name = "华丽铠甲仙侠CG风"
+aliases = ["H1", "仙侠奇幻三维渲染", "华丽铠甲仙侠CG风（旧版备用仙侠）", "旧版备用仙侠"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H2"
+name = "民国谍战风"
+aliases = ["H2", "民国谍战"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H3"
+name = "武侠江湖风"
+aliases = ["H3", "武侠", "武侠江湖"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H4"
+name = "末日废土风"
+aliases = ["H4", "废土", "末日废土"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H5"
+name = "中式怪谈风"
+aliases = ["H5", "中式怪谈", "灵异志怪"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H6"
+name = "西方奇幻史诗风"
+aliases = ["H6", "剑与魔法", "剑与魔法风", "西幻", "西幻史诗", "西方奇幻史诗风（剑与魔法）"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H7"
+name = "仙侠国风电影CG"
+aliases = ["H7", "luminous-xianxia", "仙侠CG", "仙侠CG风", "斗罗", "斗罗风", "玄机风", "玄机", "高精度三维国漫设定集风（斗罗/玄机风）"]
+status = "active"
+validation_level = "omni_verified"
+kind = "style"
+pack_slug = "仙侠国风电影CG"
+pack_version = "1.0.0"
+pack_hash = "bfb053185eb3e35cce4c143c513299f267bd75c55bf35c309203a2b6ee0f1ecc"
+shareable = false
+
+[[styles]]
+id = "H8"
+name = "现代漫画封面平涂风"
+aliases = ["2D强线条平涂赛璐璐", "H8", "漫画封面", "现代漫画封面平涂风（粗线赛璐璐）", "粗线平涂", "粗线赛璐璐"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H9"
+name = "80年代复古赛璐璐动画风"
+aliases = ["80年代赛璐璐", "H9", "复古赛璐璐", "老动画"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H10"
+name = "柔光古典写实厚涂风"
+aliases = ["H10", "厚涂写实", "古典写实", "柔光古典写实", "柔光古典写实厚涂风（油画质感）", "油画质感", "油画质感风"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H11"
+name = "中式恐怖纸人风"
+aliases = ["H11", "中式恐怖", "中式恐怖画皮纸人", "中式恐怖纸人风（宣纸纸雕）", "宣纸纸雕", "宣纸纸雕风", "画皮", "纸人"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H12"
+name = "儿童绘本粉彩插画风"
+aliases = ["H12", "儿童插画", "童话插画", "绘本"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H13"
+name = "清透水青玫瑰游戏CG风"
+aliases = ["3D渲染v3", "H13", "清透水青玫瑰游戏CG风（高调日光）", "青玫瑰CG", "高调日光", "高调日光风"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H14"
+name = "暖调半写实精品CG风"
+aliases = ["3D渲染v4", "H14", "半写实CG", "暖调半写实精品CG风（电影级光照）", "电影级光照"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H15"
+name = "柔光粉彩电影CG风"
+aliases = ["3D渲染v5", "H15", "柔光粉彩电影CG风（理想化写实）", "理想化写实", "粉彩电影CG"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H16"
+name = "暖调哑光游戏资产CG风"
+aliases = ["3D渲染v6", "H16", "暖调哑光CG", "暖调哑光游戏资产CG风（琥珀米色）", "琥珀米色", "琥珀米色风"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H17"
+name = "高端哑光质感CG风"
+aliases = ["3D渲染v7", "H17", "哑光质感CG", "柔和全局光", "高端哑光质感CG风（柔和全局光）"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true
+
+[[styles]]
+id = "H18"
+name = "日系游戏过场CG风"
+aliases = ["3D渲染v8", "H18", "日系游戏CG", "日系游戏过场CG风（柔光理想化）", "柔光理想化"]
+status = "active"
+validation_level = "legacy_unverified"
+kind = "style"
+pack_slug = ""
+pack_version = ""
+pack_hash = ""
+shareable = true

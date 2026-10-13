@@ -1,0 +1,13 @@
+{
+  "case_id": "g04-ref2va-sneaker-ad",
+  "expected_mode": "ref2va",
+  "expected_profile": "native-general",
+  "constraints": [
+    {
+      "id": "pt-g04-ref2va-sneaker-ad",
+      "value": "亮黑漆面地台",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

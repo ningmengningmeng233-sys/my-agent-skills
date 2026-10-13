@@ -1,0 +1,23 @@
+{
+  "case_id": "g08-i2va-headphone-burst",
+  "user_prompt": "数码产品广告，参考图起步：降噪耳机悬浮爆开金色粉尘",
+  "model": "H3",
+  "duration_s": 4,
+  "aspect_ratio": "9:16",
+  "resolution": "768P",
+  "scene": "深灰渐变悬浮棚拍台",
+  "action": "耳机绕轴缓缓旋转，一圈金色粉尘从边缘炸开又被定住",
+  "camera": "环绕四分之一圈",
+  "style": "硬光定格微粒，商业级质感",
+  "assets": {
+    "first_frame": "https://cdn.example.invalid/h3refs/frames/start-g08.png"
+  },
+  "constraints": [
+    {
+      "id": "pt-g08-i2va-headphone-burst",
+      "value": "深灰渐变悬浮棚拍台",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

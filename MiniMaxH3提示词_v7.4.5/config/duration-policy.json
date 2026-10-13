@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "clip_seconds": {"min": 4, "max": 10},
+  "speech_chars_per_second": {"min": 3, "max": 4},
+  "overage_review_ratio": 0.2,
+  "padding_policy": {"mode": "selective", "min_seconds": 0.3, "max_seconds": 0.5},
+  "statuses": ["PASS_EXACT", "PASS_WITH_TRIM", "REVIEW_REQUIRED", "FAIL"]
+}

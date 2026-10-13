@@ -1,0 +1,26 @@
+{
+  "case_id": "g01-t2va-perfume-turntable",
+  "user_prompt": "产品展示广告：哑光黑香水瓶在浅灰转台上缓慢旋转一周特写",
+  "model": "H3",
+  "duration_s": 6,
+  "aspect_ratio": "1:1",
+  "resolution": "768P",
+  "scene": "浅灰色无缝影棚转台",
+  "action": "哑光黑香水瓶随转台缓慢旋转一周",
+  "camera": "机位固定，光位随旋转扫出高光带",
+  "style": "柔和高-key 布光，玻璃折射高光干净",
+  "constraints": [
+    {
+      "id": "pt-g01-t2va-perfume-turntable",
+      "value": "哑光黑香水瓶随转台缓慢旋转一周",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-g01-ratio",
+      "value": "1:1",
+      "delivery_scope": "api_parameter",
+      "target_path": "ratio"
+    }
+  ]
+}

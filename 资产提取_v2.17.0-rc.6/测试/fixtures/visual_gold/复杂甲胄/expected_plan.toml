@@ -1,0 +1,36 @@
+# 期望视觉计划（金标准契约）：任务集合 / 依赖 / 画幅 / 阻断码
+schema_version = 1
+asset_id = "CH_秦将军"
+expected_kinds = ["正脸", "后脑", "服装独立正面", "服装独立背面", "人物全身正面", "人物全身背面"]
+blocking_codes = ["BODY_PROPORTION_ERROR", "FORBIDDEN_MULTI_PANEL", "FRONT_BACK_INCONSISTENT", "HEAD_REMAINS_IN_COSTUME_VIEW", "NECK_STUMP_VISIBLE", "STYLE_MISMATCH"]
+
+[[expected_tasks]]
+kind = "正脸"
+aspect_ratio = "1:1"
+depends_on = []
+
+[[expected_tasks]]
+kind = "后脑"
+aspect_ratio = "1:1"
+depends_on = ["CH_秦将军-正脸-v01"]
+
+[[expected_tasks]]
+kind = "服装独立正面"
+aspect_ratio = "2:3"
+depends_on = ["CH_秦将军-后脑-v01"]
+
+[[expected_tasks]]
+kind = "服装独立背面"
+aspect_ratio = "2:3"
+depends_on = ["CH_秦将军-服装独立正面-v01"]
+
+[[expected_tasks]]
+kind = "人物全身正面"
+aspect_ratio = "2:3"
+depends_on = ["CH_秦将军-服装独立背面-v01"]
+
+[[expected_tasks]]
+kind = "人物全身背面"
+aspect_ratio = "2:3"
+depends_on = ["CH_秦将军-人物全身正面-v01"]
+

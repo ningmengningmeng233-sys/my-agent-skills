@@ -1,0 +1,16 @@
+{
+  "case_id": "g09-t2va-passsthrough",
+  "user_prompt": "广告片口播背景素材：台灯暖光下，一支钢笔在信纸上写完最后一划，随后被轻轻放下，浅景深",
+  "model": "H3",
+  "duration_s": 6,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "constraints": [
+    {
+      "id": "pt-g09-t2va-passsthrough",
+      "value": "一支钢笔在信纸上写完最后一划",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

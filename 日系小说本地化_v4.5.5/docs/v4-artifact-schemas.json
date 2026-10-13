@@ -1,0 +1,873 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/日系小说本地化/v4-artifact-schemas.json",
+  "title": "日系小说本地化 v4 Core 章节旁车契约目录",
+  "description": "v4 Core 对 events.json、checks.json、project-decisions.json 和 decisions.json 的结构契约。每个文件分别使用本目录对应的 $defs 子 schema 校验。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "events_schema",
+    "checks_schema",
+    "project_decisions_schema",
+    "chapter_decisions_schema"
+  ],
+  "properties": {
+    "events_schema": {
+      "$ref": "#/$defs/eventGraph"
+    },
+    "checks_schema": {
+      "$ref": "#/$defs/checks"
+    },
+    "project_decisions_schema": {
+      "$ref": "#/$defs/projectDecisions"
+    },
+    "chapter_decisions_schema": {
+      "$ref": "#/$defs/chapterDecisions"
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "paragraphId": {
+      "type": "string",
+      "pattern": "^p-[0-9]{4,}$"
+    },
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "value"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "user",
+            "system",
+            "reviewer"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "eventRisk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "reasons",
+        "decision_status"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "normal",
+            "high"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "causal_chain",
+              "character_goal",
+              "relationship_change",
+              "plot_change_candidate",
+              "source_contradiction",
+              "low_confidence",
+              "cultural_function"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "decision_status": {
+          "enum": [
+            "not_required",
+            "open",
+            "approved",
+            "rejected",
+            "superseded"
+          ]
+        },
+        "decision_id": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "ordinal",
+        "participants",
+        "prerequisites",
+        "action",
+        "result",
+        "character_goals",
+        "relationship_changes",
+        "world_function",
+        "confidence",
+        "risk"
+      ],
+      "properties": {
+        "event_id": {
+          "$ref": "#/$defs/id"
+        },
+        "ordinal": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "participants": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "type": "string",
+          "minLength": 1
+        },
+        "character_goals": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "relationship_changes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "world_function": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "risk": {
+          "$ref": "#/$defs/eventRisk"
+        }
+      }
+    },
+    "eventGraph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "chapter_id",
+        "source_sha256",
+        "events",
+        "generated_at"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "v4-events-1"
+        },
+        "chapter_id": {
+          "$ref": "#/$defs/id"
+        },
+        "source_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/event"
+          },
+          "minItems": 1
+        },
+        "generated_at": {
+          "$ref": "#/$defs/timestamp"
+        }
+      }
+    },
+    "eventComparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "paragraph_ids",
+        "participants_consistent",
+        "order_consistent",
+        "result_consistent",
+        "causal_consistent",
+        "cultural_function_preserved",
+        "plot_change",
+        "evidence",
+        "result"
+      ],
+      "properties": {
+        "event_id": {
+          "$ref": "#/$defs/id"
+        },
+        "paragraph_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/paragraphId"
+          }
+        },
+        "participants_consistent": {
+          "type": "boolean"
+        },
+        "order_consistent": {
+          "type": "boolean"
+        },
+        "result_consistent": {
+          "type": "boolean"
+        },
+        "causal_consistent": {
+          "type": "boolean"
+        },
+        "cultural_function_preserved": {
+          "type": "boolean"
+        },
+        "plot_change": {
+          "type": "boolean"
+        },
+        "evidence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "enum": [
+            "pass",
+            "blocked",
+            "fail",
+            "warning"
+          ]
+        },
+        "decision_id": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "checkResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "result",
+        "message"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "enum": [
+            "pass",
+            "blocked",
+            "fail",
+            "warning",
+            "not_run"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "softEvaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dimension",
+        "result",
+        "evidence"
+      ],
+      "properties": {
+        "dimension": {
+          "enum": [
+            "web_novel_voice",
+            "payoff_quality",
+            "ai_taste",
+            "emotion",
+            "narrator_voice",
+            "reader_perception"
+          ]
+        },
+        "result": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "chapter_id",
+        "input_fingerprint",
+        "output_sha256",
+        "hard_gate",
+        "event_comparison",
+        "event_results",
+        "decision_result",
+        "purity_result",
+        "warnings",
+        "failures",
+        "soft_evaluations",
+        "generated_at",
+        "tone_result",
+        "tone_findings"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "v4-checks-1"
+        },
+        "chapter_id": {
+          "$ref": "#/$defs/id"
+        },
+        "input_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "output_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "hard_gate": {
+          "enum": [
+            "pass",
+            "blocked",
+            "fail",
+            "warning",
+            "not_run"
+          ]
+        },
+        "event_comparison": {
+          "enum": [
+            "pass",
+            "blocked",
+            "fail",
+            "warning",
+            "not_run"
+          ]
+        },
+        "event_results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/eventComparison"
+          }
+        },
+        "decision_result": {
+          "enum": [
+            "pass",
+            "blocked",
+            "fail",
+            "not_run"
+          ]
+        },
+        "blind_review_result": {
+          "enum": [
+            "pass",
+            "blocked",
+            "fail",
+            "not_run",
+            "not_enabled"
+          ]
+        },
+        "platform_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "platform",
+            "result"
+          ],
+          "properties": {
+            "platform": {
+              "type": "string",
+              "minLength": 1
+            },
+            "result": {
+              "enum": [
+                "pass",
+                "blocked",
+                "fail",
+                "not_run",
+                "not_enabled"
+              ]
+            }
+          }
+        },
+        "purity_result": {
+          "enum": [
+            "pass",
+            "blocked",
+            "fail",
+            "not_run"
+          ]
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/checkResult"
+          }
+        },
+        "failures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/checkResult"
+          }
+        },
+        "soft_evaluations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/softEvaluation"
+          }
+        },
+        "generated_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "tone_result": {
+          "enum": [
+            "pass",
+            "blocked",
+            "fail",
+            "warning",
+            "not_run"
+          ]
+        },
+        "tone_findings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "name",
+              "match",
+              "context",
+              "message"
+            ],
+            "properties": {
+              "kind": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "match": {
+                "type": "string"
+              },
+              "context": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "style_depth_result": {
+          "enum": [
+            "pass",
+            "blocked",
+            "fail",
+            "warning",
+            "not_run"
+          ]
+        },
+        "style_depth_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "texture_result": {
+          "enum": [
+            "pass",
+            "blocked",
+            "fail",
+            "warning",
+            "not_run"
+          ],
+          "description": "节奏门：拦下「比源稿更平」的成品（段/句长度均值与离散度）"
+        },
+        "texture_metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sentence_mean",
+            "sentence_stdev",
+            "paragraph_mean",
+            "paragraph_stdev",
+            "long_paragraph_ratio",
+            "short_paragraph_ratio"
+          ],
+          "properties": {
+            "sentence_mean": {
+              "type": "number",
+              "minimum": 0
+            },
+            "sentence_stdev": {
+              "type": "number",
+              "minimum": 0
+            },
+            "paragraph_mean": {
+              "type": "number",
+              "minimum": 0
+            },
+            "paragraph_stdev": {
+              "type": "number",
+              "minimum": 0
+            },
+            "long_paragraph_ratio": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "short_paragraph_ratio": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "unchanged_paragraph_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "long_novel_findings": {
+          "type": "array",
+          "description": "五项长篇质量门 findings（Character/Terminology/Knowledge/Promise/Timeline，v4.5.0-dev.3）",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "gate",
+              "code",
+              "message",
+              "severity"
+            ],
+            "properties": {
+              "gate": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "evidence": {
+                "type": "string"
+              },
+              "severity": {
+                "enum": [
+                  "blocked",
+                  "warning"
+                ]
+              }
+            }
+          }
+        },
+        "content_coverage": {
+          "enum": [
+            "pass",
+            "fail",
+            "blocked",
+            "not_run"
+          ],
+          "description": "逐句内容覆盖门聚合结果（Task 9.9.3）：absent/partial→fail、uncertain/漏检→blocked、未配置判官→not_run（离线）或 blocked（跨语言交付，fail-closed）"
+        },
+        "content_coverage_findings": {
+          "type": "array",
+          "description": "逐句覆盖判定明细",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "requirement_id",
+              "status"
+            ],
+            "properties": {
+              "requirement_id": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "present",
+                  "partial",
+                  "absent",
+                  "uncertain",
+                  "exempted"
+                ]
+              },
+              "output_paragraph_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "evidence": {
+                "type": "string"
+              },
+              "judge_run_id": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "content_coverage_blocking": {
+          "type": "array",
+          "description": "覆盖门阻断项（含源句与优先复核级别，供定向返修与人工复核）",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "requirement_id",
+              "status"
+            ],
+            "properties": {
+              "requirement_id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "source_text": {
+                "type": "string"
+              },
+              "manual_review_priority": {
+                "type": "string"
+              },
+              "evidence": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "content_coverage_summary": {
+          "type": "object",
+          "description": "覆盖清单统计",
+          "additionalProperties": false,
+          "required": [
+            "requirements",
+            "blocking"
+          ],
+          "properties": {
+            "requirements": {
+              "type": "integer"
+            },
+            "blocking": {
+              "type": "integer"
+            },
+            "high_priority": {
+              "type": "integer"
+            }
+          }
+        },
+        "exemplar_copy": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "not_applicable"
+          ],
+          "description": "文风范例防抄：与注入范例连续重合 ≥ 阈值判 fail；未注入范例为 not_applicable"
+        },
+        "exemplar_copy_findings": {
+          "type": "array",
+          "description": "命中照抄的可定位片段",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "start": {
+                "type": "integer"
+              },
+              "end": {
+                "type": "integer"
+              },
+              "chars": {
+                "type": "integer"
+              },
+              "exemplar_index": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "text",
+              "start",
+              "end",
+              "chars"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "exemplar_copy_summary": {
+          "type": "object",
+          "properties": {
+            "checked": {
+              "type": "boolean"
+            },
+            "exemplar_count": {
+              "type": "integer"
+            },
+            "longest_overlap_chars": {
+              "type": "integer"
+            },
+            "threshold": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "checked",
+            "exemplar_count",
+            "longest_overlap_chars",
+            "threshold"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "decisionEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "category",
+        "target",
+        "choice",
+        "status",
+        "source",
+        "created_at"
+      ],
+      "properties": {
+        "decision_id": {
+          "$ref": "#/$defs/id"
+        },
+        "category": {
+          "enum": [
+            "mapping",
+            "contradiction",
+            "plot_change",
+            "review",
+            "boundary",
+            "style"
+          ]
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "choice": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "open",
+            "accepted",
+            "rejected",
+            "superseded"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/sourceRef"
+        },
+        "created_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "projectDecisions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "revision",
+        "entries"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "v4-project-decisions-1"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/decisionEntry"
+          }
+        }
+      }
+    },
+    "chapterDecisions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "chapter_id",
+        "revision",
+        "entries"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "v4-chapter-decisions-1"
+        },
+        "chapter_id": {
+          "$ref": "#/$defs/id"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/decisionEntry"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "case_id": "d09-t2va-alley-ambush",
+  "expected_mode": "t2va",
+  "expected_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d09-t2va-alley-ambush",
+      "value": "窄巷口",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d09-ratio",
+      "value": "21:9",
+      "delivery_scope": "api_parameter",
+      "target_path": "ratio"
+    }
+  ]
+}

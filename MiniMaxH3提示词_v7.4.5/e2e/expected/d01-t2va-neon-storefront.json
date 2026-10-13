@@ -1,0 +1,25 @@
+{
+  "case_id": "d01-t2va-neon-storefront",
+  "expected_mode": "t2va",
+  "expected_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d01-t2va-neon-storefront",
+      "value": "雨夜的便利店门口",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d01-duration",
+      "value": 8,
+      "delivery_scope": "api_parameter",
+      "target_path": "duration"
+    },
+    {
+      "id": "api-d01-ratio",
+      "value": "16:9",
+      "delivery_scope": "api_parameter",
+      "target_path": "ratio"
+    }
+  ]
+}

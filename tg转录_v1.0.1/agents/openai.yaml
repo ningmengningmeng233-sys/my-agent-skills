@@ -1,0 +1,4 @@
+interface:
+  display_name: "tg转录"
+  short_description: "按用户选择导出和整理 Telegram，支持阅读、检索、脱敏分享及续跑"
+  default_prompt: "使用 $tg-transcript 按我选择的对象、范围与内容整理 Telegram 归档。"

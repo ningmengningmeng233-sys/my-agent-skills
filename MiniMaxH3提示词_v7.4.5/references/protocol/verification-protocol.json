@@ -1,0 +1,85 @@
+{
+  "schema": "h3-verification-protocol/1",
+  "updated": "2026-09-23",
+  "purpose": "重建此前随历史套件丢失的「凭证协议」：只登记取用方式与验证记录，绝不登记密钥字面量。",
+  "red_line": "status=PASS 必须带日期与产物路径，且产物文件必须真实存在；否则校验器判红。BLOCKED-CRED 必须写清原因、解锁条件与复核命令。",
+  "channels": [
+    {
+      "name": "MiniMax 官方 API（H3 / H3-Max 出片）",
+      "key_env": "MINIMAX_API_KEY",
+      "key_value_policy": "REPLACE",
+      "where_to_get": "MiniMax 官方控制台自助申请；不得从聊天、截图或分享文案里取用",
+      "owner": "待人工指定",
+      "issued_on": "",
+      "expires_on": "",
+      "recheck_command": "python scripts/verification_protocol.py check"
+    },
+    {
+      "name": "六节点模型池（本机 llm_nodes.json）",
+      "key_env": "config/llm_nodes.json 内的 key 字段",
+      "key_value_policy": "REPLACE",
+      "where_to_get": "各节点自助开通后写入本地 config，永不入库",
+      "owner": "待人工指定",
+      "issued_on": "",
+      "expires_on": "",
+      "recheck_command": "python scripts/verification_protocol.py check"
+    }
+  ],
+  "records": [
+    {
+      "gate": "STATIC_RULE_GATES",
+      "status": "PASS",
+      "date": "2026-09-23",
+      "command": "python scripts/collect_closure_evidence.py",
+      "artifact_paths": [
+        "evidence/20260923T010501Z-fd5712fd/logs/static-index.json",
+        "evidence/20260923T010501Z-fd5712fd/logs/static-test_closure_evidence_registry.py.log"
+      ],
+      "note": "由采集器当场执行、绑定 run_id 与 commit 的静态段日志（logs/static-index.json 记录每个套件的退出码与日志哈希），不是人工声明。修复前同名两档长期假红：登记表写死的 9 个历史套件文件已丢失，每套件 50ms 内以「文件不存在」退出码 2——见 evidence/20260923T005125Z-e57f9206 那份 FAIL 报告。"
+    },
+    {
+      "gate": "CLI_ENTRYPOINT_E2E",
+      "status": "PASS",
+      "date": "2026-09-23",
+      "command": "python scripts/collect_closure_evidence.py",
+      "artifact_paths": [
+        "evidence/20260923T010501Z-fd5712fd/logs/cli-index.json",
+        "evidence/20260923T010501Z-fd5712fd/logs/cli-test_verification_protocol.py.log"
+      ],
+      "note": "CLI 段以子进程真实执行命令行入口的套件（凭证协议 check、结构守卫），同一采集运行绑定，日志在 logs/cli-*.log。"
+    },
+    {
+      "gate": "LOCAL_PIPELINE_E2E",
+      "status": "NOT_RUN",
+      "date": "",
+      "artifact_paths": [],
+      "reason": "本档按 closure_gate_contract.local_gate 的口径判定：需要 30 例冻结批次目录（e2e/expected/*.json 一次真实批量渲染的 _summary/_metrics），而 e2e/ 已随历史套件丢失，`--local-run-dir` 无从指向，故采集器只能记 NOT_RUN。SKILL §1.3 第 2 级所说的五夹具确定性全链（`_审查测试/test_episode_pipeline.py`）确实每次总门真实执行，但那是子集，不得冒充冻结批次判 PASS。",
+      "unlock_condition": "重建 30 例冻结批次（e2e/expected 与批量 runner），跑一次真实全链并把 run 目录交给 `python scripts/collect_closure_evidence.py --local-run-dir <dir>`，再把产出的 logs/local-*.json 与日期登记到本记录。"
+    },
+    {
+      "gate": "REAL_AGENT_E2E",
+      "status": "BLOCKED-CRED",
+      "date": "",
+      "artifact_paths": [],
+      "reason": "本机所有渠道 key 均为字面量 REPLACE 占位，无可用外部 Agent 会话凭证；原凭证协议文件已随历史套件丢失（本轮重建）。",
+      "unlock_condition": "填入可用 MINIMAX_API_KEY（或等价渠道），按本文件 channels 声明的取用方式完成 1 次真实 Agent 自主会话，并把请求/响应脱敏件与 run_id 落到 artifact_paths。",
+      "recheck_command": "python scripts/verification_protocol.py check && python scripts/collect_closure_evidence.py"
+    },
+    {
+      "gate": "MODEL_RENDER_E2E",
+      "status": "BLOCKED-CRED",
+      "date": "",
+      "artifact_paths": [],
+      "reason": "同上：无凭据即无法真调 MiniMax API 出片，静态审计不得冒充渲染验证。",
+      "unlock_condition": "挑 ≥5 条提示词真调官方 API 出片，按「物理连续性/画质/台词口型/风格一致」逐项打分留档，产物落盘并登记路径与日期。",
+      "recheck_command": "python scripts/verification_protocol.py check && python scripts/h3_v2_client.py --live"
+    },
+    {
+      "gate": "VIDEO_REVERSE_E2E",
+      "status": "NOT_RUN",
+      "date": "",
+      "artifact_paths": [],
+      "reason": "缺授权真视频素材（licensed_video）与人工复核签署，非凭证问题；补齐授权后按 closure_gate_contract.video_gate 判定。"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+interface:
+  display_name: "中文去 AI 味"
+  short_description: "保留事实与作者语气，清理中文成稿中的模型腔"
+  icon_small: "./assets/less-ai-tone-hero-zh.png"
+  icon_large: "./assets/less-ai-tone-hero-zh.png"
+  default_prompt: "使用 $lieflat-less-ai-tone 清理下面现有中文文本的 AI 味，保留全部事实、关系和原有语气。"
+policy:
+  allow_implicit_invocation: true

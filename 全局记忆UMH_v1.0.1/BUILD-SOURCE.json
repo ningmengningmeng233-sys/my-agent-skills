@@ -1,0 +1,20 @@
+{
+  "sourceCommit": "153742d",
+  "coreArchiveSha256": "bffbe822f6cfe66df5d2d361fa52e2f7b6af13a21889e194c839bd43d4f52c4a",
+  "runtimeOverrides": [
+    "package/README.md"
+  ],
+  "clientCompatibility": {
+    "validatedSourceClasses": [
+      "cherry",
+      "qoder",
+      "zcode",
+      "codex",
+      "minimax",
+      "dsh"
+    ],
+    "receiverNativeAcceptance": "NOT_RUN",
+    "claude": "UNVERIFIED",
+    "testedDistributionOS": "Windows"
+  }
+}

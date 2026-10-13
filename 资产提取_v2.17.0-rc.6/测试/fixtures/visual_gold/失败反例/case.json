@@ -1,0 +1,76 @@
+{
+  "case": "失败反例集",
+  "note": "每个反例都必须被结构化检查或校验器拒绝；拒绝即通过本契约。",
+  "cases": [
+    {
+      "name": "三格拼版",
+      "expected_codes": [
+        "FORBIDDEN_MULTI_PANEL"
+      ],
+      "why": "模型一次生成多格人物板；拼版只能由已通过图片本地合成"
+    },
+    {
+      "name": "断颈残端",
+      "expected_codes": [
+        "NECK_STUMP_VISIBLE"
+      ],
+      "why": "服装独立图出现肉色颈桩或断颈"
+    },
+    {
+      "name": "背面残头",
+      "expected_codes": [
+        "HEAD_REMAINS_IN_COSTUME_VIEW"
+      ],
+      "why": "服装背面出现后脑勺或下巴"
+    },
+    {
+      "name": "正背不一致",
+      "expected_codes": [
+        "FRONT_BACK_INCONSISTENT"
+      ],
+      "why": "正背成对资产画布/相机/站姿不一致"
+    },
+    {
+      "name": "主体裁切",
+      "expected_codes": [
+        "SUBJECT_CROPPED"
+      ],
+      "why": "全身图裁掉头顶或脚部"
+    },
+    {
+      "name": "风格漂移",
+      "expected_codes": [
+        "STYLE_MISMATCH"
+      ],
+      "why": "瓷亮高光、高饱和或镜面反射等与母版冲突的表现"
+    },
+    {
+      "name": "未通过当参考",
+      "expected_codes": [
+        "REFERENCE_NOT_ACCEPTED"
+      ],
+      "why": "把 NEEDS_REVISION 的图当作下游参考"
+    },
+    {
+      "name": "第四轮请求",
+      "expected_codes": [
+        "ROUND_LIMIT_EXCEEDED"
+      ],
+      "why": "三轮用尽后仍继续请求"
+    },
+    {
+      "name": "整章原文误发送",
+      "expected_codes": [
+        "PROMPT_TOO_LARGE"
+      ],
+      "why": "请求夹带整章原文，违反最小发送原则"
+    },
+    {
+      "name": "图片哈希变化",
+      "expected_codes": [
+        "IMAGE_HASH_MISMATCH"
+      ],
+      "why": "产物被替换后仍被当作已通过参考"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "case_id": "d15-fl2va-station-parting",
+  "user_prompt": "短剧火车站离别戏，第一帧和最后一帧分别锁定月台与车窗两个构图",
+  "scene": "绿皮车站台，白汽从车厢连接处漫出来",
+  "action": "少女隔着车窗抬手，掌心贴在玻璃上慢慢滑到底",
+  "style": "站台煤灯暖黄与车身冷绿对撞",
+  "audio": "汽笛长鸣与铁轨震动声，无配乐",
+  "voice_signature": "少女：压着哭腔的清亮女声",
+  "model": "H3",
+  "duration_s": 15,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "assets": {
+    "first_frame": "https://cdn.example.invalid/h3refs/frames/start-d15.png",
+    "last_frame": "https://cdn.example.invalid/h3refs/frames/end-d15.png"
+  },
+  "constraints": [
+    {
+      "id": "pt-d15-fl2va-station-parting",
+      "value": "绿皮车站台",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d15-duration",
+      "value": 15,
+      "delivery_scope": "api_parameter",
+      "target_path": "duration"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "_说明": "多节点 API 故障转移池配置模板。复制本文件为 llm_nodes.json 后填入你自己的节点与密钥。数组顺序即消耗优先级：前一个节点额度耗尽/不可用时，自动顺切下一个。只允许使用 llm_nodes.json 里列出的节点。",
+  "_字段说明": {
+    "proto": "openai 或 anthropic，决定请求地址/鉴权头/请求体/SSE 解析方式",
+    "base_url": "基础地址，不含 /chat/completions（openai）或 /v1/messages（anthropic）",
+    "model": "模型名，必须是该节点真实存在的模型",
+    "max_tokens": "该节点单次输出上限，请求时取 min(请求值, 本值)",
+    "max_concurrency": "该节点并发闸门，0 表示不限"
+  },
+  "nodes": [
+    {
+      "name": "my-anthropic-node",
+      "proto": "anthropic",
+      "base_url": "https://api.anthropic.com",
+      "model": "REPLACE_ME_WITH_YOUR_MODEL",
+      "api_key": "[REDACTED]",
+      "max_tokens": 8000,
+      "max_concurrency": 4
+    },
+    {
+      "name": "my-openai-node",
+      "proto": "openai",
+      "base_url": "https://api.openai.com/v1",
+      "model": "REPLACE_ME_WITH_YOUR_MODEL",
+      "api_key": "[REDACTED]",
+      "max_tokens": 8000,
+      "max_concurrency": 4
+    }
+  ]
+}

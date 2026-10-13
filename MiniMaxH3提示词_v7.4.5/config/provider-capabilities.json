@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0.0",
+  "notes": "公开 V2 API 与本地能力的分层事实源。api_v2 以 MiniMax H3 V2 公开文档为准；official_agent 与 local_open_weights 另行取证，不得混入 api_v2 的官方已验证布尔值。",
+  "calibration": {
+    "api_v2_create": "POST https://api.minimax.io/v2/video_generation",
+    "api_v2_query": "GET https://api.minimax.io/v2/query/video_generation/{task_id}",
+    "verified_at": "2026-09-13",
+    "source_urls": [
+      "https://platform.minimax.io/docs/api-reference/video-generation-v2-create",
+      "https://platform.minimax.io/docs/api-reference/video-generation-v2-query"
+    ]
+  },
+  "records": [
+    {"canonical_model": "H3", "provider": "api_v2", "provider_model_id": "MiniMax-H3", "mode": "t2va", "status": "SUPPORTED", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3", "provider": "api_v2", "provider_model_id": "MiniMax-H3", "mode": "i2va", "status": "SUPPORTED", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3", "provider": "api_v2", "provider_model_id": "MiniMax-H3", "mode": "fl2va", "status": "SUPPORTED", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3", "provider": "api_v2", "provider_model_id": "MiniMax-H3", "mode": "l2va", "status": "SUPPORTED", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3", "provider": "api_v2", "provider_model_id": "MiniMax-H3", "mode": "ref2va", "status": "SUPPORTED", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3-Max", "provider": "api_v2", "provider_model_id": "MiniMax-H3-Max", "mode": "t2va", "status": "SUPPORTED", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3-Max", "provider": "api_v2", "provider_model_id": "MiniMax-H3-Max", "mode": "i2va", "status": "SUPPORTED", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3-Max", "provider": "api_v2", "provider_model_id": "MiniMax-H3-Max", "mode": "fl2va", "status": "SUPPORTED", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3-Max", "provider": "api_v2", "provider_model_id": "MiniMax-H3-Max", "mode": "l2va", "status": "SUPPORTED", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3-Max", "provider": "api_v2", "provider_model_id": "MiniMax-H3-Max", "mode": "ref2va", "status": "NOT_SUPPORTED_IN_PUBLIC_API", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3-Max-Turbo", "provider": "api_v2", "provider_model_id": "", "mode": "t2va", "status": "NOT_LISTED_IN_PUBLIC_API", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3-Max-Turbo", "provider": "api_v2", "provider_model_id": "", "mode": "i2va", "status": "NOT_LISTED_IN_PUBLIC_API", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3-Max-Turbo", "provider": "api_v2", "provider_model_id": "", "mode": "fl2va", "status": "NOT_LISTED_IN_PUBLIC_API", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3-Max-Turbo", "provider": "api_v2", "provider_model_id": "", "mode": "l2va", "status": "NOT_LISTED_IN_PUBLIC_API", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""},
+    {"canonical_model": "H3-Max-Turbo", "provider": "api_v2", "provider_model_id": "", "mode": "ref2va", "status": "NOT_LISTED_IN_PUBLIC_API", "source_url": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create", "verified_at": "2026-09-13", "evidence_sha256": ""}
+  ]
+}

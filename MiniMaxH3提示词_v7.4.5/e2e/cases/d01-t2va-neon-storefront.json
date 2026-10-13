@@ -1,0 +1,34 @@
+{
+  "case_id": "d01-t2va-neon-storefront",
+  "user_prompt": "短剧第12集文戏：雨夜便利店门口对峙，写实真人影视质感",
+  "scene": "雨夜的便利店门口，霓虹在水洼里碎成光斑",
+  "action": "林澈握紧伞柄，指节因用力而泛白，随后他抬眼看向玻璃门内",
+  "style": "冷蓝霓虹混合暖黄灯箱，低照度写实光影",
+  "audio": "雨声与便利店门铃叮咚，无配乐",
+  "voice_signature": "林澈：偏低沙哑男声，音量克制，语速偏慢",
+  "model": "H3",
+  "duration_s": 8,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "camera": "镜头缓推向他的侧脸",
+  "constraints": [
+    {
+      "id": "pt-d01-t2va-neon-storefront",
+      "value": "雨夜的便利店门口",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-d01-duration",
+      "value": 8,
+      "delivery_scope": "api_parameter",
+      "target_path": "duration"
+    },
+    {
+      "id": "api-d01-ratio",
+      "value": "16:9",
+      "delivery_scope": "api_parameter",
+      "target_path": "ratio"
+    }
+  ]
+}

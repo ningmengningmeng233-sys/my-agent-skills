@@ -1,0 +1,34 @@
+DramaCraft 小说转短剧剧本引擎 v1.5.3 —— 许可与来源声明
+
+一、本包自有件（SKILL.md、run_batch.py、dramacraft/、tests/、fixtures/、
+  skills_runtime/ 各模块的 README/SKILL/scripts 主体、references/ 自写部分）
+  Copyright (c) 2026 柠檬才不萌
+  保留所有权利（Proprietary）。允许在本机内自行使用、备份与改装用于个人用途；
+  未经许可不得对外再分发、不得用于商业再许可、不得移除本声明。
+  与 SKILL.md frontmatter 的 `license: Proprietary` 同源；两处不一致时以本文件为准并须修正。
+
+二、派生副本：H3 视频提示词写法骨架
+  `skills_runtime/novel-storyboard/references/h3-prompt.md` 是官方 drama-series 工作流骨架
+  （minimax-official-workflows）的**内化派生副本**（本树只带这一份；文件内部声明
+  v1.4.0 / v1.5.0 两份内化副本须逐字一致），只为运行时自取而保留，不是事实源；
+  唯一权威在作者机器之外，不随本包分发。
+  上游骨架的许可条款由上游持有方决定：本包对其不重新授权，也不主张自有。
+  派生关系在 SKILL.md 的 `h3_spec_role: derived` + `derived_from` 两条声明里可对账。
+
+三、第三方署名件（MIT）
+  `skills_runtime/dramacraft_patch/spec_cards/镜头组规范卡.md` 头部自述
+  `author: Hermes Agent, license: MIT`。该件按上游 MIT 条款保留原署名与本声明引用，
+  MIT 授予的权利不受第一节限制；如上游要求附完整 MIT 正文，请在再分发时同时携带原件。
+
+四、开发柜路径不在包内
+  文档中出现的 `schemas/contract_check.py`、`schemas/twin-kernel.json` 属于技能柜开发侧的
+  跨仓对账工具，**不随本包分发**，收件人不必也不应执行。
+  逐条清单与「收件人该怎么办」登记在
+  `scripts/package_governance/CABINET_ONLY_REFS.json`；包内自检请用
+  `python scripts/check_package.py --as-package`。
+
+五、配置与样例
+  `llm_nodes.example.json` 是模板（api_key 一律为 REPLACE-ME 占位），用户自填的
+  `llm_nodes.json` / `.env` 不属于分发内容。`fixtures/` 与 `skills_runtime/*/examples/`
+  为演示用结构与合成文本，不含任何真实用户书库或付费语料；
+  第三方 Python/Node 依赖各按上游许可证发布，本声明不改变其条款。

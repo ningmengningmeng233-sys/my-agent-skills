@@ -1,0 +1,18 @@
+# 资产提取运行依赖（标题不写版本号：写死会随版本腐坏，本行曾滞留 v2.15.0 三版未同步）
+requests>=2.25
+python-dotenv>=0.19
+
+# TOML 读取：`tomllib` 是 Python 3.11 才进标准库，本仓 8 个模块写 `import tomli as tomllib` 回退，
+# 其中 5 处在模块顶层——漏这行时 3.10 上连 `maintenance.py status` 都起不来（缺陷 F33）。
+# 标记必须限定 <3.11：3.11+ 装了属多余依赖。由 测试/unit/test_py310_compat.py 钉死不得脱钩。
+tomli>=1.2,<3 ; python_version < "3.11"
+
+# 输入规范化（规格 4）：DOCX / EPUB 为正式输入格式
+python-docx>=1.1,<2
+EbookLib>=0.18,<1
+beautifulsoup4>=4.12,<5
+
+# 视觉生产（可选下游模块）：需要 Gemini 生图时才装
+# 核心资产反推不需要本组依赖；未安装时视觉模块给出明确提示而不是崩溃
+google-genai>=1.0,<2
+Pillow>=10.0,<12

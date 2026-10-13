@@ -1,0 +1,8 @@
+requests
+python-dotenv
+opencc
+numpy
+sentence-transformers
+# LLM JSON 宽松解析兜底（切条目.py 的最后一级容错）
+demjson3
+pytest

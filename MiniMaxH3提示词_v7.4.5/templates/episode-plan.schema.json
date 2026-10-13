@@ -1,0 +1,276 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "minimax-h3-craft/templates/episode-plan.schema.json",
+  "title": "MiniMax H3 Craft 整集计划 (episode-plan.json)",
+  "description": "整集提示词计划的机器格式。字段形态由本文件描述，跨字段判定由 scripts/episode_contract.py 的 validate_episode_plan() 执行：时长档位读 config/duration-policy.json 的 overage_review_ratio 与 statuses，有效片段范围取该文件的 clip_seconds 与 config/model-capabilities.json 中目标模型 duration_seconds 的交集。本文件不重复写死 4—10 秒，避免出现第二份时长事实源。",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "episode_id",
+    "workflow",
+    "model",
+    "script_target_seconds",
+    "source_units",
+    "clips",
+    "planned_prompt_seconds",
+    "real_model_render_status",
+    "actual_generated_seconds",
+    "final_edit_seconds"
+  ],
+  "properties": {
+    "schema_version": {
+      "description": "计划格式版本；出现时必须是 1，未知版本一律拒绝。",
+      "const": 1
+    },
+    "episode_id": {
+      "description": "本集标识，非空白字符串。",
+      "type": "string",
+      "minLength": 1
+    },
+    "workflow": {
+      "description": "所选工作流格式（如 native-drama-series / ref2va-en / native-general）。工作流集合由各自正式模板定义，本门禁只要求非空白字符串，格式一致性由文档一致性测试负责。",
+      "type": "string",
+      "minLength": 1
+    },
+    "model": {
+      "description": "目标模型；必须在 config/model-capabilities.json 的 models 中登记。",
+      "type": "string",
+      "minLength": 1
+    },
+    "script_target_seconds": {
+      "description": "剧本声明的目标时长（Task 3 parse_script_duration 的 target_seconds）。必须等于剧本自身的声明：本门禁看不到剧本正文，把申报目标改小再按小目标规划由 Task 9 的总门禁比对剧本原文拦截。缺失或为 0 记 MISSING_SCRIPT_TARGET；计划素材总时长低于它记 PLANNED_DURATION_UNDERSHOOT。",
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "source_units": {
+      "description": "剧本原子内容来源，按剧本顺序；内容种类必须被片段逐字覆盖一次（span 必须完整落在被测范围内且不重复），system_transition 只登记不覆盖、其 span_* 若出现也不参与判定。同类型内容来源的字符范围不得互相重叠：重叠即同一段剧本内容被渲染两次，记 SOURCE_UNIT_OVERLAP；跨类型重叠合法（同一段字符可以既承载台词又承载状态变化）。",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/source_unit"
+      }
+    },
+    "clips": {
+      "description": "计划片段，按剧本顺序，时间线必须从 0 开始且逐片连续（空档 / 重叠 / 倒序一律阻断）。",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/clip"
+      }
+    },
+    "planned_prompt_seconds": {
+      "description": "申报的计划素材总时长；判定永远使用 Σ片段时长，申报值不符记 PLANNED_SECONDS_MISMATCH。",
+      "type": "number",
+      "minimum": 0
+    },
+    "real_model_render_status": {
+      "description": "真实模型渲染层状态。NOT_RUN / FAILED 时后两项必须是 null；COMPLETED 必须有实测秒数，否则记 RENDER_STATUS_MISMATCH（不得把计划时长冒充真实时长）。",
+      "enum": [
+        "NOT_RUN",
+        "COMPLETED",
+        "FAILED"
+      ]
+    },
+    "actual_generated_seconds": {
+      "description": "真实模型返回媒体的实测总时长；未跑真实模型必须是 null，不得由计划值代填。这是申报值，真实媒体是否存在由总门禁的证据链核对（本门禁只保证 COMPLETED / NOT_RUN / FAILED 三层级不互相冒充）。",
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "final_edit_seconds": {
+      "description": "最终剪辑文件的实测时长；未执行最终剪辑验收必须是 null。超过 actual_generated_seconds 时告警 FINAL_EDIT_EXCEEDS_GENERATED（可能是片头片尾，也可能是抄了计划值），要求人工举证。",
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    }
+  },
+  "$defs": {
+    "source_unit": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "kind"
+      ],
+      "properties": {
+        "id": {
+          "description": "稳定来源 ID；同一计划内唯一。",
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "description": "来源类型：台词 / 关键动作 / 关键线索 / 状态变化 / 系统补充过渡。",
+          "enum": [
+            "dialogue",
+            "action",
+            "clue",
+            "state_change",
+            "system_transition"
+          ]
+        },
+        "span_start": {
+          "description": "剧本字符范围起点（含）；内容来源必填，类型与下界见 allOf.then（system_transition 的 span_* 是惰性元数据，不受约束）。"
+        },
+        "span_end": {
+          "description": "剧本字符范围终点（不含），内容来源必填且必须大于 span_start（该跨字段关系由 scripts/episode_contract.py 判定）；system_transition 的 span_* 不受约束。"
+        },
+        "text": {
+          "description": "该来源的剧本原文（便于人工核对；门禁不据此判定）。",
+          "type": "string"
+        },
+        "scene_id": {
+          "description": "所属场景标识（用于台账与连续性核对）。",
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "not": {
+                  "const": "system_transition"
+                }
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "span_start",
+              "span_end"
+            ],
+            "properties": {
+              "span_start": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "span_end": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "source_ref": {
+      "description": "片段对来源的引用，必须记录字符范围，供逐字覆盖与不重复证明。",
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "source_id",
+        "span_start",
+        "span_end"
+      ],
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "span_start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "span_end": {
+          "description": "必须大于 span_start，且不得越出被引用来源单元自身的范围。",
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "trim_candidate": {
+      "description": "后期安全裁剪位置；只在换场、定格、反应镜头、空镜或可裁切动作尾端等确有需要处标记，不强制全片存在。",
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "at_seconds",
+        "reason"
+      ],
+      "properties": {
+        "at_seconds": {
+          "description": "片段内的时间点（秒），必须落在 [0, duration_seconds) 内。",
+          "type": "number",
+          "minimum": 0
+        },
+        "reason": {
+          "description": "裁剪依据，非空白字符串。",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "clip": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "start_seconds",
+        "duration_seconds",
+        "source_refs",
+        "start_state",
+        "end_state",
+        "system_added_transitions",
+        "trim_candidates",
+        "prompt_text"
+      ],
+      "properties": {
+        "id": {
+          "description": "片段 ID，三位数字起（G001…）；同一计划内唯一。",
+          "type": "string",
+          "minLength": 1
+        },
+        "start_seconds": {
+          "description": "片段起点（整秒），按计划时间线连续排布。",
+          "type": "integer",
+          "minimum": 0
+        },
+        "duration_seconds": {
+          "description": "片段时长（整秒）。有效范围由政策 clip_seconds 与目标模型 duration_seconds 的交集决定，本文件不写死上下限。",
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_refs": {
+          "description": "本片段覆盖的来源与字符范围；每个片段至少引用一项剧本来源（纯系统过渡片段等于凭空造内容，拒绝）。",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/source_ref"
+          }
+        },
+        "start_state": {
+          "description": "起始人物位置、朝向、姿势、视线与道具状态（连续性合同）。",
+          "type": "string",
+          "minLength": 1
+        },
+        "end_state": {
+          "description": "结束人物位置、朝向、姿势、情绪与道具环境状态，下一片段据此继承。",
+          "type": "string",
+          "minLength": 1
+        },
+        "system_added_transitions": {
+          "description": "本片段添加的系统过渡来源 ID（kind=system_transition）；不得指向剧本原文来源。",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "trim_candidates": {
+          "description": "本片段的安全裁剪位置。",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/trim_candidate"
+          }
+        },
+        "prompt_text": {
+          "description": "该片段可直接使用的提示词正文（沿用所选工作流格式）。",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

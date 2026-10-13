@@ -1,0 +1,24 @@
+{
+  "case_id": "d12-i2va-legacy-asset",
+  "user_prompt": "短剧码头交接戏，图生视频：以 legacy image 资产作为起始画面",
+  "scene": "凌晨的渔港码头，缆绳上结着盐霜",
+  "action": "穿风衣的男人把木箱推进缆桩阴影里，抬手看了眼表",
+  "style": "码头钠灯橙雾与海面反光双色源",
+  "audio": "缆绳吱呀与潮水拍岸声，无配乐",
+  "voice_signature": "风衣男人：短促硬质的低音",
+  "model": "H3",
+  "duration_s": 5,
+  "aspect_ratio": "9:16",
+  "resolution": "768P",
+  "assets": {
+    "image": "https://cdn.example.invalid/h3refs/images/ref-d12.png"
+  },
+  "constraints": [
+    {
+      "id": "pt-d12-i2va-legacy-asset",
+      "value": "凌晨的渔港码头",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

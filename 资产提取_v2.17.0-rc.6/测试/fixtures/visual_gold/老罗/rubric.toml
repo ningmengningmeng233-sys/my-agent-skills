@@ -1,0 +1,19 @@
+# 老罗金标准契约（工单04-Task3）：当前错误图必须被结构化检查拒绝
+subject = "人物"
+case = "老罗"
+schema_version = 1
+
+# 用户提供的错误图：外部私有输入，**未入库、不得标为已通过**
+external_image = "老罗错误图（用户私有，位于桌面外部目录）"
+external_image_hash = ""                   # 实施时该文件已不在磁盘：不采集假哈希
+external_image_status = "NOT_AVAILABLE"   # 采集到后改为 VERIFIED 并填真实哈希
+expected_verdict = "NEEDS_REVISION"
+expected_codes = [
+    "STYLE_MISMATCH",               # 风格漂移
+    "BODY_PROPORTION_ERROR",        # 比例异常
+    "NECK_STUMP_VISIBLE",           # 断颈残留
+    "HEAD_REMAINS_IN_COSTUME_VIEW", # 背面残头
+    "FORBIDDEN_MULTI_PANEL",        # 禁止拼版
+]
+human_visual_review = ""        # 人工视觉验收留空，由人工填写，不代填
+

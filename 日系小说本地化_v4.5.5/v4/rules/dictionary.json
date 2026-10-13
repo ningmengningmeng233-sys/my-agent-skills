@@ -1,0 +1,559 @@
+{
+  "schema_version": "v4-rules-2",
+  "tiers": {
+    "must_replace": [
+      {
+        "source": "圣地林德布尔姆",
+        "target": "圣辉城"
+      },
+      {
+        "source": "社群软体",
+        "target": "社交软件"
+      },
+      {
+        "source": "防卫机能",
+        "target": "防御功能"
+      },
+      {
+        "source": "防御机能",
+        "target": "防御功能"
+      },
+      {
+        "source": "软体",
+        "target": "软件"
+      },
+      {
+        "source": "网路",
+        "target": "网络"
+      },
+      {
+        "source": "部落格",
+        "target": "博客"
+      },
+      {
+        "source": "计画",
+        "target": "计划"
+      },
+      {
+        "source": "滑鼠",
+        "target": "鼠标"
+      },
+      {
+        "source": "硬碟",
+        "target": "硬盘"
+      },
+      {
+        "source": "超商",
+        "target": "小卖部"
+      },
+      {
+        "source": "捷运",
+        "target": "地铁"
+      },
+      {
+        "source": "脚踏车",
+        "target": "自行车"
+      },
+      {
+        "source": "土司",
+        "target": "吐司"
+      },
+      {
+        "source": "正妹",
+        "target": "美女"
+      },
+      {
+        "source": "鲁蛇",
+        "target": "失败者"
+      },
+      {
+        "source": "欧巴桑",
+        "target": "大妈"
+      },
+      {
+        "source": "阿桑",
+        "target": "大妈"
+      },
+      {
+        "source": "小钢珠",
+        "target": "弹珠机"
+      },
+      {
+        "source": "拉面",
+        "target": "汤面"
+      },
+      {
+        "source": "ラーメン",
+        "target": "汤面"
+      },
+      {
+        "source": "寿司",
+        "target": "饭团"
+      },
+      {
+        "source": "弁当",
+        "target": "盒饭"
+      },
+      {
+        "source": "便当",
+        "target": "盒饭"
+      },
+      {
+        "source": "味增汤",
+        "target": "热汤"
+      },
+      {
+        "source": "和室",
+        "target": "厅堂"
+      },
+      {
+        "source": "榻榻米",
+        "target": "木地板"
+      },
+      {
+        "source": "障子",
+        "target": "隔扇"
+      },
+      {
+        "source": "拉门",
+        "target": "隔扇"
+      },
+      {
+        "source": "鸟居",
+        "target": "山门"
+      },
+      {
+        "source": "便利商店",
+        "target": "小卖部"
+      },
+      {
+        "source": "便利店",
+        "target": "小卖部"
+      },
+      {
+        "source": "浴衣",
+        "target": "常服"
+      },
+      {
+        "source": "水手服",
+        "target": "校服"
+      },
+      {
+        "source": "樱花",
+        "target": "桃花"
+      },
+      {
+        "source": "一期一会",
+        "target": "此生仅此一次"
+      },
+      {
+        "source": "物哀",
+        "target": "黯然"
+      },
+      {
+        "source": "ドキドキ",
+        "target": "怦怦直跳"
+      },
+      {
+        "source": "キラキラ",
+        "target": "闪闪发亮"
+      },
+      {
+        "source": "核弹",
+        "target": "蘑菇弹"
+      },
+      {
+        "source": "核武器",
+        "target": "禁忌兵器"
+      },
+      {
+        "source": "流浪剑士",
+        "target": "散修"
+      },
+      {
+        "source": "高层人士",
+        "target": "达官贵人"
+      },
+      {
+        "source": "お兄ちゃん",
+        "target": "哥"
+      },
+      {
+        "source": "お姉ちゃん",
+        "target": "姐"
+      },
+      {
+        "source": "先輩",
+        "target": "学长"
+      },
+      {
+        "source": "先生",
+        "target": "老师"
+      },
+      {
+        "source": "対",
+        "target": "对"
+      },
+      {
+        "source": "図",
+        "target": "图"
+      },
+      {
+        "source": "黒",
+        "target": "黑"
+      },
+      {
+        "source": "実",
+        "target": "实"
+      },
+      {
+        "source": "気",
+        "target": "气"
+      },
+      {
+        "source": "経",
+        "target": "经"
+      },
+      {
+        "source": "楽",
+        "target": "乐"
+      },
+      {
+        "source": "続",
+        "target": "续"
+      },
+      {
+        "source": "変",
+        "target": "变"
+      },
+      {
+        "source": "剣",
+        "target": "剑"
+      },
+      {
+        "source": "戦",
+        "target": "战"
+      },
+      {
+        "source": "帰",
+        "target": "归"
+      },
+      {
+        "source": "権",
+        "target": "权"
+      },
+      {
+        "source": "覚",
+        "target": "觉"
+      },
+      {
+        "source": "読",
+        "target": "读"
+      },
+      {
+        "source": "売",
+        "target": "卖"
+      },
+      {
+        "source": "脳",
+        "target": "脑"
+      },
+      {
+        "source": "顔",
+        "target": "颜"
+      },
+      {
+        "source": "歩",
+        "target": "步"
+      },
+      {
+        "source": "鳥",
+        "target": "鸟"
+      },
+      {
+        "source": "雑",
+        "target": "杂"
+      },
+      {
+        "source": "拡",
+        "target": "扩"
+      },
+      {
+        "source": "価",
+        "target": "价"
+      },
+      {
+        "source": "単",
+        "target": "单"
+      },
+      {
+        "source": "団",
+        "target": "团"
+      },
+      {
+        "source": "訳",
+        "target": "译"
+      },
+      {
+        "source": "験",
+        "target": "验"
+      },
+      {
+        "source": "険",
+        "target": "险"
+      },
+      {
+        "source": "済",
+        "target": "济"
+      },
+      {
+        "source": "帯",
+        "target": "带"
+      },
+      {
+        "source": "広",
+        "target": "广"
+      },
+      {
+        "source": "応",
+        "target": "应"
+      },
+      {
+        "source": "悪",
+        "target": "恶"
+      },
+      {
+        "source": "挙",
+        "target": "举"
+      },
+      {
+        "source": "拠",
+        "target": "据"
+      },
+      {
+        "source": "検",
+        "target": "检"
+      },
+      {
+        "source": "様",
+        "target": "样"
+      },
+      {
+        "source": "歴",
+        "target": "历"
+      },
+      {
+        "source": "殺",
+        "target": "杀"
+      },
+      {
+        "source": "毎",
+        "target": "每"
+      },
+      {
+        "source": "満",
+        "target": "满"
+      },
+      {
+        "source": "産",
+        "target": "产"
+      },
+      {
+        "source": "発",
+        "target": "发"
+      },
+      {
+        "source": "県",
+        "target": "县"
+      },
+      {
+        "source": "絵",
+        "target": "绘"
+      },
+      {
+        "source": "総",
+        "target": "总"
+      },
+      {
+        "source": "薬",
+        "target": "药"
+      },
+      {
+        "source": "転",
+        "target": "转"
+      },
+      {
+        "source": "軽",
+        "target": "轻"
+      },
+      {
+        "source": "辺",
+        "target": "边"
+      },
+      {
+        "source": "鉄",
+        "target": "铁"
+      },
+      {
+        "source": "関",
+        "target": "关"
+      },
+      {
+        "source": "髪",
+        "target": "发"
+      },
+      {
+        "source": "黙",
+        "target": "默"
+      },
+      {
+        "source": "呪",
+        "target": "咒"
+      },
+      "桑",
+      "酱",
+      "君",
+      "さん",
+      "くん",
+      "ちゃん",
+      "ね",
+      "よ",
+      "ぞ",
+      "ぜ"
+    ],
+    "functional_adaptation": [
+      {
+        "source": "神社",
+        "target": "庙",
+        "note": "按世界观可改为道观/祠堂/神殿"
+      },
+      {
+        "source": "和服",
+        "target": "长衫",
+        "note": "按世界观可改为常服/汉服/长袍"
+      },
+      {
+        "source": "清酒",
+        "target": "酒",
+        "note": "西幻用麦酒/果酒，中式用白酒/米酒"
+      },
+      {
+        "source": "日本酒",
+        "target": "酒",
+        "note": "同清酒，按世界观选酒种"
+      },
+      {
+        "source": "骑士团",
+        "target": "骑查司",
+        "note": "实测反馈#5；王朝/西幻世界观可调"
+      },
+      {
+        "source": "圣教堂",
+        "target": "英雄殿",
+        "note": "实测反馈#6"
+      },
+      {
+        "source": "冒险者公会",
+        "target": "佣兵堂",
+        "note": "按组织性质可调为行会/堂口"
+      },
+      {
+        "source": "文化祭",
+        "target": "节庆",
+        "note": "功能保留，壳子重建"
+      },
+      {
+        "source": "神社初詣",
+        "target": "庙会",
+        "note": "功能保留，壳子重建"
+      },
+      {
+        "source": "社团部活",
+        "target": "日常训练",
+        "note": "架空学院/武馆语境"
+      },
+      {
+        "source": "前辈后辈制",
+        "target": "层级",
+        "note": "师门/堂口/社团层级"
+      },
+      {
+        "source": "关西腔",
+        "target": "市井口音",
+        "note": "用‘得嘞’‘成’等口头禅+市井用词"
+      },
+      {
+        "source": "大小姐语",
+        "target": "矜持口吻",
+        "note": "书面语+‘罢了’‘有趣’+矜持句尾"
+      },
+      {
+        "source": "吾主",
+        "target": "尊主",
+        "note": "按组织性质可改为教主/坛主/主上"
+      },
+      {
+        "source": "私",
+        "target": "我",
+        "note": "语境选择老夫/老朽/X某/在下/妾身"
+      },
+      {
+        "source": "拙者",
+        "target": "在下",
+        "note": "古风自称"
+      }
+    ],
+    "default_keep": [
+      "魔法",
+      "魔力",
+      "骑士",
+      "精灵",
+      "蝉鸣",
+      "初雪",
+      "羁绊",
+      "殿下",
+      "大人",
+      "公主",
+      "王子"
+    ]
+  },
+  "historical_decisions": [
+    {
+      "source": "实测反馈修订#1",
+      "meaning": "蔷薇·沧云→沧云薇"
+    },
+    {
+      "source": "实测反馈修订#4",
+      "meaning": "影之庭院→影中猎人"
+    },
+    {
+      "source": "实测反馈修订#5",
+      "meaning": "天澜王朝→天圣王朝；骑士团→骑查司"
+    },
+    {
+      "source": "实测反馈修订#6",
+      "meaning": "圣教堂类地名→英雄殿"
+    },
+    {
+      "source": "实测反馈修订#11",
+      "meaning": "核弹→蘑菇弹"
+    },
+    {
+      "source": "实测反馈修订#12",
+      "meaning": "魔力保留，不强制改为灵力/法力"
+    },
+    {
+      "source": "实测反馈修订#13",
+      "meaning": "流浪剑士→散修"
+    },
+    {
+      "source": "审查报告20260820",
+      "meaning": "台版语气词/台版用词纳入硬门槛；prompt 注入本地规则并锁定已替换词"
+    }
+  ],
+  "version": "v4-core-4",
+  "tone_policy": {
+    "description": "v4.3.0 审查整改：台→中词表断层补齐。must_replace 新增台版用词；腔调硬门槛见 v4/rules/tone-scan.json。",
+    "taiwan_replace_locked": true
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "case_id": "g03-t2va-mountain-fog",
+  "user_prompt": "风景空镜：清晨山脊云海，镜头贴山脊线缓缓平移",
+  "model": "H3",
+  "duration_s": 10,
+  "aspect_ratio": "16:9",
+  "resolution": "2K",
+  "scene": "清晨山脊之上的云海",
+  "action": "云瀑从垭口被风扯成长条，雾带贴着山脊缓缓移动",
+  "camera": "贴山脊线右移的匀速运镜",
+  "style": "日出前蓝调时刻，远峰镶金边",
+  "constraints": [
+    {
+      "id": "pt-g03-t2va-mountain-fog",
+      "value": "清晨山脊之上的云海",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-g03-resolution",
+      "value": "2K",
+      "delivery_scope": "api_parameter",
+      "target_path": "resolution"
+    }
+  ]
+}

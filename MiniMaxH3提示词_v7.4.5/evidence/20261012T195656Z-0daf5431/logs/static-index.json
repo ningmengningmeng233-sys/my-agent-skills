@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.0.0",
+  "gate": "static",
+  "run_id": "20261012T195656Z-0daf5431",
+  "source_commit": "fb72aad287d070b912c5793574101222ad88d115",
+  "exit_code": 0,
+  "started_at": "2026-10-12T19:56:56.424643+00:00",
+  "finished_at": "2026-10-12T19:57:00.666876+00:00",
+  "suites": [
+    {
+      "suite": "test_build_release.py",
+      "exit_code": 0,
+      "passed": 17,
+      "total": 17,
+      "started_at": "2026-10-12T19:56:56.424643+00:00",
+      "finished_at": "2026-10-12T19:56:56.626829+00:00",
+      "log": "logs/static-test_build_release.py.log",
+      "log_sha256": "58225de4b57f8393b2b54a3720934cd68119bc7141fd8c91af5840147402b7d6"
+    },
+    {
+      "suite": "test_closure_evidence_registry.py",
+      "exit_code": 0,
+      "passed": 5,
+      "total": 5,
+      "started_at": "2026-10-12T19:56:56.642900+00:00",
+      "finished_at": "2026-10-12T19:56:56.768447+00:00",
+      "log": "logs/static-test_closure_evidence_registry.py.log",
+      "log_sha256": "f88608a6f1be347e7107c2fd311cf08c923ab60f7e69733fafe1afafebd59a31"
+    },
+    {
+      "suite": "test_duration_docs_consistency.py",
+      "exit_code": 0,
+      "passed": 9,
+      "total": 9,
+      "started_at": "2026-10-12T19:56:56.787617+00:00",
+      "finished_at": "2026-10-12T19:56:57.100229+00:00",
+      "log": "logs/static-test_duration_docs_consistency.py.log",
+      "log_sha256": "ee686ecdb49e852e1cc30ad744d2318894a6f6cf5e5f799970152c3794955ce9"
+    },
+    {
+      "suite": "test_duration_planner.py",
+      "exit_code": 0,
+      "passed": 116,
+      "total": 116,
+      "started_at": "2026-10-12T19:56:57.116061+00:00",
+      "finished_at": "2026-10-12T19:56:57.297279+00:00",
+      "log": "logs/static-test_duration_planner.py.log",
+      "log_sha256": "fe62f3a83444853f30d44014d53cf97e19e1418610c246cf1813318717da6422"
+    },
+    {
+      "suite": "test_duration_policy.py",
+      "exit_code": 0,
+      "passed": 59,
+      "total": 59,
+      "started_at": "2026-10-12T19:56:57.299833+00:00",
+      "finished_at": "2026-10-12T19:56:58.175037+00:00",
+      "log": "logs/static-test_duration_policy.py.log",
+      "log_sha256": "e4a967667e6203257858730663568cb4cf58f58222278f8474749f5fbe8c6d7a"
+    },
+    {
+      "suite": "test_episode_contract.py",
+      "exit_code": 0,
+      "passed": 158,
+      "total": 158,
+      "started_at": "2026-10-12T19:56:58.175037+00:00",
+      "finished_at": "2026-10-12T19:56:59.013390+00:00",
+      "log": "logs/static-test_episode_contract.py.log",
+      "log_sha256": "573e99ad03af4562546346fbecd0b2663d86e6b112fcbfbc4e74df6039ff9b9b"
+    },
+    {
+      "suite": "test_reference_loading_routes.py",
+      "exit_code": 0,
+      "passed": 6,
+      "total": 6,
+      "started_at": "2026-10-12T19:56:59.030142+00:00",
+      "finished_at": "2026-10-12T19:56:59.152996+00:00",
+      "log": "logs/static-test_reference_loading_routes.py.log",
+      "log_sha256": "a95f984b70b19f79cbe53b9085ee6914a64de9280942ec4f143ecad96ea56f72"
+    },
+    {
+      "suite": "test_release_licence.py",
+      "exit_code": 0,
+      "passed": 0,
+      "total": 0,
+      "started_at": "2026-10-12T19:56:59.156089+00:00",
+      "finished_at": "2026-10-12T19:56:59.282321+00:00",
+      "log": "logs/static-test_release_licence.py.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "suite": "test_release_no_private_path_surface.py",
+      "exit_code": 0,
+      "passed": 0,
+      "total": 0,
+      "started_at": "2026-10-12T19:56:59.282321+00:00",
+      "finished_at": "2026-10-12T19:56:59.344962+00:00",
+      "log": "logs/static-test_release_no_private_path_surface.py.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "suite": "test_release_surface.py",
+      "exit_code": 0,
+      "passed": 0,
+      "total": 0,
+      "started_at": "2026-10-12T19:56:59.344962+00:00",
+      "finished_at": "2026-10-12T19:56:59.701203+00:00",
+      "log": "logs/static-test_release_surface.py.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "suite": "test_script_duration.py",
+      "exit_code": 0,
+      "passed": 46,
+      "total": 46,
+      "started_at": "2026-10-12T19:56:59.701203+00:00",
+      "finished_at": "2026-10-12T19:56:59.827278+00:00",
+      "log": "logs/static-test_script_duration.py.log",
+      "log_sha256": "ef276660aaf41880c52cd0d2e656a53ef6c621f9e1d2dd91dfe0a6ba641e7f53"
+    },
+    {
+      "suite": "test_skill_context_budget.py",
+      "exit_code": 0,
+      "passed": 43,
+      "total": 43,
+      "started_at": "2026-10-12T19:56:59.828442+00:00",
+      "finished_at": "2026-10-12T19:57:00.261895+00:00",
+      "log": "logs/static-test_skill_context_budget.py.log",
+      "log_sha256": "b2615872a1dd6bd18cc652d569243c7567dee9413c823e74ad6090da930bc7d5"
+    },
+    {
+      "suite": "test_skill_discovery_sdo.py",
+      "exit_code": 0,
+      "passed": 4,
+      "total": 4,
+      "started_at": "2026-10-12T19:57:00.263647+00:00",
+      "finished_at": "2026-10-12T19:57:00.379090+00:00",
+      "log": "logs/static-test_skill_discovery_sdo.py.log",
+      "log_sha256": "ae7d9f6a91781285f3535792e3c7c0bb0926b94b161e21dc7146373f19473dee"
+    },
+    {
+      "suite": "test_storyboard_reader.py",
+      "exit_code": 0,
+      "passed": 0,
+      "total": 0,
+      "started_at": "2026-10-12T19:57:00.379090+00:00",
+      "finished_at": "2026-10-12T19:57:00.666876+00:00",
+      "log": "logs/static-test_storyboard_reader.py.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

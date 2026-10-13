@@ -1,0 +1,5 @@
+# 成片合成 —— 运行期零新增依赖
+# 运行期只用 Python 标准库（json/argparse/urllib/pathlib/datetime）。
+# 下列为运行自带测试所需的第三方依赖（收件人按需安装，运行期本身不需要）：
+pytest>=9.0        # 测试
+PyYAML>=6.0        # 读 SKILL.md front matter（测试内）

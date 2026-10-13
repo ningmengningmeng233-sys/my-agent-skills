@@ -1,0 +1,26 @@
+{
+  "case_id": "d10-ref2va-character-pack",
+  "user_prompt": "短剧师徒重逢戏：角色图与场景参考资产齐套，多模态参考合成",
+  "scene": "山门石阶上，晨雾把远处塔尖泡软",
+  "action": "老师父拄杖的手停在第三级台阶，抬眼看向阶下归人",
+  "style": "晨雾漫射，塔铃方向透出一点暖金",
+  "audio": "风铃一声轻响与杖尖点石的笃声，无配乐",
+  "voice_signature": "老师父：苍老缓沉男声，字与字之间留白长",
+  "model": "H3",
+  "duration_s": 8,
+  "aspect_ratio": "16:9",
+  "resolution": "768P",
+  "assets": {
+    "image": "https://cdn.example.invalid/h3refs/images/ref-d10.png",
+    "video": "https://cdn.example.invalid/h3refs/videos/mot-d10.mp4",
+    "audio": "https://cdn.example.invalid/h3refs/audios/bed-d10.wav"
+  },
+  "constraints": [
+    {
+      "id": "pt-d10-ref2va-character-pack",
+      "value": "山门石阶上",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

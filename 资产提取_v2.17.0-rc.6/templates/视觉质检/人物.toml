@@ -1,0 +1,62 @@
+# 人物视觉质检清单（工单03-Task5）
+# 只检查可核验的画面事实；每条问题必须带可见证据与定向修复指令。
+
+subject = "人物"
+schema_version = 1
+note = "人物资产逐项独立检查；任一项阻断即不得通过"
+
+checks = [
+    "身份：骨相、五官、发型与「正脸」身份图一致（IDENTITY_DRIFT）",
+    "风格：介质、材质、肤质与光色符合风格基线，无瓷亮高光或高饱和（STYLE_MISMATCH）",
+    "比例：头身比与体块关系合理，无拉长或压缩（BODY_PROPORTION_ERROR）",
+    "裁切：主体完整入画；全身图头脚齐全，不得裁切头顶或脚部（SUBJECT_CROPPED）",
+    "正背一致：正背成对资产共享画布、主体占比、相机高度、站姿与焦段（FRONT_BACK_INCONSISTENT）",
+    "服装完整：款式、层次、材质分区与配饰成套，无缺件（COSTUME_INCOMPLETE）",
+    "服装正背一致：同一件服装的正面与背面结构对应（COSTUME_FRONT_BACK_MISMATCH）",
+    "服装独立图：使用隐形人体支撑，领口肩线完整，无皮肤残端（NECK_STUMP_VISIBLE）",
+    "服装独立背面：不得出现头部、后脑勺或残留下巴（HEAD_REMAINS_IN_COSTUME_VIEW）",
+    "发型结构：发束分组与发际线连续，无断裂或飞散过载（HAIR_STRUCTURE_ERROR）",
+    "拼版禁令：只允许单张单幅，出现多格/人物板即报（FORBIDDEN_MULTI_PANEL）",
+    "额外主体：画面中不得出现第二个角色或背景路人（EXTRA_SUBJECT）",
+    "文字水印：画面不得含文字、标注或水印（TEXT_OR_WATERMARK）",
+    "手部：对**每只**可见手逐项检查手指数（五指齐全）、手指分离、关节结构、抓握关系与遮挡合理性（HAND_FINGER_DEFECT）",
+    "比例硬门：头身比、四肢长度与体块关系正确，无拉长、压缩或断肢（BODY_PROPORTION_DEFECT）",
+    "站位：人物所在的左/中/右区域、前/中/后景层次、相互距离与朝向必须与构图卡一致；只比区域与关系，**不要求像素坐标**（POSITION_MISMATCH）",
+    "机位：景别与视角（平视/俯视/仰视/侧视/越肩）与构图卡一致，机位高度不得擅自改变（VIEWPOINT_MISMATCH）",
+    "视线：人物视线方向与对方位置对应，对话双方互相看得到（EYELINE_MISMATCH）",
+    "轴线：同一场景内不得无故跨越 180 度行动轴线；穿越必须已在剧本或构图卡中说明（AXIS_CROSSING）",
+    "遮挡：前后遮挡关系与剧本一致（谁挡住谁、谁在谁身前），不得凭空反转（OCCLUSION_MISMATCH）",
+    "裁切硬门：按画幅完整入画；全身图头顶到脚齐全，不得裁掉头顶、手部或脚（CROP_MISMATCH）",
+    "参考链：所用参考图必须是当前正式版本，身份/服装/场景参考齐全且未被替换（REFERENCE_CHAIN_INVALID）",
+]
+
+# 硬门码（规格九 / 施工单 6.2）：存在任一即不得「通过」或「通过但有备注」
+blocking_codes = [
+    "HAND_FINGER_DEFECT", "BODY_PROPORTION_DEFECT", "IDENTITY_DRIFT", "STYLE_MISMATCH",
+    "CROP_MISMATCH", "POSITION_MISMATCH", "VIEWPOINT_MISMATCH", "EYELINE_MISMATCH",
+    "AXIS_CROSSING", "OCCLUSION_MISMATCH", "PROP_COUNT_MISMATCH", "PROP_STATE_MISMATCH",
+    "SCENE_STRUCTURE_MISMATCH", "EXTRA_SUBJECT", "TEXT_OR_WATERMARK",
+    "REFERENCE_CHAIN_INVALID",
+    "NECK_STUMP_VISIBLE", "HEAD_REMAINS_IN_COSTUME_VIEW", "FORBIDDEN_MULTI_PANEL",
+    "FRONT_BACK_INCONSISTENT", "COSTUME_FRONT_BACK_MISMATCH",
+]
+
+repair_hints = [
+    "STYLE_MISMATCH = 重注入风格参考，恢复干燥哑光至柔缎表面与宽阔中间调",
+    "NECK_STUMP_VISIBLE = 改用隐形人体支撑，隐藏全部皮肤残端",
+    "HEAD_REMAINS_IN_COSTUME_VIEW = 移除头部/后脑勺/下巴，只保留服装",
+    "FORBIDDEN_MULTI_PANEL = 改为单张单幅重新生成，拼版只能由已通过图片自动合成",
+    "SUBJECT_CROPPED = 调整构图，确保主体完整、全身图头脚齐全",
+    "BODY_PROPORTION_ERROR = 回到正确头身比与体块关系",
+    "FRONT_BACK_INCONSISTENT = 以正面图为结构参考重做背面，统一画布与相机参数",
+    "IDENTITY_DRIFT = 以正脸身份图为准重注入，不得重新设计五官",
+    "HAND_FINGER_DEFECT = 逐只手重画：五指齐全且分离、关节结构正确、抓握关系成立",
+    "BODY_PROPORTION_DEFECT = 回到正确头身比与体块关系，重心落地",
+    "POSITION_MISMATCH = 按构图卡回到指定左/中/右区域与前后层次，保持距离与朝向",
+    "VIEWPOINT_MISMATCH = 按构图卡恢复景别、视角与机位高度",
+    "EYELINE_MISMATCH = 让视线方向与对方位置对应",
+    "AXIS_CROSSING = 回到轴线同一侧；确需越轴时先补剧本或构图卡说明",
+    "OCCLUSION_MISMATCH = 按剧本恢复前后遮挡与保护/包围关系",
+    "CROP_MISMATCH = 调整构图让主体完整入画（全身图头顶到脚齐全）",
+    "REFERENCE_CHAIN_INVALID = 改用当前正式版本的参考图，不得引用历史或未通过版本",
+]

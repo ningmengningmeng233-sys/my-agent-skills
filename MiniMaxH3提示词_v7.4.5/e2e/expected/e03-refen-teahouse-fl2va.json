@@ -1,0 +1,13 @@
+{
+  "case_id": "e03-refen-teahouse-fl2va",
+  "expected_mode": "fl2va",
+  "expected_profile": "ref2va-en",
+  "constraints": [
+    {
+      "id": "pt-e03-refen-teahouse-fl2va",
+      "value": "paper-screen light",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

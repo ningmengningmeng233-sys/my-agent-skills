@@ -1,0 +1,13 @@
+{
+  "case_id": "g06-t2va-neon-typography",
+  "expected_mode": "t2va",
+  "expected_profile": "native-general",
+  "constraints": [
+    {
+      "id": "pt-g06-t2va-neon-typography",
+      "value": "纯黑无缝空间",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

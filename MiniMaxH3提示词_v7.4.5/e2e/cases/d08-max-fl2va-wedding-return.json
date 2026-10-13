@@ -1,0 +1,25 @@
+{
+  "case_id": "d08-max-fl2va-wedding-return",
+  "user_prompt": "短剧婚礼散场戏，H3-Max 首尾帧锁定空场到独坐的两个构图",
+  "scene": "退去宾客的宴会厅，彩带垂在椅背上",
+  "action": "新娘提着裙摆穿过桌椅间的过道，在主桌前慢慢坐下",
+  "style": "吊灯留一档暖光，其余沉进蓝灰",
+  "audio": "高跟鞋踩上木地的轻响与空调低鸣，无配乐",
+  "voice_signature": "新娘：气声很轻的女声，尾音下坠",
+  "model": "H3-Max",
+  "duration_s": 9,
+  "aspect_ratio": "1:1",
+  "resolution": "768P",
+  "assets": {
+    "first_frame": "https://cdn.example.invalid/h3refs/frames/start-d08.png",
+    "last_frame": "https://cdn.example.invalid/h3refs/frames/end-d08.png"
+  },
+  "constraints": [
+    {
+      "id": "pt-d08-max-fl2va-wedding-return",
+      "value": "退去宾客的宴会厅",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

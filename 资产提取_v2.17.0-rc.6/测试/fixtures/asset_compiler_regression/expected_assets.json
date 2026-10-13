@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "fixture": "asset_compiler_regression",
+  "deidentified": true,
+  "notes": "脱敏夹具的期望资产真值（v2.17 目标）。字段供机器读取，测试不得硬编码资产数量。v2.16 现有链路的缺口（服装/后期元素无法产出、单次出现道具被 P3 静默丢弃）正是本夹具要冻结的故障。",
+  "assets": [
+    {"asset_type": "person", "canonical_name": "撑伞姑娘", "aliases": ["阿锦（琴师）"], "evidence_quote": "撑伞姑娘自渡口下船", "is_formal": true, "narrative_importance": "main", "production_mode": "full", "expected_base_prompts": 1, "case": "主角，贯穿多章"},
+    {"asset_type": "person", "canonical_name": "负剑公子", "aliases": [], "evidence_quote": "向负剑公子点头示意", "is_formal": true, "narrative_importance": "main", "production_mode": "full", "expected_base_prompts": 1, "case": "主角，含断臂/重伤状态变体"},
+    {"asset_type": "person", "canonical_name": "抚琴老者", "aliases": [], "evidence_quote": "抚琴老者坐在临河茶楼二层", "is_formal": true, "narrative_importance": "supporting", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "person", "canonical_name": "檐下掌柜", "aliases": [], "evidence_quote": "檐下掌柜拨着算盘", "is_formal": true, "narrative_importance": "supporting", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "person", "canonical_name": "卖药少年", "aliases": [], "evidence_quote": "卖药少年挤过人群", "is_formal": true, "narrative_importance": "supporting", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "person", "canonical_name": "临窗夫人", "aliases": [], "evidence_quote": "临窗夫人认出那枚乌木簪", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "person", "canonical_name": "悬壶大夫", "aliases": [], "evidence_quote": "悬壶大夫给负剑公子重新接了脱臼的手臂", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "person", "canonical_name": "渡口的船夫", "aliases": [], "evidence_quote": "渡口的船夫把旧书塞进油纸伞下", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "person", "canonical_name": "阿锦（撑船的）", "aliases": ["阿锦"], "evidence_quote": "而渡口撑船的阿锦是另一个人", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1, "case": "同名歧义：与琴师阿锦同名不同人，禁止静默合并"},
+    {"asset_type": "person", "canonical_name": "往来说书人", "aliases": [], "evidence_quote": "往来说书人被挤到一边", "is_formal": false, "narrative_importance": "crowd", "production_mode": "none", "expected_base_prompts": 0, "case": "群演，非独立正式资产"},
+    {"asset_type": "person", "canonical_name": "几名衙役", "aliases": [], "evidence_quote": "几名衙役立在衙门口", "is_formal": false, "narrative_importance": "crowd", "production_mode": "none", "expected_base_prompts": 0, "case": "群演集合，非个体资产"},
+
+    {"asset_type": "scene", "canonical_name": "临河茶楼", "aliases": [], "evidence_quote": "抚琴老者坐在临河茶楼二层", "is_formal": true, "narrative_importance": "main", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "scene", "canonical_name": "青石长街", "aliases": [], "evidence_quote": "青石长街被雨水洗得发亮", "is_formal": true, "narrative_importance": "supporting", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "scene", "canonical_name": "四方天井", "aliases": [], "evidence_quote": "四方天井积了水", "is_formal": true, "narrative_importance": "supporting", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "scene", "canonical_name": "老槐客栈", "aliases": [], "evidence_quote": "老槐客栈二楼传来脚步", "is_formal": true, "narrative_importance": "supporting", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "scene", "canonical_name": "守备前厅", "aliases": [], "evidence_quote": "守备前厅的灯笼被风吹得摇晃", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "scene", "canonical_name": "藏书室", "aliases": [], "evidence_quote": "卖药少年在藏书室翻找一册旧书", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1},
+
+    {"asset_type": "prop", "canonical_name": "算盘", "aliases": [], "evidence_quote": "檐下掌柜拨着算盘", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "prop", "canonical_name": "焦尾琴", "aliases": ["琴"], "evidence_quote": "怀里抱着一把焦尾琴", "is_formal": true, "narrative_importance": "supporting", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "prop", "canonical_name": "油纸伞", "aliases": ["伞"], "evidence_quote": "把旧书塞进油纸伞下", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "prop", "canonical_name": "青瓷壶", "aliases": ["壶"], "evidence_quote": "青瓷壶里的茶已经凉了", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "prop", "canonical_name": "乌木簪", "aliases": ["簪"], "evidence_quote": "抚琴老者把乌木簪递给临窗夫人", "is_formal": true, "narrative_importance": "supporting", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "prop", "canonical_name": "灯笼", "aliases": ["灯"], "evidence_quote": "守备前厅的灯笼被风吹得摇晃", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "prop", "canonical_name": "旧书", "aliases": [], "evidence_quote": "渡口的船夫把旧书塞进油纸伞下", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "prop", "canonical_name": "屏风", "aliases": [], "evidence_quote": "老槐客栈的屏风后藏着密道", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1},
+    {"asset_type": "prop", "canonical_name": "账本", "aliases": [], "evidence_quote": "檐下掌柜合上账本", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1, "case": "v2.16 无对应提取词，属漏提缺口"},
+    {"asset_type": "prop", "canonical_name": "残破木门", "aliases": [], "evidence_quote": "众人抬头去看那扇残破木门", "is_formal": true, "narrative_importance": "supporting", "production_mode": "full", "expected_base_prompts": 1, "case": "单次出现但推动剧情的关键道具——v2.16 会误判 P3 静默丢弃，本夹具的核心冻结故障"},
+
+    {"asset_type": "costume", "canonical_name": "月白长裙", "aliases": [], "evidence_quote": "月白长裙在雨里湿了边", "is_formal": true, "narrative_importance": "supporting", "production_mode": "full", "expected_base_prompts": 1, "bound_to": "撑伞姑娘", "case": "关键服装，独立生产；v2.16 现链路无法产出服装"},
+    {"asset_type": "costume", "canonical_name": "玄色大氅", "aliases": [], "evidence_quote": "负剑公子解下玄色大氅披在阿锦肩上", "is_formal": true, "narrative_importance": "supporting", "production_mode": "full", "expected_base_prompts": 1, "bound_to": "负剑公子"},
+    {"asset_type": "costume", "canonical_name": "猩红战袍", "aliases": [], "evidence_quote": "猩红战袍染在台阶上", "is_formal": true, "narrative_importance": "minor", "production_mode": "full", "expected_base_prompts": 1, "bound_to": "负剑公子"},
+
+    {"asset_type": "post_element", "canonical_name": "字幕：永昌三年，秋", "aliases": [], "evidence_quote": "【字幕：永昌三年，秋】", "is_formal": false, "narrative_importance": "minor", "production_mode": "post_only", "expected_base_prompts": 0, "case": "后期文字，不得进生图队列，不得计为道具"},
+    {"asset_type": "post_element", "canonical_name": "片尾字幕", "aliases": [], "evidence_quote": "【片尾字幕：众人登楼，远眺江面帆影。】", "is_formal": false, "narrative_importance": "minor", "production_mode": "post_only", "expected_base_prompts": 0},
+    {"asset_type": "post_element", "canonical_name": "片头预告", "aliases": [], "evidence_quote": "【片头预告：下一章，断链重续。】", "is_formal": false, "narrative_importance": "minor", "production_mode": "post_only", "expected_base_prompts": 0},
+
+    {"asset_type": "state", "canonical_name": "负剑公子（断臂之后）", "aliases": [], "evidence_quote": "负剑公子断臂之后化名行医", "is_formal": false, "narrative_importance": "supporting", "production_mode": "reference_only", "expected_base_prompts": 0, "parent": "负剑公子", "case": "人物状态，写入母资产变体，不伪造自环"},
+    {"asset_type": "production_note", "canonical_name": "冷色调/忌亮黄", "aliases": [], "evidence_quote": "【制作说明：本剧整体偏冷色调，主角服装忌用亮黄", "is_formal": false, "narrative_importance": "minor", "production_mode": "none", "expected_base_prompts": 0, "case": "制作说明提供约束，不得直接生成正式资产"}
+  ]
+}

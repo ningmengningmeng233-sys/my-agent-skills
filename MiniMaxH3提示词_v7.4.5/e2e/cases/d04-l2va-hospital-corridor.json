@@ -1,0 +1,24 @@
+{
+  "case_id": "d04-l2va-hospital-corridor",
+  "user_prompt": "短剧医院走廊戏，尾帧生成：从报告单特写推回到人物僵立的构图",
+  "scene": "深夜医院走廊，绿灯管把墙面照得发青",
+  "action": "周砚盯着手里的报告单，拇指一点点攥皱纸角",
+  "style": "顶部冷白灯管与尽头应急灯双色温",
+  "audio": "走廊尽头推车滚轮的哐当声与日光灯嗡鸣，无配乐",
+  "voice_signature": "周砚：低哑男声，几乎不出声的呼吸",
+  "model": "H3",
+  "duration_s": 5,
+  "aspect_ratio": "9:16",
+  "resolution": "768P",
+  "assets": {
+    "last_frame": "https://cdn.example.invalid/h3refs/frames/end-d04.png"
+  },
+  "constraints": [
+    {
+      "id": "pt-d04-l2va-hospital-corridor",
+      "value": "深夜医院走廊",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

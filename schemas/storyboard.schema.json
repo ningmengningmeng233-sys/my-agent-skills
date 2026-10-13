@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "storyboard.schema.json",
+  "title": "storyboard.json — 分镜契约（novel-storyboard → MiniMaxH3 视频提示词的交接文件）",
+  "description": "逆向自现存真实产物：小说转短剧_v1.4.0/skills_runtime/novel-storyboard/examples/渡口-storyboard.json 与该技能 references/schema.md。三层结构：集 → 段（一次视频生成 ≤15 秒）→ 分镜（段内 2–5 秒剪切）。H3 投产包（export 命令产物 manifest.json + 每段 prompt.md）由本文件推导，不另存事实源。",
+  "x-contract": {
+    "name": "storyboard",
+    "version": "1.0.0",
+    "owner": "小说转短剧_v1.4.0/skills_runtime/novel-storyboard（v1.3.0）",
+    "consumers": ["MiniMaxH3提示词_v7.4.1（六列分镜表消费者——当前靠人肉抄表，见 x-shot-table 与 PIPELINE.md 断点 D5/D6）"],
+    "derived_from": [
+      "小说转短剧_v1.4.0/skills_runtime/novel-storyboard/examples/渡口-storyboard.json",
+      "小说转短剧_v1.4.0/skills_runtime/novel-storyboard/references/schema.md",
+      "小说转短剧_v1.4.0/skills_runtime/novel-storyboard/SKILL.md:149-159（五段接力图）"
+    ]
+  },
+  "x-shot-table": {
+    "description": "schemas/shot-table.md 六列分镜表的权威列定义与到本 schema 的字段映射。path 在本 schema 里查不到的列，即当前无机器字段、需人肉转抄/推导的断点（derive 说明推导规则）。",
+    "columns": [
+      { "column": "镜头号", "path": "episodes[].segments[].id", "derive": "镜头号 = 段号 + f<段内切序>，如 E01-01-f2；亦可由 cuts[].shot_id 输出对应 SC###-SH### 行号" },
+      { "column": "时长", "path": "episodes[].segments[].cuts[].seconds", "derive": "逐切秒数；块级总时长 = Σ段内 cuts[].seconds，不单独存字段" },
+      { "column": "景别·角度", "path": "episodes[].segments[].cuts[].angle", "derive": "拍摄角度（cuts[].angle）与景别枚举（cuts[].size）联合输出，直读机器字段" },
+      { "column": "画面内容", "path": "episodes[].segments[].cuts[].frame", "derive": "frame 是关键帧提示词；H3 模板要求中文「谁/在哪/做什么」" },
+      { "column": "对白/台词", "path": "episodes[].segments[].cuts[].dialogue", "derive": "本镜头认领的逐字台词（直读 cuts[].dialogue 机器字段，对账剧本原句）" },
+      { "column": "声音", "path": "episodes[].segments[].soundscape", "derive": "段级声景设计（直读 segments[].soundscape 机器字段，不从自由提示词反解）" }
+    ]
+  },
+  "type": "object",
+  "required": ["source", "episodes"],
+  "properties": {
+    "source": { "type": "string", "description": "剧名" },
+    "lang": { "enum": ["zh", "en"], "description": "报告界面语言（render 侧），与 promptLang 独立" },
+    "style": {
+      "enum": ["realistic", "ghibli"],
+      "description": "风格预设，可省略默认 realistic；对应英文短语（如 cinematic film still）必须出现在每条 cuts[].frame 里（画风统一门）"
+    },
+    "promptLang": {
+      "enum": ["en", "zh"],
+      "description": "h3Prompt 正文语言，可省略默认 en（官方口径）"
+    },
+    "params": {
+      "type": "object",
+      "description": "生成参数，可省略用默认",
+      "properties": {
+        "maxSegmentSeconds": { "type": "number", "description": "段（单次视频生成）时长上限，默认 15" },
+        "minCutSeconds": { "type": "number", "description": "分镜时长下限，默认 2" },
+        "maxCutSeconds": { "type": "number", "description": "分镜时长上限，默认 5" },
+        "maxOnScreen": { "type": "integer", "description": "同框人数上限，默认 3，超出必须带 note" },
+        "tolerance": { "type": "number", "description": "每集总时长对剧本 targetSeconds 的容差，默认 0.15" }
+      },
+      "additionalProperties": true
+    },
+    "episodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/episodeBoard" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "episodeBoard": {
+      "type": "object",
+      "required": ["ep", "segments"],
+      "properties": {
+        "ep": { "type": "integer", "minimum": 1, "description": "集号，对账 script.json episodes[].ep" },
+        "segments": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/segment" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "segment": {
+      "type": "object",
+      "required": ["id", "sceneIndex", "cuts"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^E\\d{2}-\\d{2}$", "description": "段号 = 集号 + 两位序号按顺序连号，同时是素材文件名前缀（E01-01.mp4 / E01-01/f1.png）" },
+        "sceneIndex": { "type": "integer", "minimum": 1, "description": "该段对应剧本该集的第几场（1 起）；段内全部分镜同场，换景必开新段" },
+        "cuts": {
+          "type": "array",
+          "minItems": 1,
+          "description": "段内分镜，按时间顺序；段总秒数 = Σ秒数，不单独存字段",
+          "items": { "$ref": "#/$defs/cut" }
+        },
+        "h3Prompt": {
+          "type": "string",
+          "description": "一段一条 MiniMax H3 视频提示词。结构：首行对齐指令（由分镜秒数推导、validate 逐字对账）+ integrated_multimodal_description（[Shot k] 逐镜一行）+ overall_soundscape + non_diegetic_music。写法规范在 novel-storyboard/references/h3-prompt.md（内化版）——与 MiniMaxH3提示词_v7.4.1 规范并行存在，是 PIPELINE.md 断点 D8 的双事实源"
+        },
+        "soundscape": {
+          "type": "string",
+          "description": "段级声景设计（环境声/音效/音乐描述），供 H3 声音列直读，不从自由提示词反解"
+        },
+        "note": { "type": "string", "description": "备注，可选" }
+      },
+      "additionalProperties": false
+    },
+    "cut": {
+      "type": "object",
+      "required": ["beats", "seconds", "size", "camera", "characters", "frame"],
+      "properties": {
+        "shot_id": {
+          "type": "string",
+          "description": "镜头稳定唯一 ID，支持 E01-01-f1 或 SC001-SH001 格式"
+        },
+        "beats": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "integer", "minimum": 1 },
+          "description": "认领该场第几拍到第几拍（含两端）；每个节拍恰好被一个分镜认领、按顺序连续（节拍认领门）"
+        },
+        "seconds": { "type": "number", "minimum": 0, "description": "分镜时长，默认约束 2–5 秒；认领节拍的台词秒数必须装得下" },
+        "size": {
+          "enum": ["extreme-wide", "wide", "medium", "close", "extreme-close"],
+          "description": "景别枚举；其英文短语必须出现在 frame 里"
+        },
+        "angle": {
+          "type": "string",
+          "description": "拍摄角度（如 eye-level / low-angle / high-angle / dutch-angle / overhead 或中文平视/俯拍/仰拍），供 H3 景别·角度列直读"
+        },
+        "camera": {
+          "type": "string",
+          "description": "运镜，英文模式取 H3 官方词表原样字符串：Static Shot / Push In / Pull Out / Zoom In / Zoom Out / Pan Left / Pan Right / Truck Left / Truck Right / Tilt Up / Tilt Down / Pedestal Up / Pedestal Down / Arc Shot / Tracking Shot / Shake Slightly / Shake Strongly / POV / Roll Clockwise / Roll Counterclockwise；promptLang=zh 时用词表中文对应词（推/固定等），必须出现在自己的 [Shot k] 段落里"
+        },
+        "characters": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^C\\d{2,3}$" },
+          "description": "画内人物 C 编号，必须 ⊆ 剧本该场 characters；空镜为空数组，超上限须带 note"
+        },
+        "props": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^P\\d{2,3}$" },
+          "description": "画内道具 P 编号，必须 ⊆ 剧本该场 props；可省略"
+        },
+        "frame": { "type": "string", "minLength": 1, "description": "该切的分镜图（关键帧）提示词；promptLang=en 时全英文且禁角色名" },
+        "dialogue": {
+          "type": "string",
+          "description": "该镜头认领的逐字台词（与 script.json 剧本原句对账），无台词填空串或（无）"
+        },
+        "dialogue_refs": {
+          "type": "array",
+          "description": "台词精确引用（集/场/节拍/说话人/逐字台词）",
+          "items": { "type": "string" }
+        },
+        "recipe": { "type": "string", "description": "镜头配方卡 id（cut 级），可选挂载 shot-recipes 卡库后才对账（第 17 道门）" },
+        "note": { "type": "string", "description": "备注，可选" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "case_id": "e02-refen-nightmarket-i2va",
+  "expected_mode": "i2va",
+  "expected_profile": "ref2va-en",
+  "constraints": [
+    {
+      "id": "pt-e02-refen-nightmarket-i2va",
+      "value": "neon signs",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}

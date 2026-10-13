@@ -1,0 +1,19 @@
+{
+  "case_id": "g03-t2va-mountain-fog",
+  "expected_mode": "t2va",
+  "expected_profile": "native-general",
+  "constraints": [
+    {
+      "id": "pt-g03-t2va-mountain-fog",
+      "value": "清晨山脊之上的云海",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    },
+    {
+      "id": "api-g03-resolution",
+      "value": "2K",
+      "delivery_scope": "api_parameter",
+      "target_path": "resolution"
+    }
+  ]
+}

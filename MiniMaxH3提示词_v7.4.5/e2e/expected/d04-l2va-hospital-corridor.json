@@ -1,0 +1,13 @@
+{
+  "case_id": "d04-l2va-hospital-corridor",
+  "expected_mode": "l2va",
+  "expected_profile": "native-drama-series",
+  "constraints": [
+    {
+      "id": "pt-d04-l2va-hospital-corridor",
+      "value": "深夜医院走廊",
+      "delivery_scope": "prompt_text",
+      "target_path": "prompt_text"
+    }
+  ]
+}
