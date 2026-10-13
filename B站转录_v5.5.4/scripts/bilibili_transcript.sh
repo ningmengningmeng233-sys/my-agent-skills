@@ -461,6 +461,11 @@ if [ -z "$TRANSCRIPT_TEXT" ]; then
     fi
 
     TXT_FILE="${OUTPUT_DIR}/bilibili_audio.txt"
+    if [ -n "${RUNNER_STATE:-}" ] && [ -s "$RUNNER_STATE" ]; then
+        # AT-01：以执行器 JSON 报告的实际落盘路径为准，约定路径仅作兜底。
+        RUNNER_TXT=$("$PY_BIN" -c "import json,sys; print(json.load(open(sys.argv[1])).get('txt',''))" "$RUNNER_STATE" 2>/dev/null)
+        [ -n "$RUNNER_TXT" ] && TXT_FILE="$RUNNER_TXT"
+    fi
     if [ ! -f "$TXT_FILE" ]; then
         TXT_FILE=$(find "$OUTPUT_DIR" -maxdepth 1 -name "*bilibili_audio*.txt" -type f 2>/dev/null | head -1)
     fi
@@ -478,6 +483,11 @@ if [ -z "$TRANSCRIPT_TEXT" ]; then
         TRANSCRIPT_TEXT=$(cat "$TXT_FILE")
         # 分段侧车：执行器与 TXT 同目录同名，供质量评分与证据对齐使用
         SEGMENTS_FILE="${TXT_FILE%.txt}.segments.json"
+        if [ -n "${RUNNER_STATE:-}" ] && [ -s "$RUNNER_STATE" ]; then
+            # AT-01：同 TXT，以执行器 JSON 报告的实际侧车路径为准。
+            RUNNER_SEG=$("$PY_BIN" -c "import json,sys; print(json.load(open(sys.argv[1])).get('segments_file',''))" "$RUNNER_STATE" 2>/dev/null)
+            [ -n "$RUNNER_SEG" ] && SEGMENTS_FILE="$RUNNER_SEG"
+        fi
         [ -f "$SEGMENTS_FILE" ] || SEGMENTS_FILE=""
     else
         echo "❌ Whisper 转录失败"

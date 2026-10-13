@@ -222,7 +222,9 @@ def run_once(audio: Path, output_dir: Path, *, model, model_name: str,
     return {"status": "ok" if segments else "empty", "txt": txt,
             "segments_file": sidecar, "segments": segments,
             "score": float(report.score), "passed": bool(report.passed),
-            "report": report, "attempt": attempt}
+            "report": report, "attempt": attempt,
+            # AT-01：多轮选优后回写最佳轮需要本轮的 info/strategy。
+            "info": info, "strategy": strategy}
 
 
 def _assets(overrides: dict | None) -> AsrAssets:
@@ -314,6 +316,12 @@ def run_rounds(audio: Path, output_dir: Path, *, loader, initial: dict,
     best_attempt, best_report = history[best_index]
     selected = dict(outputs[best_index])
     selected["round"] = best_index + 1
+    # AT-01：落盘必须等于最佳轮。每轮写同一路径，磁盘上留的是最后一轮
+    # （末轮为空还会删掉文件）；此处把最佳轮的 segments 回写一次。
+    best = outputs[best_index]
+    txt, sidecar = _write_results(output_dir, audio, best["segments"],
+                                  best["info"], best["strategy"])
+    selected["txt"], selected["segments_file"] = txt, sidecar
     return {"status": "ok", "rounds": len(history), "selected": selected,
             "score": float(best_report.score), "passed": bool(best_report.passed),
             "history": [{"round": i + 1, "score": float(rep.score),
