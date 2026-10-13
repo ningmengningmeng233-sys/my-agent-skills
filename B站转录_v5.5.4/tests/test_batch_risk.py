@@ -90,17 +90,17 @@ class TranscribeClassificationTests(unittest.TestCase):
     412 根本没有进到 stdout，批次层只能看到「无法获取视频信息」。
     """
 
-    class _Result:
-        def __init__(self, stdout, stderr=""):
-            self.stdout = stdout
-            self.stderr = stderr
-            self.returncode = 1
-
     def _classify(self, stdout, stderr=""):
         # transcribe_video 会往 stdout 打进度；测试里吞掉，免得刷屏。
+        # AT-05 起改走 Popen（保留 PID 以便超时清树），此处随之 mock 新边界，
+        # 断言（定性语义）保持不变。
+        fake_proc = mock.Mock()
+        fake_proc.communicate.return_value = (stdout, stderr)
+        fake_proc.returncode = 1
+        fake_proc.pid = 99999
         with mock.patch.object(
-                batch.subprocess, "run",
-                return_value=self._Result(stdout, stderr)), \
+                batch.subprocess, "Popen",
+                return_value=fake_proc), \
                 mock.patch.object(batch, "OUTPUT_DIR",
                                   Path(tempfile.mkdtemp())), \
                 contextlib.redirect_stdout(io.StringIO()):

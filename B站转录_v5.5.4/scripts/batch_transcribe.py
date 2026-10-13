@@ -9,6 +9,7 @@ import json
 import os
 import re
 import shutil
+import signal
 import subprocess
 import sys
 import time
@@ -497,6 +498,51 @@ def _extract_output_file(stdout: str) -> str | None:
     return None
 
 
+def _kill_tree_windows(pid: int) -> None:
+    """Windows：taskkill /T 递归终止整棵进程树；永不抛异常。"""
+    try:
+        subprocess.run(["taskkill", "/F", "/T", "/PID", str(pid)],
+                       capture_output=True, timeout=60)
+    except (OSError, subprocess.SubprocessError):
+        pass
+
+
+def _child_pids_posix(ppid: int) -> list[int]:
+    try:
+        done = subprocess.run(["ps", "-o", "pid=", "--ppid", str(ppid)],
+                              capture_output=True, text=True, timeout=30)
+    except (OSError, subprocess.SubprocessError):
+        return []
+    if done.returncode != 0:
+        return []
+    return [int(tok) for tok in done.stdout.split() if tok.strip().isdigit()]
+
+
+def _kill_tree_posix(pid: int) -> None:
+    """POSIX：深度优先先杀子孙，再杀自身；永不抛异常。"""
+    for child in _child_pids_posix(pid):
+        _kill_tree_posix(child)
+    sig = getattr(signal, "SIGKILL", signal.SIGTERM)
+    try:
+        os.kill(pid, sig)
+    except (PermissionError, ProcessLookupError, OSError):
+        pass
+
+
+def kill_process_tree(pid: object) -> None:
+    """递归终止整个进程树；永不抛异常（清理路径不得掩盖原始超时）。"""
+    try:
+        pid_int = int(str(pid).strip())
+    except (TypeError, ValueError, AttributeError):
+        return
+    if pid_int <= 0:
+        return
+    if os.name == "nt":
+        _kill_tree_windows(pid_int)
+    else:
+        _kill_tree_posix(pid_int)
+
+
 def transcribe_video(bvid: str, page: int = 1, attempt: int = 1, max_retries: int = 1, work_dir: Path | None = None):
     page = int(page or 1)
     url = f"https://www.bilibili.com/video/{bvid}/"
@@ -510,15 +556,38 @@ def transcribe_video(bvid: str, page: int = 1, attempt: int = 1, max_retries: in
     work_dir = work_dir or OUTPUT_DIR
     env = os.environ.copy()
     env["BILI_OUTPUT_DIR"] = str(work_dir)
-    result = subprocess.run(
-        [BASH, str(TRANSCRIPT_SH), url, str(work_dir)],
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-        cwd=str(SKILL_DIR),
-        env=env,
-        timeout=7200,
+    # 用 Popen 保留 PID：超时只杀直接子进程会留下推理/下载孤儿，必须按树清理。
+    try:
+        proc = subprocess.Popen(
+            [BASH, str(TRANSCRIPT_SH), url, str(work_dir)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            cwd=str(SKILL_DIR),
+            env=env,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+    except OSError as exc:
+        return False, str(exc), None, False, "exception"
+    try:
+        stdout, stderr = proc.communicate(timeout=7200)
+    except subprocess.TimeoutExpired:
+        kill_process_tree(proc.pid)
+        try:
+            stdout, stderr = proc.communicate(timeout=60)
+        except subprocess.TimeoutExpired:
+            try:
+                proc.kill()
+            except OSError:
+                pass
+            stdout, stderr = proc.communicate()
+        print(f"⏱️  单条任务超时（7200s），已终止进程树 PID {proc.pid}")
+        return False, f"timeout after 7200s (pid {proc.pid})", None, False, "timeout"
+    result = subprocess.CompletedProcess(
+        args=[BASH, str(TRANSCRIPT_SH), url, str(work_dir)],
+        returncode=proc.returncode,
+        stdout=stdout or "", stderr=stderr or "",
     )
 
     if result.stdout:

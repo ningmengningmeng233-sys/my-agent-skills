@@ -129,19 +129,19 @@ class DoctorSchemaTests(unittest.TestCase):
 class BatchMarkerTests(unittest.TestCase):
     """批量层只认写库成功后的机器可读标记。"""
 
-    class _Result:
-        def __init__(self, stdout, stderr=""):
-            self.stdout = stdout
-            self.stderr = stderr
-            self.returncode = 0
-
     def _run(self, stdout: str):
         fake_db = mock.MagicMock()
         fake_db.__enter__.return_value = fake_db
         fake_db.get_by_bvid.return_value = {
             "transcript_source": "Whisper", "transcript_file": ""}
-        with mock.patch.object(batch.subprocess, "run",
-                               return_value=self._Result(stdout)), \
+        # AT-05 起改走 Popen（保留 PID 以便超时清树），此处随之 mock 新边界，
+        # 断言（标记语义）保持不变。
+        fake_proc = mock.Mock()
+        fake_proc.communicate.return_value = (stdout, "")
+        fake_proc.returncode = 0
+        fake_proc.pid = 99999
+        with mock.patch.object(batch.subprocess, "Popen",
+                               return_value=fake_proc), \
                 mock.patch.object(batch, "TranscriptDB",
                                   return_value=fake_db), \
                 mock.patch.object(batch, "OUTPUT_DIR",
