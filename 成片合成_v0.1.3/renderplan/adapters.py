@@ -127,19 +127,28 @@ class HttpVideoAdapter(VideoAdapter):
         req.add_header("Idempotency-Key", idemp_key)
         req.add_header("Content-Type", "application/json")
 
-        # 具备重试机制
+        # 具备重试机制（缺媒体字段不重试：直接抛 ArtifactValidationError）
         last_exc = None
         for attempt in range(3):
             try:
                 with _open(req, url, 60) as resp:
                     data = json.loads(resp.read().decode("utf-8"))
-                    raw_bytes = b""
-                    if "video_bytes" in data:
+                    if not data.get("video_bytes"):
+                        raise ArtifactValidationError(
+                            "MISSING_MEDIA_FIELD: 服务端响应缺 video_bytes，"
+                            "拒绝写入占位伪字节")
+                    try:
                         raw_bytes = base64.b64decode(data["video_bytes"])
-                    else:
-                        raw_bytes = b"\x00\x00\x00 ftypisom" + b"\x00" * 64
+                    except Exception as exc:
+                        raise ArtifactValidationError(
+                            f"MEDIA_DECODE_FAILED: video_bytes 非法: {exc}") from exc
+                    if not raw_bytes:
+                        raise ArtifactValidationError(
+                            "MISSING_MEDIA_FIELD: video_bytes 解码为空，拒绝写入占位伪字节")
                     clip_path.write_bytes(raw_bytes)
                     return str(clip_path)
+            except ArtifactValidationError:
+                raise
             except urllib.error.HTTPError as exc:
                 last_exc = exc
                 if exc.code >= 500:
@@ -179,14 +188,32 @@ class HttpTtsAdapter(TtsAdapter):
             try:
                 with _open(req, url, 60) as resp:
                     data = json.loads(resp.read().decode("utf-8"))
-                    raw_bytes = b""
-                    if "audio_bytes" in data:
+                    if not data.get("audio_bytes"):
+                        raise ArtifactValidationError(
+                            "MISSING_MEDIA_FIELD: 服务端响应缺 audio_bytes，"
+                            "拒绝写入占位伪字节")
+                    try:
                         raw_bytes = base64.b64decode(data["audio_bytes"])
-                    else:
-                        raw_bytes = b"RIFF\x24\x00\x00\x00WAVEfmt " + b"\x00" * 32
+                    except Exception as exc:
+                        raise ArtifactValidationError(
+                            f"MEDIA_DECODE_FAILED: audio_bytes 非法: {exc}") from exc
+                    if not raw_bytes:
+                        raise ArtifactValidationError(
+                            "MISSING_MEDIA_FIELD: audio_bytes 解码为空，拒绝写入占位伪字节")
+                    dur_raw = data.get("duration_seconds")
+                    if dur_raw is None:
+                        raise ArtifactValidationError(
+                            "MISSING_DURATION: 服务端未返回实测 duration_seconds，"
+                            "拒绝回退为计划值")
+                    try:
+                        dur = float(dur_raw)
+                    except (TypeError, ValueError) as exc:
+                        raise ArtifactValidationError(
+                            f"INVALID_DURATION: duration_seconds 非数值: {dur_raw!r}") from exc
                     audio_path.write_bytes(raw_bytes)
-                    dur = float(data.get("duration_seconds") or shot.get("duration", 3.0))
                     return {"path": str(audio_path), "duration_seconds": dur}
+            except ArtifactValidationError:
+                raise
             except urllib.error.HTTPError as exc:
                 last_exc = exc
                 if exc.code >= 500:
