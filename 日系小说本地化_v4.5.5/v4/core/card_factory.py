@@ -217,7 +217,7 @@ def collect_samples(card: Path | str) -> dict[str, Any]:
 
     lib = Path(doc["lib_path"])
     try:
-        from ..enhance.index_lib import IndexLibrary
+        from ..enhance.index_lib import IndexLibrary, resolve_index_source
 
         index_lib = IndexLibrary(lib)
         index_lib.scan()
@@ -253,7 +253,10 @@ def collect_samples(card: Path | str) -> dict[str, Any]:
         except Exception:  # noqa: BLE001
             continue
         line_range = sections[0].line_range if sections else None
-        src_path = lib / str(source_rel)
+        try:
+            src_path = resolve_index_source(lib, str(source_rel))
+        except ValueError:
+            continue
         if not src_path.is_file():
             continue
         text = src_path.read_text(encoding="utf-8", errors="replace")

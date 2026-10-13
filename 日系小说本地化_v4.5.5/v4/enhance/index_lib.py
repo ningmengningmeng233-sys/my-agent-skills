@@ -243,6 +243,38 @@ def _scene_strength_rank(record: "AssetRecord", scene: str) -> int:
     return _UNRATED_RANK
 
 
+#: JP-05：Windows 盘符绝对路径（跨平台显式拦截，POSIX 下反斜杠只是普通字符）。
+_SOURCE_DRIVE_RE = re.compile(r"^[A-Za-z]:")
+
+
+def resolve_index_source(root: Path | str, value: str | Path) -> Path:
+    """把 frontmatter「源文件:」解析为索引库内的绝对路径（JP-05 沙箱）。
+
+    只接受库内安全相对路径；空值、绝对路径（POSIX/盘符/UNC/原生）、
+    ``..`` 穿越段、NUL 字符、解析后落到库外的目标（含库内符号链接指到库外）
+    一律抛 ``ValueError``，调用方不得读取。
+    """
+    root_path = Path(root).resolve()
+    text = str(value or "").strip()
+    if not text:
+        raise ValueError("源文件路径为空")
+    if "\x00" in text:
+        raise ValueError(f"源文件路径含非法字符: {value!r}")
+    if (
+        text.startswith("/")
+        or text.startswith("\\\\")
+        or _SOURCE_DRIVE_RE.match(text)
+        or Path(text).is_absolute()
+    ):
+        raise ValueError(f"源文件不得为绝对路径: {value!r}")
+    if any(seg == ".." for seg in re.split(r"[\\/]+", text)):
+        raise ValueError(f"源文件不得包含越界穿越: {value!r}")
+    candidate = (root_path / text).resolve()
+    if not candidate.is_relative_to(root_path):
+        raise ValueError(f"源文件越出索引库: {value!r}")
+    return candidate
+
+
 class IndexLibrary:
     """用户索引库只读适配器。构造后调用 `scan()` 建立资产清单。"""
 
@@ -692,7 +724,10 @@ class IndexLibrary:
         只输出：段落数、平均句长、短句占比、对话段占比、首尾段字数。
         这样既利用原文的节奏特征，又避免把台版原文直接喂给 LLM 导致照抄。
         """
-        src = self.root / source_rel_path
+        try:
+            src = resolve_index_source(self.root, source_rel_path)
+        except ValueError:
+            return ""
         if not src.is_file():
             return ""
         try:
@@ -738,7 +773,10 @@ class IndexLibrary:
         取法：跳 frontmatter 与标题/插图等噪声行，从首个"有分量"的段落起，
         按原文顺序连续取到 ``max_chars`` 为止——保持原文语序，不做摘句拼接。
         """
-        src = self.root / source_rel_path
+        try:
+            src = resolve_index_source(self.root, source_rel_path)
+        except ValueError:
+            return ""
         if not src.is_file():
             return ""
         try:
