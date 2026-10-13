@@ -195,15 +195,6 @@ class SafeFileCommitEngine:
         }
 
     @staticmethod
-    def _unique_backup_path(target: Path) -> Path:
-        candidate = target.with_name(target.name + SafeFileCommitEngine.BACKUP_BASE_SUFFIX)
-        counter = 0
-        while candidate.exists():
-            counter += 1
-            candidate = target.with_name(f"{target.name}.bak{counter}")
-        return candidate
-
-    @staticmethod
     def _run_mechanical_validator(original_text: str, candidate_text: str) -> tuple:
         """通过真实验证器以文件接口校验，返回 (verdict, issues, exit_code)。"""
         vr = _load_validator()
@@ -257,60 +248,44 @@ class SafeFileCommitEngine:
                 return {"status": "BLOCKED", "written": False, "verdict": verdict,
                         "validator_exit_code": code, "issues": issues}
 
-            # 5. 唯一备份（绝不覆盖既有备份）
-            backup_path = cls._unique_backup_path(target)
-            backup_path.write_bytes(original_bytes)
-
-            temp_path = None
-            try:
-                # 6. 同目录临时候选 + fsync
-                with tempfile.NamedTemporaryFile(
-                    delete=False, dir=str(target.parent),
-                    prefix=target.name + ".", suffix=".tmp",
-                ) as tf:
-                    temp_path = Path(tf.name)
-                    tf.write(candidate_bytes)
-                    tf.flush()
-                    os.fsync(tf.fileno())
-
-                # 7. 写入中断模拟点（临时文件已落盘、目标尚未被触碰）
-                if force_interrupt:
-                    raise SimulatedInterrupt("simulated crash before atomic replace")
-
-                # 8. 原子替换
-                os.replace(str(temp_path), target)
-                temp_path = None
-
-                # 9. 落盘复核：目标必须与候选逐字节一致
-                if simulate_corrupt_write:
-                    target.write_bytes(original_bytes + b"CORRUPTED")
-                committed_bytes = target.read_bytes()
-                if hashlib.sha256(committed_bytes).hexdigest() != hashlib.sha256(candidate_bytes).hexdigest():
-                    target.write_bytes(backup_path.read_bytes())
-                    return {"status": "ROLLED_BACK", "written": False,
-                            "reason": "落盘复核哈希不符，已从备份恢复原始字节",
-                            "backup_path": str(backup_path)}
-
+            # 5–9. QA-01：写盘统一委托 overwrite_atomically（排他唯一备份、替换前
+            # 复查目标哈希、保留原权限原子替换、复读验证/回滚），消除本方法内重复
+            # 实现与其 0o600 权限退化隐患；状态契约保持不变。
+            fail_at = None
+            if force_interrupt:
+                fail_at = "replace"    # 中断注入：替换前失败，目标保持原字节
+            elif simulate_corrupt_write:
+                fail_at = "verify"     # 复核失败注入：复读不符触发回滚
+            outcome = cls.overwrite_atomically(
+                target, candidate_bytes,
+                expected_sha256=original_sha, fail_at=fail_at)
+            status = outcome.get("status")
+            if status == "COMMITTED":
                 return {"status": "COMMITTED", "written": True, "verdict": verdict,
-                        "backup_path": str(backup_path),
-                        "target_sha256": hashlib.sha256(committed_bytes).hexdigest(),
+                        "backup_path": outcome.get("backup_path"),
+                        "target_sha256": outcome.get("target_sha256"),
                         "previous_sha256": original_sha}
-
-            except SimulatedInterrupt as exc:
-                if target.read_bytes() != original_bytes:
-                    target.write_bytes(backup_path.read_bytes())
+            if status == "NOOP":
+                return {"status": "NOOP", "written": False, "reason": "Raw bytes identical"}
+            if status == "ABORTED_RACE":
+                return {"status": "ABORTED_RACE", "written": False,
+                        "reason": outcome.get("reason"),
+                        "backup_path": outcome.get("backup_path")}
+            if status == "ABORTED":
+                # 中断发生在替换前：目标仍是调用方核对过的原字节；旧合同无 ABORTED
+                # 状态，沿用其中断语义归入 ROLLED_BACK（备份已收回，无孤儿）。
                 return {"status": "ROLLED_BACK", "written": False,
-                        "reason": f"写入中断：{exc}", "backup_path": str(backup_path)}
-            finally:
-                if temp_path is not None and temp_path.exists():
-                    temp_path.unlink()
+                        "reason": outcome.get("reason"),
+                        "backup_path": outcome.get("backup_path")}
+            if status == "ROLLED_BACK":
+                return {"status": "ROLLED_BACK", "written": False,
+                        "reason": outcome.get("reason"),
+                        "backup_path": outcome.get("backup_path")}
+            return {"status": "ERROR", "written": False,
+                    "reason": outcome.get("reason"),
+                    "backup_path": outcome.get("backup_path")}
 
-        except Exception as exc:  # 未预期异常：尽力恢复原始字节
-            try:
-                if target.exists() and target.read_bytes() != original_bytes and backup_path.exists():
-                    target.write_bytes(backup_path.read_bytes())
-            except Exception:
-                pass
+        except Exception as exc:  # 未预期异常：委托前只读、无需恢复；委托内自恢复
             return {"status": "ERROR", "written": False, "reason": f"{type(exc).__name__}: {exc}"}
 
     # ---- 1) 独占创建：no-clobber 的唯一原子依据 --------------------------------
