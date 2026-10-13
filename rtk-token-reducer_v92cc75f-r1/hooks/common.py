@@ -92,8 +92,75 @@ def must_keep(command):
     return bool(KEEP_RE.search(cmd) or KEEP_ANY_RE.search(cmd))
 
 
+# dict 形态 tool_response 里常见的退出码字段名（不同 harness 命名不一）。
+# 宁可多认不错杀：误判只会导致一次放行不压缩，漏判则可能把报错现场改得面目全非。
+_EXIT_KEYS = ('exit_code', 'exitCode', 'exitcode', 'return_code', 'returncode',
+              'code', 'status')
+
+# 字符串形态 status 里视为成功的取值，其余非空字符串一律按失败旁路。
+_OK_STATUS = (u'', u'0', u'ok', u'success', u'succeeded', u'pass', u'passed')
+
+
+def response_failed(tool_response):
+    """dict 形态 tool_response 是否携带失败信号（RT-01）。
+
+    非零退出码、中断/错误标记都算失败：这类输出必须原样透传，
+    钩子不得改写，避免把报错现场压缩丢了，也绝不吞真实退出码。
+    非 dict（纯字符串输出）无处得知退出码，一律按成功处理。
+    """
+    if not isinstance(tool_response, dict):
+        return False
+    for key in _EXIT_KEYS:
+        if key not in tool_response:
+            continue
+        v = tool_response[key]
+        if isinstance(v, bool):
+            continue
+        if isinstance(v, (int, float)):
+            if v != 0:
+                return True
+        elif isinstance(v, str):
+            if v.strip().lower() not in _OK_STATUS:
+                return True
+    for key in ('interrupted', 'failed', 'error', 'timed_out', 'timeout'):
+        if tool_response.get(key):
+            return True
+    return False
+
+
+def is_binary_text(text):
+    """输出正文是否二进制/非文本（RT-02）：含 NUL 或控制字符占比过高。
+
+    二进制输出一旦喂给压缩器再改写，模型看到的就是面目全非的版本；
+    返回 True 时调用方必须 bypass，原样放行。ANSI 颜色转义（ESC）是合法文本，不计入。
+    """
+    if not text:
+        return False
+    if u'\x00' in text:
+        return True
+    sample = text[:4096]
+    bad = sum(1 for ch in sample
+              if (ord(ch) < 32 and ch not in u'\t\n\r\x1b') or ord(ch) == 127)
+    if not bad:
+        return False
+    return bad > 16 or bad / float(len(sample)) > 0.10
+
+
+def rtk_timeout():
+    """rtk 子进程超时秒数（RT-03）：RTK_REDUCER_TIMEOUT 可覆盖，非法值回落默认。"""
+    try:
+        v = int(os.environ.get('RTK_REDUCER_TIMEOUT', str(RTK_TIMEOUT)))
+    except (TypeError, ValueError):
+        return RTK_TIMEOUT
+    return v if v > 0 else RTK_TIMEOUT
+
+
 def rtk_pipe(text, filt):
-    """把文本喂给 rtk pipe，返回压缩后的文本；失败返回 None（调用方原样放行）。"""
+    """把文本喂给 rtk pipe，返回压缩后的文本；失败返回 None（调用方原样放行）。
+
+    RT-03：子进程超时（默认 15 秒，RTK_REDUCER_TIMEOUT 可配）同样返回 None，
+    挂死的 rtk 拖不住钩子，更丢不了原文。
+    """
     rtk = rtk_binary()
     if not rtk:
         return None
@@ -101,7 +168,9 @@ def rtk_pipe(text, filt):
         p = subprocess.run([rtk, 'pipe', '-f', filt],
                            input=text.encode('utf-8', 'replace'),
                            stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
-                           timeout=RTK_TIMEOUT)
+                           timeout=rtk_timeout())
+    except subprocess.TimeoutExpired:
+        return None
     except Exception:
         return None
     if p.returncode != 0 or p.stdout is None:

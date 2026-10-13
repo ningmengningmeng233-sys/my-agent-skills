@@ -4,7 +4,9 @@
 流程：stdin 收钩子 JSON -> 取 tool_response 文本 -> 原文逐字进 spool -> rtk pipe 压缩
      -> 只当真省下字节才改写（updatedToolOutput），并附一行压缩统计与回溯路径。
 失败哲学：钩子任何一步出错都安静放行（exit 0、不写 stdout），绝不让压缩功能挡住命令。
-开关：RTK_REDUCER_OFF=1 整体停用；RTK_REDUCER_MIN=<字节数> 调短输出阈值。
+开关：RTK_REDUCER_OFF=1 整体停用；RTK_REDUCER_MIN=<字节数> 调短输出阈值；
+RTK_REDUCER_TIMEOUT=<秒> 调压缩子进程超时（默认 15）。
+旁路：非零退出码的失败输出、二进制/非文本输出一律跳过压缩，原样放行。
 """
 import hashlib
 import io
@@ -64,32 +66,43 @@ def main():
         common.record({'ts': ts, 'command': command[:200], 'why': 'keep-list'}, None)
         return 0
     body, rebuild = response_text(payload.get('tool_response'))
+    if common.response_failed(payload.get('tool_response')):
+        common.record({'ts': ts, 'command': command[:200], 'why': 'nonzero-exit-bypass'}, None)
+        return 0
+    if common.is_binary_text(body):
+        common.record({'ts': ts, 'command': command[:200], 'why': 'binary-bypass'}, None)
+        return 0
     before = len(body.encode('utf-8', 'replace'))
     if before < common.MIN_CHARS:
         return 0
     filt = common.pick_filter(command, body)
-    compressed = common.rtk_pipe(body, filt)
-    if compressed is None:
-        common.record({'ts': ts, 'command': command[:200], 'filter': filt,
-                       'why': 'rtk-unavailable-or-empty'}, None)
+    try:
+        compressed = common.rtk_pipe(body, filt)
+        if compressed is None:
+            common.record({'ts': ts, 'command': command[:200], 'filter': filt,
+                           'why': 'rtk-unavailable-or-empty'}, None)
+            return 0
+        after = len(compressed.encode('utf-8', 'replace'))
+        if after >= before:
+            return 0
+        tag = hashlib.md5((command + body[:80]).encode('utf-8', 'replace')).hexdigest()[:8]
+        path = common.spool(body, tag)
+        notice = (u'[rtk-reducer｜bash 输出已压缩：原文 %s -> %s（-%s，省 %s）｜过滤器 %s｜逐字原文 %s]'
+                  % (common.fmt_bytes(before), common.fmt_bytes(after), u'%.1f%%' % (100.0 * (before - after) / before),
+                     common.fmt_bytes(before - after), filt, path))
+        st = common.record({'ts': ts, 'command': command[:200], 'filter': filt, 'before': before,
+                            'after': after, 'spool': path, 'session': payload.get('session_id')},
+                           ('compressed', common.pattern_key(command, filt)))
+        n_rules = common.learn_rules(st)
+        tail = common.main_stats_line(st)
+        if n_rules:
+            tail += (u'｜新增 %d 条自学规则 -> %s，并进项目 .rtk/filters.toml 后这类命令由 rtk 原生压缩'
+                     % (n_rules, common.rules_path()))
+        emit(rebuild(u'%s\n%s\n--- 以下为 rtk 压缩后的输出 ---\n%s' % (notice, tail, compressed)))
+    except Exception:
+        # RT-01：压缩链路上任何异常（压缩器崩溃、spool/账本落盘失败……）
+        # 都安静放行：不写 stdout，上游保留原始 stdout/stderr 与退出码。
         return 0
-    after = len(compressed.encode('utf-8', 'replace'))
-    if after >= before:
-        return 0
-    tag = hashlib.md5((command + body[:80]).encode('utf-8', 'replace')).hexdigest()[:8]
-    path = common.spool(body, tag)
-    notice = (u'[rtk-reducer｜bash 输出已压缩：原文 %s -> %s（-%s，省 %s）｜过滤器 %s｜逐字原文 %s]'
-              % (common.fmt_bytes(before), common.fmt_bytes(after), u'%.1f%%' % (100.0 * (before - after) / before),
-                 common.fmt_bytes(before - after), filt, path))
-    st = common.record({'ts': ts, 'command': command[:200], 'filter': filt, 'before': before,
-                        'after': after, 'spool': path, 'session': payload.get('session_id')},
-                       ('compressed', common.pattern_key(command, filt)))
-    n_rules = common.learn_rules(st)
-    tail = common.main_stats_line(st)
-    if n_rules:
-        tail += (u'｜新增 %d 条自学规则 -> %s，并进项目 .rtk/filters.toml 后这类命令由 rtk 原生压缩'
-                 % (n_rules, common.rules_path()))
-    emit(rebuild(u'%s\n%s\n--- 以下为 rtk 压缩后的输出 ---\n%s' % (notice, tail, compressed)))
     return 0
 
 
