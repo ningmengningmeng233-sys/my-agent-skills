@@ -158,6 +158,113 @@ def _jianying_module():
         return None
 
 
+# jy 导出入口候选（按常见命名排序）：只认这些可调用集成点，
+# 找到第一个就调；一个都找不到 => 视为"未实际调用"，绝不记 EXPORTED。
+_JIANYING_EXPORT_CANDIDATES = (
+    "export_draft", "export", "create_draft", "generate_draft", "build_draft",
+    "make_draft", "save_draft", "write_draft", "render_draft", "compose_draft",
+    "create_project", "export_project", "generate_project", "build_project",
+    "save_project", "write_project", "export_to_jianying", "export_to_draft",
+    "create_timeline", "build_timeline", "export_timeline",
+    "assemble", "generate", "create", "save", "run", "main",
+)
+
+_RETURN_PATH_KEYS = ("draft", "draft_path", "draft_file", "path", "file",
+                      "project", "project_path", "out", "output")
+
+
+def _extract_return_paths(ret):
+    """从导出返回值里抠候选产物路径：str/PathLike、其列表、或含路径键的 dict。"""
+    if isinstance(ret, (str, os.PathLike)):
+        return [Path(ret)]
+    if isinstance(ret, (list, tuple, set)):
+        out = []
+        for item in ret:
+            out.extend(_extract_return_paths(item))
+        return out
+    if isinstance(ret, dict):
+        out = []
+        for key in _RETURN_PATH_KEYS:
+            if key in ret:
+                out.extend(_extract_return_paths(ret[key]))
+        return out
+    return []
+
+
+def _snapshot_files(root):
+    """记录目录下已有文件的 (大小, mtime)：导出前后比对，新增/改动即视为产物。"""
+    snap = {}
+    root = Path(root)
+    if not root.is_dir():
+        return snap
+    for p in root.rglob("*"):
+        if p.is_file():
+            try:
+                st = p.stat()
+            except OSError:
+                continue
+            snap[str(p.relative_to(root))] = (st.st_size, st.st_mtime_ns)
+    return snap
+
+
+def _call_jianying_export(jy, payload, draft_dir):
+    """真正调用 jy_wrapper 的实际导出方法，并核验草稿产物文件存在。
+
+    返回 (verified, method_name, artifacts, error)：只有"调成功且产物文件存在"
+    才 verified；入口缺失、调用抛错、无产物文件一律 verified=False。
+    """
+    draft_dir = Path(draft_dir)
+    target = None
+    name = None
+    for cand in _JIANYING_EXPORT_CANDIDATES:
+        fn = getattr(jy, cand, None)
+        if callable(fn):
+            target, name = fn, cand
+            break
+    if target is None and callable(jy):
+        target, name = jy, getattr(jy, "__name__", "jy_callable")
+    if target is None:
+        return False, None, [], "未找到可调用的导出入口"
+
+    before = _snapshot_files(draft_dir)
+    ret = None
+    # 签名未知：按常见形参逐一试探；TypeError 视为签名不匹配换下一组，
+    # 其它异常视为导出已尝试但失败。
+    tried_type_error = None
+    for args in ((payload, str(draft_dir)), (str(draft_dir), payload),
+                 (payload,), (str(draft_dir),), ()):
+        try:
+            ret = target(*args)
+            tried_type_error = None
+            break
+        except TypeError as exc:
+            tried_type_error = exc
+            continue
+        except Exception as exc:  # noqa: BLE001 - 导出失败须如实记录
+            return False, name, [], f"导出调用抛错：{exc}"
+    else:
+        return False, name, [], f"导出入口签名不匹配（TypeError：{tried_type_error}）"
+
+    produced = [str(p.relative_to(draft_dir)) if _is_within(p, draft_dir) else str(p)
+                for p in _extract_return_paths(ret)
+                if isinstance(p, Path) and p.is_file()]
+    after = _snapshot_files(draft_dir)
+    for rel, sig in after.items():
+        if before.get(rel) != sig and rel not in produced:
+            produced.append(rel)
+    if not produced:
+        return False, name, [], "导出调用未产出任何草稿文件"
+    return True, name, produced, None
+
+
+def _is_within(path, root):
+    try:
+        Path(path).relative_to(Path(root))
+        return True
+    except ValueError:
+        return False
+
+
 # ----------------------------------------------------------------- assemble
 def run_assemble_stage(plan, out_dir, ledger_path=None, run_id=None):
     out_dir = Path(out_dir)
@@ -179,10 +286,28 @@ def run_assemble_stage(plan, out_dir, ledger_path=None, run_id=None):
                        for s in plan["shots"] if s.get("dialogue")]
 
     draft_dir = out_dir / "draft"
+    verified, method, artifacts, export_error = False, None, [], None
     if jy is not None:
+        payload = {
+            "source": plan.get("source"),
+            "style": plan.get("style"),
+            "clip_count": len(video_tracks),
+            "timeline": video_tracks,
+            "audio": audio_tracks,
+            "subtitles": subtitle_tracks,
+        }
+        verified, method, artifacts, export_error = _call_jianying_export(
+            jy, payload, draft_dir)
+
+    if verified:
         jianying = "EXPORTED"
-        note = "已调用 jianying-editor 生成草稿（真实导出仍需人工校验）"
+        note = (f"已调用 jy_wrapper.{method} 生成草稿并核验产物文件存在"
+                f"（{', '.join(artifacts)}）")
     else:
+        if jy is None:
+            reason = "缺 jianying-editor 运行环境"
+        else:
+            reason = f"jy_wrapper 已导入但{export_error}"
         _write_json(draft_dir / "draft_desc.json", {
             "source": plan.get("source"),
             "style": plan.get("style"),
@@ -195,19 +320,20 @@ def run_assemble_stage(plan, out_dir, ledger_path=None, run_id=None):
             "或人工导入本目录下的 draft_desc.json 后重跑 assemble 以签发真实导出",
         })
         jianying = "NOT_RUN"
-        note = ("剪映导出未验证：缺 jianying-editor 运行环境——请安装该技能并把工程目录放进 JY_SKILL_ROOT，"
-            "或人工导入 draft_desc.json 后重跑 assemble 以签发真实导出")
+        note = (f"剪映导出未验证：{reason}——请检查 jianying-editor 集成点是否可用"
+                "（需提供 export_draft 等导出入口并落盘草稿文件），"
+                "或人工导入 draft_desc.json 后重跑 assemble 以签发真实导出")
 
     assemble = {
-        "jianying_export": "未验证" if jy is None else "已导出",
+        "jianying_export": "已导出" if verified else "未验证",
         "note": note,
         "shot_count": len(video_tracks),
         "tracks": {"video": video_tracks, "audio": audio_tracks, "subtitle": subtitle_tracks},
     }
     afile = _write_json(out_dir / "assemble.json", assemble)
 
-    # 缺真实剪映运行环境 => 不算绿；无素材记 NOT_RUN，有素材记 PARTIAL
-    if jy is not None and present:
+    # 只有"真正调了导出且产物文件存在"才算绿；无素材记 NOT_RUN，有素材记 PARTIAL
+    if verified and present:
         status = "SUCCEEDED"
     elif present:
         status = "PARTIAL"
