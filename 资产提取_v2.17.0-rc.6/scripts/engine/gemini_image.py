@@ -230,6 +230,14 @@ class GeminiImageExecutor:
             out.append(types_module.Part.from_bytes(data=data, mime_type=mime))
         return out
 
+    def _http_options(self, types_module: Any) -> Any:
+        """配置超时的 HTTP 适配层载体（SDK HttpOptions.timeout 单位为毫秒）。"""
+        timeout_ms = int(self.config.timeout_seconds * 1000)
+        http_options_cls = getattr(types_module, "HttpOptions", None)
+        if http_options_cls is not None:
+            return http_options_cls(timeout=timeout_ms)
+        return {"timeout": timeout_ms}
+
     def _config_for(self, request: GenerationRequest, types_module: Any) -> Any:
         image_config = types_module.ImageConfig(
             aspect_ratio=request.aspect_ratio,
@@ -239,6 +247,7 @@ class GeminiImageExecutor:
             response_modalities=["IMAGE"],
             image_config=image_config,
             temperature=1.0,
+            http_options=self._http_options(types_module),
         )
 
     def _extract(self, response: Any) -> tuple[bytes, str, str]:
@@ -359,8 +368,11 @@ class GeminiQcChecker:
                       '"checked_at","input_hashes"}。',
                     types_module.Part.from_bytes(data=data, mime_type=mime)]
         try:
+            qc_config = types_module.GenerateContentConfig(
+                http_options=self._executor._http_options(types_module))
             response = self._executor._client_or_create().models.generate_content(
-                model=self._executor.config.qc_model, contents=contents)
+                model=self._executor.config.qc_model, contents=contents,
+                config=qc_config)
         except BaseException as exc:  # noqa: BLE001 - 质检失败即不可信
             return QcResult(decision=QcDecision.UNTRUSTWORTHY.value, checker="gemini",
                             task_id=task.task_id, input_hashes=(attempt.image_sha256,),
