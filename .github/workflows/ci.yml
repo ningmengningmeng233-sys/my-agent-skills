@@ -1,0 +1,60 @@
+# 自制 skill 柜 · 根目录矩阵 CI（全包 pytest 门禁，正式有效入口）。
+# 各包既有 pytest 按包目录自动运行：matrix.package × matrix.os。
+# 子包内残留的 .github/workflows/ci.yml 仅作历史/上游模板保留，不再作为门禁入口；
+# 凡 GitHub Actions 实际执行的 CI，以本文件为准。
+# matrix.package 清单派生自 catalog.json 的 folder 字段，仅收录含 pytest 套件的 14 个包；
+# 无 pytest 套件的 schemas、tg转录_v1.0.1、全局记忆UMH_v1.0.1、技能优化_v1.0.1 暂不进矩阵。
+name: CI-skill-cabinet-root-matrix
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        package:
+          - "B站转录_v5.5.4"
+          - "MiniMaxH3提示词_v7.4.5"
+          - "rtk-token-reducer_v92cc75f-r1"
+          - "去AI味_v2.0.1"
+          - "小说索引_v4.6.1"
+          - "小说转短剧_v1.5.4"
+          - "成人文学索引_v4.8.5"
+          - "成片合成_v0.1.3"
+          - "抖音转录_v2.0.5"
+          - "日系小说本地化_v4.5.5"
+          - "柠檬思考_v1.1.5"
+          - "知识库转录_v5.4.7"
+          - "知识转录索引_v1.5.0"
+          - "资产提取_v2.17.0-rc.6"
+    runs-on: ${{ matrix.os }}
+    env:
+      # 不设这行，Windows runner 上任何中文断言失败都会被控制台编码吞成乱码
+      PYTHONIOENCODING: "utf-8"
+      # 单测前提是不外呼：代理钉到丢弃端口，漏网请求立即失败而不是产生费用
+      HTTP_PROXY: "http://127.0.0.1:9"
+      HTTPS_PROXY: "http://127.0.0.1:9"
+      http_proxy: "http://127.0.0.1:9"
+      https_proxy: "http://127.0.0.1:9"
+      NO_PROXY: "127.0.0.1,localhost,::1"
+      no_proxy: "127.0.0.1,localhost,::1"
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ matrix.package }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 依赖（缺包即红，不静默跳过）
+        run: |
+          python -m pip install pytest
+          if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
+      - name: 单测（各包既有 pytest）
+        run: python -m pytest -q -p no:cacheprovider
