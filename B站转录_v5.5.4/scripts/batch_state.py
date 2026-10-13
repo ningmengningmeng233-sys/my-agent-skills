@@ -131,11 +131,18 @@ class BatchState:
     def get(self, key: str) -> dict | None:
         return next((i for i in self.items if i.get("key") == key), None)
 
-    def next_pending(self) -> dict | None:
-        """下一个可领取条目；暂停（认证或风控）时返回 None（停止领取）。"""
+    def next_pending(self, keys=None) -> dict | None:
+        """下一个可领取条目；暂停（认证或风控）时返回 None（停止领取）。
+
+        keys 给出时只在其中挑选（--limit 等部分运行场景）；不在其中的条目
+        状态原样保留，绝不因「本次没轮到」被写成 done（AT-02）。
+        """
         if self.is_paused:
             return None
-        return next((i for i in self.items if i.get("status") in _CLAIMABLE),
+        wanted = set(keys) if keys is not None else None
+        return next((i for i in self.items
+                     if i.get("status") in _CLAIMABLE
+                     and (wanted is None or i.get("key") in wanted)),
                     None)
 
     def summary(self) -> dict:

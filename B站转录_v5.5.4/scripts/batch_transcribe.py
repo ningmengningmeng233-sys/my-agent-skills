@@ -310,6 +310,29 @@ def _requeue_previously_failed(state, pending: list[dict]) -> int:
     return requeued
 
 
+def _reconcile_done_with_ledger(state, processed: set[str]) -> tuple[int, int]:
+    """以台账为唯一完成真相，对齐 done 状态（AT-02）。
+
+    - done 但不在台账里：一律转回 retry_wait（旧 bug 误标的 done 在此自愈）；
+    - 在台账里但不是 done：补标 done（成功落账后、状态落盘前崩溃的补救）。
+    返回 (revived, completed)。
+    """
+    revived = completed = 0
+    for item in state.items:
+        key = item.get("key")
+        if item.get("status") == batch_state.DONE and key not in processed:
+            item["status"] = batch_state.RETRY_WAIT
+            item["failure_code"] = ""
+            revived += 1
+        elif key in processed and item.get("status") != batch_state.DONE:
+            item["status"] = batch_state.DONE
+            item["failure_code"] = ""
+            completed += 1
+    if revived or completed:
+        state.save()
+    return revived, completed
+
+
 def processed_key(bvid: str, page: int = 1) -> str:
     page = int(page or 1)
     return bvid if page == 1 else f"{bvid}_P{page}"
@@ -649,6 +672,13 @@ def main(argv=None):
                     "bvid": v["bvid"], "page": int(v.get("page") or 1)}
                    for v in pending])
     else:
+        # AT-02：台账是唯一的完成真相。先对齐 done（误标的 done 自愈、
+        # 已落账的补标），再把上次失败的条目转回可领取。
+        revived, completed = _reconcile_done_with_ledger(state, processed)
+        if revived:
+            print(f"🔁 台账对齐：{revived} 个误标 done 的任务转回待跑")
+        if completed:
+            print(f"✅ 台账对齐：{completed} 个已落账的任务补标 done")
         # 复用旧状态时，上次失败的条目仍应在本次重试（与改造前的行为一致）。
         requeued = _requeue_previously_failed(state, pending)
         if requeued:
@@ -658,22 +688,23 @@ def main(argv=None):
     with TranscriptDB():
         pass
     # 逐个领取而非一次性提交：认证失效能立刻停下，未开始的任务不会被白跑。
+    # AT-02：只领取本次待跑清单里的条目；不在清单里的状态原样保留。
+    wanted = {processed_key(v["bvid"], v.get("page", 1)) for v in pending}
     executor = ThreadPoolExecutor(max_workers=args.workers)
     paused = False
     index = 0
     risk_waits_used = 0
     try:
         while True:
-            item = state.next_pending()
+            item = state.next_pending(wanted)
             if item is None:
                 break
             key = item["key"]
             v = next((candidate for candidate in pending
                       if processed_key(candidate["bvid"],
                                        candidate.get("page", 1)) == key), None)
-            if v is None:
-                state.mark(key, batch_state.DONE)
-                continue
+            if v is None:  # 防御性分支：wanted 过滤保证其不可达
+                raise RuntimeError(f"待跑清单与批次状态不一致：{key}")
             index += 1
             bvid = v["bvid"]
             page = int(v.get("page") or 1)
