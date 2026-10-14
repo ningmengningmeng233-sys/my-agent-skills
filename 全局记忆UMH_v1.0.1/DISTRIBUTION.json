@@ -18727,13 +18727,13 @@
     },
     {
       "path": "package/package.json",
-      "sha256": "bb3c2434e6f714e7de6c85b7bfe7873e8dda335ddd2cb827fe058ad91b75c3ad",
-      "size": 687
+      "sha256": "8f59e0f7e82d9cdb922aedb1e40ca20eaa9c7652bdac562b714756b2960ce0d0",
+      "size": 481
     },
     {
       "path": "package/README.md",
-      "sha256": "b5614a0a82aa041164e64e857ff785460b86c42e0a035fe1f80f54a9dbac799d",
-      "size": 485
+      "sha256": "3c4de84f66c88870289ec31767e113c4acc06824a2690cb9cea68a23b9c05a71",
+      "size": 656
     },
     {
       "path": "package/SOURCE-ARCHIVE-MANIFEST.json",
@@ -18832,8 +18832,8 @@
     },
     {
       "path": "package/vendor/mdcg/md_cg/coldverify.py",
-      "sha256": "4f9a3b4cb57b2daa8619bb0df66c7d9a020c7a66f077ff060f48a0d658e2beca",
-      "size": 12389
+      "sha256": "4dbb655fcb79ad15a37e4d9d71c43c2dd50e2cfd764e1e918e7f7aa3aa5ef419",
+      "size": 12891
     },
     {
       "path": "package/vendor/mdcg/md_cg/comment_gate.py",
@@ -18887,8 +18887,13 @@
     },
     {
       "path": "package/vendor/mdcg/md_cg/crypto.py",
-      "sha256": "5383676980a16fe318fc99919b95eb0692176b29e96a2a3893e476e7c506ad7e",
-      "size": 26116
+      "sha256": "424c81e974fe885da34c158d2167d6336152bd184c168723b979263209833749",
+      "size": 27633
+    },
+    {
+      "path": "package/vendor/mdcg/md_cg/test_umh_m2_atomic.py",
+      "sha256": "e10cf707c996dbf14b719768fa2a10c5714bc8d3e4f95adb1e09d835b74ce866",
+      "size": 4876
     },
     {
       "path": "package/vendor/mdcg/md_cg/d_meta.py",

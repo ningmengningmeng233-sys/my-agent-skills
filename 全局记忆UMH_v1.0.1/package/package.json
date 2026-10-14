@@ -7,12 +7,7 @@
   "engines": {
     "node": ">=24.2"
   },
-  "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "test:all": "node scripts/test-all.mjs",
-    "package": "node scripts/release/build-package.mjs",
-    "verify:package": "node scripts/release/verify-package.mjs"
-  },
+  "scripts": {},
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.31.0",
     "smol-toml": "1.9.0",

@@ -203,7 +203,28 @@ def scrypt_kek(passphrase, salt):
                           n=SCRYPT_N, r=SCRYPT_R, p=SCRYPT_P, dklen=SCRYPT_DKLEN)
 
 
-# 生效条件：master_file=None、env_var=MASTER_ENV、create=True 为可选入参；从 os.environ.get(env_var) 读取并 strip，若 raw 非空则长度 64 走 bytes.fromhex、否则 _b64d，解码失败抛 CryptoError；否则 path = master_file or MASTER_FILE，若 os.path.exists(path) 为真则读取并 _b64d；若 create 为假返回 None；否则生成 KEY_LEN 随机密钥写入 path 并返回 key。
+# 生效条件：path 为主密钥文件路径；至多 _READ_KEY_TRIES 次打开读 strip，若非空则 _b64d 返回，空内容/OSError/ValueError 记为 last 并 time.sleep(_READ_KEY_WAIT) 后重试；耗尽仍无合法内容时抛 CryptoError（调用方 mdcos 按 CryptoError fail-closed，与环境变量非法分支同口径）。
+_READ_KEY_TRIES = 20
+_READ_KEY_WAIT = 0.005
+
+
+def _read_master_key_file(path):
+    """读回主密钥文件。并发创建者可能尚未 close（读到空/半截），有界重试；仍非法则抛 CryptoError。"""
+    last = None
+    for _ in range(_READ_KEY_TRIES):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                text = f.read().strip()
+            if text:
+                return _b64d(text)
+            last = ValueError("文件为空（创建者可能尚未写完）")
+        except (OSError, ValueError) as e:
+            last = e
+        time.sleep(_READ_KEY_WAIT)
+    raise CryptoError(f"主密钥文件不可读或内容非法：{path}（{last}）")
+
+
+# 生效条件：master_file=None、env_var=MASTER_ENV、create=True 为可选入参；从 os.environ.get(env_var) 读取并 strip，若 raw 非空则长度 64 走 bytes.fromhex、否则 _b64d，解码失败抛 CryptoError；否则 path = master_file or MASTER_FILE，若 os.path.exists(path) 为真则经 _read_master_key_file 读回；若 create 为假返回 None；否则生成 KEY_LEN 随机密钥，以 os.open(O_CREAT|O_EXCL|O_WRONLY, 0o600) 原子独占创建（并发首启仅一赢家），FileExistsError 时经 _read_master_key_file 读回赢家密钥（绝不覆盖），成功则 chmod 0600 后返回 key。
 def load_master_key(master_file=None, env_var=MASTER_ENV, create=True):
     """KEK 来源：环境变量 → 主密钥文件（可选自动生成）；都没有返回 None。"""
     raw = (os.environ.get(env_var) or "").strip()
@@ -214,13 +235,17 @@ def load_master_key(master_file=None, env_var=MASTER_ENV, create=True):
             raise CryptoError(f"环境变量 {env_var} 不是合法 hex / base64 主密钥") from e
     path = master_file or MASTER_FILE
     if os.path.exists(path):
-        with open(path, "r", encoding="utf-8") as f:
-            return _b64d(f.read().strip())
+        return _read_master_key_file(path)
     if not create:
         return None
     key = secrets.token_bytes(KEY_LEN)
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
+    try:
+        fd = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+    except FileExistsError:
+        # 并发首启竞态：对方抢先建好——读回既有密钥，绝不覆盖（覆盖会让已加密历史永久不可解）。
+        return _read_master_key_file(path)
+    with os.fdopen(fd, "w", encoding="utf-8") as f:
         f.write(_b64e(key))
     try:
         os.chmod(path, 0o600)

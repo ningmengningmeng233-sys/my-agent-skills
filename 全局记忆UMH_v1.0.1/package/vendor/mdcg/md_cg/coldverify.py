@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import threading
 import time
 from collections import deque
@@ -87,15 +88,24 @@ class ColdVerifyQueue:
             pass  # 崩溃恢复容错：文件损坏就不恢复
 
     def _persist(self):
-        """持久化当前队列（全量覆写）。"""
+        """持久化当前队列（全量覆写，经 fsutil.atomic_write 临时文件原子替换）。
+
+        失败时记日志并向上抛（调用方 enqueue/drain 感知；写路径 writepipe 已包容），
+        内存队列不受影响。严禁 except: pass。
+        """
         if not self._queue_path:
             return
+        from .fsutil import atomic_write
+        payload = "".join(json.dumps(task, ensure_ascii=False) + "\n"
+                          for task in self._queue)
         try:
-            with open(self._queue_path, "w", encoding="utf-8") as f:
-                for task in self._queue:
-                    f.write(json.dumps(task, ensure_ascii=False) + "\n")
-        except Exception:                              # noqa: BLE001
-            pass  # 持久化失败不影响内存队列
+            atomic_write(self._queue_path, payload)
+        except Exception as exc:                         # noqa: BLE001
+            self._stats["persist_errors"] = self._stats.get("persist_errors", 0) + 1
+            sys.stderr.write(
+                "[mdcg-coldverify] 队列持久化失败（内存队列不受影响）：%s：%s\n"
+                % (self._queue_path, exc))
+            raise
 
     def enqueue(self, node_id: str, action: str = "reverify", **kw):
         """入队异步验证任务。返回 task dict。"""
