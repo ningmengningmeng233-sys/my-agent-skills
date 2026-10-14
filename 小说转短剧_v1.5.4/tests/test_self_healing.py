@@ -1,3 +1,5 @@
+import os
+
 import pytest
 from unittest.mock import MagicMock
 
@@ -11,8 +13,8 @@ from dramacraft.self_healing import (
 def test_run_quality_gate_on_good_script():
     from dramacraft.ingestor import _read_file_safe
     import json
-    good_script = json.loads(_read_file_safe(r"fixtures\sample_script.json"))
-    good_outline = json.loads(_read_file_safe(r"fixtures\sample_outline.json"))
+    good_script = json.loads(_read_file_safe(os.path.join("fixtures", "sample_script.json")))
+    good_outline = json.loads(_read_file_safe(os.path.join("fixtures", "sample_outline.json")))
 
     passed, report, failed_items = run_quality_gate(good_script, outline_data=good_outline)
     assert passed is True
@@ -68,8 +70,8 @@ def test_generate_episode_with_healing_success():
 
     import json
     from dramacraft.ingestor import _read_file_safe
-    good_ep = json.loads(_read_file_safe(r"fixtures\sample_script.json"))["episodes"][0]
-    good_outline = json.loads(_read_file_safe(r"fixtures\sample_outline.json"))
+    good_ep = json.loads(_read_file_safe(os.path.join("fixtures", "sample_script.json")))["episodes"][0]
+    good_outline = json.loads(_read_file_safe(os.path.join("fixtures", "sample_outline.json")))
 
     mock_gateway = MagicMock()
     # 第一次返回 bad_ep 的 json 字符串，第二次返回 good_ep 的 json 字符串

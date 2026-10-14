@@ -6,13 +6,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def test_e2e_cli_validate_only():
-    script_path = r"fixtures\sample_script.json"
-    outline_path = r"fixtures\sample_outline.json"
+    script_path = os.path.join("fixtures", "sample_script.json")
+    outline_path = os.path.join("fixtures", "sample_outline.json")
     cmd = [
         "run_batch.py",
         "--validate-only", script_path,
         "--outline", outline_path,
-        "--art", r"fixtures\sample_art.json"
+        "--art", os.path.join("fixtures", "sample_art.json")
     ]
     res = run_py(cmd, cwd=ROOT)
     assert res.returncode == 0
@@ -39,9 +39,9 @@ def test_e2e_cli_assemble_and_export_all(tmp_path):
 
     cmd = [
         "run_batch.py",
-        "--outline", r"fixtures\sample_outline.json",
+        "--outline", os.path.join("fixtures", "sample_outline.json"),
         "--target-seconds", "90",
-        "--art", r"fixtures\sample_art.json",
+        "--art", os.path.join("fixtures", "sample_art.json"),
         "--workdir", str(workdir),
         "--assemble-only",
         "--formats", "markdown", "csv", "json", "html"

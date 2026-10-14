@@ -10,8 +10,8 @@ from dramacraft.exporter import export_to_markdown, export_to_csv, export_to_htm
 @pytest.fixture
 def sample_data():
     from dramacraft.ingestor import _read_file_safe
-    script_data = json.loads(_read_file_safe(r"fixtures\sample_script.json"))
-    outline_data = json.loads(_read_file_safe(r"fixtures\sample_outline.json"))
+    script_data = json.loads(_read_file_safe(os.path.join("fixtures", "sample_script.json")))
+    outline_data = json.loads(_read_file_safe(os.path.join("fixtures", "sample_outline.json")))
     return script_data, outline_data
 
 
