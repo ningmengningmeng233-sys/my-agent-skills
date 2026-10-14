@@ -338,6 +338,16 @@ class MultiRoundTests(OrchestratorTestCase):
     def test_second_round_uses_vocals_and_stops_when_passed(self):
         self.fakes.passing_attempts = {2}
         self.fakes.next_strategy_result = "vocals"
+        # DY-03：如实记录要求“用 vocals”必须先有 vocals 产物；补齐候选再断言。
+        vocals = self.root / "media" / "vocals.wav"
+        vocals.parent.mkdir(parents=True, exist_ok=True)
+        vocals.write_bytes(b"audio")
+        original = self.root / "media" / "a.m4a"
+        original.write_bytes(b"audio")
+        self.fakes.variants = [
+            AudioVariant(kind="original", path=original),
+            AudioVariant(kind="vocals", path=vocals),
+        ]
         result = self._process()
         self.assertEqual(result["asr_attempts"], 2)
         self.assertEqual([s.audio_variant for s in self.fakes.strategies],

@@ -297,6 +297,23 @@ def _initial_strategy(services: ServiceBundle, duration: float,
                        audio_variant="original", language=language)
 
 
+def _resolve_audio_input(services: ServiceBundle, default_path: Path,
+                         variant: str) -> tuple[Path, str]:
+    """按 strategy.audio_variant 解析本轮真实音频文件。
+
+    增强候选缺失或文件不存在时回退原音，并返回实际生效的 variant；
+    调用方必须用它改写 strategy，库里记录的才是真实出处（DY-03）。
+    """
+    requested = str(variant or "original")
+    variants = getattr(services.assets, "variants", None) or {}
+    candidate = variants.get(requested)
+    if candidate:
+        path = Path(candidate)
+        if path.is_file():
+            return path, requested
+    return Path(default_path), "original"
+
+
 def _run_rounds(runner: _Runner, audio_path: Path, title: str, duration: float,
                 ocr_subtitles, analysis) -> list[tuple[AsrAttemptResult, QualityReport]]:
     """最多三轮；清晰首轮即停，困难按证据逐轮升级。"""
@@ -304,7 +321,12 @@ def _run_rounds(runner: _Runner, audio_path: Path, title: str, duration: float,
     strategy = _initial_strategy(services, duration, title)
     history: list[tuple[AsrAttemptResult, QualityReport]] = []
     for round_no in range(1, max(1, services.max_rounds) + 1):
-        attempt = services.asr(audio_path, strategy, round_no)
+        audio_for_round, effective = _resolve_audio_input(
+            services, audio_path, strategy.audio_variant)
+        if effective != strategy.audio_variant:
+            runner.degrade("audio_variant_unavailable")
+            strategy = replace(strategy, audio_variant=effective)
+        attempt = services.asr(audio_for_round, strategy, round_no)
         if isinstance(attempt, AsrAttemptResult) and attempt.error_code == "asr_oom":
             runner.degrade("asr_oom")
         report = services.quality(attempt, analysis, ocr_subtitles)
