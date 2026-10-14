@@ -18,7 +18,8 @@ import subprocess
 import sys
 import tempfile
 
-sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if __name__ == "__main__":  # 只有 CLI 直跑才改；被导入时不得动宿主 stdio（会吞掉测试框架的汇总行）
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 TESTS = []
 PASS = FAIL = 0
