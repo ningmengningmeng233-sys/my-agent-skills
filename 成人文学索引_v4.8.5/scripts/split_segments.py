@@ -26,8 +26,10 @@ v4 修复：
   python split_segments.py "<更新后的源文件>" --novel 小说名 --author 作者 --append   # 追更
 """
 import argparse
+import datetime as dt
 import os
 import re
+import shutil
 import sys
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -85,11 +87,116 @@ def make_seg_content(fname, frontmatter, body):
     return fm + body
 
 
+_STAGER = None  # main() 里启用；被其它模块/测试直接调用时保持旧的直写语义
+
+
+class Stager:
+    """v4.6.2 安全增量：先全部写暂存件 → 校验 → 隔离被取代件 → 原子替换。
+
+    任何一步失败都清掉暂存件，活动段集与章节索引保持原样；被取代的段与其
+    章节索引一起移到 ``<lib>/.superseded/<时间戳>/`` 下，可恢复、不删除。
+
+    IDX-01：追更（--append）与分卷（--volume）是增量模式（incremental=True）：
+    本次只新增段或原位更新末段，既有在用段全部是保留段，提交时严禁把未覆盖的
+    既有段移入 .superseded（此前终态集合只含本次文件，提交即清空数据集）。
+    全量重切（--force）仍走全量语义：不在终态集合里的旧段视为被取代并隔离。
+    """
+
+    SUFFIX = ".new-part"
+
+    def __init__(self, lib, seg_dir, prefix, incremental=False):
+        self.lib = str(lib)
+        self.seg_dir = str(seg_dir)
+        self.prefix = prefix
+        self.incremental = bool(incremental)
+        self.staged = {}      # 最终文件名 -> 暂存件路径
+        self.kept = set()     # 内容未变、无需重写的既有文件
+        self.temps = []
+
+    def write(self, fname, content, force=False):
+        out = os.path.join(self.seg_dir, fname)
+        if os.path.exists(out):
+            with open(out, "r", encoding="utf-8") as f:
+                if f.read() == content:
+                    self.kept.add(fname)
+                    return "skipped"
+            if not force:
+                return "conflicted"
+        tmp = out + self.SUFFIX
+        with open(tmp, "w", encoding="utf-8") as f:
+            f.write(content)
+        self.temps.append(tmp)
+        self.staged[fname] = tmp
+        return "written"
+
+    def final_names(self):
+        return set(self.staged) | self.kept
+
+    def unowned_files(self):
+        """段目录里不属于本书命名规范的文件（陌生件）——必须挡住替换。"""
+        pat = re.compile(re.escape(self.prefix) + r"-.*-\d{3}\.md$")
+        return sorted(p for p in os.listdir(self.seg_dir)
+                      if p.endswith(".md") and not pat.match(p))
+
+    def _index_of(self, seg_name):
+        return os.path.join(self.lib, "章节索引", seg_name.replace(".md", "-idx.md"))
+
+    def commit(self):
+        for fname, tmp in sorted(self.staged.items()):
+            with open(tmp, encoding="utf-8") as f:
+                body = f.read()
+            meta = parse_frontmatter(body)[0] if body.startswith("---") else ({}, "")
+            if isinstance(meta, tuple):
+                meta = meta[0]
+            if not meta or not str(meta.get("小说名称", "")).strip() \
+                    or not str(meta.get("章节范围", "")).strip():
+                raise RuntimeError(f"暂存段校验未过：{fname}（frontmatter 缺小说名称或章节范围）")
+        unowned = self.unowned_files()
+        if unowned:
+            raise RuntimeError(f"UNOWNED_FILE_IN_SEG_DIR：{unowned[:5]}；拒绝在陌生文件在场的情况下替换")
+        keep = self.final_names()
+        if self.incremental:
+            # IDX-01 增量模式：本次未覆盖的既有在用段全部是保留段，
+            # 终态集合扩大为“本次文件 + 全部既有段”，隔离扫描自然无命中。
+            keep = keep | {p for p in os.listdir(self.seg_dir) if p.endswith(".md")}
+        stamp = dt.datetime.now().strftime("%Y%m%d-%H%M%S")
+        moved = []
+        for cur in sorted(os.listdir(self.seg_dir)):
+            if not cur.endswith(".md") or cur in keep or cur.endswith(self.SUFFIX):
+                continue
+            qdir = os.path.join(self.lib, ".superseded", stamp, "小说原文", self.prefix)
+            os.makedirs(qdir, exist_ok=True)
+            src = os.path.join(self.seg_dir, cur)
+            dst = os.path.join(qdir, cur)
+            shutil.move(src, dst)
+            moved.append(cur)
+            idx = self._index_of(cur)
+            if os.path.isfile(idx):
+                qidx = os.path.join(self.lib, ".superseded", stamp, "章节索引")
+                os.makedirs(qidx, exist_ok=True)
+                shutil.move(idx, os.path.join(qidx, os.path.basename(idx)))
+        for fname, tmp in sorted(self.staged.items()):
+            shutil.move(tmp, os.path.join(self.seg_dir, fname))
+            if tmp in self.temps:
+                self.temps.remove(tmp)
+        return moved
+
+    def abort(self):
+        for t in list(self.temps):
+            try:
+                os.remove(t)
+            except OSError:
+                pass
+        self.temps.clear()
+
+
 def write_seg_if_needed(seg_dir, fname, frontmatter, body, force):
     """写段文件；返回 'written' / 'skipped' / 'conflicted'。
     v4：幂等跳过前先比对内容——同名文件内容相同 → 跳过；内容不同 → 不覆盖，
     返回 conflicted（调用方汇总报错，防止分卷章号重名/源文件已变更时静默丢段）。"""
     content = make_seg_content(fname, frontmatter, body)
+    if _STAGER is not None:
+        return _STAGER.write(fname, content, force)
     out = os.path.join(seg_dir, fname)
     if os.path.exists(out) and not force:
         with open(out, "r", encoding="utf-8") as f:
@@ -366,8 +473,17 @@ def append_new_chapters(body_lines, chapters, seg_dir, novel, author, per_seg, v
         "chapter_range": ch_range,
         "split_mode": last_meta.get("分段方式") or "按章节切分",
     }, new_body)
-    with open(os.path.join(seg_dir, last_fname), "w", encoding="utf-8") as f:
-        f.write(content)
+    if _STAGER is not None:
+        # IDX-01：并入末段必须走 Stager 暂存（原位更新、故意覆盖 → force=True），
+        # 随事务统一校验与提交；直写会绕过校验且失败时无法回滚。
+        rc = _STAGER.write(last_fname, content, force=True)
+        if rc == "conflicted":  # force=True 下不应发生，防御性报错
+            conflicts.append(last_fname)
+            logger.warning(f"  ⚠️  {last_fname}: 并入末段未能暂存（未覆盖）")
+            return created, merged, conflicts
+    else:
+        with open(os.path.join(seg_dir, last_fname), "w", encoding="utf-8") as f:
+            f.write(content)
     logger.info(f"  ✅ {last_fname}: 并入 {len(new_chs)} 章（{new_chs[0][1]} → {new_chs[-1][1]}，章节范围 {ch_range}）")
     logger.info("     ℹ️  段文件名保持原样（防断点失效重跑全书），章节范围以 frontmatter 为准")
     return created, 1, conflicts
@@ -400,6 +516,9 @@ def main():
 
     seg_dir = os.path.join(args.lib, "小说原文", f"{novel}-{author}")
     os.makedirs(seg_dir, exist_ok=True)
+    global _STAGER
+    _STAGER = Stager(args.lib, seg_dir, f"{novel}-{author}",
+                     incremental=bool(args.append or args.volume))
 
     try:
         text = read_text_auto(args.source)
@@ -433,11 +552,21 @@ def main():
         mode = f"按字数切分（{args.chars_per_seg} 字符/段）"
 
     if conflicts:
+        _STAGER.abort()
         logger.error(f"❌ {len(conflicts)} 个段文件同名但内容不同，未覆盖（可能是分卷章号重名或源文件已变更）:")
         for c in conflicts:
             logger.error(f"   - {c}")
         logger.error("  处理：分卷切分请加 --volume 第X卷；源文件变更请用 --force 覆盖（会触发对应段索引重跑）")
         return 1
+    try:
+        superseded = _STAGER.commit()
+    except (RuntimeError, OSError) as e:
+        _STAGER.abort()
+        logger.error(f"❌ 拆段事务未提交，活动段集与章节索引保持原样：{e}")
+        return 1
+    if superseded:
+        logger.info(f"♻️  被取代的段已可恢复隔离 {len(superseded)} 件（含其章节索引）："
+                    f"{os.path.join(args.lib, '.superseded')}；未删除任何文件")
     if created == 0 and "增量" not in mode:
         logger.info("ℹ️  无新段生成（全部已存在，用 --force 可覆盖）")
     logger.info(f"✅ 拆段完成: {mode} | 输出: {seg_dir}")
