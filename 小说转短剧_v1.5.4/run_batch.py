@@ -685,7 +685,8 @@ def main():
         ledger.emit("run_finish", status="partial", blocked_eps=[b["ep"] for b in blocked_eps],
                     ready_eps=ready)
         _write_production_log(ledger, workdir, outline_data)
-        sys.exit(2)
+        # DR-06：回炉未收敛属部分未完成（可续跑）→ exit 3；exit 2 只留给预检违规拒跑
+        sys.exit(3)
 
     # 5.5 伏笔认领对账告警（F2：只进报告，不进回炉指令）
     if f2_warnings:
@@ -706,7 +707,8 @@ def main():
         print("   下一步：原命令重跑补上这几集（已完成集不重复计费），或先确认大纲集数是否改过。")
         ledger.emit("run_finish", status="missing_episodes", missing_eps=missing_eps)
         _write_production_log(ledger, workdir, outline_data)
-        sys.exit(2)
+        # DR-06：缺集属部分未完成（可续跑）→ exit 3；exit 2 只留给预检违规拒跑
+        sys.exit(3)
 
     # 6. 全量聚合与多格式导出
     print(f"\n[全量聚合] 正在汇编全剧完整剧本并导出交付物...")

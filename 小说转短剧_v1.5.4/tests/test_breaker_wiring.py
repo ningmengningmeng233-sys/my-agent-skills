@@ -151,7 +151,7 @@ def test_run_batch_marks_blocked_episode_and_continues(tmp_path, monkeypatch):
     ])
     with pytest.raises(SystemExit) as ei:
         run_batch.main()
-    assert ei.value.code == 2, "有集未交付 → 非零退出（不是静默成功）"
+    assert ei.value.code == 3, "有集未交付 → exit 3 部分未完成可续跑（DR-06：不再与预检违规共用 exit 2）"
 
     ep_dir = os.path.join(workdir, "state", "episodes")
     assert os.path.exists(os.path.join(ep_dir, "ep001.json"))

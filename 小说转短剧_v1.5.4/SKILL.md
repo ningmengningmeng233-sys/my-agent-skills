@@ -32,7 +32,7 @@ metadata:
 | 五个子模块自测（Node，无需模型） | `node skills_runtime/<模块>/scripts/selftest.mjs`，`<模块>` 取 novel-art / novel-characters / novel-outline / novel-script / novel-storyboard；全过各打印 `✓ N 项自测全部通过`，非 0 退出即断链 |
 | 命名工作流跑全链 | 在 ZCode 里跑 `dramacraft-pipeline`（见「产线工作流」一节） |
 | 改过引擎后自检 | `python -m pytest tests/ -q` |
-| 退出码含义 | 0 成功交付 / 1 质量门未过或终扫未过 / 2 预检违规拒跑 / 3 预算熔断可续跑 |
+| 退出码含义 | 0 成功交付 / 1 质量门未过或终扫未过 / 2 预检违规拒跑 / 3 部分未完成可续跑 |
 
 ## 开工硬门禁（v1.0.1 起为铁律，违反即事故）
 

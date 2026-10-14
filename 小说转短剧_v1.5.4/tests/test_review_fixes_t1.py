@@ -3,7 +3,7 @@
 
 Must#1 `--assemble-only` 缺集静默交付（exit 0 假成功）
 Must#2 台账跨运行残留 → 下一轮首轮假 escalate；`--round 0` / `--cap 0` 无校验
-Must#3 坏台账把「部分交付 exit 2」降级成「整批硬失败 exit 1」
+Must#3 坏台账把「部分交付 exit 3」降级成「整批硬失败 exit 1」
 另附 Should：预算与真异常并存时真异常必须优先（不得吞成"充值重跑即可"）。
 """
 import json
@@ -139,7 +139,7 @@ def test_assemble_only_with_missing_episode_refuses_silent_success(tmp_path):
     res = _run_batch(["--outline", OUTLINE, "--target-seconds", "90",
                       "--workdir", str(ws), "--assemble-only"])
     out = res.stdout + res.stderr
-    assert res.returncode == 2, out
+    assert res.returncode == 3, out
     assert "第 2 集" in out, out
     assert "成功" not in out, "缺集还报成功就是假成功"
     assert not (ws / "output" / "script.json").exists(), "缺集不得出交付物"
