@@ -35,7 +35,37 @@ if os.path.join(REPO_ROOT, "scripts") not in sys.path:
     sys.path.insert(0, os.path.join(REPO_ROOT, "scripts"))
 from closure_gate_contract import (agent_gate, command_gate, local_gate,
                                    render_gate, video_gate)
-from versioning import get_version
+from versioning import (VersionValidationError, check_single_source_version,
+                        get_version)
+
+MISSING_VALIDATOR = "MISSING_VALIDATOR"
+
+EXTERNAL_VERIFIERS = {
+    "REAL_AGENT_E2E": os.path.join("e2e", "real_agent", "verify_transcripts.py"),
+    "MODEL_RENDER_E2E": os.path.join("e2e", "model_render",
+                                     "verify_render_evidence.py"),
+    "VIDEO_REVERSE_E2E": os.path.join("e2e", "video_reverse",
+                                      "verify_video_evidence.py"),
+}
+
+
+def missing_validator_gate(gate_name: str, validator_rel: str, now: str) -> dict:
+    """MM-03：外部校验器文件缺失时的诚实记录。
+
+    工具缺件不是业务状态：状态记 NOT_RUN（可发布档位照旧），但必须带
+    ``validator_status=MISSING_VALIDATOR`` 并在原因里点名缺失文件，不许
+    复用“等待原生会话 / dry-run / 无视频包”等业务话术。
+    """
+    rel = validator_rel.replace("\\", "/")
+    return {
+        "status": "NOT_RUN",
+        "validator_status": MISSING_VALIDATOR,
+        "validator": rel,
+        "reason": (f"外部校验器缺件（{MISSING_VALIDATOR}）：{rel} 不存在，"
+                   f"无法执行 {gate_name} 验证；这是工具缺件，不是业务待跑"),
+        "at": now,
+        "evidence_paths": [],
+    }
 
 
 def sha_file(path: str) -> str:
@@ -415,6 +445,11 @@ def main() -> int:
                     help="Explicit model-render run id scored by "
                          "verify_render_evidence.py (required for the RENDER gate)")
     args = ap.parse_args()
+    try:
+        report_version = check_single_source_version(REPO_ROOT)
+    except VersionValidationError as exc:
+        print(f"单一真源版本号漂移（MM-01），拒绝采集：{exc}", file=sys.stderr)
+        return 1
     run_id = f"{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}-{uuid4().hex[:8]}"
     commit = git_head()
     now = datetime.now(timezone.utc).isoformat()
@@ -471,15 +506,26 @@ def main() -> int:
     # A04: the collector only executes the verifier and reads the v2 review
     # file; coverage/provenance judgment lives in the pure agent_gate. The
     # R1-suspended reality (5 dev smokes, no v2 review) stays REVIEW_REQUIRED.
-    real_agent_out = subprocess.run(
-        [sys.executable, os.path.join(REPO_ROOT, "e2e", "real_agent", "verify_transcripts.py")],
-        capture_output=True, text=True, encoding="utf-8", errors="strict",
-        cwd=REPO_ROOT, env=UTF8_ENV)
-    try:
-        ra_doc = json.loads(real_agent_out.stdout)
-    except Exception:
-        ra_doc = {}
-    if real_agent_out.returncode == 2:
+    # MM-03: a missing verifier is a tool gap, never a business "awaiting" state.
+    _ra_verifier = os.path.join(REPO_ROOT, EXTERNAL_VERIFIERS["REAL_AGENT_E2E"])
+    if not os.path.isfile(_ra_verifier):
+        real_agent = missing_validator_gate(
+            "REAL_AGENT_E2E", EXTERNAL_VERIFIERS["REAL_AGENT_E2E"], now)
+        real_agent["verified_cases"] = 0
+        ra_doc = None
+        real_agent_out = None
+    else:
+        real_agent_out = subprocess.run(
+            [sys.executable, _ra_verifier],
+            capture_output=True, text=True, encoding="utf-8", errors="strict",
+            cwd=REPO_ROOT, env=UTF8_ENV)
+        try:
+            ra_doc = json.loads(real_agent_out.stdout)
+        except Exception:
+            ra_doc = {}
+    if real_agent_out is None:
+        pass
+    elif real_agent_out.returncode == 2:
         # T7 / P0-3: the dev smoke batch lives isolated in results_smoke/; the main
         # results directory holds the 30 frozen cases. When 0 native sessions exist,
         # the gate honestly reports NOT_RUN.
@@ -533,17 +579,27 @@ def main() -> int:
         model_render = {"status": "NOT_RUN", "reason": "no --render-run-id given",
                         "at": now, "evidence_paths": []}
     else:
-        render_root = os.path.join(REPO_ROOT, "e2e", "model_render", "results")
-        vr = subprocess.run(
-            [sys.executable, os.path.join(REPO_ROOT, "e2e", "model_render",
-                                          "verify_render_evidence.py"), render_run_id],
-            capture_output=True, text=True, encoding="utf-8", errors="strict",
-            cwd=REPO_ROOT, env=UTF8_ENV)
-        try:
-            vr_doc = json.loads(vr.stdout)
-        except Exception:
-            vr_doc = {}
-        if vr.returncode == 2 or vr_doc.get("MODEL_RENDER_E2E") == "NOT_RUN":
+        _render_verifier = os.path.join(
+            REPO_ROOT, EXTERNAL_VERIFIERS["MODEL_RENDER_E2E"])
+        if not os.path.isfile(_render_verifier):
+            # MM-03: 缺校验器不许复用 dry-run 业务话术。
+            model_render = missing_validator_gate(
+                "MODEL_RENDER_E2E", EXTERNAL_VERIFIERS["MODEL_RENDER_E2E"], now)
+            model_render["run_id"] = render_run_id
+            vr = None
+            vr_doc = None
+        else:
+            vr = subprocess.run(
+                [sys.executable, _render_verifier, render_run_id],
+                capture_output=True, text=True, encoding="utf-8", errors="strict",
+                cwd=REPO_ROOT, env=UTF8_ENV)
+            try:
+                vr_doc = json.loads(vr.stdout)
+            except Exception:
+                vr_doc = {}
+        if vr is None:
+            pass
+        elif vr.returncode == 2 or vr_doc.get("MODEL_RENDER_E2E") == "NOT_RUN":
             model_render = {"status": "NOT_RUN",
                             "reason": vr_doc.get("reason", "dry-run only; no live tasks"),
                             "run_id": render_run_id, "at": now,
@@ -591,16 +647,26 @@ def main() -> int:
 
     # A06: package machine-verification via the dedicated verifier; the pure
     # video_gate decides (fixtures never count, <5 real videos stays honest).
-    vv = subprocess.run(
-        [sys.executable, os.path.join(REPO_ROOT, "e2e", "video_reverse",
-                                      "verify_video_evidence.py")],
-        capture_output=True, text=True, encoding="utf-8", errors="strict",
-        cwd=REPO_ROOT, env=UTF8_ENV)
-    try:
-        vv_doc = json.loads(vv.stdout)
-    except Exception:
-        vv_doc = {}
-    if vv.returncode == 2 or not isinstance(vv_doc, dict) or not vv_doc:
+    # MM-03: 缺校验器不许复用“无视频包”业务话术。
+    _video_verifier = os.path.join(
+        REPO_ROOT, EXTERNAL_VERIFIERS["VIDEO_REVERSE_E2E"])
+    if not os.path.isfile(_video_verifier):
+        video = missing_validator_gate(
+            "VIDEO_REVERSE_E2E", EXTERNAL_VERIFIERS["VIDEO_REVERSE_E2E"], now)
+        vv = None
+        vv_doc = None
+    else:
+        vv = subprocess.run(
+            [sys.executable, _video_verifier],
+            capture_output=True, text=True, encoding="utf-8", errors="strict",
+            cwd=REPO_ROOT, env=UTF8_ENV)
+        try:
+            vv_doc = json.loads(vv.stdout)
+        except Exception:
+            vv_doc = {}
+    if vv is None:
+        pass
+    elif vv.returncode == 2 or not isinstance(vv_doc, dict) or not vv_doc:
         video = {"status": "NOT_RUN",
                  "reason": "no video packages: 5 authorized real videos pending "
                            "(synthetic fixtures never count as evidence)",
@@ -661,7 +727,7 @@ def main() -> int:
     except subprocess.SubprocessError:
         branch = "DETACHED_HEAD"
     report = {"run_id": run_id, "commit": commit, "branch": branch,
-              "version": get_version(REPO_ROOT), "created_at": now,
+              "version": report_version, "created_at": now,
               "gates": gates,
               "evidence_index_sha256": sha_file(index_path)}
     with open(os.path.join(out_dir, "closure-report.json"), "w", encoding="utf-8") as f:

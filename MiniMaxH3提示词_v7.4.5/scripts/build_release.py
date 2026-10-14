@@ -46,7 +46,8 @@ if SCRIPTS_DIR not in sys.path:
     sys.path.insert(0, SCRIPTS_DIR)
 
 from closure_gate_contract import GATE_ORDER, LOCAL_GATES, release_allowed, verify_index  # noqa: E402
-from versioning import get_version  # noqa: E402
+from versioning import (VersionValidationError, check_single_source_version,  # noqa: E402
+                        get_version)
 
 UTF8_ENV = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
 
@@ -165,18 +166,66 @@ def current_branch() -> str:
         return "DETACHED_HEAD"
 
 
+def _git_toplevel() -> str | None:
+    """Monorepo 顶层目录；取不到时返回 None（调用方按单包处理）。"""
+    try:
+        top = run_git(["rev-parse", "--show-toplevel"]).strip()
+    except subprocess.CalledProcessError:
+        return None
+    return top or None
+
+
+def _package_prefix() -> str:
+    """当前技能包相对 git 顶层的目录前缀（末尾带 /；单包仓库为空串）。
+
+    MM-06：`git status --porcelain` 永远返回顶层相对路径（含包外改动），
+    而预检的豁免/关键文件/套件口径全是包内相对路径。不去前缀、不 scope，
+    包外一次改动就会误杀本包发布，而包内未入库套件反而因前缀对不上被漏掉。
+    """
+    top = _git_toplevel()
+    if not top:
+        return ""
+    try:
+        rel = os.path.relpath(REPO_ROOT, top).replace("\\", "/")
+    except ValueError:
+        return ""
+    if rel in (".", ""):
+        return ""
+    return rel.rstrip("/") + "/"
+
+
+def _status_path_inside_package(raw_path: str, prefix: str) -> str | None:
+    """status 行路径归一为包内相对路径；包外返回 None。"""
+    path = raw_path.strip().replace("\\", "/")
+    if " -> " in path:  # rename/copy：只看新路径
+        path = path.split(" -> ", 1)[1].strip().strip('"')
+    if prefix:
+        if not path.startswith(prefix):
+            return None
+        return path[len(prefix):]
+    return path
+
+
 def ls_tracked() -> list[str]:
     raw = run_git(["ls-files", "-z"])
-    return sorted(p for p in raw.split("\0") if p)
+    names = [p for p in raw.split("\0") if p]
+    prefix = _package_prefix()
+    if prefix and any(p.startswith(prefix) for p in names):
+        # 顶层相对形态：只留本包并去前缀。
+        return sorted(p[len(prefix):] for p in names if p.startswith(prefix))
+    return sorted(names)
 
 
 def dirty_tracked_paths() -> list[str]:
-    """非豁免的 tracked 改动（不含 untracked 的 ?? 行）。"""
+    """非豁免的 tracked 改动（不含 untracked 的 ?? 行；只看本包）。"""
+    prefix = _package_prefix()
     out = []
     for line in run_git(["status", "--porcelain"]).splitlines():
         if not line.strip() or line.startswith("??"):
             continue
-        path = line[3:].strip().replace("\\", "/")
+        path = _status_path_inside_package(line[3:], prefix)
+        if path is None:
+            continue
         if path not in DIRTY_EXEMPT:
             out.append(path)
     return out
@@ -185,11 +234,14 @@ def dirty_tracked_paths() -> list[str]:
 def untracked_test_suites() -> list[str]:
     """`_审查测试` 里未入库的 test_*.py：静态段会真实执行它们（它们只是
     额外加测、不会替任何门造假），故记入 manifest 作披露而不阻断构建。"""
+    prefix = _package_prefix()
     out = []
     for line in run_git(["status", "--porcelain"]).splitlines():
         if not line.startswith("?? "):
             continue
-        path = line[3:].strip().replace("\\", "/")
+        path = _status_path_inside_package(line[3:], prefix)
+        if path is None:
+            continue
         if (path.startswith("_审查测试/")
                 and os.path.basename(path).startswith("test_")
                 and path.endswith(".py")):
@@ -199,6 +251,10 @@ def untracked_test_suites() -> list[str]:
 
 def preflight() -> dict:
     problems: list[str] = []
+    try:
+        check_single_source_version(REPO_ROOT)
+    except VersionValidationError as exc:
+        problems.append(f"单一真源版本号漂移（MM-01）：{exc}")
     tracked = ls_tracked()
     tracked_set = set(tracked)
     dirty = dirty_tracked_paths()
@@ -437,7 +493,10 @@ def main() -> int:
                     help="发布包输出目录（仓库之外），默认 <仓库同级>/_minimax_dist_<版本>")
     args = ap.parse_args()
 
-    version = get_version(REPO_ROOT)
+    try:
+        version = check_single_source_version(REPO_ROOT)
+    except VersionValidationError as exc:
+        raise SystemExit(f"单一真源版本号漂移（MM-01），拒绝构建：{exc}")
     dist_root = os.path.abspath(args.dist) if args.dist else os.path.join(
         os.path.dirname(REPO_ROOT), f"_minimax_dist_{version}")
     if dist_root == REPO_ROOT or dist_root.startswith(REPO_ROOT + os.sep):

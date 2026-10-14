@@ -432,6 +432,81 @@ def get_version(repo_root: Optional[str] = None) -> str:
     return info["version"]
 
 
+def _frontmatter_version(skill_text: str) -> Optional[str]:
+    parts = skill_text.split("---", 2)
+    if len(parts) < 3:
+        return None
+    match = re.search(r"^\s*version:\s*[\"']?([^\"'\s]+)[\"']?\s*$",
+                      parts[1], re.MULTILINE)
+    return match.group(1).strip() if match else None
+
+
+def collect_version_declarations(repo_root: str) -> Dict[str, Any]:
+    """Collect every in-package version declaration for the MM-01 guard.
+
+    Single source of truth is ``config/version.json`` (``version`` field).
+    Compared declarations: SKILL.md frontmatter ``version``, SKILL.md title
+    ``(vX)``, package directory suffix (``..._vX``) and every
+    ``pipeline-contract`` block's ``skill_version``.
+    """
+    info = load_version_info(repo_root=repo_root, enforce_git=False)
+    authoritative = info["version"]
+    skill_path = os.path.join(repo_root, "SKILL.md")
+    if not os.path.isfile(skill_path):
+        raise VersionValidationError(f"SKILL.md missing: {skill_path}")
+    with open(skill_path, "r", encoding="utf-8") as handle:
+        skill_text = handle.read()
+    frontmatter = _frontmatter_version(skill_text)
+    title_match = re.search(r"\(v([^)]+)\)", skill_text)
+    title_version = title_match.group(1).strip() if title_match else None
+    base = os.path.basename(os.path.abspath(repo_root))
+    dir_match = re.search(
+        r"_v?(\d+\.\d+\.\d+(?:-[0-9A-Za-z.\-]+)?(?:\+[0-9A-Za-z.\-]+)?)$", base)
+    dir_version = dir_match.group(1) if dir_match else None
+    contract_versions = sorted(set(
+        match.group(1).strip()
+        for match in re.finditer(
+            r"^\s*skill_version:\s*[\"']?([^\"'\s#]+)[\"']?", skill_text,
+            re.MULTILINE)))
+    return {
+        "version": authoritative,
+        "frontmatter": frontmatter,
+        "title": title_version,
+        "directory": dir_version,
+        "contracts": contract_versions,
+    }
+
+
+def check_single_source_version(repo_root: Optional[str] = None) -> str:
+    """Fail-closed MM-01 guard: every declaration must equal version.json.
+
+    Returns the authoritative version string. Raises
+    VersionValidationError on any drift so a release/evidence report can
+    never be stamped with a version the package does not honestly declare.
+    """
+    if repo_root is None:
+        repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    declared = collect_version_declarations(repo_root)
+    authoritative = declared["version"]
+    problems: list[str] = []
+    for key in ("frontmatter", "title", "directory"):
+        value = declared.get(key)
+        if value is None:
+            problems.append(f"{key} declaration missing")
+        elif value != authoritative:
+            problems.append(f"{key} declares {value!r} != {authoritative!r}")
+    for contract_version in declared.get("contracts") or []:
+        if contract_version != authoritative:
+            problems.append(
+                f"pipeline-contract skill_version {contract_version!r} "
+                f"!= {authoritative!r}")
+    if problems:
+        raise VersionValidationError(
+            "Single-source version drift: config/version.json "
+            f"{authoritative!r} vs " + "; ".join(problems))
+    return authoritative
+
+
 if __name__ == "__main__":
     try:
         info = load_version_info(enforce_git=True)
