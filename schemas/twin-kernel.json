@@ -74,7 +74,7 @@
           "reason": "领域定制测试套件（W06 裁定）：知识库转录侧覆盖通用知识库、多格式文档、API pool 多节点等主干能力；成人文学索引侧覆盖小说分段、文风蒸馏、爽点/名场面小说创作专属词表。两侧用例集各自服务本仓领域，维持双向定制隔离。",
           "evidence": {
             "trunk_sha256": "eed50a61277fb88648a79517a32a435ca945420049a06ea2a6f1de25a89a85fe",
-            "customization_sha256": "bf4e1cf2d193349084698cda0746aeea10cd31521068ce878b2c650bba11fa96",
+            "customization_sha256": "212b228ac1fa681ad7d0728eb71417d62991698b41441fc7a82f52e44c81b767",
             "byte_identical": false,
             "trunk_bytes": 42882,
             "customization_bytes": 39571,
@@ -400,7 +400,7 @@
           "reason": "主干为超集：多 split_single_doc（独立文档集虚拟书分支）与 原文/段索引 命名，函数层无成人侧独有项；成人侧差异集中在 小说原文/章节索引 目录名与本库 CLI 文案。属主干新增未回填。",
           "evidence": {
             "trunk_sha256": "65987ed7e75af123830707f05e0481e9bd061e33678045f608a9007a7835143a",
-            "customization_sha256": "070c355b5725c31b37451e2cceaa74d14d9de0cb5f61255f6858e78d3a972954",
+            "customization_sha256": "be09af26fe2d9a4c34c45086cdf1a89809351b7573107b271fc095556f94df0b",
             "byte_identical": false,
             "trunk_bytes": 24896,
             "customization_bytes": 22070,
