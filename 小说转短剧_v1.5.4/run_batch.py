@@ -45,14 +45,18 @@ from dramacraft.continuity_lint import (
 from dramacraft.doctor import check_node_available, run_doctor
 
 
-def safe_write_json(path: str, data: Any):
-    """原子写 JSON：先写入线程/进程唯一临时文件，flush+fsync 后原子 replace 替换目标文件。
-    彻底避免断电/中断/多线程竞争写出半截坏 JSON 污染断点缓存。"""
+def _atomic_write(path: str, write_fn) -> None:
+    """原子写盘公共底座：建目录 → 写线程/进程唯一临时文件 → flush+fsync → 原子 replace。
+
+    write_fn(fp) 负责把内容写入已打开（UTF-8）的临时文件句柄；残留临时文件
+    的收尾清理只容忍 OSError（并发 replace 竞争/权限抖动），写入期本身的异常
+    原样上抛，保证调用方能感知落盘失败。
+    """
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     tmp_path = f"{path}.tmp.{os.getpid()}.{threading.get_ident()}"
     try:
         with open(tmp_path, "w", encoding="utf-8") as fp:
-            json.dump(data, fp, ensure_ascii=False, indent=2)
+            write_fn(fp)
             fp.flush()
             os.fsync(fp.fileno())
         os.replace(tmp_path, path)
@@ -62,24 +66,17 @@ def safe_write_json(path: str, data: Any):
                 os.remove(tmp_path)
             except OSError:
                 pass
+
+
+def safe_write_json(path: str, data: Any):
+    """原子写 JSON：先写入线程/进程唯一临时文件，flush+fsync 后原子 replace 替换目标文件。
+    彻底避免断电/中断/多线程竞争写出半截坏 JSON 污染断点缓存。"""
+    _atomic_write(path, lambda fp: json.dump(data, fp, ensure_ascii=False, indent=2))
 
 
 def safe_write_text(path: str, text: str):
     """原子写文本文件"""
-    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
-    tmp_path = f"{path}.tmp.{os.getpid()}.{threading.get_ident()}"
-    try:
-        with open(tmp_path, "w", encoding="utf-8") as fp:
-            fp.write(text)
-            fp.flush()
-            os.fsync(fp.fileno())
-        os.replace(tmp_path, path)
-    finally:
-        if os.path.exists(tmp_path):
-            try:
-                os.remove(tmp_path)
-            except OSError:
-                pass
+    _atomic_write(path, lambda fp: fp.write(text))
 
 
 def _write_production_log(ledger, workdir, outline_data):
