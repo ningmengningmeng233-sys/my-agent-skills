@@ -83,7 +83,9 @@
             "changed_diff_lines": 207,
             "trunk_only_defs": [],
             "customization_only_defs": []
-          }
+          },
+          "mainline_sha256": "eed50a61277fb88648a79517a32a435ca945420049a06ea2a6f1de25a89a85fe",
+          "customization_sha256": "212b228ac1fa681ad7d0728eb71417d62991698b41441fc7a82f52e44c81b767"
         },
         {
           "file": "_验证批次.py",
@@ -409,7 +411,9 @@
               "split_single_doc"
             ],
             "customization_only_defs": []
-          }
+          },
+          "mainline_sha256": "65987ed7e75af123830707f05e0481e9bd061e33678045f608a9007a7835143a",
+          "customization_sha256": "be09af26fe2d9a4c34c45086cdf1a89809351b7573107b271fc095556f94df0b"
         },
         {
           "file": "tags.py",
