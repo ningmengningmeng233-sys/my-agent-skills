@@ -328,6 +328,93 @@ class RepairArtifactsTests(BundleTestCase):
         return stack, spies
 
 
+class ManifestStatusTests(BundleTestCase):
+    """DY-05：source-manifest 如实反映阶段状态与摘要标记。
+
+    半成品（needs_review / awaiting_ai）不许虚报 completed；has_summary 以交付
+    文件中的摘要节为准（占位节一律判 False），调用方断言只在文件不可读时兜底。
+    """
+
+    def _publish_version(self, output_dir, **seed_kwargs):
+        from scripts.artifacts import publish_artifacts, render_evidence, render_main
+        version_id = self._seed_version(**seed_kwargs)
+        bundle = self.bundle(version_id)
+        main = render_main(bundle, output_dir)
+        evidence = render_evidence(bundle, output_dir)
+        published = publish_artifacts(self.db, version_id, [main, evidence],
+                                      output_root=output_dir)
+        return Path(published.main_file), Path(published.evidence_file)
+
+    def _manifest_items(self, results):
+        from scripts.artifacts import render_manifest
+        manifest_path = self.root / "mf" / "source-manifest.json"
+        out = render_manifest(results, manifest_path)
+        self.assertIsNotNone(out)
+        import json
+        return json.loads(manifest_path.read_text(encoding="utf-8"))["items"]
+
+    def _entry(self, main, evidence, **overrides):
+        entry = {"ok": True, "status": "completed", "aweme_id": AWEME,
+                 "title": "测试作品", "main_file": str(main),
+                 "evidence_file": str(evidence), "quality_status": "passed"}
+        entry.update(overrides)
+        return entry
+
+    def test_awaiting_ai_entry_is_not_completed(self):
+        main, evidence = self._publish_version(self.output)
+        (item,) = self._manifest_items(
+            [self._entry(main, evidence, status="awaiting_ai")])
+        self.assertEqual(item["status"], "partial")
+        self.assertNotEqual(item["status"], "completed")
+
+    def test_needs_review_entry_is_not_completed(self):
+        main, evidence = self._publish_version(self.output)
+        (item,) = self._manifest_items(
+            [self._entry(main, evidence, status="needs_review")])
+        self.assertEqual(item["status"], "partial")
+
+    def test_completed_entry_stays_completed(self):
+        main, evidence = self._publish_version(self.output)
+        (item,) = self._manifest_items([self._entry(main, evidence)])
+        self.assertEqual(item["status"], "completed")
+
+    def test_reused_passed_entry_stays_completed(self):
+        main, evidence = self._publish_version(self.output)
+        (item,) = self._manifest_items(
+            [self._entry(main, evidence, status="reused",
+                          quality_status="passed")])
+        self.assertEqual(item["status"], "completed")
+
+    def test_reused_needs_review_entry_is_partial(self):
+        main, evidence = self._publish_version(self.output)
+        (item,) = self._manifest_items(
+            [self._entry(main, evidence, status="reused",
+                          quality_status="needs_review")])
+        self.assertEqual(item["status"], "partial")
+
+    def test_real_summary_file_reports_has_summary_true(self):
+        main, evidence = self._publish_version(self.output)
+        body = main.read_text(encoding="utf-8")
+        self.assertIn("核心观点", body)
+        self.assertNotIn("（摘要待补", body)
+        (item,) = self._manifest_items([self._entry(main, evidence)])
+        self.assertTrue(item["has_summary"])
+
+    def test_placeholder_summary_file_reports_has_summary_false(self):
+        out2 = self.root / "output2"
+        main, evidence = self._publish_version(out2, summary_status="pending")
+        self.assertIn("（摘要待补", main.read_text(encoding="utf-8"))
+        (item,) = self._manifest_items([self._entry(main, evidence)])
+        self.assertFalse(item["has_summary"])
+
+    def test_stale_summarized_claim_loses_to_placeholder_file(self):
+        out2 = self.root / "output2"
+        main, evidence = self._publish_version(out2, summary_status="pending")
+        (item,) = self._manifest_items(
+            [self._entry(main, evidence, summary_status="summarized")])
+        self.assertFalse(item["has_summary"])
+
+
 class BundleTests(BundleTestCase):
     def test_bundle_contains_every_traceable_piece(self):
         bundle = build_version_bundle(self.db, self.version_id)

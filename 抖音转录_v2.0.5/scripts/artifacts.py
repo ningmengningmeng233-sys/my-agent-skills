@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Iterable, Sequence
 
 from scripts.models import (ArtifactKind, CorrectionStatus, PreparedArtifact,
-                            QualityStatus)
+                            QualityStatus, SummaryStatus)
 from scripts.transcript_db import PublishError, TranscriptDB
 
 logger = logging.getLogger("douyin_transcript.artifacts")
@@ -34,6 +34,10 @@ NEEDS_REVIEW_BANNER = (
 CORRECTION_PENDING_BANNER = (
     "⚠️ 以下为“未经 AI 校正原始稿”，校正版待补；补齐后主文件会由数据库重渲染。"
 )
+# DY-05: summary sniff markers, must match _main_body render copy
+# (covered by tests rendering through production code).
+SUMMARY_SECTION_TITLE = "第一部分：摘要（AI 生成）"
+SUMMARY_PLACEHOLDER_MARK = "（摘要待补"
 
 
 def safe_filename(name: str, limit: int = MAX_NAME_CHARS) -> str:
@@ -514,6 +518,69 @@ def repair_artifacts(db: TranscriptDB, aweme_id: str, *,
     return published
 
 
+def _manifest_status(entry):
+    """DY-05: manifest status honors the contract enum; half-done is partial.
+
+    Downstream index ingests only completed, so a false completed feeds dirty
+    data. Only orchestrator-confirmed completed, or reused deliveries whose
+    current version passed quality, map to completed; needs_review /
+    awaiting_ai / visual_text_only map to partial (listed but not ingested).
+    """
+    status = str(entry.get("status") or "")
+    if status == "completed":
+        return "completed"
+    if status == "reused" and str(entry.get("quality_status") or "") == str(
+            QualityStatus.PASSED):
+        return "completed"
+    return "partial"
+
+
+def _summary_section_lines(text):
+    """Slice the main-file summary section body; None if not recognizable."""
+    lines = text.splitlines()
+    start = next((index for index, line in enumerate(lines)
+                  if line.strip() == SUMMARY_SECTION_TITLE), None)
+    if start is None:
+        return None
+    # Title sits inside a RULE/TITLE/RULE header block: skip the closing rule.
+    rest = lines[start + 1:]
+    if rest and rest[0] == _HEADER_RULE:
+        rest = rest[1:]
+    body = []
+    for line in rest:
+        if line == _HEADER_RULE:
+            break
+        body.append(line)
+    return body
+
+
+def _claimed_summary(entry):
+    """Caller-carried summary claim (legacy input); fallback only."""
+    if str(entry.get("summary_status") or "") == str(SummaryStatus.SUMMARIZED):
+        return True
+    return bool(str(entry.get("summary") or "").strip())
+
+
+def _manifest_has_summary(entry, main_file):
+    """DY-05: has_summary is grounded in the delivered file, fail-closed.
+
+    A placeholder section means False even if the caller claims summarized
+    (stale claim); the caller claim is used only when the file is unreadable
+    or its layout is unrecognized.
+    """
+    from pathlib import Path as _Path
+    try:
+        text = _Path(main_file).read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return _claimed_summary(entry)
+    section = _summary_section_lines(text)
+    if section is None:
+        return _claimed_summary(entry)
+    if any(SUMMARY_PLACEHOLDER_MARK in line for line in section):
+        return False
+    return any(bool(line.strip()) for line in section)
+
+
 def render_manifest(results: list[dict], manifest_path: Path | str,
                     generator: str = "抖音转录_v2.0.4") -> Path | None:
     """生成符合 source-manifest.schema.json 契约的交付清单。"""
@@ -551,9 +618,9 @@ def render_manifest(results: list[dict], manifest_path: Path | str,
             "txt_path": txt_rel,
             "evidence_path": ev_rel,
             "sha256": sha,
-            "status": "completed",
+            "status": _manifest_status(r),
             "title": r.get("title") or "",
-            "has_summary": bool(r.get("summary_status") == "summarized"),
+            "has_summary": _manifest_has_summary(r, mf),
         })
     if items:
         manifest_data = {
