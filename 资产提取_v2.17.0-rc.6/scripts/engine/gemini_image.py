@@ -125,7 +125,7 @@ def _load_sdk_types():
     return types
 
 
-def _is_transient(exc: BaseException) -> bool:
+def _is_transient(exc: Exception) -> bool:
     code = getattr(exc, "status_code", None) or getattr(exc, "code", None)
     try:
         if int(code) in TRANSIENT_STATUS:
@@ -289,14 +289,16 @@ class GeminiImageExecutor:
         call_config = self._config_for(request, types_module)
 
         attempts = max(1, int(cfg.max_retries))
-        last_error: BaseException | None = None
+        last_error: Exception | None = None
         for attempt in range(attempts):
             try:
                 response = client.models.generate_content(
                     model=cfg.model, contents=contents, config=call_config)
             except GenerationError:
                 raise
-            except BaseException as exc:  # noqa: BLE001 - 按暂态/内容级分流
+            except (KeyboardInterrupt, SystemExit):
+                raise  # 系统级中断显式放行：绝不吞错，更不误记为内容级拒绝
+            except Exception as exc:  # 按暂态/内容级分流
                 if not _is_transient(exc):
                     raise GenerationError(
                         GENERATION_REJECTED,
@@ -373,7 +375,9 @@ class GeminiQcChecker:
             response = self._executor._client_or_create().models.generate_content(
                 model=self._executor.config.qc_model, contents=contents,
                 config=qc_config)
-        except BaseException as exc:  # noqa: BLE001 - 质检失败即不可信
+        except (KeyboardInterrupt, SystemExit):
+            raise  # 系统级中断显式放行：绝不吞成 QC_UNTRUSTWORTHY
+        except Exception as exc:  # 质检失败即不可信
             return QcResult(decision=QcDecision.UNTRUSTWORTHY.value, checker="gemini",
                             task_id=task.task_id, input_hashes=(attempt.image_sha256,),
                             untrustworthy_reason=f"质检请求失败：{type(exc).__name__}")
