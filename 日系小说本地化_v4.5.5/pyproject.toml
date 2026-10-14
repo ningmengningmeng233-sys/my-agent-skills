@@ -1,0 +1,8 @@
+# JP-17：包根默认 pytest 入口配置。
+# v4/tests 是本包 pytest 套件的约定射程；scripts/test_contracts.py 为显式契约
+# 套件（按其文档头经 `pytest scripts/test_contracts.py` 显式调用），不纳入默认收集。
+# 仅含 pytest 入口声明，不设 [project] 元数据，避免与包版本声明脱钩。
+[tool.pytest.ini_options]
+testpaths = ["v4/tests"]
+pythonpath = [".", "v4"]
+addopts = "-q"

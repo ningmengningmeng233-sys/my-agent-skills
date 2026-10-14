@@ -10,5 +10,7 @@ test = ["pytest>=8.0"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["."]
+# JP-17：测试 import 的是 `v4.*` 包形态，"." 只给 v4 本级，".." 把包根也放进
+# sys.path；在 v4 目录直接 pytest 才能正常收集（此前报 No module named 'v4'）。
+pythonpath = [".", ".."]
 addopts = "-q"
