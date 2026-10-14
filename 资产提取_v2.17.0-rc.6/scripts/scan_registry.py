@@ -58,9 +58,14 @@ def candidate_one(seg_path: str, out_dir: Path, force: bool, db: IndexDB) -> tup
     if not force and db.should_skip(seg_path, out_path, seg_hash, node_fp):
         return str(out_path), "skipped"
 
-    if out_path.exists() and out_path.stat().st_size > 50 and not force:
-        log(f"  ⏭️  {seg_name}: 旧候选表存在但无断点哈希记录（追更安全起见可 --force 全量重跑）")
-        return str(out_path), "skipped"
+    if out_path.exists() and not force:
+        # AE-01: 能走到这里说明断点指纹未命中（指纹不匹配/无记录/内容已变），
+        # 旧候选表已不可信——强制失效后重扫，禁止盲目复用陈旧候选表。
+        try:
+            out_path.unlink()
+        except OSError:
+            pass
+        log(f"  🔄 {seg_name}: 任务指纹失效，旧候选表已作废并重新扫描")
 
     db.mark_pending(seg_path, out_path, seg_hash)
     try:
