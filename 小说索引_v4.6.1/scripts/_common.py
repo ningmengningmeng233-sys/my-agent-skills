@@ -122,9 +122,26 @@ def validate_book_key_component(value, field):
 _SEP_SPLIT_RE = re.compile(r"([\\/]+)")
 
 
+# IDX-05：段/索引文件名的结构化后缀边界。连字符后必须是章节范围
+# （“第”开头的规范章名，或纯数字编号标题的阿拉伯数字开头）+ 3 位序号
+# + .md / -idx.md；其它后缀（如另一本书名 part2-...）一律不归属，
+# 禁止 startswith(key + "-") 弱包含导致的跨书误伤。
+_BOOK_FILE_SUFFIX_RE = re.compile(r"^(?:第|\d).*-\d{3}(?:\.md|-idx\.md)$")
+
+
 def _is_book_key_segment(segment, key):
-    """路径段等于 `key` 或以 `key-` 开头（字面量，不解释任何通配语义）。"""
-    return segment == key or segment.startswith(key + "-")
+    """路径段等于 `key`，或为该书的结构化段/索引文件名（字面量比对 key 部分）。
+
+    文件名形状：`key-章节范围-NNN.md` / `key-章节范围-NNN-idx.md`，
+    其中章节范围以“第”（规范章名）或数字（纯数字编号标题）开头。
+    不解释任何通配语义，且连字符后的首字符必须是上述两类之一——
+    `book-a-part2-...` 相对 `book-a` 的剩余部分以字母开头，不归属。
+    """
+    if segment == key:
+        return True
+    if not segment.startswith(key + "-"):
+        return False
+    return bool(_BOOK_FILE_SUFFIX_RE.match(segment[len(key) + 1:]))
 
 
 def _split_key_segments(path):
