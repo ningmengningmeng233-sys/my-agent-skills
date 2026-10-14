@@ -9,10 +9,11 @@
   anthropic —— POST {base}/v1/messages，x-api-key 鉴权，system 为顶层字段
 
 失败分类：
-  quota      → 永久跳过该节点，顺切下一个
-  degrade    → 去掉 stream_options 后重试同一节点
-  rate_limit → 同节点退避重试
-  transient  → 同节点退避重试
+  quota              → 永久跳过该节点，顺切下一个
+  degrade            → 去掉 stream_options 后重试同一节点
+  rate_limit         → 同节点退避重试
+  transient          → 同节点退避重试
+  client_input_error → 输入错误直接抛给调用方，不禁用节点
 """
 from __future__ import annotations
 
@@ -63,6 +64,14 @@ class RateLimitError(RuntimeError):
     """
 
 
+class ClientInputError(RuntimeError):
+    """客户端输入错误（HTTP 400 业务错误，如文本超长、Bad Request）。
+
+    坏的是输入不是节点：直接抛给调用方（由上层标记该段失败/跳过），
+    绝不禁用节点、不顺切——否则一个超长段就会击穿整个节点池（KB-02）。
+    """
+
+
 class AllNodesExhaustedError(RuntimeError):
     """全部节点不可用——任务必须停止。"""
 
@@ -84,6 +93,11 @@ class Node:
     exhausted_reason: str = ""
     served: int = 0
     _sem: threading.Semaphore | None = field(default=None, repr=False, compare=False)
+
+    @property
+    def is_healthy(self) -> bool:
+        """节点是否健康（未被标记失效）；输入错误不影响健康状态。"""
+        return not self.exhausted
 
     def endpoint(self) -> str:
         """完整请求地址。"""
@@ -237,12 +251,14 @@ _DEGRADE_KEYWORDS = ("stream_options", "include_usage", "unrecognized request ar
 
 
 def classify_http_failure(status: int, body: str) -> str:
-    """把 HTTP 失败归类为 quota / degrade / rate_limit / transient。
+    """把 HTTP 失败归类为 quota / degrade / rate_limit / transient /
+    client_input_error。
 
-    quota      → 永久跳过该节点，顺切下一个
-    degrade    → 去掉 stream_options 后重试同一节点
-    rate_limit → 同节点退避重试
-    transient  → 同节点退避重试
+    quota              → 永久跳过该节点，顺切下一个
+    degrade            → 去掉 stream_options 后重试同一节点
+    rate_limit         → 同节点退避重试
+    transient          → 同节点退避重试
+    client_input_error → 输入错误直接抛给调用方，不禁用节点
     """
     low = (body or "").lower()
     if status == 429:
@@ -254,7 +270,8 @@ def classify_http_failure(status: int, body: str) -> str:
     if status == 400:
         if any(k in low for k in _DEGRADE_KEYWORDS):
             return "degrade"
-        return "quota"
+        # 业务输入错误（超长、Bad Request）：坏的是输入，严禁禁用节点。
+        return "client_input_error"
     if status == 404:
         return "quota"
     if status >= 500:
@@ -390,6 +407,7 @@ class ApiPool:
         """依次尝试可用节点；额度耗尽自动顺切。
 
         返回 (正文, usage, 实际服务节点名)。
+        输入错误（ClientInputError）直接抛出，不顺切、不禁用节点。
         """
         reasons: list[str] = []
         while True:
@@ -440,7 +458,11 @@ class ApiPool:
 
     def _call_node(self, node: Node, system_prompt: str, user_prompt: str,
                    max_tokens: int) -> tuple[str, dict]:
-        """单节点流式调用（协议自适应）。失败抛 QuotaExhaustedError / TransientError。"""
+        """单节点流式调用（协议自适应）。
+
+        失败抛 QuotaExhaustedError / RateLimitError / TransientError /
+        ClientInputError；其中输入错误不重试、不禁用节点，直接上抛。
+        """
         include_usage = True
         payload = node.payload(system_prompt, user_prompt, max_tokens)
         last_transient = ""
@@ -470,6 +492,8 @@ class ApiPool:
                     payload.pop("stream_options", None)
                     continue
                 msg = f"HTTP {resp.status_code} {body[:200]}"
+                if kind == "client_input_error":
+                    raise ClientInputError(msg)
                 if kind == "quota":
                     raise QuotaExhaustedError(msg)
                 if kind == "rate_limit":
