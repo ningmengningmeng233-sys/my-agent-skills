@@ -197,6 +197,7 @@ class CallPool:
         self._max_calls = int(max_calls) if max_calls else None
         self._max_seconds = float(max_seconds) if max_seconds else None
         self._used_calls = 0
+        self._budget_lock = threading.Lock()
         self._started_at = time.time()
         self._force = bool(force)
 
@@ -234,6 +235,26 @@ class CallPool:
                 return node
         return available[0] if available else None
 
+    def _reserve_budget(self) -> bool:
+        """原子预留一次调用预算；无预算配置返回 False；超限抛 BudgetExceeded。"""
+        if self._max_calls is None:
+            return False
+        with self._budget_lock:
+            if self._used_calls >= self._max_calls:
+                used = self._used_calls
+            else:
+                self._used_calls += 1
+                return True
+        self._event("budget", "-", f"已用 {used} / 上限 {self._max_calls}")
+        raise BudgetExceeded(used, self._max_calls)
+
+    def _refund_budget(self) -> None:
+        """退还一次预留（分发失败时调用，与 _reserve_budget 配对，失败不耗预算）。"""
+        if self._max_calls is None:
+            return
+        with self._budget_lock:
+            self._used_calls -= 1
+
     def call(self, system_prompt: str, user_prompt: str, **kw):
         cache_key = kw.pop("cache_key", None)
         kw.pop("step", None)          # step 由账本层使用；池内不再向下传
@@ -261,17 +282,15 @@ class CallPool:
                     raise AllNodesExhausted(last_detail)
                 time.sleep(0.02)      # 有节点只是冷却中，稍候重选
                 continue
+            reserved = self._reserve_budget()
             self._event("pick", node.name)
             self.last_node = node.name
             try:
                 with self._global, self._gates[node.name]:
                     result = self._dispatch(node, system_prompt, user_prompt, **kw)
-                self._used_calls += 1
-                self._event("ok", node.name)
-                if cache_key:
-                    self._cache_write(cache_key, result)
-                return result
             except _NodeFailure as e:
+                if reserved:
+                    self._refund_budget()
                 last_detail = f"{node.name}: {e.kind} {e.detail}"[:200]
                 self._event(e.kind, node.name, e.detail[:120])
                 if e.kind == "quota":
@@ -281,6 +300,15 @@ class CallPool:
                 else:
                     # transient 重试耗尽 / degrade 无法降级 / fatal：淘汰该节点
                     self._skipped.add(node.name)
+                continue  # 节点级失败已记账回滚：换节点重试，不走成功路径
+            except BaseException:
+                if reserved:
+                    self._refund_budget()
+                raise
+            self._event("ok", node.name)
+            if cache_key:
+                self._cache_write(cache_key, result)
+            return result
 
     def _cache_read(self, cache_key: str):
         """命中即返回 (正文, usage[cache_hit=True])；未命中返回 None。"""
