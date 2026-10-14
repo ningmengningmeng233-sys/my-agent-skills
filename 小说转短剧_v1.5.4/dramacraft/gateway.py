@@ -33,6 +33,19 @@ def _default_nodes_candidates() -> List[str]:
     return candidates
 
 
+class LLMReply(str):
+    """携带命中节点名的回复字符串。
+
+    行为与 str 完全一致（可比较、可 json 解析），额外用 ``.node`` 记录本次
+    调用实际命中的节点名，供并发调用方直接取用，不再依赖跨线程读取网关状态。
+    """
+
+    def __new__(cls, text: str, node: Optional[str] = None):
+        obj = super().__new__(cls, text)
+        obj.node = node
+        return obj
+
+
 class BudgetExhausted(RuntimeError):
     """预算熔断：LLM 调用次数触顶。可续跑的中止，不是数据错误——run_batch 捕获后 exit 3"""
 
@@ -44,7 +57,7 @@ class LLMGateway:
         self.max_calls = max_calls
         self.call_count = 0
         self.ledger = ledger
-        self.last_node: Optional[str] = None
+        self._tls = threading.local()
         self.current_ep: Optional[int] = None
         self.is_exhausted = False
         self._lock = threading.Lock()
@@ -57,6 +70,15 @@ class LLMGateway:
                 if os.path.exists(candidate):
                     self._load_from_file(candidate)
                     break
+
+    @property
+    def last_node(self) -> Optional[str]:
+        """本线程最近一次调用命中的节点名（线程局部隔离，未调用过为 None）。"""
+        return getattr(self._tls, "last_node", None)
+
+    @last_node.setter
+    def last_node(self, value: Optional[str]) -> None:
+        self._tls.last_node = value
 
     def _load_from_dict(self, data: Dict[str, Any]):
         for item in data.get("nodes", []):
@@ -168,7 +190,7 @@ class LLMGateway:
                 self.last_node = node.name
                 if self.ledger:
                     self.ledger.emit("llm_call", node=node.name, ok=True, ep=target_ep)
-                return res
+                return LLMReply(res, node=node.name)
             except BudgetExhausted:
                 raise
             except Exception as e:

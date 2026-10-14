@@ -403,7 +403,7 @@ def generate_episode_with_healing(
 
         if verdict == VERDICT_PASS:
             elapsed = round(time.time() - start_time, 2)
-            node_name = getattr(gateway, "last_node", None)
+            node_name = getattr(raw_reply, "node", None) or getattr(gateway, "last_node", None)
             if not node_name and hasattr(gateway, "nodes") and gateway.nodes:
                 node_name = gateway.nodes[0].name
             if workdir:
