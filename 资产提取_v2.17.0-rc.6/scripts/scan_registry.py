@@ -159,9 +159,23 @@ def merge_round(
             out, st = merge_pair(a, b, out_path, force)
             return idx, Path(out) if out else None, st, False
         except Exception as e:
-            carry_count_local = True
+            # AE-02: 合并失败不得丢弃 b 表——两表原样隔离并入回退产物，
+            # 与“carry 原样带入”日志一致；不写对账哈希，重跑仍可重试 LLM 合并。
+            try:
+                fallback = (
+                    f"> ⚠️ 合并失败隔离产物：{a.name} + {b.name} 未经 LLM 对账合并，"
+                    f"两表条目原样保留（carry），请 --force 重跑或人工核对。\n\n"
+                    f"## 来自 {a.name}（未经合并，原样保留）\n\n"
+                    f"{read_text(a)}\n\n"
+                    f"## 来自 {b.name}（未经合并，原样保留）\n\n"
+                    f"{read_text(b)}\n"
+                )
+                out_path.write_text(fallback, encoding="utf-8")
+                saved: Path = out_path
+            except OSError:
+                saved = a
             log(f"  ❌ 合并 {a.name} + {b.name} 失败（carry 到下一轮）: {e}")
-            return idx, a, "failed", carry_count_local
+            return idx, saved, "failed", True
 
     with ThreadPoolExecutor(max_workers=workers) as ex:
         futs = [ex.submit(run, idx, a, b) for idx, (a, b) in enumerate(pairs)]
