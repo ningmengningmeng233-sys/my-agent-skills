@@ -990,6 +990,16 @@ def prune_stale_temp_files(root, *, now=None, extra_dirs=(),
     return report
 
 
+# TG-01：tdl 子进程单次调用超时（秒）。导出/下载 Runner 在此时间内无退出即
+# 判挂起：subprocess.run 自动 kill 并回收子进程，调用方按 network 有限重试，
+# 绝不在独占会话锁内无限阻塞。
+TDL_SUBPROCESS_TIMEOUT_SECONDS = 600
+# TG-01：会话/归档锁租约（秒）。持有者在推进中逐段/逐聊天刷新心跳
+# （refresh_lock）；超过租约无刷新，或持有者进程已死，后续任务可安全自动破锁，
+# 杜绝崩溃残留锁导致的永久 LockBusy。
+LOCK_LEASE_SECONDS = 7200
+
+
 # ---------------------------------------------------------------- 会话互斥
 
 def _lock_path(root, marker, kind="session"):
@@ -1008,8 +1018,116 @@ def _peek_holder(path):
     return payload if isinstance(payload, dict) else {"pid": None, "acquired_at": None}
 
 
-def acquire_lock(root, *, marker, owner=None, kind="session"):
-    """O_CREAT|O_EXCL 原子占锁；不抢占、不超时自动破锁、不写会话目录。
+def _pid_alive(pid):
+    """持有者进程是否存活：True 存活 / False 已死 / None 无法判定。
+
+    posix 用 kill(pid, 0)；Windows 上 sig 0 不校验存活，改用 ctypes
+    OpenProcess + GetExitCodeProcess（STILL_ACTIVE=259 表示仍在跑）。任何探测
+    异常都按未知处理（租约路径兜底），绝不因探测失败而误破活锁。
+    """
+    if not _positive_int(pid):
+        return None
+    if os.name == "posix":
+        try:
+            os.kill(pid, 0)
+        except ProcessLookupError:
+            return False
+        except PermissionError:
+            return True
+        except OSError:
+            return None
+        return True
+    try:
+        import ctypes
+        kernel32 = ctypes.windll.kernel32
+        handle = kernel32.OpenProcess(0x1000, False, pid)  # PROCESS_QUERY_LIMITED_INFORMATION
+        if not handle:
+            error = kernel32.GetLastError()
+            if error == 87:  # ERROR_INVALID_PARAMETER：pid 取值非法，必无此进程
+                return False
+            if error == 5:  # ERROR_ACCESS_DENIED：进程存在但无权查询
+                return True
+            return None
+        try:
+            code = ctypes.c_ulong()
+            if not kernel32.GetExitCodeProcess(handle, ctypes.byref(code)):
+                return None
+            return code.value == 259  # STILL_ACTIVE
+        finally:
+            kernel32.CloseHandle(handle)
+    except Exception:
+        return None
+
+
+def _parse_utc(value):
+    """解析锁文件里的 UTC 时间戳；缺失/非法返回 None（调用方按未知处理）。"""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    try:
+        moment = datetime.fromisoformat(value)
+    except ValueError:
+        return None
+    if moment.tzinfo is None:
+        moment = moment.replace(tzinfo=timezone.utc)
+    return moment
+
+
+def _lock_stale_reason(path, payload, lease_seconds):
+    """锁是否已失效：返回 (True, "dead_pid"|"lease_expired") 或 (False, None)。
+
+    两个独立触发条件（任一成立即失效）：持有者进程已死；自最后心跳起超过租约。
+    时间戳取 acquired_at / refreshed_at / 文件 mtime 三者之中的最新者；全部缺失
+    或不可解析时不按过期处理（fail-safe：未知年龄的锁只认 pid 死亡）。
+    """
+    holder_pid = payload.get("process_pid", payload.get("pid")) \
+        if isinstance(payload, dict) else None
+    if _pid_alive(holder_pid) is False:
+        return True, "dead_pid"
+    moments = []
+    if isinstance(payload, dict):
+        for key in ("acquired_at", "refreshed_at"):
+            moment = _parse_utc(payload.get(key))
+            if moment is not None:
+                moments.append(moment)
+    try:
+        moments.append(datetime.fromtimestamp(Path(path).stat().st_mtime,
+                                              tz=timezone.utc))
+    except OSError:
+        pass
+    if not moments:
+        return False, None
+    age = (datetime.now(timezone.utc) - max(moments)).total_seconds()
+    if age > lease_seconds:
+        return True, "lease_expired"
+    return False, None
+
+
+def _break_stale_lock(path, seen_nonce):
+    """破除已失效的锁：复核 nonce 未易主才删；删不动/已易主返回 False。"""
+    try:
+        current = _read_json(Path(path), None)
+    except ValueError:
+        current = None
+    if (seen_nonce is not None and isinstance(current, dict)
+            and current.get("nonce") != seen_nonce):
+        return False  # 锁已易主（活锁），绝不碰
+    try:
+        Path(path).unlink()
+    except FileNotFoundError:
+        pass  # 已被释放，同样可以重试占锁
+    except OSError:
+        return False
+    return True
+
+
+def acquire_lock(root, *, marker, owner=None, kind="session", lease_seconds=None):
+    """O_CREAT|O_EXCL 原子占锁；不写会话目录。
+
+    TG-01 租约：已存在的锁若判定失效（持有者进程已死，或自最后心跳起超过
+    lease_seconds 无刷新，默认 LOCK_LEASE_SECONDS），则安全自动破锁后重试一次
+    占锁，token 里如实携带 recovered_from（被破锁的 nonce/时间/原因）；新鲜锁
+    仍抛 LockBusy。破锁前复核 nonce 未易主，且只删这一个锁文件；破锁/重试失败
+    一律按 LockBusy 处理，绝不与活锁并发。
 
     固定加锁顺序：需要两把锁的动作先取归档锁（kind="archive"，Task 5–8），再取会话锁
     （kind="session"）；本模块 own 的只有会话锁。锁名前缀按 LOCK_PREFIXES 分开，两把锁
@@ -1027,15 +1145,53 @@ def acquire_lock(root, *, marker, owner=None, kind="session"):
         value = (owner or {}).get(key)
         if (isinstance(value, str) and value.strip()) or (key == "pid" and _positive_int(value)):
             holder[key] = value
+    lease = LOCK_LEASE_SECONDS if lease_seconds is None else lease_seconds
+    recovered = None
     try:
         descriptor = os.open(str(path), os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
     except FileExistsError:
-        raise LockBusy(_peek_holder(path), marker, path)
+        try:
+            seen = _read_json(path, None)
+        except ValueError:
+            seen = None
+        stale, reason = _lock_stale_reason(
+            path, seen if isinstance(seen, dict) else None, lease)
+        seen_nonce = seen.get("nonce") if isinstance(seen, dict) else None
+        if stale and _break_stale_lock(path, seen_nonce):
+            try:
+                descriptor = os.open(str(path), os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+            except FileExistsError:
+                raise LockBusy(_peek_holder(path), marker, path)
+            recovered = {"nonce": seen_nonce,
+                         "acquired_at": seen.get("acquired_at") if isinstance(seen, dict) else None,
+                         "reason": reason}
+        else:
+            raise LockBusy(_peek_holder(path), marker, path)
     with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
         json.dump(holder, handle, ensure_ascii=False)
         handle.flush()
         os.fsync(handle.fileno())
-    return {"path": str(path), "marker": marker, "nonce": nonce, "kind": kind}
+    token = {"path": str(path), "marker": marker, "nonce": nonce, "kind": kind}
+    if recovered is not None:
+        token["recovered_from"] = recovered
+    return token
+
+
+def refresh_lock(root, token):
+    """心跳：持有者刷新租约（nonce 须匹配，否则拒绝续他人的锁）。
+
+    只更新 refreshed_at（附带刷新文件 mtime），不改变 nonce/acquired_at；
+    锁已丢失/易主时抛 ValueError，调用方按尽力而为处理（不中断任务）。
+    """
+    if not isinstance(token, dict) or not token.get("path") or not token.get("nonce"):
+        raise ValueError("互斥凭据不完整，拒绝刷新")
+    path = Path(token["path"])
+    current = _read_json(path, None)
+    if current is None or current.get("nonce") != token.get("nonce"):
+        raise ValueError("互斥凭据与锁文件不一致，拒绝刷新他人的任务锁")
+    current["refreshed_at"] = _utc_now()
+    _publish_json(path, current)
+    return {"refreshed": str(path), "refreshed_at": current["refreshed_at"]}
 
 
 def release_lock(root, token):
@@ -1127,11 +1283,12 @@ def session_mutex_report(config):
                              data.get("storage"))
 
 
-def acquire_session_lock(config, *, owner=None, lock_root=None):
+def acquire_session_lock(config, *, owner=None, lock_root=None, lease_seconds=None):
     """按账号存储取一把会话锁：同一 storage+namespace 的任意任务共用它。
 
     任务级入口（Task 3 的 download、Task 8 的 update 也要用）：一把锁覆盖整个 job，
     不按聊天重复取。取归档锁的动作必须先取归档锁，再调这里。
+    TG-01：失效锁（持有者已死/租约过期）自动破锁恢复，token 携带 recovered_from。
     """
     data = validate_job(config)
     base = resolve_lock_root(data, lock_root=lock_root)
@@ -1140,7 +1297,8 @@ def acquire_session_lock(config, *, owner=None, lock_root=None):
     if len(data.get("chats") or []) == 1:
         identity = chat_identity(data["chats"][0])
     holder = owner if owner is not None else {"pid": os.getpid(), "identity": identity}
-    token = acquire_lock(base["path"], marker=marker, owner=holder)
+    token = acquire_lock(base["path"], marker=marker, owner=holder,
+                         lease_seconds=lease_seconds)
     return {"token": token, "base": base["path"], "marker": marker,
             "lock_root": base["lock_root"],
             "mutex": mutex_declaration(base["lock_root"], data.get("destination"))}
@@ -1164,12 +1322,13 @@ def archive_lock_marker(resource):
     return hashlib.sha256(seed.encode("utf-8")).hexdigest()[:16]
 
 
-def acquire_archive_lock(root, *, resource=None, marker=None, owner=None):
+def acquire_archive_lock(root, *, resource=None, marker=None, owner=None,
+                         lease_seconds=None):
     """取一把**归档锁**（锁名 ``archive-*``，Task 2 预留给了 Task 5–8）。
 
     互斥单位是「同一份派生归档」，不是账号存储：所以离线动作（import/search/share）没有
     storage / namespace 也照样取得——这正是它与会话锁的分工。实现口径与
-    :func:`acquire_session_lock` 一致：``O_CREAT|O_EXCL`` 原子占锁、不抢占、不自动破锁、
+    :func:`acquire_session_lock` 一致：``O_CREAT|O_EXCL`` 原子占锁、失效锁按租约自动破锁、
     :class:`LockBusy` 随异常带出锁文件路径。
 
     加锁顺序固定「**先归档锁、后会话锁**」（``LOCK_ORDER``），释放顺序相反：需要两把锁的
@@ -1181,7 +1340,8 @@ def acquire_archive_lock(root, *, resource=None, marker=None, owner=None):
         raise ValueError("归档锁必须给出被保护的资源（resource）或标记（marker），不默认、不猜")
     name = marker or archive_lock_marker(resource)
     holder = owner if owner is not None else {"pid": os.getpid()}
-    token = acquire_lock(root, marker=name, owner=holder, kind="archive")
+    token = acquire_lock(root, marker=name, owner=holder, kind="archive",
+                         lease_seconds=lease_seconds)
     return {"token": token, "base": Path(root), "marker": name, "kind": "archive",
             "order": list(LOCK_ORDER)}
 
@@ -1596,10 +1756,20 @@ def _untouched_temp_record(root):
             "note": "本轮未启动（整轮已停止），未做任何清理"}
 
 
-def _subprocess_runner(argv, temporary):
-    """默认后端：只按参数列表启动子进程，失败文本用于分类；不拼 shell、不改全局环境。"""
-    completed = subprocess.run(list(argv), capture_output=True, text=True,
-                               encoding="utf-8", errors="replace")
+def _subprocess_runner(argv, temporary, timeout=None):
+    """默认后端：只按参数列表启动子进程，失败文本用于分类；不拼 shell、不改全局环境。
+
+    TG-01：timeout 秒无退出即判挂起（默认 TDL_SUBPROCESS_TIMEOUT_SECONDS）：
+    subprocess.run 自动 kill 并回收子进程，这里转成 kind="network" 的 ExportError
+    进入有限重试，绝不在锁内无限阻塞。
+    """
+    limit = TDL_SUBPROCESS_TIMEOUT_SECONDS if timeout is None else timeout
+    try:
+        completed = subprocess.run(list(argv), capture_output=True, text=True,
+                                   encoding="utf-8", errors="replace", timeout=limit)
+    except subprocess.TimeoutExpired as error:
+        raise ExportError("导出子进程超时（timeout=%ss）：%ss 未退出，已终止；"
+                          "按网络类有限重试" % (limit, limit), kind="network") from error
     if completed.returncode != 0:
         detail = ("%s %s" % (completed.stderr or "", completed.stdout or "")).strip()
         raise ExportError("导出进程退出码 %s：%s" % (completed.returncode, detail[:400]))
@@ -1607,12 +1777,14 @@ def _subprocess_runner(argv, temporary):
 
 
 def _attempt_segment(root, data, segment, command_builder, runner, retries, sleeper,
-                     *, window=None, stats=None):
+                     *, window=None, stats=None, subprocess_timeout=None):
     """单段：临时文件 -> 子进程 -> 窗口二次校验 -> 校验 -> 原子提交；返回 ok/failed/stopped。
 
     ``window`` 是 _time_window 算出的 time 窗口（其它模式为 None，不过滤）；
     ``stats`` 是调用方给的累加器（filtered_out / unverifiable），只在给了窗口时记数。
     耗时样本由调用方在外层计时（覆盖重试等待），本函数只返回结果词。
+    TG-01：``subprocess_timeout`` 只透传给默认 Runner；注入式 Runner 保持
+    ``(argv, temporary)`` 二元形状，不受影响。
     """
     temporary = Path(root) / TMP_SUBDIR / ("%s.json.part" % segment["segment_id"])
     if temporary.exists():
@@ -1622,7 +1794,10 @@ def _attempt_segment(root, data, segment, command_builder, runner, retries, slee
         attempts += 1
         try:
             argv = _argument_list(command_builder(data, segment, temporary))
-            code = (runner or _subprocess_runner)(argv, temporary)
+            if runner is None:
+                code = _subprocess_runner(argv, temporary, timeout=subprocess_timeout)
+            else:
+                code = runner(argv, temporary)
         except ExportError as error:
             kind = error.kind
             if kind in STOPPING_KINDS:
@@ -1727,12 +1902,14 @@ def _aggregate_reports(reports, lock=None):
 
 
 def run_export(root, job, *, command_builder=None, runner=None, lock_root=None,
-               sleeper=None):
+               sleeper=None, subprocess_timeout=None):
     """分段导出组合：整任务一把会话锁 -> 逐聊天逐段落盘验收 -> 齐段才发布 final。
 
     command_builder 必须由调用方提供（tdl 参数名与端点包含性未由本机帮助副本确认，见
     ENDPOINT_NOTE）；缺它就不启动任何子进程，只如实报 unavailable。sleeper 只在
     FLOOD_WAIT 反馈时使用，测试注入即可避免真实等待。
+    TG-01：subprocess_timeout 透传给默认 Runner（单次 tdl 调用超时）；逐段刷新锁心跳，
+    锁恢复事件进报告的 lock.recovered_from。
 
     写入次序（本轮裁决）：
     1. 配置与任务身份先验：validate_job / init_task / plan_task_segments 的 ValueError
@@ -1776,6 +1953,8 @@ def run_export(root, job, *, command_builder=None, runner=None, lock_root=None,
             for item_root, one, _task, _plan in prepared])
     token = handle["token"]
     lock = {"released": True, "path": token["path"], "marker": handle["marker"]}
+    if token.get("recovered_from"):
+        lock["recovered_from"] = token["recovered_from"]
     pruned = {}
     samples = {}
     halted = None
@@ -1805,9 +1984,14 @@ def run_export(root, job, *, command_builder=None, runner=None, lock_root=None,
             pending = scan_completed(item_root, plan)["pending"]
             elapsed, ok, stopped = [], 0, False
             for item in pending:
+                try:
+                    refresh_lock(handle["base"], handle["token"])
+                except (OSError, ValueError):
+                    pass  # 心跳尽力而为：续不上只影响租约，不中断任务
                 moment = time.monotonic()
                 outcome = _attempt_segment(item_root, one, item, command_builder, runner,
-                                           retries, sleeper, window=window, stats=stats)
+                                           retries, sleeper, window=window, stats=stats,
+                                           subprocess_timeout=subprocess_timeout)
                 if outcome == "ok":
                     ok += 1
                     elapsed.append(round(time.monotonic() - moment, 3))
@@ -1834,6 +2018,8 @@ def run_export(root, job, *, command_builder=None, runner=None, lock_root=None,
         except (OSError, RuntimeError, ValueError) as error:
             lock = {"released": False, "path": token["path"], "marker": handle["marker"],
                     "reason": str(error)}
+            if token.get("recovered_from"):
+                lock["recovered_from"] = token["recovered_from"]
             for item_root, one, _task, _plan in prepared:
                 _record_failure(item_root, {
                     "segment_id": None, "kind": "lock_release",

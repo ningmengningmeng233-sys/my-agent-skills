@@ -994,10 +994,20 @@ def download_argv(config, index_file, directory):
     return _argument_list(argv)
 
 
-def _subprocess_runner(argv):
-    """默认后端：只按参数列表启动子进程（不拼 shell、不改全局环境）。"""
-    completed = subprocess.run(list(argv), capture_output=True, text=True,
-                               encoding="utf-8", errors="replace")
+def _subprocess_runner(argv, timeout=None):
+    """默认后端：只按参数列表启动子进程（不拼 shell、不改全局环境）。
+
+    TG-01：timeout 秒无退出即判挂起（默认 state.TDL_SUBPROCESS_TIMEOUT_SECONDS）：
+    subprocess.run 自动 kill 并回收子进程，这里转成 kind="network" 的 DownloadError
+    进入有限重试，绝不在锁内无限阻塞。
+    """
+    limit = state.TDL_SUBPROCESS_TIMEOUT_SECONDS if timeout is None else timeout
+    try:
+        completed = subprocess.run(list(argv), capture_output=True, text=True,
+                                   encoding="utf-8", errors="replace", timeout=limit)
+    except subprocess.TimeoutExpired as error:
+        raise DownloadError("下载子进程超时（timeout=%ss）：%ss 未退出，已终止；"
+                            "按网络类有限重试" % (limit, limit), kind="network") from error
     if completed.returncode != 0:
         detail = ("%s %s" % (completed.stderr or "", completed.stdout or "")).strip()
         raise DownloadError("下载进程退出码 %s：%s" % (completed.returncode, detail[:400]))
@@ -1036,14 +1046,18 @@ def _fail(started, attempts, flags, kind, reason, secrets, stopped=False, code=N
 
 
 def _attempt_download(config, index_path, directory, runner, retries,
-                     sleeper, secrets):
+                     sleeper, secrets, subprocess_timeout=None):
+    """TG-01：subprocess_timeout 只透传给默认 Runner；注入式 Runner 保持一元形状。"""
     flags, attempts = [], 0
     while True:
         attempts += 1
         try:
             argv = _argument_list(download_argv(config, index_path, directory))
             flags = sorted({item for item in argv if item.startswith("-")})
-            code = (runner or _subprocess_runner)(argv)
+            if runner is None:
+                code = _subprocess_runner(argv, timeout=subprocess_timeout)
+            else:
+                code = runner(argv)
         except (DownloadError, state.ExportError) as error:
             kind = error.kind
             if kind in state.STOPPING_KINDS:
@@ -1326,7 +1340,8 @@ def _skeleton_steps(reason):
             "acceptance": _empty_acceptance(None, [], [])}
 
 
-def _run_one(root, config, task, source, directory, runner, sleeper, progress=None):
+def _run_one(root, config, task, source, directory, runner, sleeper, progress=None,
+             subprocess_timeout=None):
     identity = task["identity"]
     progress = {} if progress is None else progress
     secrets = (task.get("lock_root"), config.get("storage"), config.get("namespace"),
@@ -1403,7 +1418,8 @@ def _run_one(root, config, task, source, directory, runner, sleeper, progress=No
                           "index_sha256": report["sha256"]})
         progress["index_path"] = report["path"]
         download = _attempt_download(config, Path(report["path"]), directory, runner,
-                                    int(config.get("retries") or 0), sleeper, secrets)
+                                    int(config.get("retries") or 0), sleeper, secrets,
+                                    subprocess_timeout=subprocess_timeout)
         progress["download"] = download
         acceptance = verify_attachments(report["payload"], directory,
                                        expected_digests=_previous_digests(root),
@@ -1607,7 +1623,7 @@ def _refused(root, config, task, kind, message):
 
 
 def run_download(job, source, *, state_root=None, media_dir=None, runner=None,
-                sleeper=None):
+                sleeper=None, subprocess_timeout=None):
     """候选索引生成 -> 所选附件下载 -> 附件验收；整任务一把会话锁，逐聊天分别建档。
 
     source 可以是导出 JSON 路径、消息数组或含 messages 的映射。下载只消费本任务所选索引；
@@ -1616,6 +1632,8 @@ def run_download(job, source, *, state_root=None, media_dir=None, runner=None,
     这类凭据不足、验收凭据不符、锁被占用）收成 unavailable 状态（3）；运行中途的其它
     OSError 收成 failed 状态（1）。**任何一条失败路径都先写出 media 里程碑与补漏清单再返回**，
     绝不让异常穿到 CLI 顶层的「未归类」兜底。不启动任何越权子进程。
+    TG-01：subprocess_timeout 透传给默认 Runner（单次 tdl 调用超时）；逐聊天刷新锁心跳，
+    锁恢复事件进报告的 lock.recovered_from。
     """
     data = validate_job(job)
     contents = [item for item in data["contents"] if item in ATTACHMENT_TYPES]
@@ -1640,12 +1658,18 @@ def run_download(job, source, *, state_root=None, media_dir=None, runner=None,
         return _aggregate([_refused(root, one, task, "lock_busy", message)
                           for root, one, task in prepared])
     lock = {"released": True, "path": handle["token"]["path"], "marker": handle["marker"]}
+    if handle["token"].get("recovered_from"):
+        lock["recovered_from"] = handle["token"]["recovered_from"]
     reports = []
     try:
         for root, one, task in prepared:
             report = {"temp_files": None}
             progress = {}
             try:
+                try:
+                    state.refresh_lock(handle["base"], handle["token"])
+                except (OSError, ValueError):
+                    pass  # 心跳尽力而为：续不上只影响租约，不中断任务
                 # 取锁后的第一步也可能抛 OSError（例如 media/ 索引目录被别的文件占住）：
                 # 它必须在 try 里面，否则会被 CLI 归成「配置非法 2」。
                 progress["temp_files"] = state.prune_stale_temp_files(root)
@@ -1654,7 +1678,8 @@ def run_download(job, source, *, state_root=None, media_dir=None, runner=None,
                     directory = (Path(media_dir) if len(prepared) == 1
                                 else Path(media_dir) / state.identity_slug(task["identity"]))
                 report.update(_run_one(root, one, task, source, directory, runner,
-                                      sleeper, progress))
+                                      sleeper, progress,
+                                      subprocess_timeout=subprocess_timeout))
             except InsufficientSource as error:
                 # ②：源文件被删/被占 = 凭据不足 -> 3，里程碑与补漏清单照常写出。
                 report.update(_refused(root, one, task, "insufficient_source",
@@ -1675,6 +1700,8 @@ def run_download(job, source, *, state_root=None, media_dir=None, runner=None,
         except (OSError, RuntimeError, ValueError) as error:
             lock = {"released": False, "path": handle["token"]["path"],
                    "marker": handle["marker"], "reason": _redact(error, secrets)}
+            if handle["token"].get("recovered_from"):
+                lock["recovered_from"] = handle["token"]["recovered_from"]
     return _aggregate(reports, lock=lock, mutex=handle["mutex"])
 
 
