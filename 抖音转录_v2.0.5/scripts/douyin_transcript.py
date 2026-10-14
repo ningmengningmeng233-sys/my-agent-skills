@@ -577,7 +577,9 @@ def process_one(job: JobRecord, services: ServiceBundle) -> dict:
                                    str(CorrectionStatus.FAILED_PENDING_RETRY)):
             db.save_correction(version_id, corrected_text="", changes=[],
                                status=correction_status)
-        if correction_status != str(CorrectionStatus.CORRECTED):
+        if correction_status == str(CorrectionStatus.PARTIAL_CORRECTED):
+            runner.degrade("correction_partial")
+        elif correction_status != str(CorrectionStatus.CORRECTED):
             runner.degrade("correction_pending")
 
         # ---- 摘要 --------------------------------------------------------
@@ -620,7 +622,8 @@ def process_one(job: JobRecord, services: ServiceBundle) -> dict:
 
         if no_speech:
             status = "visual_text_only"
-        elif (correction_status != str(CorrectionStatus.CORRECTED)
+        elif (correction_status not in (str(CorrectionStatus.CORRECTED),
+                                          str(CorrectionStatus.PARTIAL_CORRECTED))
               or summary_status != str(SummaryStatus.SUMMARIZED)):
             status = "awaiting_ai"
         elif quality_status == str(QualityStatus.PASSED):

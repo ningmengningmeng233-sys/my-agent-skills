@@ -122,6 +122,8 @@ class CorrectionStatus(_StrEnum):
     PENDING = "pending"
     CORRECTED = "corrected"
     FAILED_PENDING_RETRY = "failed_pending_retry"
+    # DY-04：截断降级终态——部分段落保留原文，不再重试。
+    PARTIAL_CORRECTED = "partial_corrected"
 
 
 class SummaryStatus(_StrEnum):

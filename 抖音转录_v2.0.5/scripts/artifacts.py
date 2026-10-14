@@ -34,6 +34,10 @@ NEEDS_REVIEW_BANNER = (
 CORRECTION_PENDING_BANNER = (
     "⚠️ 以下为“未经 AI 校正原始稿”，校正版待补；补齐后主文件会由数据库重渲染。"
 )
+CORRECTION_PARTIAL_BANNER = (
+    "⚠️ 以下为“部分校正稿”：部分段落因模型截断未能校正，已保留原始文本；"
+    "请对照原始记录文件人工核对。"
+)
 # DY-05: summary sniff markers, must match _main_body render copy
 # (covered by tests rendering through production code).
 SUMMARY_SECTION_TITLE = "第一部分：摘要（AI 生成）"
@@ -233,13 +237,21 @@ def _main_body(bundle: dict) -> str:
 
     correction_status = str(bundle.get("correction_status") or "")
     speaker_display = _speaker_display(bundle.get("speaker_turns") or [])
-    is_corrected = correction_status == str(CorrectionStatus.CORRECTED) and         bool(str(bundle.get("corrected_text") or "").strip())
+    is_partial = correction_status == str(CorrectionStatus.PARTIAL_CORRECTED)
+    is_corrected = correction_status in (str(CorrectionStatus.CORRECTED),
+                                         str(CorrectionStatus.PARTIAL_CORRECTED)) \
+        and bool(str(bundle.get("corrected_text") or "").strip())
     segments = corrected_segments(bundle) if is_corrected         else list(bundle.get("segments") or [])
-    title = ("第二部分：校正版逐字稿" if is_corrected
-             else "第二部分：未经 AI 校正原始稿")
+    if is_corrected and is_partial:
+        title = "第二部分：校正版逐字稿（部分段落未校正）"
+    else:
+        title = ("第二部分：校正版逐字稿" if is_corrected
+                 else "第二部分：未经 AI 校正原始稿")
     lines += [_HEADER_RULE, title, _HEADER_RULE, ""]
     if not is_corrected:
         lines += [CORRECTION_PENDING_BANNER, ""]
+    elif is_partial:
+        lines += [CORRECTION_PARTIAL_BANNER, ""]
     if segments:
         lines += [_line_with_speaker(item, speaker_display) for item in segments]
     else:
@@ -327,7 +339,7 @@ def _evidence_body(bundle: dict) -> str:
     lines += [_HEADER_RULE, "六、疑点", _HEADER_RULE]
     doubts = [f"{item.get('source_segment_ref')}：{item.get('change_type')}"
               f" {item.get('evidence_json')}"
-              for item in changes if item.get("change_type") in ("conflict",)]
+              for item in changes if item.get("change_type") in ("conflict", "skipped")]
     doubts += [f"片段复核建议：{item.get('text', '')[:40]}"
                for item in (bundle.get("segments") or [])
                if item.get("needs_review")]

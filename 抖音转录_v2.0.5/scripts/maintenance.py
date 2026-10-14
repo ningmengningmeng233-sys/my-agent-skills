@@ -104,8 +104,9 @@ def fill_ai(db: TranscriptDB, *, aweme_id: str | None = None,
         quality_status = str(version.get("quality_status"))
         try:
             if quality_status != str(QualityStatus.VISUAL_TEXT_ONLY) and \
-                    str(version.get("correction_status")) != \
-                    str(CorrectionStatus.CORRECTED):
+                    str(version.get("correction_status")) not in (
+                        str(CorrectionStatus.CORRECTED),
+                        str(CorrectionStatus.PARTIAL_CORRECTED)):
                 context = CorrectionContext(
                     title=bundle.get("title", ""),
                     segments=bundle.get("segments") or [],
