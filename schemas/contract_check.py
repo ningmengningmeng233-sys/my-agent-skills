@@ -48,15 +48,47 @@ except ImportError:  # pragma: no cover
 
 # ---------------------------------------------------------------- 静态配置 --
 
-# 参与对账的技能文件（相对工作区根）
+# 参与对账的技能文件（相对工作区根）。
+#
+# SC-02：默认口径是 discover_skill_files() 的动态发现——扫描工作区根下一层各技能包，
+# SKILL.md 里含 pipeline-contract 声明块的才进门，目录改名/升版不再烂门。
+# 本清单只做三件事：文档化当前参与者、动态发现扫空时的回退、单测可解析的稳定常量。
 SKILL_FILES = [
-    "小说转短剧_v1.5.3/SKILL.md",
-    "资产提取_v2.17.0-rc.5工作树/SKILL.md",
-    "MiniMaxH3提示词_v7.4.4/SKILL.md",
+    "小说转短剧_v1.5.4/SKILL.md",
+    "资产提取_v2.17.0-rc.6/SKILL.md",
+    "MiniMaxH3提示词_v7.4.5/SKILL.md",
     # 两份索引库：只为双胞胎内核配对（twin_of）进门，不参与 JSON Schema 接缝
-    "知识库转录_v5.4.4/SKILL.md",
-    "成人文学索引_v4.8.3/SKILL.md",
+    "知识库转录_v5.4.7/SKILL.md",
+    "成人文学索引_v4.8.5/SKILL.md",
 ]
+
+
+def discover_skill_files(root):
+    """SC-02：动态发现参与对账的技能文件（相对工作区根，排序稳定）。
+
+    只认「包目录/SKILL.md 含 pipeline-contract:begin 声明块」这一条规则，
+    不认目录名——技能包升版改名后门照样能找到它。读不到目录/文件时跳过，
+    调用方扫空后回退到 SKILL_FILES 静态清单（错误信息里仍点名旧参与者）。
+    """
+    found = []
+    try:
+        names = sorted(os.listdir(root))
+    except OSError:
+        return []
+    for name in names:
+        if name.startswith("."):
+            continue
+        fp = os.path.join(root, name, "SKILL.md")
+        if not os.path.isfile(fp):
+            continue
+        try:
+            with open(fp, encoding="utf-8", errors="replace") as handle:
+                if "pipeline-contract:begin" not in handle.read():
+                    continue
+        except OSError:
+            continue
+        found.append(name.replace("\\", "/") + "/SKILL.md")
+    return found
 
 # H3 提示词写法规范源扫描集：唯一权威 = 官方骨架（不在本工作区，装在技能库里）。
 # 两份内化副本（novel-storyboard 的 references/h3-prompt.md、MiniMaxH3提示词 v7.4.2）
@@ -69,6 +101,9 @@ H3_SPEC_SCAN_SET = [
         "path": OFFICIAL_H3_SKELETON,
         "name": "MiniMax 官方 drama-series/reference/h3-video-prompt.md（唯一完整可执行骨架）",
         "h3_spec_role": "authority",
+        # SC-02：同一权威的可移植逻辑名（MiniMaxH3 包为去作者机绝对路径，
+        # derived_from 只写该逻辑名）。别名仍走精确相等匹配，不做模糊/后缀匹配。
+        "aliases": ["minimax-official-workflows:drama-series/reference/h3-video-prompt.md"],
     },
 ]
 
@@ -297,7 +332,9 @@ def _h3_authorities(root, contracts, h3_scan_set, drift):
                   f"权威源失踪（换机/改名？），派生副本失去对齐目标，请同步 H3_SPEC_SCAN_SET")
             continue
         ref = _canon_ref(raw, root)
-        found[ref] = {"ref": ref, "label": str(item.get("name") or raw)}
+        found[ref] = {"ref": ref, "label": str(item.get("name") or raw),
+                      "aliases": [str(a).strip() for a in (item.get("aliases") or [])
+                                  if str(a).strip()]}
     for c in contracts:
         if str(c.get("h3_spec_role") or "").strip() == "authority":
             ref = _canon_ref(c["_file"], root)
@@ -335,6 +372,8 @@ def _check_h3_spec_sources(root, contracts, h3_scan_set, drift):
 
     auth_refs = {a["ref"] for a in authorities}
     auth_names = {a["source"].strip().casefold() for a in authorities if a.get("source")}
+    for _auth in authorities:  # SC-02：扫描集登记的权威别名（精确相等，非模糊匹配）
+        auth_names |= {x.casefold() for x in _auth.get("aliases") or []}
     auth_label = authorities[0]["label"]
     for c in specs:
         role = str(c.get("h3_spec_role") or "").strip()
@@ -575,7 +614,11 @@ def run_check(root, strict=True, skill_files=None, h3_scan_set=None, twin_regist
     exit_code 只看未登记/到期/失效的漂移与非法基线；summary["review"] 是例外基线的分类明细。
     """
     root = Path(root)
-    skill_files = list(skill_files) if skill_files else SKILL_FILES
+    if skill_files:
+        skill_files = list(skill_files)
+    else:
+        # SC-02：默认动态发现（目录改名不再烂门）；扫空才回退静态清单。
+        skill_files = discover_skill_files(root) or list(SKILL_FILES)
     h3_scan_set = H3_SPEC_SCAN_SET if h3_scan_set is None else h3_scan_set
     twin_registry = twin_registry or TWIN_REGISTRY
     drifts = []
@@ -640,10 +683,28 @@ def run_check(root, strict=True, skill_files=None, h3_scan_set=None, twin_regist
     for c in contracts:
         f = c["_file"]
         cid = c.get("id", "?")
-        schema_rel = c.get("schema", "")
-        spath = (root / schema_rel) if schema_rel else None
-        if not spath or not spath.is_file():
-            drift("SCHEMA_NOT_FOUND", f, cid, f"声明指向 {schema_rel or '(空)'}，文件不存在")
+        schema_rel = str(c.get("schema") or "")
+        spath = None
+        tried: list[str] = []
+        if schema_rel:
+            candidates = [root / schema_rel]
+            # SC-02：包内相对声明（如资产提取 vendor/schemas/...）：相对声明文件
+            # 所在包目录再试一次。柜根相对优先，已有声明的行为一个字都不变。
+            pkg_cand = root / Path(f).parent / schema_rel
+            if pkg_cand not in candidates:
+                candidates.append(pkg_cand)
+            for cand in candidates:
+                try:
+                    tried.append(cand.relative_to(root).as_posix())
+                except ValueError:
+                    tried.append(cand.as_posix())
+                if cand.is_file():
+                    spath = cand
+                    break
+        if spath is None:
+            hint = f"（已尝试：{'、'.join(tried)}）" if tried else ""
+            drift("SCHEMA_NOT_FOUND", f, cid,
+                  f"声明指向 {schema_rel or '(空)'}，文件不存在{hint}")
             continue
         schema = json.loads(spath.read_text(encoding="utf-8"))
         xc = schema.get("x-contract", {})

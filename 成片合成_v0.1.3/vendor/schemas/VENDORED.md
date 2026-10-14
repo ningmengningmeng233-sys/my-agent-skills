@@ -9,7 +9,7 @@
 | 来源 | 技能柜共享内核 `schemas/ledger.py` 与 `schemas/run-ledger.schema.json` |
 
 | 副本 sha256（storyboard.schema.json） | 89fd837994913599b542343f0e8dd24490fc5039ce9feed30b621f8435616621 |
-| 副本 sha256（asset-ledger.schema.json） | df7bf9a7ae0b6548ed211d94a66c9dd13919d866adba1daf0e5142973b8f1ec5 |
+| 副本 sha256（asset-ledger.schema.json） | 352ffc40a91bddd263b3801c7fba606c4e8ece233e1e618ba4e6001b6a1a6153 |
 | 参考合同说明 | storyboard/asset-ledger 两件为参考合同：plan.py 内联校验与之逐字段对齐，运行期不加载文件；运行期加载的内核仍只有 ledger.py + run-ledger.schema.json |
 | 参考合同来源 | W/schemas（2026-10-11 字节，与 E3 schemas 基线逐字节一致；改上游须同步重算） |
 | 来源侧最近提交 | d6691f2 chore(P56-n): 代码瘦身（并表 twin 键切分、去掉无人用的 _as_num default 形参）+ 同步 twin 登记哈希 |

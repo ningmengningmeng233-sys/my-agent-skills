@@ -103,7 +103,8 @@
               "episode": { "type": "integer", "minimum": 1, "description": "分集序号" },
               "scene_id": { "type": "string", "pattern": "^S\\d{2,3}$", "description": "场次编号" },
               "beat_index": { "type": "integer", "minimum": 0, "description": "节拍序号" },
-              "quote": { "type": "string", "description": "原文依据摘录" }
+              "quote": { "type": "string", "description": "原文依据摘录" },
+              "appearance_note": { "type": "string", "description": "出场派生说明（如「第X集XXX场出场」），script_adapter 反推剧本时写入；手工创建可省略" }
             },
             "additionalProperties": false
           }

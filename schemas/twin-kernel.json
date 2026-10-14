@@ -14,39 +14,41 @@
   "hash_algo": "sha256（文件原始字节）",
   "pairs": [
     {
-      "trunk": "知识库转录_v5.4.4",
+      "trunk": "知识库转录_v5.4.7",
       "trunk_scripts": "scripts",
-      "trunk_head": "fe585c033ec4b620249d157d66f9ccf70816398b",
-      "customization": "成人文学索引_v4.8.3",
+      "trunk_head": "9e98d198720ff07f79d9c6ad94cf3a32f097f790",
+      "customization": "成人文学索引_v4.8.5",
       "customization_scripts": "scripts",
-      "customization_head": "f1e36a152d6d830b503687774fe385e52ece3e50",
+      "customization_head": "9e98d198720ff07f79d9c6ad94cf3a32f097f790",
       "declared_by": [
-        "知识库转录_v5.4.4/SKILL.md#knowledge-index-twin-kernel",
-        "成人文学索引_v4.8.3/SKILL.md#adult-index-twin-kernel"
+        "知识库转录_v5.4.7/SKILL.md#knowledge-index-twin-kernel",
+        "成人文学索引_v4.8.5/SKILL.md#adult-index-twin-kernel"
       ],
-      "same_named_files": 18,
+      "same_named_files": 19,
       "status_counts": {
-        "identical": 4,
+        "customized": 9,
+        "identical": 3,
         "trunk-ahead": 7,
-        "customized": 3,
-        "pending-rebase": 4
+        "pending-rebase": 0
       },
       "files": [
         {
           "file": "_common.py",
-          "status": "identical",
-          "reason": "两份逐字相同：路径/文件工具层是共享底座，任何一侧改动必须同时回填另一侧，否则登记失效。",
+          "status": "customized",
+          "reason": "定制侧独有 prefixed_files（iterdir + startswith 字面量前缀匹配，替代 glob，书名含 [ 等元字符时不失效，+14 行）与 pathlib 导入；主干 _common 无此函数（同语义逻辑只私藏在主干 delete_novel/rename_novel 各自的 _prefixed_files 里）。定制侧超前、方向与 trunk-ahead 相反：禁止从主干回填覆盖，主干应把该安全修复正向合入共享层。",
           "evidence": {
             "trunk_sha256": "50514890912c8b4eb24291cd9d81ed2701586fb0f0fd70ea2d8657926f5c6f7f",
-            "customization_sha256": "50514890912c8b4eb24291cd9d81ed2701586fb0f0fd70ea2d8657926f5c6f7f",
-            "byte_identical": true,
+            "customization_sha256": "b187536e7905a2cc8be1e23bb0f6e749e743fc28bcc3a2c3491dc265dd834288",
+            "byte_identical": false,
             "trunk_bytes": 4482,
-            "customization_bytes": 4482,
+            "customization_bytes": 4984,
             "trunk_lines": 109,
-            "customization_lines": 109,
-            "changed_diff_lines": 0,
+            "customization_lines": 123,
+            "changed_diff_lines": 14,
             "trunk_only_defs": [],
-            "customization_only_defs": []
+            "customization_only_defs": [
+              "prefixed_files"
+            ]
           }
         },
         {
@@ -120,16 +122,16 @@
         {
           "file": "build_segment_index.py",
           "status": "trunk-ahead",
-          "reason": "主干为超集：段索引构建已改走 api_pool 多节点白名单池（get_pool/configure_pool_log/pool_summary，密钥不落日志），并新增 expand_merged_sections 合并段展开与 autofix_source_path 出处回校；成人侧仍是单 OPENAI_API_KEY 直连 + _unwrap_fence（主干已改名 strip_code_fence）。属主干新增未回填，成人侧无独有功能。",
+          "reason": "主干为超集（563 行 vs 482 行）：主干独有 api_pool 多节点白名单池（get_pool/configure_pool_log/pool_summary）、expand_merged_sections、autofix_source_path 与 strip_code_fence；KB-01 后 expand_merged_sections 删除首节模板复制伪造逻辑，缺失章节仅生成 NEEDS_REVIEW 占位节并走段文件真实行号定位。成人侧仍是单 OPENAI_API_KEY 直连 + _unwrap_fence。属主干新增未回填，成人侧无独有功能。",
           "evidence": {
-            "trunk_sha256": "48890ea6e61d68a5c92cb839e9aaf80c8de0c4a78d12a7c920f064a007ff9891",
-            "customization_sha256": "217d5ab2d9bf1c82b2fa11339e85499e7380cc192eb9a0b01c00729ed417acd6",
+            "trunk_sha256": "f315c66c1d9033d8299a286285a4de77b4c04caaaad19672055679bf62844218",
+            "customization_sha256": "0d059d9a5a23ffc43c7d3ac333417e627f4d40d4846e5866fa060b11be188215",
             "byte_identical": false,
-            "trunk_bytes": 25026,
-            "customization_bytes": 23405,
-            "trunk_lines": 546,
+            "trunk_bytes": 25062,
+            "customization_bytes": 22923,
+            "trunk_lines": 563,
             "customization_lines": 482,
-            "changed_diff_lines": 421,
+            "changed_diff_lines": 437,
             "trunk_only_defs": [
               "autofix_source_path",
               "configure_pool_log",
@@ -148,11 +150,11 @@
           "status": "identical",
           "reason": "两份逐字相同：章节标题正则表，是唯一还算干净共享的解析层。",
           "evidence": {
-            "trunk_sha256": "0071a933bd6513b0bd43dc1f6a993f526d4eb52095313d4384ade3cab4289844",
-            "customization_sha256": "0071a933bd6513b0bd43dc1f6a993f526d4eb52095313d4384ade3cab4289844",
+            "trunk_sha256": "b74acc8fd06da2d53f673919acf835f224987652992a55579bad2724292dadc6",
+            "customization_sha256": "b74acc8fd06da2d53f673919acf835f224987652992a55579bad2724292dadc6",
             "byte_identical": true,
-            "trunk_bytes": 7449,
-            "customization_bytes": 7449,
+            "trunk_bytes": 7314,
+            "customization_bytes": 7314,
             "trunk_lines": 135,
             "customization_lines": 135,
             "changed_diff_lines": 0,
@@ -163,34 +165,71 @@
         {
           "file": "check_line_refs.py",
           "status": "trunk-ahead",
-          "reason": "主干为超集（成人侧仅 4 行独有）：主干多 --strict 严格门禁参数、stdout/stderr 编码防御循环，寻址 段索引；成人侧寻址 章节索引。属主干新增未回填。",
+          "reason": "主干为超集（241 行 vs 177 行）：主干独有 KB-01 自区间严格校验（parse_ch_ranges_with_pos/find_own_range/own_range 版 classify）、--strict 门禁、stdout+stderr 双流编码防御，寻址段索引；成人侧为旧版 classify（无自区间）+ 章节索引寻址，无独有能力。属主干新增未回填。",
           "evidence": {
-            "trunk_sha256": "3bf34b16664d1739f5ab8a85ae6ead8bfc40109b1719f899c1191c173d8f6277",
-            "customization_sha256": "0ed780387e29c48c465806c5726a7ba48a312ef7b4ebef246c4686fe83685af5",
+            "trunk_sha256": "cadc6617e19fa95bf3936698908ed15f1ef9f1a0fe61b1190e478de4be747799",
+            "customization_sha256": "023a3540c54aafd837f1f3a8ac5d0be04d934893e9c4683860fc959cbad262d2",
             "byte_identical": false,
-            "trunk_bytes": 7842,
-            "customization_bytes": 7637,
-            "trunk_lines": 180,
+            "trunk_bytes": 10066,
+            "customization_bytes": 7460,
+            "trunk_lines": 241,
             "customization_lines": 177,
-            "changed_diff_lines": 9,
-            "trunk_only_defs": [],
+            "changed_diff_lines": 84,
+            "trunk_only_defs": [
+              "find_own_range",
+              "parse_ch_ranges_with_pos"
+            ],
             "customization_only_defs": []
+          }
+        },
+        {
+          "file": "check_package.py",
+          "status": "customized",
+          "reason": "真双向分叉的包内自检门（296 行 vs 297 行，393 行差异）：主干验版本三元组（VERSION/frontmatter/pyproject）+ LICENSE 文本 + start_web.ps1 启动器四项契约 + 柜根引用登记 + 申报制测试密钥 + 随包验收三件套；定制侧验脱离柜根可导入（经 orchestrate.load_source_manifest 走包内 vendor）+ vendor 摘要（VENDOR.json）+ 版本二元组 + 禁止件/凭据形状卫生。两套门各盯各包的发布面，禁止互抄覆盖。",
+          "evidence": {
+            "trunk_sha256": "7f9d4938b0a5141e45a82df1580a4235f77dc03caff62b5ad4b23528d85d499d",
+            "customization_sha256": "fe48cc824a71729dced2ec24df13c31f6cfcbff93337d7b813b0d01a90370767",
+            "byte_identical": false,
+            "trunk_bytes": 14943,
+            "customization_bytes": 14805,
+            "trunk_lines": 296,
+            "customization_lines": 297,
+            "changed_diff_lines": 393,
+            "trunk_only_defs": [
+              "_test_subprocess_env",
+              "check_cabinet_refs",
+              "check_declared_secrets",
+              "check_hygiene",
+              "check_launcher",
+              "check_license",
+              "front_version"
+            ],
+            "customization_only_defs": [
+              "_child_env",
+              "check_cabinet_only_refs",
+              "check_imports",
+              "check_package_hygiene",
+              "check_python_compiles",
+              "check_vendor_digests"
+            ]
           }
         },
         {
           "file": "delete_novel.py",
           "status": "customized",
-          "reason": "真双向分叉：主干侧做两级删除（独立文档集整集删 vs --doc 单篇删，寻址 原文/段索引）；成人侧 v4.6.3 独有——删除范围扩到 风格卡/<小说名>-<作者>/ 与 .semantic_index 的 npz+manifest，并把书名先经 norm_name 规范化后改用 iterdir+startswith 字面量匹配，不再把书名拼进 glob（书名含 [ 等元字符时会误删别人的书）——安全修复，主干侧尚未回收。",
+          "reason": "真双向分叉（191 行 vs 151 行）：主干做两级删除（--doc 单篇删 vs 整集删，寻址原文/段索引/书导航，私有一份 _prefixed_files 但用 startswith(prefix) 宽匹配）；成人侧 v4.6.3 独有 norm_name 规范化 + 共享 _common.prefixed_files（startswith(prefix + '-') 更严格）+ 风格卡目录与 .semantic_index npz 清理。两侧删除语义不同，禁止无脑覆盖。",
           "evidence": {
             "trunk_sha256": "babd958722e22e65294a95c84ea13d28159e0a1f1d449fd979b9b9ef8234060e",
-            "customization_sha256": "d43606d5ee4a1d2eb9556372b613a33810e7fea2c65f23bd08be7d8d3f8ebe2d",
+            "customization_sha256": "e5ae6dd1f36c9ebede6c9be362f8fc29d59b3f4eaf32cb7d5ccad4dc28e86228",
             "byte_identical": false,
             "trunk_bytes": 7309,
-            "customization_bytes": 5346,
+            "customization_bytes": 4931,
             "trunk_lines": 191,
-            "customization_lines": 163,
-            "changed_diff_lines": 94,
-            "trunk_only_defs": [],
+            "customization_lines": 151,
+            "changed_diff_lines": 106,
+            "trunk_only_defs": [
+              "_prefixed_files"
+            ],
             "customization_only_defs": []
           }
         },
@@ -235,58 +274,60 @@
         {
           "file": "orchestrate.py",
           "status": "customized",
-          "reason": "真双向分叉：成人侧多 style 子命令（cmd_style，文风蒸馏入口，+76 行）与 W03 清单摄取命令（cmd_import_manifest）；主干侧多 convert_docs 分支（非纯文本资料先转 UTF-8，配套 convert_docs.py 只存在于主干，-28 行）与 原文/书导航/段索引 目录常量。两个都是各自产品面要求，长期共存。",
+          "reason": "真双向分叉（486 行 vs 679 行）：成人侧独有 style 子命令（cmd_style 文风蒸馏入口）、W03 清单摄取（cmd_import_manifest）与包内 vendor 加载（load_source_manifest，脱离柜根可用）；主干侧独有 convert_docs 分支与原文/书导航/段索引目录常量。两个都是各自产品面要求，长期共存。",
           "evidence": {
             "trunk_sha256": "50fe581eaf688543d4455db319bb288df7fab7a9c44c1e4bf443b049ef1ecaaf",
-            "customization_sha256": "efdcef21f5091413ab89c5036f2d8266690ce13142b7b9ae9b999ecb662ecf22",
+            "customization_sha256": "f0646f72b50b266463aeff89553dc867f121fce61dbb5252fc36991c737fb783",
             "byte_identical": false,
             "trunk_bytes": 17883,
-            "customization_bytes": 25419,
+            "customization_bytes": 26482,
             "trunk_lines": 486,
-            "customization_lines": 658,
-            "changed_diff_lines": 337,
+            "customization_lines": 679,
+            "changed_diff_lines": 249,
             "trunk_only_defs": [],
             "customization_only_defs": [
               "cmd_import_manifest",
-              "cmd_style"
+              "cmd_style",
+              "load_source_manifest"
             ]
           }
         },
         {
           "file": "rename_novel.py",
           "status": "customized",
-          "reason": "领域定制原子改名（W06 裁定）：成人文学索引侧独有对 风格卡/<小说名>-<作者>/ 目录与语义向量索引的原子改名校验，同时遍历 小说原文/章节索引/小说索引 三目录布局；主干通用侧无风格卡产物。判定为领域定制。",
+          "reason": "真双向分叉（258 行 vs 264 行）：成人侧独有风格卡目录原子改名（含目标冲突保护）+ 小说原文/章节索引/小说索引寻址，复用共享 _common.prefixed_files；主干私有一份同语义 _prefixed_files + 原文/段索引/书导航寻址。改名范围不同（风格卡仅成人侧有），禁止无脑覆盖。",
           "evidence": {
             "trunk_sha256": "d4d42aad1a610bdc05652bd10991eb9574e1f6ea6daa54a4d684af866b45b0f1",
-            "customization_sha256": "d69514fb4cd7df5b84ba8ce346a21e316730e284da52cb1c1838a45254edf657",
+            "customization_sha256": "1e12b704dae005cc45d83277af272a6c2a624fb22e5040bd56aa0ca7c49314b4",
             "byte_identical": false,
             "trunk_bytes": 10199,
-            "customization_bytes": 11025,
+            "customization_bytes": 10609,
             "trunk_lines": 258,
-            "customization_lines": 276,
-            "changed_diff_lines": 50,
-            "trunk_only_defs": [],
+            "customization_lines": 264,
+            "changed_diff_lines": 72,
+            "trunk_only_defs": [
+              "_prefixed_files"
+            ],
             "customization_only_defs": []
           }
         },
         {
           "file": "semantic_index.py",
           "status": "trunk-ahead",
-          "reason": "主干（知识库转录）为超集（47.5KB vs 14.6KB，仅 431 行为成人侧独有且多为目录名）：多 OllamaEmbedder/TfidfEmbedder 双嵌入器、_acquire_lock 并发锁、_gc_snapshots 快照回收、_engine_metadata 引擎元数据，并按 原文/段索引/书导航 布局读写；成人侧保留 _load_manifest/_npz_path_for/_npz_str 旧向量装载。属主干新增未回填。",
+          "reason": "主干为超集（1016 行/45.2KB vs 431 行/14.3KB）：主干独有 OllamaEmbedder/TfidfEmbedder 双嵌入器、_acquire_lock 并发锁、_gc_snapshots 快照回收、_engine_metadata 引擎元数据与 parse_knowledge_blocks，按原文/段索引/书导航布局读写；成人侧保留旧向量装载（_load_manifest/_npz_path_for/_npz_str）与缺依赖友好提示，属 legacy 未回填。",
           "evidence": {
-            "trunk_sha256": "b69c08925ad8e6c646253ebce7f491a7db6e098243024dfd789825411d1b7eb6",
+            "trunk_sha256": "f1f8d780926e290f929a5f92b45949aaaaa8fa793199b7fdb64e05e826ea46ae",
             "customization_sha256": "582e860c77ad1f635a7044e17fa831c6500172194f2ba771dcdaedd9f542dcd2",
             "byte_identical": false,
-            "trunk_bytes": 47265,
+            "trunk_bytes": 46249,
             "customization_bytes": 14644,
-            "trunk_lines": 1025,
+            "trunk_lines": 1016,
             "customization_lines": 431,
-            "changed_diff_lines": 1318,
+            "changed_diff_lines": 1311,
             "trunk_only_defs": [
               "OllamaEmbedder",
               "TfidfEmbedder",
               "_acquire_lock",
-              "_block_text",
               "_build_inner",
               "_engine_metadata",
               "_extract_line_range",
@@ -300,7 +341,6 @@
               "ensure_ollama_ready",
               "load_embedding_engine",
               "parse_knowledge_blocks",
-              "parse_segment_blocks",
               "verify_block_text"
             ],
             "customization_only_defs": [
@@ -317,16 +357,16 @@
         {
           "file": "semantic_search.py",
           "status": "trunk-ahead",
-          "reason": "主干为超集（30.7KB vs 8.4KB）：多 LexicalIndex 词法索引、_char_ngrams/_tfidf_scores 混合打分、build_scored_result 结构化结果、_keyword_bonus；成人侧只有旧版向量检索 + MissingDependencyError 依赖友好提示。属主干新增未回填。",
+          "reason": "主干为超集（691 行/29.3KB vs 272 行/8.2KB）：主干独有 LexicalIndex 词法索引、_char_ngrams/_tfidf_scores 混合打分、build_scored_result 结构化结果与 search_hybrid；成人侧只有旧版向量检索 + MissingDependencyError 依赖友好提示。属主干新增未回填。",
           "evidence": {
-            "trunk_sha256": "72d2c52b0a099f4d796cde513c261c1edbcdc7ef7cc6b48ac397214ff5ba45c0",
+            "trunk_sha256": "10413084b0eeb9146afb9ee3227440ac7ab51a3a4ab8e67f1fcf570405ddd4ce",
             "customization_sha256": "9c0c317f0c989bcfcba852ee42423746c4c49039761d2f058821616233f0b1e5",
             "byte_identical": false,
-            "trunk_bytes": 30663,
+            "trunk_bytes": 29972,
             "customization_bytes": 8378,
-            "trunk_lines": 692,
+            "trunk_lines": 691,
             "customization_lines": 272,
-            "changed_diff_lines": 746,
+            "changed_diff_lines": 745,
             "trunk_only_defs": [
               "LexicalIndex",
               "_char_ngrams",
@@ -391,18 +431,20 @@
         {
           "file": "verify_and_fix_lines.py",
           "status": "customized",
-          "reason": "领域定制回写与校准（W06 裁定）：成人文学索引侧独有多小节「爽点/名场面」等小说创作向专属回写分支，并在 小说原文 目录下寻址校验；主干通用侧为标准单段校准与编码循环。判定为领域定制。",
+          "reason": "真双向分叉（311 行 vs 294 行）：主干独有 --strict 门禁（缺行/不一致即 exit 2）、默认全库扫描 targets、双流编码防御与更宽的引用节/概要节关键词表（4/3 个 vs 2/1 个）；成人侧独有 split_sections 抽取复用 + 小说原文寻址 + targets 必填位置参数。两侧校验口径不同，禁止无脑覆盖。",
           "evidence": {
-            "trunk_sha256": "714fbceec20b71cd9312cd99d0752f4bb05ec902cbb995e4174702652a80e4f3",
-            "customization_sha256": "d91060332558da87c500f191df8bc4171016b28c8305ec3d7dfbc1f57a4c2e9d",
+            "trunk_sha256": "2be4e44dc49670cb64924231b0c1b19f689a9d4cfb4352aa208d231833fffed6",
+            "customization_sha256": "475720fcfeda990b127ea2e06d20945541124e8fe2635f84871c3a785844f96a",
             "byte_identical": false,
-            "trunk_bytes": 15126,
-            "customization_bytes": 14053,
+            "trunk_bytes": 14815,
+            "customization_bytes": 13759,
             "trunk_lines": 311,
-            "customization_lines": 300,
-            "changed_diff_lines": 42,
+            "customization_lines": 294,
+            "changed_diff_lines": 69,
             "trunk_only_defs": [],
-            "customization_only_defs": []
+            "customization_only_defs": [
+              "split_sections"
+            ]
           }
         }
       ]

@@ -14,4 +14,4 @@
 | 文件 | sha256 | 字节 |
 |---|---|---|
 | script.schema.json | 4f29355e8c566a6fa68fe8791257d099aa8b53c3e11b1408d94d1529c8e0b0f8 | 7284 |
-| asset-ledger.schema.json | df7bf9a7ae0b6548ed211d94a66c9dd13919d866adba1daf0e5142973b8f1ec5 | 7536 |
+| asset-ledger.schema.json | 352ffc40a91bddd263b3801c7fba606c4e8ece233e1e618ba4e6001b6a1a6153 | 7726 |

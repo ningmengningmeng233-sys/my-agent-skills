@@ -146,7 +146,7 @@ namespace: twin-kernel
 schema: schemas/twin-kernel.json
 version: "1.0.0"
 skill_version: "5.4.7"
-twin_of: "成人文学索引_v4.8.3"  # 对端：同一份索引内核的定制层
+twin_of: "成人文学索引_v4.8.5"  # 对端：同一份索引内核的定制层
 twin_role: trunk  # 本仓是内核主干：v5.0 目录升级（原文/段索引/书导航）、api_pool 多节点池、独立文档集入库分支都长在这里
 twin_reason: "已裁决不抽公共 indexlib（两份都在产线、分叉千行级、无人验收重构），改为把 18 份同名 scripts/*.py 的每一处分叉登记进 schemas/twin-kernel.json，由 schemas/contract_check.py 门住静默漂移：改名/改码必须同步登记哈希与理由"
 pipeline-contract:end -->

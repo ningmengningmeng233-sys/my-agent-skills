@@ -127,7 +127,7 @@ namespace: twin-kernel
 schema: schemas/twin-kernel.json
 version: "1.0.0"
 skill_version: "4.8.5"
-twin_of: "知识库转录_v5.4.4"  # 本仓内核主干所在：建库/检索代码同源于它
+twin_of: "知识库转录_v5.4.7"  # 本仓内核主干所在：建库/检索代码同源于它
 twin_role: customization  # 本仓是定制层：风格卡/文风蒸馏/style 子命令/norm_name 防 glob 元字符/normpath 主键归一化都是本仓独有
 twin_reason: "已裁决不抽公共 indexlib（两份都在产线、分叉千行级、无人验收重构），改为把 18 份同名 scripts/*.py 的每一处分叉登记进 schemas/twin-kernel.json，由 schemas/contract_check.py 门住静默漂移；主干侧新增能力回填前先查登记簿 status，customized 的一律禁止无脑覆盖"
 pipeline-contract:end -->
