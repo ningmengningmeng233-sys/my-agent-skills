@@ -1436,23 +1436,25 @@ def main() -> int:
     hash_path = out_path.parent / (out_path.name + ".hash")
 
     input_hash = final_inputs_hash(novel, author, total_chapters, verdicts, info, pending, groups_by_id, summaries, needs)
+    # AE-03: 短路跳过必须以“最终产物与资产索引均已对齐”为前提，缺索引不得跳过。
+    target_lib = out_path.parent if args.out else lib
+    expected_index = target_lib / PROCESS_DIR / "资产索引.json"
     if (out_path.exists() and hash_path.exists()
-            and hash_path.read_text(encoding="utf-8").strip() == input_hash):
+            and hash_path.read_text(encoding="utf-8").strip() == input_hash
+            and expected_index.is_file()):
         print(f"⏭️  反推_最终.md 输入未变更（hash {input_hash}），跳过写入")
         print(f"   正式资产 {len(verdicts)} 项 | 待确认附录 {len(pending)} 项")
         return 0
 
     final = render_final(novel, author, verdicts, info, pending, groups_by_id, summaries, total_chapters, needs=needs)
     out_path.write_text(final, encoding="utf-8")
-    hash_path.write_text(input_hash, encoding="utf-8")
-    print(f"✅ 反推_最终.md: {out_path}（{len(final)} 字符 | hash {input_hash}）")
+    print(f"✅ 反推_最终.md: {out_path}（{len(final)} 字符）")
     print(f"   正式资产 {len(verdicts)} 项 | 待确认附录 {len(pending)} 项")
     try:
         from engine.continuity import write_scene_master
 
         texts_fp = "".join(sorted(texts.values())) if isinstance(texts, dict) else ""
         fingerprint = "sha256:" + hashlib.sha256(texts_fp.encode("utf-8")).hexdigest()[:16]
-        target_lib = out_path.parent if args.out else lib
         index_path = write_asset_index(
             target_lib,
             verdicts, groups_by_id, summaries, total_chapters,
@@ -1469,7 +1471,16 @@ def main() -> int:
                                          constitution=load_constitution(target_lib))
         print(f"🗺️ 场景母版: {master_path}（人工字段安全合并，不静默覆盖）")
     except Exception as e:
-        print(f"⚠️ 资产索引/母版生成失败（不影响旧表）: {e}")
+        # AE-03: 索引/母版失败不得静默成功——清除完成标记并以非零退出，
+        # 后续重跑不得被前置 Markdown 哈希短路，必须如实重试。
+        print(f"❌ 资产索引/母版生成失败（最终产物与索引未对齐）: {e}")
+        try:
+            hash_path.unlink(missing_ok=True)
+        except OSError:
+            pass
+        return 1
+    # AE-03: 最终 Markdown 与下游资产索引均成功生成后，才写入完成标记/短路哈希。
+    hash_path.write_text(input_hash, encoding="utf-8")
     return 0
 
 

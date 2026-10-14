@@ -59,9 +59,8 @@ class TestStaleCandidateInvalidation(unittest.TestCase):
                              seg_hash="deadbeefdeadbeef", node_fp="stale-fingerprint")
                 # 模拟分段输入变更 → 当前指纹与断点记录必然不一致
                 seg.write_text(SEG_V2, encoding="utf-8")
-                with mock.patch("scan_registry.call_llm",
-                                return_value=(FRESH_CANDIDATE, {"prompt_tokens": 1,
-                                                               "completion_tokens": 1})) as m:
+                llm_result = (FRESH_CANDIDATE, {"prompt_tokens": 1, "completion_tokens": 1})
+                with mock.patch("scan_registry.call_llm", return_value=llm_result) as m:
                     out, st = candidate_one(str(seg), out_dir, False, db)
                 self.assertEqual(st, "done")
                 m.assert_called_once()
@@ -81,9 +80,8 @@ class TestStaleCandidateInvalidation(unittest.TestCase):
             self.assertTrue(db.ready)
             try:
                 self.assertIsNone(db.get(str(seg)))
-                with mock.patch("scan_registry.call_llm",
-                                return_value=(FRESH_CANDIDATE, {"prompt_tokens": 1,
-                                                               "completion_tokens": 1})) as m:
+                llm_result = (FRESH_CANDIDATE, {"prompt_tokens": 1, "completion_tokens": 1})
+                with mock.patch("scan_registry.call_llm", return_value=llm_result) as m:
                     out, st = candidate_one(str(seg), out_dir, False, db)
                 self.assertEqual(st, "done")
                 m.assert_called_once()
