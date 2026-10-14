@@ -1,0 +1,2 @@
+# AE-11：入口脚本锁定 LF，防 Windows 检出转 CRLF 导致 POSIX shebang 崩溃。
+run_pipeline.sh text eol=lf

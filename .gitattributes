@@ -1,2 +1,4 @@
 # Preserve candidate and manifest bytes; bundled dependencies are intentional.
 * -text
+# AE-11：资产提取入口脚本锁定 LF，防 Windows 检出转 CRLF 导致 POSIX shebang 崩溃。
+资产提取_v2.17.0-rc.6/run_pipeline.sh text eol=lf
