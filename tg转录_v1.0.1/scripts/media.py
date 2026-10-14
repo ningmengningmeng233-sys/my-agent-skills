@@ -921,9 +921,9 @@ def write_download_index(selection, directory, *, identity, chat_id=None,
     if source_path is not None:
         path = _as_path(source_path, "导出文件")
         if path.is_file():
-            raw = path.read_bytes()
+            # TG-02：源文件可达 GB 级，分块流式摘要 + stat 体积，严禁整包读入。
             source = {"path": str(path), "name": path.name,
-                      "sha256": hashlib.sha256(raw).hexdigest(), "size": len(raw)}
+                      "sha256": _digest_of(path), "size": os.stat(path).st_size}
     payload = {
         "kind": INDEX_KIND, "version": INDEX_VERSION,
         "purpose": "tdl dl -f 的输入：只包含本次用户所选类别的消息附件",
@@ -953,7 +953,7 @@ def write_download_index(selection, directory, *, identity, chat_id=None,
         os.fsync(handle.fileno())
     os.replace(temporary, target)
     return {"path": str(target), "identity": identity, "entries": len(entries),
-            "sha256": hashlib.sha256(target.read_bytes()).hexdigest(),
+            "sha256": _digest_of(target),
             "payload": payload}
 
 
@@ -1225,7 +1225,7 @@ def accepted_export(path, root, task):
 
     1. 本任务状态根的完成清单里有一条记录的 sha256/size/count 与该文件完全一致（段记录由
        `state.commit_segment` 写入，final 记录由 `state.merge_completed` 写入；两者登记的
-       size/摘要都来自**实际落盘字节**，与这里 `read_bytes()` 同一口径）；
+       size/摘要都来自**实际落盘字节**，与这里分块流式摘要同一口径）；
     2. 那条记录的身份就是本任务身份（peer 类型 + chat ID），不消费他人任务验收过的导出；
     3. 记录必须声明区间 `lower/upper`，且区间落在任务已冻结的范围内；缺区间字段的旧记录
        = 凭据不足，**拒绝并申报原因，不静默跳过该凭据**。随后再由 `state.validate_export`
@@ -1238,8 +1238,8 @@ def accepted_export(path, root, task):
     records = list(manifest["segments"].values())
     if isinstance(manifest.get("final"), dict):
         records.append(manifest["final"])
-    raw = path.read_bytes()
-    digest = hashlib.sha256(raw).hexdigest()
+    # TG-02：导出文件可达 GB 级，分块流式摘要（_digest_of，1MB chunk），严禁整包读入。
+    digest = _digest_of(path)
     matched = [item for item in records if isinstance(item, dict)
                and item.get("sha256") == digest]
     if not matched:

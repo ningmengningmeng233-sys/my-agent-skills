@@ -219,13 +219,20 @@ def _text(value):
 
 
 def _digest(path):
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    """文件内容摘要：1MB 分块流式迭代（与 media._digest_of 同口径）。
+
+    TG-02：分享附件可达 GB 级，严禁整包 read_bytes 读入内存（OOM）。"""
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def _digest_if(path):
     """给了归档文件路径才比对；文件不存在时返回 None（不 crash，也不冒充已验证）。"""
     resolved = Path(str(path))
-    return hashlib.sha256(resolved.read_bytes()).hexdigest() if resolved.is_file() else None
+    return _digest(resolved) if resolved.is_file() else None
 
 
 def _neutralize_links(text):
@@ -262,8 +269,7 @@ def _tree_digest(base):
     out = {}
     for path in sorted(base.rglob("*")):
         if path.is_file():
-            out[path.relative_to(base).as_posix()] = hashlib.sha256(
-                path.read_bytes()).hexdigest()
+            out[path.relative_to(base).as_posix()] = _digest(path)
     return hashlib.sha256(json.dumps(out, sort_keys=True).encode("utf-8")).hexdigest()
 
 
@@ -1044,12 +1050,11 @@ def _copy_media(share_target, items):
         wanted[pair] = (entry, destination)
     for pair, (entry, destination) in sorted(wanted.items()):
         try:
-            got = hashlib.sha256(destination.read_bytes()).hexdigest() \
-                if destination.is_file() else None
+            got = _digest(destination) if destination.is_file() else None
         except OSError:
             got = None
         try:
-            want = hashlib.sha256(Path(str(entry["source"])).read_bytes()).hexdigest()
+            want = _digest(entry["source"])
         except OSError:
             want = None
         if got is not None and want is not None and got == want:
