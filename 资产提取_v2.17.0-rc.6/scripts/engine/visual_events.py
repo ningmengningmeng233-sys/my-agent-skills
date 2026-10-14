@@ -16,10 +16,13 @@
 
 from __future__ import annotations
 
+import gzip
 import hashlib
 import json
 import os
 import re
+import threading
+import time
 from collections import deque
 from dataclasses import dataclass, field, replace
 from datetime import datetime, timezone
@@ -45,6 +48,20 @@ EVENT_KINDS: tuple[str, ...] = (GENERATION_STARTED, TRANSPORT_FAILED, IMAGE_STOR
 AUDIT_ONLY_KINDS: tuple[str, ...] = (GENERATION_STARTED, TRANSPORT_FAILED, REVIEW_REQUESTED)
 
 EVENT_LOG_REL = (".process", "视觉事件.jsonl")
+
+# WAL 有界阈值：活动事件日志超过该字节数即触发轮转（快照固化 + gzip 压缩旧段），
+# 活动文件保持 O(1) 追加且不再无限膨胀；单测可用小阈值覆盖。
+EVENT_LOG_ROTATE_BYTES = 512 * 1024
+# 轮转归档命名：`视觉事件轮转-<UTC紧凑时间戳>-<纳秒>-<pid>.jsonl.gz`，按文件名排序即时间序。
+EVENT_LOG_ARCHIVE_PREFIX = "视觉事件轮转-"
+EVENT_LOG_ARCHIVE_SUFFIX = ".jsonl.gz"
+
+# 追加临界区：保护「增量追尾 dedup → 纯追加 → 轮转」全链路（同进程线程安全）。
+_APPEND_LOCK = threading.Lock()
+# lib 绝对路径 → {"seen": set[event_id], "size": 已扫描字节数}：增量追尾状态。
+_SEEN_BY_LIB: dict[str, dict[str, Any]] = {}
+# 增量追尾只提取 event_id（正则扫描，不做全量 JSON 解析，更不调用 read_events）。
+_EVENT_ID_RE = re.compile(r'"event_id"\s*:\s*"([^"]+)"')
 
 S = VisualTaskStatus
 
@@ -128,43 +145,191 @@ class VisualEvent:
                    payload=dict(payload) if isinstance(payload, Mapping) else {})
 
 
-def read_events(lib: Path) -> tuple[VisualEvent, ...]:
-    """读取已完整落盘的事件；半行/损坏行只忽略该行，不抛出。"""
-    path = event_log_path(lib)
-    if not path.is_file():
-        return ()
+def _parse_lines(text: str) -> list[VisualEvent]:
+    """解析完整行；半行/损坏行只忽略该行，不抛出。"""
     events: list[VisualEvent] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        text = line.strip()
-        if not text:
+    for line in text.splitlines():
+        body = line.strip()
+        if not body:
             continue
         try:
-            data = json.loads(text)
+            data = json.loads(body)
         except ValueError:
             continue  # 异常退出留下的半行：不是事实
         if isinstance(data, Mapping) and data.get("kind"):
             events.append(VisualEvent.from_dict(data))
+    return events
+
+
+def _archive_segments(lib: Path) -> list[Path]:
+    """按时间序返回轮转归档段（文件名排序即时间序；无归档返回空）。"""
+    parent = event_log_path(lib).parent
+    if not parent.is_dir():
+        return []
+    pattern = f"{EVENT_LOG_ARCHIVE_PREFIX}*{EVENT_LOG_ARCHIVE_SUFFIX}"
+    return sorted(parent.glob(pattern), key=lambda p: p.name)
+
+
+def read_events(lib: Path) -> tuple[VisualEvent, ...]:
+    """读取已完整落盘的事件（轮转归档段 + 活动日志，按时间序）；半行/损坏行只忽略该行。"""
+    events: list[VisualEvent] = []
+    for segment in _archive_segments(lib):
+        try:
+            with gzip.open(segment, "rt", encoding="utf-8") as handle:
+                text = handle.read()
+        except OSError:
+            continue  # 归档段损坏不阻断恢复：跳过该段
+        events.extend(_parse_lines(text))
+    path = event_log_path(lib)
+    if path.is_file():
+        events.extend(_parse_lines(path.read_text(encoding="utf-8")))
     return tuple(events)
 
 
+def _lib_key(lib: Path) -> str:
+    try:
+        return str(Path(lib).resolve())
+    except OSError:
+        return str(Path(lib).absolute())
+
+
+def _refresh_seen_locked(path: Path, state: dict[str, Any]) -> None:
+    """增量追尾刷新 event_id 集合（只读上次之后的新字节；调用方须持有 _APPEND_LOCK）。
+
+    从不调用 read_events：只做正则 event_id 提取，不做全量 JSON 解析。
+    末尾残缺行（无换行结尾）不计入，避免把崩溃半行误判为“已落盘事实”。
+    """
+    try:
+        size = path.stat().st_size
+    except OSError:
+        state["seen"] = set()
+        state["size"] = 0
+        return
+    known = int(state.get("size", 0) or 0)
+    if size == known:
+        return
+    if size < known:
+        # 文件被轮转/截断：全量重扫活动文件（低频操作，均摊可忽略）
+        try:
+            raw = path.read_bytes()
+        except OSError:
+            state["seen"] = set()
+            state["size"] = 0
+            return
+        text = raw.decode("utf-8", errors="replace")
+        cut = text.rfind("\n") + 1
+        state["seen"] = set(_EVENT_ID_RE.findall(text[:cut]))
+        # 已扫描偏移停在最后完整行边界：残缺尾部留待下次。
+        state["size"] = len(raw) - len(text[cut:].encode("utf-8", errors="replace"))
+        return
+    try:
+        with open(path, "rb") as handle:
+            handle.seek(known)
+            delta = handle.read()
+    except OSError:
+        return
+    text = delta.decode("utf-8", errors="replace")
+    if not text.endswith("\n"):
+        # 末尾残缺行留待下次（等它写完整）；本次只扫描完整行
+        cut = text.rfind("\n") + 1
+        text = text[:cut]
+    if text:
+        state["seen"].update(_EVENT_ID_RE.findall(text))
+        state["size"] = known + len(text.encode("utf-8", errors="replace"))
+
+
+def _maybe_rotate_locked(path: Path, state: dict[str, Any]) -> None:
+    """活动日志超阈值时轮转：快照 gzip 固化旧段，活动文件只留轮转期间追尾的新行。
+
+    调用方须持有 _APPEND_LOCK（同进程线程安全）；跨进程轮转竞态下归档名唯一
+    （时间戳 + 纳秒 + pid），最坏只是段顺序，不丢事实。
+    """
+    try:
+        size = path.stat().st_size
+    except OSError:
+        return
+    if size <= EVENT_LOG_ROTATE_BYTES:
+        return
+    try:
+        data = path.read_bytes()
+    except OSError:
+        return
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
+    archive = path.parent / (f"{EVENT_LOG_ARCHIVE_PREFIX}{stamp}-{time.time_ns()}-"
+                             f"{os.getpid()}{EVENT_LOG_ARCHIVE_SUFFIX}")
+    tmp = archive.with_name(archive.name + ".tmp")
+    try:
+        with open(tmp, "wb") as raw:
+            with gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as gz:
+                gz.write(data)
+            raw.flush()
+            os.fsync(raw.fileno())
+        os.replace(tmp, archive)
+        current = path.read_bytes()
+    except OSError:
+        try:
+            tmp.unlink()
+        except OSError:
+            pass
+        return
+    tail = current[len(data):] if len(current) > len(data) else b""
+    active_tmp = path.with_name(path.name + ".tmp")
+    try:
+        with open(active_tmp, "wb") as raw:
+            raw.write(tail)
+            raw.flush()
+            os.fsync(raw.fileno())
+        os.replace(active_tmp, path)
+    except OSError:
+        try:
+            active_tmp.unlink()
+        except OSError:
+            pass
+        return
+    state["size"] = len(tail)  # seen 集合保持有效：归档过的 id 仍视为已落盘
+
+
 def append_events(lib: Path, events: Sequence[VisualEvent]) -> int:
-    """追加事件（同一 event_id 幂等）；返回真正新增的条数。落盘即 fsync（写前日志）。"""
-    path = event_log_path(lib)
-    seen = {event.event_id for event in read_events(lib)}
-    fresh: list[VisualEvent] = []
-    for event in events:
-        if event.event_id in seen:
-            continue
-        seen.add(event.event_id)
-        fresh.append(event)
-    if not fresh:
+    """追加事件（同一 event_id 幂等）；返回真正新增的条数。落盘即 fsync（写前日志）。
+
+    纯追加流式写入：只以 `a` 模式追加新事件行，从不调用全量 read_events；
+    幂等靠批内去重 + 增量追尾的 event_id 集合保证，单次追加 O(1)。
+    """
+    batch = list(events)
+    if not batch:
         return 0
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "a", encoding="utf-8", newline="\n") as handle:
+    deduped: list[VisualEvent] = []
+    batch_seen: set[str] = set()
+    for event in batch:
+        if event.event_id in batch_seen:
+            continue
+        batch_seen.add(event.event_id)
+        deduped.append(event)
+    key = _lib_key(lib)
+    path = event_log_path(lib)
+    with _APPEND_LOCK:
+        state = _SEEN_BY_LIB.get(key)
+        if state is None:
+            state = {"seen": set(), "size": 0}
+            _SEEN_BY_LIB[key] = state
+        _refresh_seen_locked(path, state)
+        seen: set[str] = state["seen"]
+        fresh = [event for event in deduped if event.event_id not in seen]
+        if not fresh:
+            return 0
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with open(path, "a", encoding="utf-8", newline="\n") as handle:
+            for event in fresh:
+                handle.write(event.to_json() + "\n")
+            handle.flush()
+            os.fsync(handle.fileno())
         for event in fresh:
-            handle.write(event.to_json() + "\n")
-        handle.flush()
-        os.fsync(handle.fileno())
+            seen.add(event.event_id)
+        try:
+            state["size"] = path.stat().st_size
+        except OSError:
+            pass
+        _maybe_rotate_locked(path, state)
     return len(fresh)
 
 
