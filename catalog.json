@@ -15,8 +15,7 @@
       "folder": "MiniMaxH3提示词_v7.4.5",
       "source_version": "7.4.4",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable",
-      "file_count": 207
+      "profile": "portable"
     },
     {
       "id": "rtk-token-reducer",
@@ -24,8 +23,7 @@
       "folder": "rtk-token-reducer_v92cc75f-r1",
       "source_version": "92cc75f",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable",
-      "file_count": 13
+      "profile": "portable"
     },
     {
       "id": "tg-transcript",
@@ -33,8 +31,7 @@
       "folder": "tg转录_v1.0.1",
       "source_version": "1.0.0",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable",
-      "file_count": 20
+      "profile": "portable"
     },
     {
       "id": "universal-memory-hub",
@@ -42,8 +39,7 @@
       "folder": "全局记忆UMH_v1.0.1",
       "source_version": "1.0.0",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable",
-      "file_count": 4349
+      "profile": "portable"
     },
     {
       "id": "lieflat-less-ai-tone",
@@ -51,8 +47,7 @@
       "folder": "去AI味_v2.0.1",
       "source_version": "2.0.0",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable",
-      "file_count": 49
+      "profile": "portable"
     },
     {
       "id": "dramacraft",
@@ -60,8 +55,7 @@
       "folder": "小说转短剧_v1.5.4",
       "source_version": "1.5.3",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable",
-      "file_count": 166
+      "profile": "portable"
     },
     {
       "id": "adult-literature-index",
@@ -69,8 +63,7 @@
       "folder": "成人文学索引_v4.8.5",
       "source_version": "4.8.4",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable",
-      "file_count": 69
+      "profile": "portable"
     },
     {
       "id": "media-assembly",
@@ -78,8 +71,7 @@
       "folder": "成片合成_v0.1.3",
       "source_version": "0.1.2",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable",
-      "file_count": 35
+      "profile": "portable"
     },
     {
       "id": "skill-optimization",
@@ -87,8 +79,7 @@
       "folder": "技能优化_v1.0.1",
       "source_version": "1.0.0",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable",
-      "file_count": 6
+      "profile": "portable"
     },
     {
       "id": "jp-novel-localization",
@@ -96,8 +87,7 @@
       "folder": "日系小说本地化_v4.5.5",
       "source_version": "4.5.4",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable",
-      "file_count": 205
+      "profile": "portable"
     },
     {
       "id": "lemon-thinking",
@@ -105,8 +95,7 @@
       "folder": "柠檬思考_v1.1.5",
       "source_version": "1.1.4",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable",
-      "file_count": 79
+      "profile": "portable"
     },
     {
       "id": "knowledge-index",
@@ -114,8 +103,7 @@
       "folder": "知识库转录_v5.4.7",
       "source_version": "5.4.6",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable",
-      "file_count": 67
+      "profile": "portable"
     },
     {
       "id": "asset-extract",
@@ -123,8 +111,7 @@
       "folder": "资产提取_v2.17.0-rc.6",
       "source_version": "2.17.0-rc.5",
       "state": "LOCAL_CANDIDATE",
-      "profile": "shareable-text-and-offline",
-      "file_count": 775
+      "profile": "shareable-text-and-offline"
     },
     {
       "id": "douyin-auto-transcript",
@@ -132,8 +119,7 @@
       "folder": "抖音转录_v2.0.5",
       "source_version": "2.0.5",
       "state": "LOCAL_CANDIDATE",
-      "profile": "shareable-candidate",
-      "file_count": 117
+      "profile": "shareable-candidate"
     },
     {
       "id": "novel-index",
@@ -141,8 +127,7 @@
       "folder": "小说索引_v4.6.1",
       "source_version": "4.6.1",
       "state": "LOCAL_CANDIDATE",
-      "profile": "shareable-candidate",
-      "file_count": 64
+      "profile": "shareable-candidate"
     },
     {
       "id": "bilibili-auto-transcript",
@@ -150,8 +135,7 @@
       "folder": "B站转录_v5.5.4",
       "source_version": "5.5.4",
       "state": "LOCAL_CANDIDATE",
-      "profile": "shareable-candidate",
-      "file_count": 77
+      "profile": "shareable-candidate"
     },
     {
       "id": "transcript-index",
@@ -159,8 +143,7 @@
       "folder": "知识转录索引_v1.5.0",
       "source_version": "1.5.0",
       "state": "LOCAL_CANDIDATE_PENDING_VERIFICATION",
-      "profile": "candidate-pending-verification",
-      "file_count": 33
+      "profile": "candidate-pending-verification"
     }
   ]
 }
