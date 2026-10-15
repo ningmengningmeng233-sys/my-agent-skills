@@ -10,7 +10,7 @@ description: >
 metadata:
   display_name: 成片合成
 
-  version: "0.1.3"
+  version: "0.1.4"
 ---
 
 # 成片合成 v0.1.2

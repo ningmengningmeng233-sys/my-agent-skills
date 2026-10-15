@@ -11,17 +11,17 @@
     {
       "path": "SKILL.md",
       "bytes": 10221,
-      "sha256": "6d1450afaf492e1afd27fe940742b4f5e47f4836c3107b7491da3e1ef9cb1270"
+      "sha256": "44a0157eae60ef827e882193ed272e1034e0ca0f1aaec9e03651074bd8fd5a4b"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
-      "bytes": 16019,
-      "sha256": "5eb66083315a65847a0b59bb91ca04fa665f29331ba1c5c88b0d5ee78dd2605b"
+      "bytes": 16013,
+      "sha256": "e156fbc6885adcf0c3f7c4d28d4dc42973f5b07cf3d09afa7962cd41fb299079"
     },
     {
       "path": "USAGE.md",
-      "bytes": 17697,
-      "sha256": "c12a0e12d09cca8f9b010a98c711cc7876f9911dff826fa57b7863c2cd292d3d"
+      "bytes": 17802,
+      "sha256": "0ed481ee66776ae2c69d8907c143e392eca665f243c8cb569d4e65dfcaebeefa"
     },
     {
       "path": "agents/openai.yaml",
@@ -80,13 +80,13 @@
     },
     {
       "path": "requirements-v2-similarity.lock",
-      "bytes": 1387,
-      "sha256": "dabbe8ae43cd6fa4ccd617d44849d4d93fad3140ced3721a22715366f973c042"
+      "bytes": 1374,
+      "sha256": "c0a0a4eb111ffefe1d4ee3d0b97183e4542ce852c3e96bc59c0f0f702703544e"
     },
     {
       "path": "requirements-v2.lock",
-      "bytes": 532,
-      "sha256": "0265660166858925e6255255502452a4768ee907571f12820e4ad31fddbf5523"
+      "bytes": 545,
+      "sha256": "ff79395b812a21b7ae32b24f13baaf5b706533332dd569a0d1f89e2a6ea202a9"
     },
     {
       "path": "rules/zh-candidates.mjs",
@@ -150,8 +150,8 @@
     },
     {
       "path": "scripts/runtime_contract.py",
-      "bytes": 36621,
-      "sha256": "ceb13e73e569dcf81f2b7532618f4b03eca4e8dd73a3d81b86a6e8f03c7984ba"
+      "bytes": 36997,
+      "sha256": "e84bc2cf170b8eae18a4e3de9bc3189586a0e36bae756402708bfd3c76b671f4"
     },
     {
       "path": "scripts/text_source.py",
@@ -180,8 +180,8 @@
     },
     {
       "path": "scripts/v2_embeddings.py",
-      "bytes": 8834,
-      "sha256": "c7c100a19a51af16fa6eab6f01ff520ce539c9c76634c8b9c9bbfdef2c58979c"
+      "bytes": 9055,
+      "sha256": "2dc8a422c152b677647f389a306469b96ac5078fd8da73f463be18b555479677"
     },
     {
       "path": "scripts/v2_jev.py",
@@ -220,8 +220,8 @@
     },
     {
       "path": "scripts/v2_similarity.py",
-      "bytes": 13780,
-      "sha256": "aa317373cce35eeecf0e5b4edf64b47c55775cef61092d9c6bb769f58f864952"
+      "bytes": 13984,
+      "sha256": "6b028cdcdf494d38134fa2b3cab362c9bf6dc1b0b383642b3681df34ce3b087e"
     },
     {
       "path": "scripts/v2_structure.py",
@@ -244,5 +244,5 @@
       "sha256": "212f1a26c6188b43f47f8a1963e5f3a23898a4f356f039f007624f1ac2813bad"
     }
   ],
-  "package_digest": "04a30e16b860166df2be569886af14888ca40bfaa701e52cfa48bbef5a4a572c"
+  "package_digest": "69e4370c618642f8341187fab95b02b80d3826081ee5d7d11971e5f3d918c82c"
 }

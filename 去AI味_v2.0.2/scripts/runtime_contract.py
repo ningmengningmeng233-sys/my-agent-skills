@@ -351,7 +351,7 @@ EXTERNAL_DEPENDENCIES: dict = {
         "optional_group": "similarity"},
     "numpy": {
         "distribution": "numpy", "min_version": "1.26",
-        "optional_group": "similarity"},
+        "optional_group": None},
     # v2.0.0（alpha.2 P06）：v2_similarity 把内存数据集直接交给上游 text-dedup 的
     # fingerprint/cluster，datasets 是我们自己 import 的顶层依赖（不只是传递路径），
     # 按纪律显式登记，包内 import 门才认它。
@@ -364,8 +364,8 @@ EXTERNAL_DEPENDENCIES: dict = {
         "distribution": "huggingface_hub", "min_version": "0.23.0",
         "optional_group": "similarity"},
 }
-# TICKET-55'：本表 core 组 = transitions/keyring/typesafe_sdk（optional_group None，
-# 随 requirements-v2.lock 默认安装）；similarity 组六项随
+# TICKET-55'：本表 core 组 = transitions/keyring/typesafe_sdk/numpy（optional_group None，
+# 随 requirements-v2.lock 默认安装）；similarity 组五项随
 # requirements-v2-similarity.lock 按需叠装。分组只决定“哪把锁带它”，import 门认的
 # 还是同一张表的名字集合（validate_external_imports 行为不变）。
 
@@ -431,21 +431,27 @@ def capability_report(root=None) -> dict:
     base = Path(root) if root is not None else REPO_ROOT
     locked = {}
     lock_path = base / DEPENDENCY_LOCK_FILE
-    if lock_path.is_file():
-        for raw in lock_path.read_text(encoding="utf-8").splitlines():
+    for current_lock in (lock_path, *(base / rel for rel in OPTIONAL_LOCKS.values())):
+        if not current_lock.is_file():
+            continue
+        for raw in current_lock.read_text(encoding="utf-8").splitlines():
             line = raw.strip()
             if not line or line.startswith("#"):
                 continue
             # 锁有两种形状：`name==版本` 与 PEP 508 直接引用
             # （transitions 走 git+https 钉提交，因为 PyPI 上没有 0.9.4 发行件）。
             # 只按 `==` 切会把直接引用整条漏掉，登记表与锁的对账就成了假账。
-            if "==" in line:
-                name, version = line.split("==", 1)
-            elif " @ " in line:
+            if " @ " in line:
                 name, version = line.split(" @ ", 1)
+            elif "==" in line:
+                name, version = line.split("==", 1)
             else:
                 continue
-            locked[name.strip().lower()] = version.strip()
+            name = re.sub(r"[-_.]+", "-", name.strip()).lower()
+            version = version.strip()
+            if name in locked and locked[name] != version:
+                raise ValueError(f"依赖锁版本冲突: {name}: {locked[name]} / {version}")
+            locked[name] = version
     return {
         "schema": CAPABILITY_SCHEMA,
         "runtime_files": len(REQUIRED_RUNTIME_FILES),
@@ -460,7 +466,7 @@ def capability_report(root=None) -> dict:
             {"import": name, "distribution": entry["distribution"],
              "min_version": entry["min_version"],
              "optional_group": entry["optional_group"],
-             "locked_version": locked.get(entry["distribution"].lower())}
+             "locked_version": locked.get(re.sub(r"[-_.]+", "-", entry["distribution"]).lower())}
             for name, entry in sorted(EXTERNAL_DEPENDENCIES.items())],
         "optional_backends": [v2_nlp.capability(name) for name in v2_nlp.BACKENDS],
         "disabled_components": list(DISABLED_CAPABILITIES),

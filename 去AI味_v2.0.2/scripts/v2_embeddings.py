@@ -144,8 +144,12 @@ class BGEProvider(EmbeddingProvider):
             raise ValueError(
                 f"revision 必须钉在 {PINNED_MODEL_REVISION}（收到 {model_revision}），"
                 "否则报告里的模型身份不可复现")
-        from huggingface_hub import snapshot_download
-        from huggingface_hub.errors import HfHubHTTPError, LocalEntryNotFoundError
+        try:
+            from huggingface_hub import snapshot_download
+            from huggingface_hub.errors import HfHubHTTPError, LocalEntryNotFoundError
+        except ModuleNotFoundError as exc:
+            from runtime_contract import install_hint
+            raise ModuleNotFoundError(f"{exc}；{install_hint('similarity')}", name=exc.name) from exc
         try:
             snapshot = snapshot_download(repo_id=model_id, revision=model_revision,
                                          cache_dir=cache_dir, local_files_only=True,

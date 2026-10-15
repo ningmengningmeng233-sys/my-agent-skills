@@ -4,7 +4,7 @@ description: 当用户要导出、归档、续跑或整理 Telegram 数据时使
 metadata:
   display_name: tg转录
 
-  version: "1.0.1"
+  version: "1.0.2"
 ---
 
 # tg转录 v1.0.0

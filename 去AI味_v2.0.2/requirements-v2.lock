@@ -9,6 +9,7 @@ jaraco.context==6.1.2
 jaraco.functools==4.6.0
 keyring==25.7.0
 more-itertools==11.1.0
+numpy==2.5.3
 pip==26.2.1
 pydantic==2.13.5
 pydantic_core==2.46.5

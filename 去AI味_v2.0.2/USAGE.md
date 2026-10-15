@@ -99,7 +99,7 @@ CAND="$Cand" RUN="$Run" "$Py" -B -X utf8 -c "import os,sys,json;sys.path.insert(
 
 ### 2) Python 依赖装进这个副本自己的 `.deps`（默认核心锁，按需叠装相似度锁）
 
-默认装核心锁（v2 状态机、入口、提交门与 Jev 通路）：
+默认装核心锁（v2 状态机、入口、提交门、偏好反馈、缓存与 Jev 通路，含 numpy）：
 
 ```sh
 "$Py" -m pip install -r "$Run/requirements-v2.lock" --target "$Run/.deps"
@@ -111,7 +111,7 @@ CAND="$Cand" RUN="$Run" "$Py" -B -X utf8 -c "import os,sys,json;sys.path.insert(
 
 锁钉 `transitions` @ git `bd42b38`（0.9.4）与 `six` 1.17.0。
 
-按需再叠装相似度锁（模板近重复、语义检索与向量缓存）：叠进**同一** `.deps`
+按需再叠装相似度锁（模板近重复、语义检索与真实向量模型）：叠进**同一** `.deps`
 （绝不单独安装——交集传递依赖只在 core 锁里，单装扩展锁起不来）：
 
 ```sh
@@ -122,8 +122,8 @@ CAND="$Cand" RUN="$Run" "$Py" -B -X utf8 -c "import os,sys,json;sys.path.insert(
 & $Py -m pip install -r "$Run/requirements-v2-similarity.lock" --target "$Run/.deps"
 ```
 
-没装扩展就调 `v2_similarity`/`v2_embeddings`/向量缓存时，import 当场报缺的
-模块名（`ModuleNotFoundError`，不是空结果也不是中途崩溃）；`capability_report()`
+没装扩展就导入 `v2_similarity` 或创建 `v2_embeddings.BGEProvider` 时，明确报缺的
+模块名及相似度锁安装命令（`ModuleNotFoundError`，不返回空结果）；缓存与项目反馈仍可只用核心依赖。`capability_report()`
 的 `optional_locks` 逐组报在场与否并给上面这条叠装命令。
 
 ### 3) 实际加载：`PYTHONPATH` 只给这个副本的 `.deps`

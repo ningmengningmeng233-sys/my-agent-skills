@@ -97,7 +97,7 @@ class Mm06GitAnchoring(unittest.TestCase):
 class Mm01SingleSourceVersion(unittest.TestCase):
     def test_real_package_declarations_align(self):
         self.assertEqual(versioning.check_single_source_version(str(SKILL_ROOT)),
-                         "7.4.5")
+                         versioning.get_version(str(SKILL_ROOT)))
 
     def test_drift_is_rejected_fail_closed(self):
         with tempfile.TemporaryDirectory() as tmp:

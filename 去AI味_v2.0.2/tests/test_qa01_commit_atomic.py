@@ -135,7 +135,8 @@ def test_release_manifest_matches_tree_and_digest():
 
     manifest_path = PKG_ROOT / "release-manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    assert manifest["version"] == "2.0.1", "严禁修改版本号"
+    version = pi.read_skill_version(PKG_ROOT / "SKILL.md")
+    assert manifest["version"] == version, "发行清单与权威版本不一致"
     for entry in manifest["files"]:
         data = (PKG_ROOT / entry["path"]).read_bytes()
         assert len(data) == int(entry["bytes"]), f"bytes 不符: {entry['path']}"
@@ -146,5 +147,5 @@ def test_release_manifest_matches_tree_and_digest():
     import v2_task
     ident = v2_task.runtime_identity(PKG_ROOT)
     assert ident["origin"] == "installed"
-    assert ident["skill_version"] == "2.0.1"
+    assert ident["skill_version"] == version
     assert ident["package_digest"] == manifest["package_digest"]

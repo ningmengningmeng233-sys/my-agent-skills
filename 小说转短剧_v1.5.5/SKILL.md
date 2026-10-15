@@ -6,7 +6,7 @@ license: Proprietary
 metadata:
   display_name: 小说转短剧
 
-  version: "1.5.4"
+  version: "1.5.5"
 ---
 
 # DramaCraft — 小说转短剧剧本引擎
@@ -91,7 +91,7 @@ id: dramacraft-v150-h3-spec-mirror
 namespace: storyboard
 schema: schemas/storyboard.schema.json
 version: "1.0.0"
-skill_version: "1.5.4"
+skill_version: "1.5.5"
 h3_spec_source: "novel-storyboard 已内化 skills_runtime/novel-storyboard/references/h3-prompt.md（v1.5.1 副本，与 v1.4.0 逐字同哈希）"
 h3_spec_role: derived
 derived_from: "~/.agents/skills/minimax-official-workflows/config/workflows/drama-series/reference/h3-video-prompt.md"
@@ -105,7 +105,7 @@ namespace: script
 role: producer
 schema: schemas/script.schema.json
 version: "1.0.0"
-skill_version: "1.5.4"
+skill_version: "1.5.5"
 id_prefixes: [C, S, P]
 fields:
   - source
@@ -141,7 +141,7 @@ namespace: storyboard
 role: producer
 schema: schemas/storyboard.schema.json
 version: "1.0.0"
-skill_version: "1.5.4"
+skill_version: "1.5.5"
 id_prefixes: [C, S, P, E, SC, SH]
 h3_spec_source: "novel-storyboard 已内化 skills_runtime/novel-storyboard/references/h3-prompt.md（该子技能 SKILL.md:7-8，声明不依赖外部 skill）"
 h3_spec_role: derived  # C6：本副本只是内化派生，不删（运行时要读），但不再自称独立事实源

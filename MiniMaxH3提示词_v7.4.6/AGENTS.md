@@ -1,4 +1,4 @@
-# Agent Instructions — minimax-h3-craft v7.4.5
+# Agent Instructions — minimax-h3-craft v7.4.6
 
 本目录是 **MiniMax H3 工业级视频提示词工程专家**。所有修改与生成必须严格遵循以下行为准则：
 

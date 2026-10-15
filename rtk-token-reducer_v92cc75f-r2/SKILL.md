@@ -2,7 +2,7 @@
 name: rtk-token-reducer
 description: 检查与操作 RTK Token Reducer 扩展：bash 输出进上下文前经 rtk 压缩、原文 spool 回溯、压缩统计与自学规则。当用户问「压缩了多少 token」「bash 输出被裁了吗」「取回被省略的原文」「关掉/启用 rtk 钩子」「把这条命令的压缩规则固化」时使用。
 metadata:
-  version: "92cc75f-r1"
+  version: "92cc75f-r2"
   display_name: RTK Token Reducer
 
 ---

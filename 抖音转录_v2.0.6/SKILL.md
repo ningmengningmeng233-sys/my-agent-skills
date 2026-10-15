@@ -4,10 +4,10 @@ description: 当用户发来抖音分享文案、抖音口令纯文本、v.douyi
 author: 柠檬才不萌
 license: Proprietary
 metadata:
-  version: "2.0.5"
+  version: "2.0.6"
 ---
 
-# 抖音视频转录 Skill v2.0.5
+# 抖音视频转录 Skill v2.0.6
 
 ## 概述（核心原则）
 

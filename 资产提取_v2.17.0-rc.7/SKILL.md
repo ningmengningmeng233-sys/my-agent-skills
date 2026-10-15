@@ -11,7 +11,7 @@ description: >
 metadata:
   display_name: 素材提取器
 
-  version: "2.17.0-rc.6"
+  version: "2.17.0-rc.7"
 ---
 
 > **公开分享版限制（用户已选择）**：风格包32张仅授权本机私用的参考/来源图未随包。本版仅提供文本资产提取、提示词与合成离线能力；依赖受限参考图的视觉生成/一致性验收不可用。必须先读 `CAPABILITIES.md`，不得补造参考图、静默降级或宣称与私有版等价。
@@ -20,7 +20,7 @@ metadata:
 # 资产提取流水线（叙事反推核心 + 可选视觉生产）
 
 > **作者：柠檬才不萌 · 联系：ningmeng2233@qq.com**
-> **版本：v2.17.0-rc.5**（历史见 `docs/CHANGELOG.md`，运行时无需加载）
+> **版本：v2.17.0-rc.7**（历史见 `docs/CHANGELOG.md`，运行时无需加载）
 
 本文件是**常驻主入口**：只写职责、入口、命令速查、硬规则与加载路由；细则按需加载，以免埋住执行步骤。
 
@@ -41,7 +41,7 @@ namespace: script-consumer
 role: consumer
 schema: vendor/schemas/script.schema.json
 version: "1.0.0"
-skill_version: "2.17.0-rc.6"
+skill_version: "2.17.0-rc.7"
 id_prefixes: [C, P, S]
 fields:
   - source
@@ -65,7 +65,7 @@ namespace: asset-ledger
 role: producer
 schema: vendor/schemas/asset-ledger.schema.json
 version: "1.0.0"
-skill_version: "2.17.0-rc.6"
+skill_version: "2.17.0-rc.7"
 id_prefixes: [C, P, S, CH, SC, PR, CO, POST]
 fields:
   - schema_version

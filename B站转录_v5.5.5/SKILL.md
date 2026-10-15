@@ -5,7 +5,7 @@ homepage: https://clawhub.ai/54lynnn/bilibili-transcript
 author: 柠檬才不萌
 license: Proprietary
 metadata:
-  version: "5.5.4"
+  version: "5.5.5"
   openclaw:
     emoji: 📼
     requires:
@@ -20,7 +20,7 @@ metadata:
         label: Setup virtual env & install faster-whisper
 ---
 
-# 📼 B站视频转录 v5.5.4
+# 📼 B站视频转录 v5.5.5
 
 ## 概述
 

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """TICKET-55'：核心 / 相似度可选依赖组契约。
 
-把 105 行的 requirements-v2.lock 拆成轻量核心锁（24 行）与相似度扩展锁
-（81 行）后，安装形态、运行契约与缺依赖披露必须同时成立：
+把 105 行的 requirements-v2.lock 拆成轻量核心锁（25 行）与相似度扩展锁
+（80 行）后，安装形态、运行契约与缺依赖披露必须同时成立：
 
-  1. 两锁是基线的一刀两断：24 + 81 = 105，不相交、无重复、每行可解析，
-     点名包（torch/sklearn/numpy/transformers 进 similarity；
-     transitions/six/keyring/typesafe-sdk/pyyaml/pip/setuptools 留 core）落位；
-  2. EXTERNAL_DEPENDENCIES 按组登记：core 三项 optional_group 为 None，
-     similarity 六项为 "similarity"，且发行包名落在对应的锁里；
+  1. 两锁是基线的一刀两断：25 + 80 = 105，不相交、无重复、每行可解析，
+     点名包（torch/sklearn/transformers 进 similarity；
+     transitions/six/keyring/typesafe-sdk/numpy/pyyaml/pip/setuptools 留 core）落位；
+  2. EXTERNAL_DEPENDENCIES 按组登记：core 四项 optional_group 为 None，
+     similarity 五项为 "similarity"，且发行包名落在对应的锁里；
   3. OPTIONAL_LOCKS 映射存在且两锁都进 REQUIRED_RUNTIME_FILES；
   4. 缺相似度锁的树上，capability_report 明确披露缺哪把锁、怎么装，
      而不是报一把“看起来全绿”的能力清单。
@@ -31,17 +31,17 @@ SIM_LOCK = "requirements-v2-similarity.lock"
 
 # M2 闭包划分的落定行数（PyPI requires_dist 全量求闭包，win32/py3.12/无 extras；
 # 交集归 core，similarity 叠装在 core 之上）。行数变了就是划分漂了。
-CORE_LINES_EXPECTED = 24
-SIM_LINES_EXPECTED = 81
+CORE_LINES_EXPECTED = 25
+SIM_LINES_EXPECTED = 80
 
-CORE_IMPORTS = ("transitions", "keyring", "typesafe_sdk")
+CORE_IMPORTS = ("transitions", "keyring", "typesafe_sdk", "numpy")
 SIM_IMPORTS = ("text_dedup", "semhash", "FlagEmbedding",
-               "numpy", "datasets", "huggingface_hub")
+               "datasets", "huggingface_hub")
 
 # 发行包名（小写归一后）必须落在对应的锁里
 CORE_DISTS_MUST = ("transitions", "six", "keyring", "typesafe-sdk",
-                   "pyyaml", "pip", "setuptools")
-SIM_DISTS_MUST = ("torch", "scikit-learn", "numpy", "transformers",
+                   "numpy", "pyyaml", "pip", "setuptools")
+SIM_DISTS_MUST = ("torch", "scikit-learn", "transformers",
                   "text-dedup", "semhash", "flagembedding",
                   "datasets", "huggingface-hub")
 
@@ -72,12 +72,15 @@ def _dist_of(line: str) -> str:
 
 
 def test_lock_files_partition():
-    """两锁是基线的一刀两断：24+81=105、不相交、无重复、行行可解析。"""
+    """两锁是基线的一刀两断：25+80=105、不相交、无重复、行行可解析。"""
     core = _lock_lines(CORE_LOCK)
     sim = _lock_lines(SIM_LOCK)
     assert len(core) == CORE_LINES_EXPECTED, f"core 锁行数漂移：{len(core)}"
     assert len(sim) == SIM_LINES_EXPECTED, f"similarity 锁行数漂移：{len(sim)}"
     assert len(core) + len(sim) == 105, "并集不再是基线的 105 行"
+    import hashlib
+    union = ("\n".join(sorted(core + sim)) + "\n").encode()
+    assert hashlib.sha256(union).hexdigest() == "01c7f420b76472ac91093b3e9a523bebbe472de563bd26103ae1b7d94b230526", "旧锁需求行或版本被改变"
     assert len(set(core)) == len(core), "core 锁内有重复行"
     assert len(set(sim)) == len(sim), "similarity 锁内有重复行"
     assert not (set(core) & set(sim)), "两锁相交：同一需求行出现在两边"
@@ -88,7 +91,7 @@ def test_lock_files_partition():
         assert dist in core_dists, f"core 锁缺点名包：{dist}"
     for dist in SIM_DISTS_MUST:
         assert dist in sim_dists, f"similarity 锁缺点名包：{dist}"
-    for dist in ("torch", "scikit-learn", "numpy", "transformers"):
+    for dist in ("torch", "scikit-learn", "transformers"):
         assert dist not in core_dists, f"重量包漏进 core 锁，默认安装不再轻量：{dist}"
 
 

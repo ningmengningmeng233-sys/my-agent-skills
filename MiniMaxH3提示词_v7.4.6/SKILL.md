@@ -7,10 +7,10 @@ user-invocable: true
 metadata:
   display_name: MiniMax H3制作
 
-  version: 7.4.5
+  version: 7.4.6
 ---
 
-# MiniMax H3 工业级提示词工程规范 (v7.4.5)
+# MiniMax H3 工业级提示词工程规范 (v7.4.6)
 
 ## 概述
 
@@ -59,7 +59,7 @@ namespace: h3-shot-table
 role: consumer
 schema: schemas/storyboard.schema.json
 version: "1.0.0"
-skill_version: "7.4.5"
+skill_version: "7.4.6"
 id_prefixes: [SC, SH]
 h3_spec_source: "MiniMaxH3提示词规范 v7.4.2（本技能 SKILL.md 全文 + config/ 能力事实源）"
 h3_spec_role: derived  # C6：工艺化派生（模型能力事实源仍是 config/model-capabilities.json），写法骨架的权威在官方 h3-video-prompt.md

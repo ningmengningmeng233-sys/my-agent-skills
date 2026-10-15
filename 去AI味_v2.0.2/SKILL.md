@@ -4,7 +4,7 @@ description: "当用户要求清理或审查现有中文及中文主导混排文
 license: MIT
 metadata:
   author: 柠檬才不萌
-  version: "2.0.1"
+  version: "2.0.2"
 ---
 
 # lieflat-less-ai-tone 中文去 AI 味

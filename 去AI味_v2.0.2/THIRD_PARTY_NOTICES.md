@@ -147,7 +147,7 @@ v2.0.0（alpha.1）起引入的外部运行依赖，alpha.2 的 P06/P07 扩了 d
 本节登记直接依赖及其许可，完整传递依赖树以 Python 双锁
 （`requirements-v2.lock` core 默认锁 + `requirements-v2-similarity.lock` 相似度
 扩展锁）与 `runtime/textlint/package-lock.json`（Node）为权威，不在此逐条抄录。
-双锁是原单锁的一刀两断（24 + 81 = 105 行并集守恒），分组见下表“组”列，
+双锁是原单锁的一刀两断（25 + 80 = 105 行并集守恒），分组见下表“组”列，
 安装顺序见 USAGE.md「依赖准备与撤销」。上表许可均为各
 发行件随包声明；「初审备注」来自 v2 研究阶段的许可初审（`参考项目清单.json`），不是
 完整法律意见，接入新上游组件或模型资产前须继续核验。
@@ -162,7 +162,7 @@ v2.0.0（alpha.1）起引入的外部运行依赖，alpha.2 的 P06/P07 扩了 d
 | text_dedup | text-dedup | 0.4.1 | similarity | Apache-2.0 | 仅使用 fingerprint/cluster 产生候选；不调用 remove_duplicates/save_dataset 进入正文通路。 |
 | semhash | semhash | 0.5.0 | similarity | MIT | 经 from_embeddings/custom encoder 接入，仅提取相似候选，原稿保持完整；ANN 由其依赖 vicinity 承担。 |
 | FlagEmbedding | FlagEmbedding | 1.4.2 | similarity | MIT | 仅用 `FlagModel.encode` 做推理，不改其源码；模型资产许可见下面「模型资产」。 |
-| numpy | numpy | 2.5.3 | similarity | BSD-3-Clause | Embedding/相似度向量运算底座（上游依赖，按直接依赖登记）。 |
+| numpy | numpy | 2.5.3 | core | BSD-3-Clause | Embedding/相似度向量运算底座（上游依赖，按直接依赖登记）。 |
 | datasets | datasets | 5.0.1 | similarity | Apache-2.0 | alpha.2 P06 起被 `scripts/v2_similarity.py` 直接 import（`Dataset.from_list` 承载内存数据交给上游 fingerprint/cluster）；不调用其导出/落盘通路。 |
 | huggingface_hub | huggingface_hub | 1.33.0 | similarity | Apache-2.0 | alpha.2 P07 起被 `scripts/v2_embeddings.py` 直接 import，只用 `snapshot_download(local_files_only=True)` 取钉定本地快照，禁隐式下载。 |
 

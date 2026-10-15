@@ -32,13 +32,16 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-import datasets
-
-from semhash import SemHash
-from text_dedup import minhash as _minhash
-from text_dedup.config import MinHashAlgorithmConfig
-from text_dedup.utils.jaccard import jaccard_similarity
-from text_dedup.utils.tokenization import ngrams as _upstream_ngrams
+try:
+    import datasets
+    from semhash import SemHash
+    from text_dedup import minhash as _minhash
+    from text_dedup.config import MinHashAlgorithmConfig
+    from text_dedup.utils.jaccard import jaccard_similarity
+    from text_dedup.utils.tokenization import ngrams as _upstream_ngrams
+except ModuleNotFoundError as exc:
+    from runtime_contract import install_hint
+    raise ModuleNotFoundError(f"{exc}；{install_hint('similarity')}", name=exc.name) from exc
 
 import v2_contracts as vc
 import v2_embeddings as vemb

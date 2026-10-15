@@ -4,7 +4,7 @@ description: Use when 用户要安装、接入或管理 UMH 全局共享记忆�
 metadata:
   display_name: 全局记忆UMH
 
-  version: "1.0.1"
+  version: "1.0.2"
   distribution: portable
 ---
 

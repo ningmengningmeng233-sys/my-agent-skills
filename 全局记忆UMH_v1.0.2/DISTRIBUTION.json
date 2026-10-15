@@ -4,7 +4,8 @@
   "sourceCommit": "153742d",
   "coreArchiveSha256": "bffbe822f6cfe66df5d2d361fa52e2f7b6af13a21889e194c839bd43d4f52c4a",
   "runtimeOverrides": [
-    "package/README.md"
+    "package/README.md",
+    "SKILL.md"
   ],
   "clientCompatibility": {
     "validatedSourceClasses": [
@@ -21755,7 +21756,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "ced55a50a252c2af078cd4b866f49652b26ba3d4decc8e1c647c364394030b70",
+      "sha256": "f7632633ebaaf67a80f04c8f744289563dca033a61ab9c4323ed40d6e89ca27c",
       "size": 4632,
       "bytes": 4632
     },

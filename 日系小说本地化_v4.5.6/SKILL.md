@@ -6,7 +6,7 @@ license: Proprietary
 metadata:
   display_name: 日系小说本地化
 
-  version: "4.5.5"
+  version: "4.5.6"
 ---
 
 # 日系小说本地化 v4.5.4
