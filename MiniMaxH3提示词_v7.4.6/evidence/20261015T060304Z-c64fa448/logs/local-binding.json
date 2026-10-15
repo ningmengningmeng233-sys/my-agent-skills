@@ -1,0 +1,161 @@
+{
+  "batch_run_id": "20261015T060256Z-a69b8cc5",
+  "head_commit": "ab620d2eb51a256821683a08e6fc58abc638ffbe",
+  "recomputed_rate": 1.0,
+  "bound": 30,
+  "cases": 30,
+  "stale_dirs": [],
+  "missing_dirs": [],
+  "per_case": {
+    "d01-t2va-neon-storefront": {
+      "ok": true,
+      "disk_sha256": "a82f4ea47fe25cada550d2bc3ce4964e7536c72aec620f55bf276d74acc81d1a",
+      "audit_sha256": "a82f4ea47fe25cada550d2bc3ce4964e7536c72aec620f55bf276d74acc81d1a"
+    },
+    "d02-i2va-broken-temple": {
+      "ok": true,
+      "disk_sha256": "fe161476ccc02dd8321e94ff4a810442d892ce9a5148f3b85f191d648cc95015",
+      "audit_sha256": "fe161476ccc02dd8321e94ff4a810442d892ce9a5148f3b85f191d648cc95015"
+    },
+    "d03-fl2va-rooftop-confession": {
+      "ok": true,
+      "disk_sha256": "94113422320cc18068f80879aa5a61da50759a21800de0957cef45f65e523414",
+      "audit_sha256": "94113422320cc18068f80879aa5a61da50759a21800de0957cef45f65e523414"
+    },
+    "d04-l2va-hospital-corridor": {
+      "ok": true,
+      "disk_sha256": "dc7cebabfce789e315348ed9c7251e629b1153be616ca78b4e24d3fee23327d4",
+      "audit_sha256": "dc7cebabfce789e315348ed9c7251e629b1153be616ca78b4e24d3fee23327d4"
+    },
+    "d05-ref2va-warroom": {
+      "ok": true,
+      "disk_sha256": "3ebdb34503c5d8d270e8313a0fb3807f230b7b0e32ce5ae40adfb5e187030e16",
+      "audit_sha256": "3ebdb34503c5d8d270e8313a0fb3807f230b7b0e32ce5ae40adfb5e187030e16"
+    },
+    "d06-t2va-alias-courtroom": {
+      "ok": true,
+      "disk_sha256": "acdec62a49cc5fc3af870ea817ed97e673d46be59ef8ef9a6757af6f8b7f9179",
+      "audit_sha256": "acdec62a49cc5fc3af870ea817ed97e673d46be59ef8ef9a6757af6f8b7f9179"
+    },
+    "d07-max-t2va-drought-village": {
+      "ok": true,
+      "disk_sha256": "8affce389365e87b53e377f23f7646dfc0aa1b33363f0217dff13ccd47b21f6e",
+      "audit_sha256": "8affce389365e87b53e377f23f7646dfc0aa1b33363f0217dff13ccd47b21f6e"
+    },
+    "d08-max-fl2va-wedding-return": {
+      "ok": true,
+      "disk_sha256": "16989a254fb9bfed2958d16f1155a1af97fb25d5ec152b78aaa895c4e5d57d27",
+      "audit_sha256": "16989a254fb9bfed2958d16f1155a1af97fb25d5ec152b78aaa895c4e5d57d27"
+    },
+    "d09-t2va-alley-ambush": {
+      "ok": true,
+      "disk_sha256": "b8e455346a7d2d755b2d53968cf290dcbb16b877a119e4202a966dd7ef842094",
+      "audit_sha256": "b8e455346a7d2d755b2d53968cf290dcbb16b877a119e4202a966dd7ef842094"
+    },
+    "d10-ref2va-character-pack": {
+      "ok": true,
+      "disk_sha256": "9a6bf1b4531e771a2b4c017a0f57e40b8fcb1112c9bcba64b12fa8469c10e7b7",
+      "audit_sha256": "9a6bf1b4531e771a2b4c017a0f57e40b8fcb1112c9bcba64b12fa8469c10e7b7"
+    },
+    "d11-l2va-archive-key": {
+      "ok": true,
+      "disk_sha256": "3d70c4c3f757aefa120723aa1c6f2f79f860108e641539752c117d7e2fbf03fa",
+      "audit_sha256": "3d70c4c3f757aefa120723aa1c6f2f79f860108e641539752c117d7e2fbf03fa"
+    },
+    "d12-i2va-legacy-asset": {
+      "ok": true,
+      "disk_sha256": "99f59946a5f38c5e527f4da6b76b8afbcbf872851342c363c7d9fe11423ea670",
+      "audit_sha256": "99f59946a5f38c5e527f4da6b76b8afbcbf872851342c363c7d9fe11423ea670"
+    },
+    "d13-t2va-kitchen-quarrel": {
+      "ok": true,
+      "disk_sha256": "85091950bcb6f4a21b07a32e164f019cfbf9215ea7b13d7e3f592cb2611cef7a",
+      "audit_sha256": "85091950bcb6f4a21b07a32e164f019cfbf9215ea7b13d7e3f592cb2611cef7a"
+    },
+    "d14-t2va-forced-profile-dawn": {
+      "ok": true,
+      "disk_sha256": "01d581e7aaae17ca7b1149044197f9c02041618db088e62773d3c4f852fa8d96",
+      "audit_sha256": "01d581e7aaae17ca7b1149044197f9c02041618db088e62773d3c4f852fa8d96"
+    },
+    "d15-fl2va-station-parting": {
+      "ok": true,
+      "disk_sha256": "2f61f1a52106e22d4cc520b4b12cec37cda240c8c6b4a6a8fa9abf8bb4b7f256",
+      "audit_sha256": "2f61f1a52106e22d4cc520b4b12cec37cda240c8c6b4a6a8fa9abf8bb4b7f256"
+    },
+    "d16-t2va-broken-temple-dawn": {
+      "ok": true,
+      "disk_sha256": "edb6bbe011a5f9fec5d052152cf28aaa353fa8248f531ef33122131256c3b58f",
+      "audit_sha256": "edb6bbe011a5f9fec5d052152cf28aaa353fa8248f531ef33122131256c3b58f"
+    },
+    "e01-refen-ronin-snow": {
+      "ok": true,
+      "disk_sha256": "74fc1ebc895ca70efdf3d8802efc8d5c4462a6f904f987b768c42255d7438ba4",
+      "audit_sha256": "74fc1ebc895ca70efdf3d8802efc8d5c4462a6f904f987b768c42255d7438ba4"
+    },
+    "e02-refen-nightmarket-i2va": {
+      "ok": true,
+      "disk_sha256": "50f937231ef0880def63cdd4b39acee37304ae355a959682ed87a62899effdd1",
+      "audit_sha256": "50f937231ef0880def63cdd4b39acee37304ae355a959682ed87a62899effdd1"
+    },
+    "e03-refen-teahouse-fl2va": {
+      "ok": true,
+      "disk_sha256": "bd4bdd48995b1a9716ad4e4df19b89a7819e75af68e13003cf2133f8a1fe9b54",
+      "audit_sha256": "bd4bdd48995b1a9716ad4e4df19b89a7819e75af68e13003cf2133f8a1fe9b54"
+    },
+    "g01-t2va-perfume-turntable": {
+      "ok": true,
+      "disk_sha256": "0da31007328e83eb19997b46f76458044b50323a4b44a802ce075701e8706c19",
+      "audit_sha256": "0da31007328e83eb19997b46f76458044b50323a4b44a802ce075701e8706c19"
+    },
+    "g02-i2va-watch-dial": {
+      "ok": true,
+      "disk_sha256": "b27abde6b12bb151f1cc383f9ffcfd5d91f0c03d8727b304538569a7132bf250",
+      "audit_sha256": "b27abde6b12bb151f1cc383f9ffcfd5d91f0c03d8727b304538569a7132bf250"
+    },
+    "g03-t2va-mountain-fog": {
+      "ok": true,
+      "disk_sha256": "9109348b469b5b30f361649adb0681113581d287664d1c205eb9fe2fa3c65166",
+      "audit_sha256": "9109348b469b5b30f361649adb0681113581d287664d1c205eb9fe2fa3c65166"
+    },
+    "g04-ref2va-sneaker-ad": {
+      "ok": true,
+      "disk_sha256": "12ad582a69ff87352ef2483c7294248b1bf3463d06ab42aff9a0216522076e77",
+      "audit_sha256": "12ad582a69ff87352ef2483c7294248b1bf3463d06ab42aff9a0216522076e77"
+    },
+    "g05-fl2va-lakehouse-sunrise": {
+      "ok": true,
+      "disk_sha256": "1f3e2f0c9d9e0001968dde799e0774b45452e7d90a50c890088050103ab2d580",
+      "audit_sha256": "1f3e2f0c9d9e0001968dde799e0774b45452e7d90a50c890088050103ab2d580"
+    },
+    "g06-t2va-neon-typography": {
+      "ok": true,
+      "disk_sha256": "4fe39adb6b8ded480d4e1866605187763b28b8f70c3f38b74a8ad2118321f912",
+      "audit_sha256": "4fe39adb6b8ded480d4e1866605187763b28b8f70c3f38b74a8ad2118321f912"
+    },
+    "g07-l2va-coffee-pour": {
+      "ok": true,
+      "disk_sha256": "1af0778aaa9553af0c3e2b161e517b8eab0964aa8576fe7ccf855eaebb4bac75",
+      "audit_sha256": "1af0778aaa9553af0c3e2b161e517b8eab0964aa8576fe7ccf855eaebb4bac75"
+    },
+    "g08-i2va-headphone-burst": {
+      "ok": true,
+      "disk_sha256": "71e26dbbd4d4550a8b8a64c0446da745f20ffd4bed41d242721a9a24bee6c333",
+      "audit_sha256": "71e26dbbd4d4550a8b8a64c0446da745f20ffd4bed41d242721a9a24bee6c333"
+    },
+    "g09-t2va-passsthrough": {
+      "ok": true,
+      "disk_sha256": "06f7d3a84bf2fb22eb816f3af377a96dee7a27acca9d3f249e914d2abe02b362",
+      "audit_sha256": "06f7d3a84bf2fb22eb816f3af377a96dee7a27acca9d3f249e914d2abe02b362"
+    },
+    "g10-t2va-desk-sentences": {
+      "ok": true,
+      "disk_sha256": "b80471bf9c6eca8b32f3e6269d60db1a427a48f4b744c153d9eced62c50d757e",
+      "audit_sha256": "b80471bf9c6eca8b32f3e6269d60db1a427a48f4b744c153d9eced62c50d757e"
+    },
+    "g11-ref2va-liquid-ink": {
+      "ok": true,
+      "disk_sha256": "8c14f862098e8093960d1eb63ea197e8a239c5eb3ea81a8c4cb0b6be92bb08dd",
+      "audit_sha256": "8c14f862098e8093960d1eb63ea197e8a239c5eb3ea81a8c4cb0b6be92bb08dd"
+    }
+  }
+}

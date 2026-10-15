@@ -1,20 +1,20 @@
 {
-  "release_version": "7.4.5",
-  "release_name": "maintenance-7.4.5",
-  "source_branch": "master",
-  "build_timestamp": "2026-10-12T19:57:02.789917+00:00",
-  "git_commit": "fb72aad287d070b912c5793574101222ad88d115",
+  "release_version": "7.4.6",
+  "release_name": "v7.4.6-local-stable",
+  "source_branch": "codex/skill-cover-fix-20261015",
+  "build_timestamp": "2026-10-15T06:03:16.370697+00:00",
+  "git_commit": "ab620d2eb51a256821683a08e6fc58abc638ffbe",
   "release_tier": "local-stable",
   "withheld_patterns": [
     ".log"
   ],
   "withheld_note": "运行期日志（*.log）按治理排除层（banned runtime files）不随发布面分发；每份日志的 sha256 与字节数已封存于随包发布的 evidence-index.json 与 closure-report.json，重跑采集器即可逐字节复算，未分发≠未验证。",
   "closure_gates_source": "explicit_closure_report",
-  "closure_report": "evidence/20261012T195656Z-0daf5431/closure-report.json",
-  "closure_report_sha256": "28479cd7d0223ba702076c442540550cd5231dceebd764f7a71af0cb42c4ce5c",
-  "evidence_run_id": "20261012T195656Z-0daf5431",
-  "evidence_index_sha256": "2a1d222e35f50464922f08506e389b17763cd2b91b206882a0a62f81b057036a",
-  "local_batch_run_id": "20261012T195651Z-026a3939",
+  "closure_report": "evidence/20261015T060304Z-c64fa448/closure-report.json",
+  "closure_report_sha256": "353e8e6c5324805fb80925f967352c49ba3fdf5f2ba85de3eed749a242eb8a52",
+  "evidence_run_id": "20261015T060304Z-c64fa448",
+  "evidence_index_sha256": "ea3a3b151824c03f636422fea34efba1da92789f4a5b8c141ede9d7cdc006de4",
+  "local_batch_run_id": "20261015T060256Z-a69b8cc5",
   "gate_statuses": {
     "STATIC_RULE_GATES": "PASS",
     "CLI_ENTRYPOINT_E2E": "PASS",
@@ -24,9 +24,9 @@
     "VIDEO_REVERSE_E2E": "NOT_RUN"
   },
   "gate_reasons": {
-    "REAL_AGENT_E2E": "awaiting native Agent session channel: 0/30 frozen cases have native sessions (dev smoke isolated in e2e/real_agent/results_smoke)",
+    "REAL_AGENT_E2E": "外部校验器缺件（MISSING_VALIDATOR）：e2e/real_agent/verify_transcripts.py 不存在，无法执行 REAL_AGENT_E2E 验证；这是工具缺件，不是业务待跑",
     "MODEL_RENDER_E2E": "no --render-run-id given",
-    "VIDEO_REVERSE_E2E": "no video packages: 5 authorized real videos pending (synthetic fixtures never count as evidence)"
+    "VIDEO_REVERSE_E2E": "外部校验器缺件（MISSING_VALIDATOR）：e2e/video_reverse/verify_video_evidence.py 不存在，无法执行 VIDEO_REVERSE_E2E 验证；这是工具缺件，不是业务待跑"
   },
   "builder": "scripts/build_release.py",
   "provenance": {
@@ -37,83 +37,72 @@
       "CLI_ENTRYPOINT_E2E",
       "LOCAL_PIPELINE_E2E"
     ],
-    "closure_report_original_sha256": "a7c67cc37b9c2b3931dc2b6458cb169f339f6681d7bb7197f7e04efd38327039",
+    "closure_report_original_sha256": "6be2ead48e265360978599abeb077fd54647d9c5daa06cdc22c283e428dd619d",
     "closure_report_redacted_fields": 1,
     "evidence_keep": [
       "evidence/20260923T010501Z-fd5712fd/evidence-index.json",
       "evidence/20260923T010501Z-fd5712fd/logs/static-index.json",
       "evidence/20260923T010501Z-fd5712fd/logs/cli-index.json"
     ],
-    "dropped_old_evidence_count": 307,
+    "dropped_old_evidence_count": 9,
     "withheld_runtime_files": {
       "note": "运行期日志（*.log）按治理排除层（banned runtime files）不随发布面分发；每份日志的 sha256 与字节数已封存于随包发布的 evidence-index.json 与 closure-report.json，重跑采集器即可逐字节复算，未分发≠未验证。",
       "patterns": [
         ".log"
       ],
-      "count": 30,
+      "count": 19,
       "paths": [
-        "evidence/20261012T195656Z-0daf5431/logs/cli-test_skill_structure_guards.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/cli-test_verification_protocol.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_build_release.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_closure_evidence_registry.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_duration_docs_consistency.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_duration_planner.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_duration_policy.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_episode_contract.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_reference_loading_routes.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_release_licence.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_release_no_private_path_surface.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_release_surface.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_script_duration.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_skill_context_budget.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_skill_discovery_sdo.py.log",
-        "evidence/20261012T195656Z-0daf5431/logs/static-test_storyboard_reader.py.log",
-        "文档/柠檬/交接/当前执行摘要.md",
-        "文档/柠檬/工单/2026-09-13-v730质量与安全加固-实施计划.md",
-        "文档/柠檬/工单/2026-09-13-v730门禁修复-实施计划.md",
-        "文档/柠檬/工单/2026-09-13-v73修复-实施计划.md",
-        "文档/柠檬/工单/2026-09-13-v73闭环-实施计划.md",
-        "文档/柠檬/工单/2026-09-14-v730非人工工程完善-实施计划.md",
-        "文档/柠檬/工单/2026-09-18-时长忠实拆分与上下文优化-实施计划.md",
-        "文档/柠檬/设计/2026-09-13-v730质量与安全加固-设计方案.md",
-        "文档/柠檬/设计/2026-09-13-v730门禁修复-设计方案.md",
-        "文档/柠檬/设计/2026-09-13-v73闭环-设计方案.md",
-        "文档/柠檬/设计/2026-09-14-v730非人工工程完善-设计方案.md",
-        "文档/柠檬/设计/2026-09-18-剧本时长忠实拆分与动态提示词组-设计方案.md",
-        "文档/柠檬/验收/2026-09-14-v730非人工工程完善-候选交付报告.md",
-        "文档/柠檬/验收/2026-09-18-时长忠实拆分与上下文优化-交付报告.md"
+        "evidence/20261015T060304Z-c64fa448/logs/cli-test_skill_structure_guards.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/cli-test_verification_protocol.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_build_release.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_closure_evidence_registry.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_duration_docs_consistency.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_duration_planner.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_duration_policy.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_episode_contract.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_h3_v2_client_unknown_create.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_mm_batch6_closure_release.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_reference_loading_routes.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_release_licence.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_release_no_private_path_surface.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_release_surface.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_router_fallback_capability.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_script_duration.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_skill_context_budget.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_skill_discovery_sdo.py.log",
+        "evidence/20261015T060304Z-c64fa448/logs/static-test_storyboard_reader.py.log"
       ]
     }
   },
-  "file_count": 206,
+  "file_count": 209,
   "files": {
     ".github/workflows/ci.yml": {
-      "sha256": "d6171e3f4282843f6c46662a2d6ebe0f9c30c696c4ca6cbab7d8e4bf0f201cce",
-      "size_bytes": 1390
+      "sha256": "18f94d0531c36516f04299c23ca7db132faf16488b5a260aa2f8c12dd13d0a97",
+      "size_bytes": 1522
     },
     ".gitignore": {
       "sha256": "9229053e59d6d4dcea5de5ea400fad8b104c4b0ff29d1864acbfc7de3ba1e8ac",
       "size_bytes": 614
     },
     "AGENTS.md": {
-      "sha256": "a22b70d3fba67db754adb2bb95986935061ec2fc18a3b217034d6e4bfd277674",
-      "size_bytes": 1461
+      "sha256": "e7f424c7ef14a2b61e259db71706693414172de10eee6928d78e6011545bf011",
+      "size_bytes": 1443
     },
     "CHANGELOG.md": {
       "sha256": "b137cc967fe6dc3b2d00f2722aaa8c6b43eb137e24bc56af8d5a3d6e6d9428a6",
       "size_bytes": 23260
     },
     "INSTALL.md": {
-      "sha256": "a6d9d94cd20525270acc4335e1b743befbe65008bd48fde5c1c0f3051d309b1f",
-      "size_bytes": 2654
+      "sha256": "b3d70dfbbe24e68f772ffe3a6f096d9dde6cb6b1beaa83560a151299f94884e9",
+      "size_bytes": 2918
     },
     "LICENSE": {
       "sha256": "177ed08c1b6901b892ba051cd25f0c4927d264e68065b4543799bb3579ad62c1",
       "size_bytes": 2187
     },
     "SKILL.md": {
-      "sha256": "9b97144218f0e4049b33bdd62b7d50a8b4470be38498833344a3860139297643",
-      "size_bytes": 11547
+      "sha256": "7385694bb6914385bec5172b2d94a312bf9b087673e165cd45317972881616dc",
+      "size_bytes": 11430
     },
     "_审查测试/conftest.py": {
       "sha256": "df3c140956b14b4f0a303f264b9460d8cba4aeb0600a573537369cab0a77af6f",
@@ -171,6 +160,14 @@
       "sha256": "1a5505474f027291a16149bc274a27225140b44188407cc707ece0c17060cf5e",
       "size_bytes": 13325
     },
+    "_审查测试/test_h3_v2_client_unknown_create.py": {
+      "sha256": "491d1344604c74490804bbfb08c9b552afcf5976fa7683f0a5295724b3fea3e4",
+      "size_bytes": 2601
+    },
+    "_审查测试/test_mm_batch6_closure_release.py": {
+      "sha256": "2dce390594fa140c7f45c831eb787465e78a4cf1078bac9105e6d8d6385058b1",
+      "size_bytes": 4575
+    },
     "_审查测试/test_reference_loading_routes.py": {
       "sha256": "1d1305c5e225165df91cc597e0352196a3f4c8f0cf98a2f34044c6ebbfa69eee",
       "size_bytes": 5463
@@ -190,6 +187,10 @@
     "_审查测试/test_render_episode_pack.py": {
       "sha256": "43dc42a9d3a74424aee17ff38dc99ac48351cfec989487071d5a09da41bd3dea",
       "size_bytes": 53341
+    },
+    "_审查测试/test_router_fallback_capability.py": {
+      "sha256": "ac75b26c22573d54fcc98f213c78b5fd80aefac3b28850f6fe46840bee6ed1dc",
+      "size_bytes": 2344
     },
     "_审查测试/test_run_all_gate.py": {
       "sha256": "da888eb079631de75428d08241e8433376472cd7720a03307b44e28225596769",
@@ -232,8 +233,8 @@
       "size_bytes": 4863
     },
     "config/version.json": {
-      "sha256": "fcc34d8a6d8490e84968899793459610698cc9181dd5a89dff21eb74b3e0a6ee",
-      "size_bytes": 491
+      "sha256": "1a973c04bb65617cdb800bf2e3d5d07de004f5a0038d2b70708d78a98684806f",
+      "size_bytes": 217
     },
     "e2e/cases/d01-t2va-neon-storefront.json": {
       "sha256": "ab173a9b4db535893bef76c6f050bf8bbfed8601fc67d616b5f57539178fc142",
@@ -487,41 +488,41 @@
       "sha256": "f214d6344882b63d956c455935198565e23f60d8970dff65d9ec3e0885de7ae2",
       "size_bytes": 3342
     },
-    "evidence/20261012T195656Z-0daf5431/closure-report.json": {
-      "sha256": "28479cd7d0223ba702076c442540550cd5231dceebd764f7a71af0cb42c4ce5c",
-      "size_bytes": 7639
+    "evidence/20261015T060304Z-c64fa448/closure-report.json": {
+      "sha256": "353e8e6c5324805fb80925f967352c49ba3fdf5f2ba85de3eed749a242eb8a52",
+      "size_bytes": 8722
     },
-    "evidence/20261012T195656Z-0daf5431/closure-report.md": {
-      "sha256": "6f3957b1cfa18c1b7943eb7f0b77853aa8c43ec91bbfdc350e4a84c0c73195b9",
+    "evidence/20261015T060304Z-c64fa448/closure-report.md": {
+      "sha256": "8024b7433bde9aadb5feabd658cf8204f626f696a7b5d4f443e31408d488b8fb",
       "size_bytes": 267
     },
-    "evidence/20261012T195656Z-0daf5431/evidence-index.json": {
-      "sha256": "2a1d222e35f50464922f08506e389b17763cd2b91b206882a0a62f81b057036a",
-      "size_bytes": 6982
+    "evidence/20261015T060304Z-c64fa448/evidence-index.json": {
+      "sha256": "ea3a3b151824c03f636422fea34efba1da92789f4a5b8c141ede9d7cdc006de4",
+      "size_bytes": 8015
     },
-    "evidence/20261012T195656Z-0daf5431/logs/cli-index.json": {
-      "sha256": "2a9efdd4f41e503824aae74a480dbbabdb5d59d2dea1c55cba5cded9d64a7bbc",
+    "evidence/20261015T060304Z-c64fa448/logs/cli-index.json": {
+      "sha256": "3a67d810285eb9053e43834092c97ff6f53c9c18a0aa04cb0c526557b981b663",
       "size_bytes": 1085
     },
-    "evidence/20261012T195656Z-0daf5431/logs/local-binding.json": {
-      "sha256": "25a04d88f567cafd76463e66611ba9632366c05a7563e6417628f94828fb441f",
+    "evidence/20261015T060304Z-c64fa448/logs/local-binding.json": {
+      "sha256": "245d5f49fba165397f3d1af7466a46de00648ae08e2f0fb136892099874e616e",
       "size_bytes": 7484
     },
-    "evidence/20261012T195656Z-0daf5431/logs/local-metrics.json": {
-      "sha256": "910ed4e304f496f5019ce53df2f4bd2b1800a73cd39c91ef17c0f97f44ede5cb",
+    "evidence/20261015T060304Z-c64fa448/logs/local-metrics.json": {
+      "sha256": "6407a57a6193562f37cb019ee85f335d86e6d8f56488564991a55301dd7d019e",
       "size_bytes": 18751
     },
-    "evidence/20261012T195656Z-0daf5431/logs/local-summary.json": {
-      "sha256": "7b87d023af465ccca06162a83072bdfe4a7622cdbafc20a677f281b3e01be638",
+    "evidence/20261015T060304Z-c64fa448/logs/local-summary.json": {
+      "sha256": "32f686d197479a0a60140c2ae958dbbba9a77c0ea2165be9df052998d9f28f9b",
       "size_bytes": 2194
     },
-    "evidence/20261012T195656Z-0daf5431/logs/static-index.json": {
-      "sha256": "b796f4bb5c77e4c3e8bbabd29b3089defad73cd4d0fb202ed092774c4d24c124",
-      "size_bytes": 5754
+    "evidence/20261015T060304Z-c64fa448/logs/static-index.json": {
+      "sha256": "28b11f452020bde20c23cf88a817aa302c4ba0325e5e9919602ecd599cac044c",
+      "size_bytes": 6960
     },
-    "evidence/20261012T195656Z-0daf5431/sha256-manifest.json": {
-      "sha256": "5a0383324c7d61b57f170ba2477d4110924d3809c6edc099d4cdbb5ce694f779",
-      "size_bytes": 2655
+    "evidence/20261015T060304Z-c64fa448/sha256-manifest.json": {
+      "sha256": "3434c6d8a476ee9e12754a3ea19e3351a758e7e2fd4b93cce48d63ac273e258c",
+      "size_bytes": 3030
     },
     "references/abstract-translation.md": {
       "sha256": "3ca3b03f79e7e72f8a490bdfc10348c9a7593af471f37a33fe411758d417c479",
@@ -788,16 +789,16 @@
       "size_bytes": 5747
     },
     "scripts/build_release.py": {
-      "sha256": "51ab246b6c9eb78d9d0cc3bb03848409cd1437e18f58f1c623601d86b0958621",
-      "size_bytes": 23729
+      "sha256": "36c1093db63c12fa79a3ca11ba0c70dcf745bb5b29e743baca310022aec05fb3",
+      "size_bytes": 26007
     },
     "scripts/closure_gate_contract.py": {
       "sha256": "b0cb9a3fce2047dcb9c4d0c71998b9e21052abfbf04ba3959dc22a88787d293c",
       "size_bytes": 14618
     },
     "scripts/collect_closure_evidence.py": {
-      "sha256": "eccb3573854790642963f03e789ea5d4a56925640fceccfda3b0b47c02073f66",
-      "size_bytes": 34895
+      "sha256": "bc9a736066dc8145c7090d23ddcb5956a45115ea6520b5e05f0d3b8dc7d479b5",
+      "size_bytes": 37574
     },
     "scripts/duration_planner.py": {
       "sha256": "6fd3e797f3eb4e01075e97285a5528c1df8f6a7040261317a5d4996cffa2e9fc",
@@ -812,8 +813,8 @@
       "size_bytes": 20792
     },
     "scripts/h3_v2_client.py": {
-      "sha256": "ca3192f51a2de92376c7ba005dbb3b762b3588efecdcd580ae027ae8ea09318a",
-      "size_bytes": 8120
+      "sha256": "16e677455fe2fa567b22bb7b9c6c934858731d2b92e58456ee97bae0b9769620",
+      "size_bytes": 8587
     },
     "scripts/measure_e2e_metrics.py": {
       "sha256": "9b6200ea1d717cfc9e942e9ab9a160dad5d01ae8a7fabaf5e7cf271a50132070",
@@ -844,8 +845,8 @@
       "size_bytes": 1282
     },
     "scripts/router.py": {
-      "sha256": "a70cc888960797193d1578b603ebafd03c77b026bb44b968475cd9ea28308f84",
-      "size_bytes": 18336
+      "sha256": "927d9fb9b0db208d430e640e7dfeb135396e013d8de0ea7ee02cdeff71d4c26b",
+      "size_bytes": 18507
     },
     "scripts/rules_native_drama.py": {
       "sha256": "75ca108d5210ebe3c08b9fad23c5adb723588cc767b9ea011bf246e7549a1c9d",
@@ -888,8 +889,8 @@
       "size_bytes": 7183
     },
     "scripts/versioning.py": {
-      "sha256": "d3ad399ce8e4b774197ad802f5d8f03427e0b125f77d0f8987343a8c39ab40cb",
-      "size_bytes": 16638
+      "sha256": "34a95e72eddea2d408d59e5f4d59ecdd9c0668e0cb7c9d57769058bcee5732fd",
+      "size_bytes": 19870
     },
     "scripts/video_analyze.py": {
       "sha256": "8470a768d883724988ffb83c9729c9b00a3b0ab21fea7057b3ec5738f48dd03b",
@@ -911,6 +912,5 @@
       "sha256": "9df6abaa449a8a128e901a5bcdccad6868cd63929328e4fc7e163b23bfa98c82",
       "size_bytes": 1464
     }
-  },
-  "maintenance_revision": "7.4.5"
+  }
 }

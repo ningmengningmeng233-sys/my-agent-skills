@@ -167,7 +167,11 @@ class BGEProvider(EmbeddingProvider):
         if _sha256(weights) != PINNED_WEIGHTS_SHA256:
             raise ValueError(f"权重 SHA256 不符钉定 revision: {weights}")
 
-        from FlagEmbedding import FlagModel
+        try:
+            from FlagEmbedding import FlagModel
+        except ModuleNotFoundError as exc:
+            from runtime_contract import install_hint
+            raise ModuleNotFoundError(f"{exc}；{install_hint('similarity')}", name=exc.name) from exc
         config = json.loads((Path(snapshot) / "config.json").read_text(encoding="utf-8"))
         self._model = FlagModel(str(snapshot), cache_dir=cache_dir, devices=[device],
                                 use_fp16=False, normalize_embeddings=True,

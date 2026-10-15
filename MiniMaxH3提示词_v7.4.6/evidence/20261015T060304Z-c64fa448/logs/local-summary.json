@@ -1,0 +1,98 @@
+{
+  "run_id": "20261015T060256Z-a69b8cc5",
+  "source_commit": "ab620d2eb51a256821683a08e6fc58abc638ffbe",
+  "crashes": 0,
+  "created_at": "2026-10-15T06:03:03.958459+00:00",
+  "cases": [
+    {
+      "case_file": "d01-t2va-neon-storefront.json"
+    },
+    {
+      "case_file": "d02-i2va-broken-temple.json"
+    },
+    {
+      "case_file": "d03-fl2va-rooftop-confession.json"
+    },
+    {
+      "case_file": "d04-l2va-hospital-corridor.json"
+    },
+    {
+      "case_file": "d05-ref2va-warroom.json"
+    },
+    {
+      "case_file": "d06-t2va-alias-courtroom.json"
+    },
+    {
+      "case_file": "d07-max-t2va-drought-village.json"
+    },
+    {
+      "case_file": "d08-max-fl2va-wedding-return.json"
+    },
+    {
+      "case_file": "d09-t2va-alley-ambush.json"
+    },
+    {
+      "case_file": "d10-ref2va-character-pack.json"
+    },
+    {
+      "case_file": "d11-l2va-archive-key.json"
+    },
+    {
+      "case_file": "d12-i2va-legacy-asset.json"
+    },
+    {
+      "case_file": "d13-t2va-kitchen-quarrel.json"
+    },
+    {
+      "case_file": "d14-t2va-forced-profile-dawn.json"
+    },
+    {
+      "case_file": "d15-fl2va-station-parting.json"
+    },
+    {
+      "case_file": "d16-t2va-broken-temple-dawn.json"
+    },
+    {
+      "case_file": "e01-refen-ronin-snow.json"
+    },
+    {
+      "case_file": "e02-refen-nightmarket-i2va.json"
+    },
+    {
+      "case_file": "e03-refen-teahouse-fl2va.json"
+    },
+    {
+      "case_file": "g01-t2va-perfume-turntable.json"
+    },
+    {
+      "case_file": "g02-i2va-watch-dial.json"
+    },
+    {
+      "case_file": "g03-t2va-mountain-fog.json"
+    },
+    {
+      "case_file": "g04-ref2va-sneaker-ad.json"
+    },
+    {
+      "case_file": "g05-fl2va-lakehouse-sunrise.json"
+    },
+    {
+      "case_file": "g06-t2va-neon-typography.json"
+    },
+    {
+      "case_file": "g07-l2va-coffee-pour.json"
+    },
+    {
+      "case_file": "g08-i2va-headphone-burst.json"
+    },
+    {
+      "case_file": "g09-t2va-passsthrough.json"
+    },
+    {
+      "case_file": "g10-t2va-desk-sentences.json"
+    },
+    {
+      "case_file": "g11-ref2va-liquid-ink.json"
+    }
+  ]
+}

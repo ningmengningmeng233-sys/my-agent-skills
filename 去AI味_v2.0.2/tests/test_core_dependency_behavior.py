@@ -50,3 +50,36 @@ else:
 """
     result = subprocess.run([sys.executable, "-B", "-X", "utf8", "-c", code, str(ROOT / "scripts"), module, missing], capture_output=True, text=True, encoding="utf-8")
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_missing_flagembedding_after_snapshot_validation_has_install_hint(tmp_path):
+    code = """import importlib.abc,sys,types,tempfile,hashlib
+from pathlib import Path
+sys.path.insert(0,sys.argv[1])
+import v2_embeddings as emb
+class Missing(importlib.abc.MetaPathFinder):
+    def find_spec(self,fullname,path=None,target=None):
+        if fullname == 'FlagEmbedding':
+            raise ModuleNotFoundError('controlled absent backend',name=fullname)
+sys.meta_path.insert(0,Missing())
+with tempfile.TemporaryDirectory() as tmp:
+    Path(tmp,emb.PINNED_WEIGHTS_FILE).write_bytes(b'')
+    emb.PINNED_WEIGHTS_BYTES=0
+    emb.PINNED_WEIGHTS_SHA256=hashlib.sha256(b'').hexdigest()
+    hub=types.ModuleType('huggingface_hub');hub.__path__=[]
+    hub.snapshot_download=lambda **kwargs:tmp
+    errors=types.ModuleType('huggingface_hub.errors')
+    errors.HfHubHTTPError=type('HfHubHTTPError',(Exception,),{})
+    errors.LocalEntryNotFoundError=type('LocalEntryNotFoundError',(Exception,),{})
+    sys.modules['huggingface_hub']=hub
+    sys.modules['huggingface_hub.errors']=errors
+    try:
+        emb.BGEProvider(cache_dir=tmp)
+    except ModuleNotFoundError as exc:
+        assert exc.name=='FlagEmbedding'
+        assert 'requirements-v2-similarity.lock' in str(exc), str(exc)
+    else:
+        raise AssertionError('backend import was not exercised')
+"""
+    result = subprocess.run([sys.executable,"-B","-X","utf8","-c",code,str(ROOT/"scripts")],capture_output=True,text=True,encoding="utf-8")
+    assert result.returncode==0,result.stdout+result.stderr

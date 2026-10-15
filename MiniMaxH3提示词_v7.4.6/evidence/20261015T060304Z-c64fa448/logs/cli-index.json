@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "gate": "cli",
+  "run_id": "20261015T060304Z-c64fa448",
+  "source_commit": "ab620d2eb51a256821683a08e6fc58abc638ffbe",
+  "exit_code": 0,
+  "started_at": "2026-10-15T06:03:12.889162+00:00",
+  "finished_at": "2026-10-15T06:03:14.104399+00:00",
+  "suites": [
+    {
+      "suite": "test_skill_structure_guards.py",
+      "exit_code": 0,
+      "passed": 9,
+      "total": 9,
+      "started_at": "2026-10-15T06:03:12.889162+00:00",
+      "finished_at": "2026-10-15T06:03:13.506872+00:00",
+      "log": "logs/cli-test_skill_structure_guards.py.log",
+      "log_sha256": "c8e9014258ba16fe5de9607e268f66613e283899c8a538d28369343a91d1b7a5"
+    },
+    {
+      "suite": "test_verification_protocol.py",
+      "exit_code": 0,
+      "passed": 31,
+      "total": 31,
+      "started_at": "2026-10-15T06:03:13.520546+00:00",
+      "finished_at": "2026-10-15T06:03:14.097983+00:00",
+      "log": "logs/cli-test_verification_protocol.py.log",
+      "log_sha256": "66144ec34f8d6b4c44a1b45e01061a1ad921ee60900df6400a884b56b87ddd37"
+    }
+  ]
+}
