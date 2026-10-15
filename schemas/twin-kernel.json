@@ -14,15 +14,15 @@
   "hash_algo": "sha256（文件原始字节）",
   "pairs": [
     {
-      "trunk": "知识库转录_v5.4.7",
+      "trunk": "知识库转录_v5.4.8",
       "trunk_scripts": "scripts",
       "trunk_head": "9e98d198720ff07f79d9c6ad94cf3a32f097f790",
-      "customization": "成人文学索引_v4.8.5",
+      "customization": "成人文学索引_v4.8.6",
       "customization_scripts": "scripts",
       "customization_head": "9e98d198720ff07f79d9c6ad94cf3a32f097f790",
       "declared_by": [
-        "知识库转录_v5.4.7/SKILL.md#knowledge-index-twin-kernel",
-        "成人文学索引_v4.8.5/SKILL.md#adult-index-twin-kernel"
+        "知识库转录_v5.4.8/SKILL.md#knowledge-index-twin-kernel",
+        "成人文学索引_v4.8.6/SKILL.md#adult-index-twin-kernel"
       ],
       "same_named_files": 19,
       "status_counts": {

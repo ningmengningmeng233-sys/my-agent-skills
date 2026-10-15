@@ -54,12 +54,12 @@ except ImportError:  # pragma: no cover
 # SKILL.md 里含 pipeline-contract 声明块的才进门，目录改名/升版不再烂门。
 # 本清单只做三件事：文档化当前参与者、动态发现扫空时的回退、单测可解析的稳定常量。
 SKILL_FILES = [
-    "小说转短剧_v1.5.4/SKILL.md",
-    "资产提取_v2.17.0-rc.6/SKILL.md",
-    "MiniMaxH3提示词_v7.4.5/SKILL.md",
+    "小说转短剧_v1.5.5/SKILL.md",
+    "资产提取_v2.17.0-rc.7/SKILL.md",
+    "MiniMaxH3提示词_v7.4.6/SKILL.md",
     # 两份索引库：只为双胞胎内核配对（twin_of）进门，不参与 JSON Schema 接缝
-    "知识库转录_v5.4.7/SKILL.md",
-    "成人文学索引_v4.8.5/SKILL.md",
+    "知识库转录_v5.4.8/SKILL.md",
+    "成人文学索引_v4.8.6/SKILL.md",
 ]
 
 
