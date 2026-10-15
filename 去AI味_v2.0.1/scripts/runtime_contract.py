@@ -153,6 +153,10 @@ REQUIRED_RUNTIME_FILES: tuple[str, ...] = (
     # 「装得上但跑不起」与「跑得起但版本不同」两类事故都无法自证；锁本身进 parity，
     # 字节漂了就是环境漂了。
     "requirements-v2.lock",
+    # TICKET-55'：相似度/向量扩展锁。默认只装 core 锁（轻量），similarity 锁按需
+    # 叠装在同一目标目录；它是运行件（缺了按需安装就无据可依），但不进 parity——
+    # 与 runtime/textlint/package-lock.json 同例：锁随包，环境漂移由锁字节自证。
+    "requirements-v2-similarity.lock",
     "LICENSE",
     "THIRD_PARTY_NOTICES.md",
 )
@@ -338,36 +342,81 @@ EXTERNAL_DEPENDENCIES: dict = {
         "optional_group": None},
     "text_dedup": {
         "distribution": "text-dedup", "min_version": "0.4.1",
-        "optional_group": None},
+        "optional_group": "similarity"},
     "semhash": {
         "distribution": "semhash", "min_version": "0.5.0",
-        "optional_group": None},
+        "optional_group": "similarity"},
     "FlagEmbedding": {
         "distribution": "FlagEmbedding", "min_version": "1.4.2",
-        "optional_group": None},
+        "optional_group": "similarity"},
     "numpy": {
         "distribution": "numpy", "min_version": "1.26",
-        "optional_group": None},
+        "optional_group": "similarity"},
     # v2.0.0（alpha.2 P06）：v2_similarity 把内存数据集直接交给上游 text-dedup 的
     # fingerprint/cluster，datasets 是我们自己 import 的顶层依赖（不只是传递路径），
     # 按纪律显式登记，包内 import 门才认它。
     "datasets": {
         "distribution": "datasets", "min_version": "2.18.0",
-        "optional_group": None},
+        "optional_group": "similarity"},
     # v2.0.0（alpha.2 P07）：v2_embeddings 用 snapshot_download(local_files_only=True)
     # 从钉定本地快照加载 BGE，禁隐式下载；实测版本 1.33.0，登记可用下限。
     "huggingface_hub": {
         "distribution": "huggingface_hub", "min_version": "0.23.0",
-        "optional_group": None},
+        "optional_group": "similarity"},
 }
+# TICKET-55'：本表 core 组 = transitions/keyring/typesafe_sdk（optional_group None，
+# 随 requirements-v2.lock 默认安装）；similarity 组六项随
+# requirements-v2-similarity.lock 按需叠装。分组只决定“哪把锁带它”，import 门认的
+# 还是同一张表的名字集合（validate_external_imports 行为不变）。
 
 
 CAPABILITY_SCHEMA = "lieflat-v2-capability-report-v1"
 DEPENDENCY_LOCK_FILE = "requirements-v2.lock"
+#: TICKET-55'：可选依赖组 → 锁文件的唯一映射。core 组没有条目——core 锁就是
+#: DEPENDENCY_LOCK_FILE 本身（默认安装）；similarity 组叠装在 core 之上，
+#: 绝不单独安装（交集传递依赖只在 core 锁里）。
+SIMILARITY_LOCK_FILE = "requirements-v2-similarity.lock"
+OPTIONAL_LOCKS: dict = {
+    "similarity": SIMILARITY_LOCK_FILE,
+}
 #: 本轮明确停用的能力面（照实写，不用「没发现问题」冒充「已验证」）。
 DISABLED_CAPABILITIES: tuple[str, ...] = (
     "真实 Jev 调用", "宿主自然触发", "人工校准", "高风险自动提交",
     "真实中文 NLP 组件推理", "整本真实稿效果")
+
+
+def optional_lock_status(root=None) -> dict:
+    """各可选组锁文件的在场状态：``{组名: {"lock_file", "present"}}``。
+
+    只看文件在不在，不读锁内容——“锁丢了”和“锁里少了包”是两回事，前者在这里
+    报，后者由安装时的 pip 解析报。
+    """
+    base = Path(root) if root is not None else REPO_ROOT
+    return {group: {"lock_file": lock, "present": (base / lock).is_file()}
+            for group, lock in sorted(OPTIONAL_LOCKS.items())}
+
+
+def install_hint(group: str) -> str:
+    """缺组时的安装指引（一句话：点名锁文件，给叠装命令形状，指出处）。"""
+    if group not in OPTIONAL_LOCKS:
+        raise ValueError(f"未知可选依赖组：{group!r}（已登记 {sorted(OPTIONAL_LOCKS)}）")
+    lock = OPTIONAL_LOCKS[group]
+    return (f"缺可选依赖组 {group}：先按 core 锁装好默认环境，再把 {lock} "
+            f"叠装进同一目标目录（`pip install -r {lock} "
+            f"--target <运行副本>/.deps`）；步骤见 USAGE.md「依赖准备与撤销」。)")
+
+
+def guidance_for_import(name: str) -> str | None:
+    """import 名 → 缺依赖指引：可选组点名发行包/锁/命令，核心组返回 None。
+
+    core 组缺件不在这里指路——core 是默认安装，缺 core 件是安装事故，
+    不是“按需装扩展”，由安装校验报，不由可选指引报。
+    """
+    entry = EXTERNAL_DEPENDENCIES.get(name)
+    if entry is None or entry.get("optional_group") is None:
+        return None
+    group = entry["optional_group"]
+    return f"缺 {entry['distribution']}（可选组 {group}）：{install_hint(group)}"
 
 
 def capability_report(root=None) -> dict:
@@ -402,6 +451,11 @@ def capability_report(root=None) -> dict:
         "runtime_files": len(REQUIRED_RUNTIME_FILES),
         "dependency_lock": DEPENDENCY_LOCK_FILE,
         "lock_present": lock_path.is_file(),
+        # TICKET-55'：可选组锁逐组披露在场与否；在场也给指引（重装用同一命令）。
+        "optional_locks": [
+            {"group": group, "lock_file": entry["lock_file"],
+             "present": entry["present"], "install_hint": install_hint(group)}
+            for group, entry in optional_lock_status(base).items()],
         "external_dependencies": [
             {"import": name, "distribution": entry["distribution"],
              "min_version": entry["min_version"],

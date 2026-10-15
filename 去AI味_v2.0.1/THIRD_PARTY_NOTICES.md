@@ -144,26 +144,29 @@ hardikpandya 与 Wikipedia 相关编辑者对本主题的先行整理。
 
 v2.0.0（alpha.1）起引入的外部运行依赖，alpha.2 的 P06/P07 扩了 datasets、huggingface_hub
 与 BGE 模型资产。采用方式全部为**依赖＋适配**（复制无、fork 无）；
-本节登记直接依赖及其许可，完整传递依赖树以 `requirements-v2.lock`（Python）与
-`runtime/textlint/package-lock.json`（Node）为权威，不在此逐条抄录。上表许可均为各
+本节登记直接依赖及其许可，完整传递依赖树以 Python 双锁
+（`requirements-v2.lock` core 默认锁 + `requirements-v2-similarity.lock` 相似度
+扩展锁）与 `runtime/textlint/package-lock.json`（Node）为权威，不在此逐条抄录。
+双锁是原单锁的一刀两断（24 + 81 = 105 行并集守恒），分组见下表“组”列，
+安装顺序见 USAGE.md「依赖准备与撤销」。上表许可均为各
 发行件随包声明；「初审备注」来自 v2 研究阶段的许可初审（`参考项目清单.json`），不是
 完整法律意见，接入新上游组件或模型资产前须继续核验。
 
-### Python 侧（lock：`requirements-v2.lock`）
+### Python 侧（双 lock：`requirements-v2.lock` core + `requirements-v2-similarity.lock` similarity）
 
-| 包（import 名） | 发行包 | 锁定版本 | 许可 | 来源与备注 |
-| --- | --- | --- | --- | --- |
-| transitions | transitions | 0.9.4 | MIT | PyPI 无 0.9.4 发行件；锁与 pyproject 固定公开提交 `bd42b38f3627e6bca7274fb4d9af2e105f75da7c`（git+https://github.com/pytransitions/transitions.git），不静默换版，不依赖开发机本地路径。 |
-| keyring | keyring | 25.7.0 | MIT（pyproject 声明） | 初审备注：上游检出未发现独立 LICENSE 文件；发行 wheel 随包声明 MIT，后续升级前复核发行件许可文本。 |
-| typesafe_sdk | typesafe-sdk | 0.7.2 | MIT | 初审备注：上游 LICENSE 版权字段有占位；官方 Python SDK，提供 Jev 客户端、认证、RetryPolicy 与异常类型。 |
-| text_dedup | text-dedup | 0.4.1 | Apache-2.0 | 仅使用 fingerprint/cluster 产生候选；不调用 remove_duplicates/save_dataset 进入正文通路。 |
-| semhash | semhash | 0.5.0 | MIT | 经 from_embeddings/custom encoder 接入，仅提取相似候选，原稿保持完整；ANN 由其依赖 vicinity 承担。 |
-| FlagEmbedding | FlagEmbedding | 1.4.2 | MIT | 仅用 `FlagModel.encode` 做推理，不改其源码；模型资产许可见下面「模型资产」。 |
-| numpy | numpy | 2.5.3 | BSD-3-Clause | Embedding/相似度向量运算底座（上游依赖，按直接依赖登记）。 |
-| datasets | datasets | 5.0.1 | Apache-2.0 | alpha.2 P06 起被 `scripts/v2_similarity.py` 直接 import（`Dataset.from_list` 承载内存数据交给上游 fingerprint/cluster）；不调用其导出/落盘通路。 |
-| huggingface_hub | huggingface_hub | 1.33.0 | Apache-2.0 | alpha.2 P07 起被 `scripts/v2_embeddings.py` 直接 import，只用 `snapshot_download(local_files_only=True)` 取钉定本地快照，禁隐式下载。 |
+| 包（import 名） | 发行包 | 锁定版本 | 组 | 许可 | 来源与备注 |
+| --- | --- | --- | --- | --- | --- |
+| transitions | transitions | 0.9.4 | core | MIT | PyPI 无 0.9.4 发行件；锁与 pyproject 固定公开提交 `bd42b38f3627e6bca7274fb4d9af2e105f75da7c`（git+https://github.com/pytransitions/transitions.git），不静默换版，不依赖开发机本地路径。 |
+| keyring | keyring | 25.7.0 | core | MIT（pyproject 声明） | 初审备注：上游检出未发现独立 LICENSE 文件；发行 wheel 随包声明 MIT，后续升级前复核发行件许可文本。 |
+| typesafe_sdk | typesafe-sdk | 0.7.2 | core | MIT | 初审备注：上游 LICENSE 版权字段有占位；官方 Python SDK，提供 Jev 客户端、认证、RetryPolicy 与异常类型。 |
+| text_dedup | text-dedup | 0.4.1 | similarity | Apache-2.0 | 仅使用 fingerprint/cluster 产生候选；不调用 remove_duplicates/save_dataset 进入正文通路。 |
+| semhash | semhash | 0.5.0 | similarity | MIT | 经 from_embeddings/custom encoder 接入，仅提取相似候选，原稿保持完整；ANN 由其依赖 vicinity 承担。 |
+| FlagEmbedding | FlagEmbedding | 1.4.2 | similarity | MIT | 仅用 `FlagModel.encode` 做推理，不改其源码；模型资产许可见下面「模型资产」。 |
+| numpy | numpy | 2.5.3 | similarity | BSD-3-Clause | Embedding/相似度向量运算底座（上游依赖，按直接依赖登记）。 |
+| datasets | datasets | 5.0.1 | similarity | Apache-2.0 | alpha.2 P06 起被 `scripts/v2_similarity.py` 直接 import（`Dataset.from_list` 承载内存数据交给上游 fingerprint/cluster）；不调用其导出/落盘通路。 |
+| huggingface_hub | huggingface_hub | 1.33.0 | similarity | Apache-2.0 | alpha.2 P07 起被 `scripts/v2_embeddings.py` 直接 import，只用 `snapshot_download(local_files_only=True)` 取钉定本地快照，禁隐式下载。 |
 
-关键传递依赖（完整树见 lock）：torch 2.14.1（BSD-3-Clause，CPU 轮子）、
+关键传递依赖（完整树见 similarity 锁；core 锁的传递树只到 Jev/状态机闭包为止）：torch 2.14.1（BSD-3-Clause，CPU 轮子）、
 transformers 5.18.0（Apache-2.0）、model2vec 0.9.0（MIT）、
 vicinity 0.4.6（Apache-2.0，semhash 的 ANN 承载）、usearch 2.26.3（Apache-2.0，
 vicinity 后端之一；本项目实测走 vicinity 的精确全近邻后端）、pydantic 2.13.5（MIT）、

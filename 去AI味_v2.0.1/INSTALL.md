@@ -31,12 +31,12 @@
 
 ## 公开自验（随包可执行）
 
-本包是封印包：`release-manifest.json` 登记 47 项文件摘要，`SKILL.md` 与全部脚本/参考均为封印字节。
+本包是封印包：`release-manifest.json` 登记 48 项文件摘要，`SKILL.md` 与全部脚本/参考均为封印字节。
 解包根执行以下命令即完成接收者自验（需 Python ≥ 3.12）：
 
 `python -c "import sys; sys.path.insert(0,'scripts'); import v2_task; print(v2_task.runtime_identity('.'))"`
 
-该命令逐项复算 47 项封印摘要（任一字节改动即 exit 非零并点名拒载），通过时输出
+该命令逐项复算 48 项封印摘要（任一字节改动即 exit 非零并点名拒载），通过时输出
 origin=installed、版本 2.0.0 与包摘要 digest。
 
 文档中出现的 `tests/…` 与 `evals/…` 引用指开发期维护测试（封印字节原文，不随包）；

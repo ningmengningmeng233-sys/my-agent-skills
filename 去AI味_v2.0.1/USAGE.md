@@ -11,10 +11,12 @@
    （调用与闸门认机器 ID）。常见位置：`~/.agents/skills/`、`~/.claude/skills/`、
    `~/.codex/skills/`、`~/.qoder/skills/`。
 3. 运行依赖：Python ≥ 3.12（发布验证环境 3.12）与 Node ≥ 20.18.0（Markdown 结构
-   候选走 `runtime/textlint/` 桥）。v2 通路需要第三方库，精确版本钉在随包的
-   `requirements-v2.lock`；「装了什么 / 没装什么 / 什么被停用」由
+   候选走 `runtime/textlint/` 桥）。v2 通路需要第三方库，分两把锁：默认只装轻量
+   核心锁 `requirements-v2.lock`（状态机、任务、提交与 Jev 通路）；相似度/向量
+   扩展按需把 `requirements-v2-similarity.lock` 叠装进同一目标目录（绝不单独
+   安装，见「依赖准备与撤销」第 2 步）。「装了什么 / 没装什么 / 什么被停用」由
    `python -B -X utf8 -c "import sys;sys.path.insert(0,'scripts');import runtime_contract,json;print(json.dumps(runtime_contract.capability_report(),ensure_ascii=False,indent=2))"`
-   一次读出。不隐式联网：向量模型只从钉定的本地快照读（`local_files_only=True`），
+   一次读出（含可选锁逐组在场状态与缺锁指引）。不隐式联网：向量模型只从钉定的本地快照读（`local_files_only=True`），
    可选中文 NLP 组件（HanLP/LTP）不捆绑、不自动下载。会读环境变量：宿主与工具
    路径发现用 `PATH`，可选覆盖项以 `LIEFLAT_` 开头；不写全局配置。
 4. 验收（可选但建议）：用发布附件 `receiver_acceptance.py` 对解压目录做逐文件哈希、
@@ -95,7 +97,9 @@ CAND="$Cand" RUN="$Run" "$Py" -B -X utf8 -c "import os,sys,json;sys.path.insert(
 副本内新增 5201 个依赖文件）。目标目录已存在就拒绝覆盖；没有 npm、或装完仍不就绪就抛错并
 保持「能力未准备」，不静默降级成空候选。
 
-### 2) Python 依赖装进这个副本自己的 `.deps`（v2 状态机、入口与提交门）
+### 2) Python 依赖装进这个副本自己的 `.deps`（默认核心锁，按需叠装相似度锁）
+
+默认装核心锁（v2 状态机、入口、提交门与 Jev 通路）：
 
 ```sh
 "$Py" -m pip install -r "$Run/requirements-v2.lock" --target "$Run/.deps"
@@ -106,6 +110,21 @@ CAND="$Cand" RUN="$Run" "$Py" -B -X utf8 -c "import os,sys,json;sys.path.insert(
 ```
 
 锁钉 `transitions` @ git `bd42b38`（0.9.4）与 `six` 1.17.0。
+
+按需再叠装相似度锁（模板近重复、语义检索与向量缓存）：叠进**同一** `.deps`
+（绝不单独安装——交集传递依赖只在 core 锁里，单装扩展锁起不来）：
+
+```sh
+"$Py" -m pip install -r "$Run/requirements-v2-similarity.lock" --target "$Run/.deps"
+```
+
+```powershell
+& $Py -m pip install -r "$Run/requirements-v2-similarity.lock" --target "$Run/.deps"
+```
+
+没装扩展就调 `v2_similarity`/`v2_embeddings`/向量缓存时，import 当场报缺的
+模块名（`ModuleNotFoundError`，不是空结果也不是中途崩溃）；`capability_report()`
+的 `optional_locks` 逐组报在场与否并给上面这条叠装命令。
 
 ### 3) 实际加载：`PYTHONPATH` 只给这个副本的 `.deps`
 

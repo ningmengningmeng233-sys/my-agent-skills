@@ -15,13 +15,13 @@
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
-      "bytes": 15551,
-      "sha256": "e5eae46ca558095aec1ca3eb9be625dc66e9a6fe12a87216442e0cc63d1ba478"
+      "bytes": 16019,
+      "sha256": "5eb66083315a65847a0b59bb91ca04fa665f29331ba1c5c88b0d5ee78dd2605b"
     },
     {
       "path": "USAGE.md",
-      "bytes": 16655,
-      "sha256": "c89dcfdb99b4f698d300dfda12c798a98e47a75a9e4f95c617549aa5f29bab0e"
+      "bytes": 17697,
+      "sha256": "c12a0e12d09cca8f9b010a98c711cc7876f9911dff826fa57b7863c2cd292d3d"
     },
     {
       "path": "agents/openai.yaml",
@@ -79,9 +79,14 @@
       "sha256": "a22ad7006b352fd2f11acaabb192cb49539e67a2add5ad31366edec10962ec96"
     },
     {
+      "path": "requirements-v2-similarity.lock",
+      "bytes": 1387,
+      "sha256": "dabbe8ae43cd6fa4ccd617d44849d4d93fad3140ced3721a22715366f973c042"
+    },
+    {
       "path": "requirements-v2.lock",
-      "bytes": 1919,
-      "sha256": "3a76d6d8672cc4d56992c0318453a2ad0faaae71d7b59cb5b54365ac417e6c9a"
+      "bytes": 532,
+      "sha256": "0265660166858925e6255255502452a4768ee907571f12820e4ad31fddbf5523"
     },
     {
       "path": "rules/zh-candidates.mjs",
@@ -145,8 +150,8 @@
     },
     {
       "path": "scripts/runtime_contract.py",
-      "bytes": 33452,
-      "sha256": "fa5629a93c69b6ea1a0a6bc5618cddbd6fc6d72fed3969adf7527284daa2a476"
+      "bytes": 36621,
+      "sha256": "ceb13e73e569dcf81f2b7532618f4b03eca4e8dd73a3d81b86a6e8f03c7984ba"
     },
     {
       "path": "scripts/text_source.py",
@@ -239,5 +244,5 @@
       "sha256": "212f1a26c6188b43f47f8a1963e5f3a23898a4f356f039f007624f1ac2813bad"
     }
   ],
-  "package_digest": "0abbe1d2461d07f9a2fbe427feed0f8c000b640ea3d5c6a60b1be3b65751f0b3"
+  "package_digest": "370fb264d26897caaa69570e2afb1f30a994304286a6738ad7438182b24742a2"
 }
