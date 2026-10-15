@@ -67,7 +67,7 @@ scripts/
 mkdir -p dist
 git archive --format=zip -o dist/bilibili-auto-transcript-5.5.4.zip HEAD \
   -- SKILL.md README.md requirements.lock .env.example .gitattributes .gitignore \
-     .githooks scripts references tests
+     scripts references tests
 ```
 
 - 用 `git archive` 而不是手打包，是因为它**只导出已跟踪文件**，不会把本机的库、产物、密钥捎出去。
