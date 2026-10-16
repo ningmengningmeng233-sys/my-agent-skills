@@ -114,6 +114,7 @@ def _package(lib, task_id):
 
 # --- 红测 1：正脸导出必须带风格参考 ------------------------------------------------
 
+@pytest.mark.requires_private_stylepack
 def test_export_face_task_includes_stylepack_reference(tmp_path):
     lib = _lib(tmp_path)
     task_id = "CH_林姑娘-正脸-v01"
@@ -125,6 +126,7 @@ def test_export_face_task_includes_stylepack_reference(tmp_path):
     assert "face.png" in text, f"正脸应路由到权威包 face.png：{text}"
 
 
+@pytest.mark.requires_private_stylepack
 def test_exported_reference_hash_matches_authoritative_manifest(tmp_path):
     """导出的参考图哈希必须与权威包 manifest 逐字一致。"""
     from scripts.sync_stylepack import build_style_manifest
@@ -141,6 +143,7 @@ def test_exported_reference_hash_matches_authoritative_manifest(tmp_path):
         assert entry["sha256"] == real[entry["source_path"]], entry["source_path"]
 
 
+@pytest.mark.requires_private_stylepack
 def test_exported_reference_bytes_are_non_empty(tmp_path):
     lib = _lib(tmp_path)
     task_id = "CH_林姑娘-正脸-v01"
@@ -151,6 +154,7 @@ def test_exported_reference_bytes_are_non_empty(tmp_path):
         assert img.stat().st_size > 0, f"{img.name} 为空字节"
 
 
+@pytest.mark.requires_private_stylepack
 def test_run_and_export_compile_identical_prompt(tmp_path):
     """同一任务在自动与手工两条路径产生同一事实集合。"""
     from scripts.engine.visual_request_chain import compile_for_library
@@ -166,6 +170,7 @@ def test_run_and_export_compile_identical_prompt(tmp_path):
     assert auto.prompt_facts() == manual.prompt_facts()
 
 
+@pytest.mark.requires_private_stylepack
 def test_omitted_references_are_recorded(tmp_path):
     """超限裁剪必须进入清单，且不静默消失。"""
     from scripts.engine.visual_request_chain import compile_for_library
@@ -182,6 +187,7 @@ def test_omitted_references_are_recorded(tmp_path):
 
 # --- 红测 2：有身份图时全身正面必须带 identity --------------------------------------
 
+@pytest.mark.requires_private_stylepack
 def test_full_body_front_uses_accepted_face_as_identity(tmp_path):
     """身份参考独立于生成顺序：正脸已通过时，全身正面必须带 identity。
 
@@ -255,6 +261,7 @@ def _broken_ref_lib(tmp_path, mode):
     return lib, pack
 
 
+@pytest.mark.requires_private_stylepack
 def test_stylepack_integrity_detects_missing_image(tmp_path):
     """删掉权威包一张图后，包完整性校验必须报出缺图（发布与运行都据此拒绝）。"""
     from scripts.engine.visual_request_chain import stylepack_integrity_issues
@@ -277,9 +284,9 @@ def test_stylepack_integrity_detects_drift(tmp_path):
 
 
 @pytest.mark.parametrize("mode,expected", [
-    ("missing", "STYLEPACK_UNAVAILABLE"),
+    pytest.param("missing", "STYLEPACK_UNAVAILABLE", marks=pytest.mark.requires_private_stylepack),
     ("empty", "STYLEPACK_UNAVAILABLE"),
-    ("hash", REFERENCE_HASH_MISMATCH),
+    pytest.param("hash", REFERENCE_HASH_MISMATCH, marks=pytest.mark.requires_private_stylepack),
 ])
 def test_broken_reference_blocks_before_generation(tmp_path, mode, expected):
     """权威包缺图/空图/漂移、或声明哈希不符时，编译必须在生成前以稳定码失败。
@@ -304,6 +311,7 @@ def test_broken_reference_blocks_before_generation(tmp_path, mode, expected):
     assert ctx.value.code == expected
 
 
+@pytest.mark.requires_private_stylepack
 def test_accepted_upstream_with_swapped_bytes_is_rejected(tmp_path):
     """已通过的正脸文件被换掉后，下游编译必须拒绝——不得静默丢掉身份参考。"""
     from scripts.engine.visual_request_chain import (
@@ -331,6 +339,7 @@ def test_accepted_upstream_with_swapped_bytes_is_rejected(tmp_path):
     assert ctx.value.code == REFERENCE_HASH_MISMATCH
 
 
+@pytest.mark.requires_private_stylepack
 def test_accepted_upstream_with_missing_file_is_rejected(tmp_path):
     """已通过的正脸文件被删除后，下游编译必须拒绝。"""
     from scripts.engine.visual_request_chain import (
@@ -352,6 +361,7 @@ def test_accepted_upstream_with_missing_file_is_rejected(tmp_path):
     assert ctx.value.code == REFERENCE_MISSING
 
 
+@pytest.mark.requires_private_stylepack
 def test_compile_rejects_incomplete_stylepack(tmp_path):
     """缺图后编译整个正脸任务必须 STYLEPACK_UNAVAILABLE，而不是少发参考继续。"""
     from scripts.engine.reference_router import load_omni_stylepack
