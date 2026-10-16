@@ -325,7 +325,7 @@ class TestInit(unittest.TestCase):
 
     def test_init_writes_atomic_start_state(self):
         with tempfile.TemporaryDirectory() as td:
-            root = Path(td)
+            root = Path(td).resolve()  # Windows 临时目录常是 8.3 短名（RUNNER~1），被测代码写入的是解析后的长路径
             lib, src = root / "资产库", self._src(root)
             rc, _out = self._init(lib, src)
             self.assertEqual(rc, 0)
