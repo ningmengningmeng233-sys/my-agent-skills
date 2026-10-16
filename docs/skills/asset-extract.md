@@ -16,7 +16,7 @@
 
 ## 开始之前
 
-先阅读 CAPABILITIES.md。公开档排除 32 张受限风格/来源图，相关视觉生成与一致性验收不可用。按 QUICKSTART.md 配置文本模型与运行环境；Windows 使用配套 .bat 入口或准备 Bash。
+先阅读 CAPABILITIES.md。公开版不含部分图片素材，相关视觉生成与一致性验收不可用。按 QUICKSTART.md 配置文本模型与运行环境；Windows 使用配套 .bat 入口或准备 Bash。
 
 安装时完整复制 `资产提取_v2.17.0-rc.7/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
 
