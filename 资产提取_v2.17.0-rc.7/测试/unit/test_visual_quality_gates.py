@@ -5,6 +5,7 @@
 `测试/run_visual_offline.py` 是完整离线端到端；本文件把其中的关键契约固化为快速单测，
 保证即使端到端脚本被改动，核心质量门行为仍被钉死。
 """
+import pytest
 import json
 import sys
 from pathlib import Path
@@ -80,6 +81,7 @@ def test_visual_delivery_blocks_on_pending_tasks(tmp_path):
     assert not (lib / "视觉资产" / "视觉交付清单.json").exists()
 
 
+@pytest.mark.requires_private_stylepack
 def test_visual_delivery_signs_when_all_reference_ready(tmp_path):
     lib, plan = _lib(tmp_path, accepted=True)
     result = build_visual_delivery(lib)
@@ -142,6 +144,7 @@ def test_round_history_preserved_on_plan_rewrite(tmp_path):
     assert kept.status == "GENERATED"
 
 
+@pytest.mark.requires_private_stylepack
 def test_visual_delivery_isolated_from_data_delivery(tmp_path):
     """视觉门不改变资料线：库内没有交付清单时也不会因视觉通过而伪造资料签发。"""
     lib, _plan = _lib(tmp_path, accepted=True)
@@ -149,6 +152,7 @@ def test_visual_delivery_isolated_from_data_delivery(tmp_path):
     assert not (lib / "交付清单.json").exists(), "视觉签发不得产出资料交付清单"
 
 
+@pytest.mark.requires_private_stylepack
 def test_offline_runner_reports_zero_failures_when_run():
     """真实执行离线门（快速子集）：退出码必须为 0。"""
     r = run_py([str(OFFLINE)], cwd=str(REPO_ROOT), timeout=900)
