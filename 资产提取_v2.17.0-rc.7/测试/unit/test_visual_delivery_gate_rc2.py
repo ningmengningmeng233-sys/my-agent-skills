@@ -10,6 +10,7 @@
 验收矩阵：无计划、计划损坏、风格包缺失、部分任务、全部任务、上游变化、
 参考图变化、权威包变化各有测试。核心 verify 行为保持不变（资料线独立）。
 """
+import pytest
 import json
 import sys
 from pathlib import Path
@@ -175,6 +176,7 @@ def test_partial_tasks_block(tmp_path):
     assert result["passed"] < result["tasks"]
 
 
+@pytest.mark.requires_private_stylepack
 def test_all_tasks_deliver_and_sign(tmp_path):
     lib = _lib(tmp_path)
     _accept_all(lib)
@@ -183,6 +185,7 @@ def test_all_tasks_deliver_and_sign(tmp_path):
     assert (lib / "视觉资产" / DELIVERY_MANIFEST_NAME).is_file()
 
 
+@pytest.mark.requires_private_stylepack
 def test_delivered_cli_returns_zero(tmp_path):
     lib = _lib(tmp_path)
     _accept_all(lib)
@@ -257,6 +260,7 @@ def test_authority_pack_change_blocks(tmp_path):
 
 # --- 7. 历史清单不被覆盖，但 status 显示失效原因 -----------------------------------
 
+@pytest.mark.requires_private_stylepack
 def test_failed_revalidation_keeps_history_and_reports_reason(tmp_path):
     lib = _lib(tmp_path)
     _accept_all(lib)
