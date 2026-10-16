@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="250" viewBox="0 0 1280 250" role="img" aria-labelledby="t">
+<title id="t">四阶段研发协议</title>
+<defs>
+<linearGradient id="bg" x1="0" x2="1"><stop offset="0" stop-color="#0b1022"/><stop offset="1" stop-color="#140f2e"/></linearGradient>
+<linearGradient id="ln" x1="0" x2="1"><stop offset="0" stop-color="#5eead4"/><stop offset=".33" stop-color="#818cf8"/><stop offset=".66" stop-color="#f472b6"/><stop offset="1" stop-color="#fbbf24"/></linearGradient>
+<style>.f{font-family:'Segoe UI','PingFang SC','Microsoft YaHei','Noto Sans SC',system-ui,sans-serif}.m{font-family:'JetBrains Mono',Consolas,monospace}
+@keyframes flow{to{stroke-dashoffset:-48}}.fl{stroke-dasharray:8 8;animation:flow 2s linear infinite}</style>
+</defs>
+<rect width="1280" height="250" rx="22" fill="url(#bg)"/>
+<rect x=".5" y=".5" width="1279" height="249" rx="22" fill="none" stroke="#fff" stroke-opacity=".08"/>
+<text class="m" x="48" y="44" font-size="13" fill="#64748b" letter-spacing="2">// LEMON-THINKING PROTOCOL · 柠檬思考四阶段研发协议</text>
+<line class="fl" x1="160" y1="118" x2="1120" y2="118" stroke="url(#ln)" stroke-width="3"/>
+<g class="f" text-anchor="middle">
+ <g transform="translate(160 118)"><circle r="30" fill="#0b1022" stroke="#5eead4" stroke-width="3"/><text y="8" font-size="22" font-weight="800" fill="#5eead4">01</text>
+  <text y="66" font-size="20" font-weight="700" fill="#f1f5f9">需求拷问对齐</text><text y="92" font-size="14" fill="#94a3b8">Grilling 逐条追问需求与设计</text></g>
+ <g transform="translate(480 118)"><circle r="30" fill="#0b1022" stroke="#818cf8" stroke-width="3"/><text y="8" font-size="22" font-weight="800" fill="#a5b4fc">02</text>
+  <text y="66" font-size="20" font-weight="700" fill="#f1f5f9">原子工单拆解</text><text y="92" font-size="14" fill="#94a3b8">每张工单可独立验证、可回滚</text></g>
+ <g transform="translate(800 118)"><circle r="30" fill="#0b1022" stroke="#f472b6" stroke-width="3"/><text y="8" font-size="22" font-weight="800" fill="#f9a8d4">03</text>
+  <text y="66" font-size="20" font-weight="700" fill="#f1f5f9">TDD 红绿推进</text><text y="92" font-size="14" fill="#94a3b8">先写失败测试，再写实现</text></g>
+ <g transform="translate(1120 118)"><circle r="30" fill="#0b1022" stroke="#fbbf24" stroke-width="3"/><text y="8" font-size="22" font-weight="800" fill="#fcd34d">04</text>
+  <text y="66" font-size="20" font-weight="700" fill="#f1f5f9">终验交付</text><text y="92" font-size="14" fill="#94a3b8">对抗式评审放行，证据留痕</text></g>
+</g>
+</svg>
