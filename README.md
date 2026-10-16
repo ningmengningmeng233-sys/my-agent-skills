@@ -11,14 +11,26 @@
 [开始使用](docs/getting-started.md) · [浏览技能](#技能目录) · [组合流程](PIPELINE.md) · [常见问题](docs/faq.md) · [验证范围](docs/verification.md)
 
 [![CI](https://github.com/ningmengningmeng233-sys/my-agent-skills/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ningmengningmeng233-sys/my-agent-skills/actions/workflows/ci.yml)
+![Skills](https://img.shields.io/badge/skills-16-6f42c1)
+![Tests](https://img.shields.io/badge/tests-4588%20passing%20%28Linux%29-2ea44f)
+![Python](https://img.shields.io/badge/python-3.12-3776ab?logo=python&logoColor=white)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-0078d4)
+![Format](https://img.shields.io/badge/format-Agent%20Skills%20%28SKILL.md%29-orange)
 
 [**下载完整 ZIP**](https://codeload.github.com/ningmengningmeng233-sys/my-agent-skills/zip/refs/heads/main) · [查看版本清单](catalog.json)
 
 </div>
 
-## 设计理念
+## 📊 核心数据
 
-- **五阶段研发协议（柠檬思考）**：需求拷问对齐 → 设计方案 → 原子工单 → TDD 红绿推进 → 终验交付，按工作区文件证据判定阶段，未经同意不开工。
+| 🧰 精选技能 | ✅ 自动化测试 | 🖥️ CI 矩阵 | 🎯 精选比例 |
+| :---: | :---: | :---: | :---: |
+| **16 套** | **4,588 项**通过 | **13 包 × 2 平台** | **192 → 16** |
+| 独立安装、独立验证 | 2026-10 Linux 实测 | Windows / Linux | 只收录边界清晰的技能 |
+
+## 💡 设计理念
+
+- **四阶段研发协议（柠檬思考）**：Grilling 拷问对齐需求与设计 → 拆解原子工单 → 按 TDD 红绿推进 → 终验把关与交付，按工作区物理文件证据判定所处阶段，未经人类同意不写业务代码。
 - **交付前对抗式评审**：终验前由独立的新上下文评审者通读整条分支挑错，Critical / Important 问题修复并复验后才放行。
 - **质量闸门 + 自动化回归测试**：各包自带 pytest 套件，根目录 CI 按「包 × Windows/Linux」矩阵运行；13 个包合计 4588 项用例通过（2026-10 Linux 实测）。
 - **由 192 套技能精简、择优开源**：只收录边界清晰、可独立安装与验证的技能。
@@ -26,7 +38,46 @@
 
 > **先选一套，用小样本跑通。** 每套技能独立安装；账号、模型、客户端与本地数据按对应指南准备。目录收录和工程检查不等于完整真实业务验收。
 
-## 从这里开始
+## 🔗 技能如何串联
+
+各技能独立安装与验证，没有统一运行时；下图展示常见的输入输出衔接方式，详见[组合流程](PIPELINE.md)。
+
+```mermaid
+flowchart LR
+    subgraph S1["资料采集与转录"]
+        A1["B 站转录"]
+        A2["抖音转录"]
+        A3["Telegram 归档"]
+    end
+    subgraph S2["索引检索"]
+        B1["知识库转录"]
+        B2["小说索引"]
+        B3["知识转录索引"]
+    end
+    subgraph S3["文本与改编"]
+        C1["去 AI 味"]
+        C2["日系小说本地化"]
+        C3["小说转短剧"]
+    end
+    subgraph S4["提示词与资产"]
+        D1["MiniMax H3 提示词"]
+        D2["资产提取"]
+    end
+    E1["成片合成"]
+    S1 --> S2 --> S3 --> S4 --> E1
+    subgraph DEV["研发底座"]
+        F1["柠檬思考"]
+        F2["技能优化"]
+        F3["全局记忆 UMH"]
+        F4["RTK 压缩器"]
+    end
+    DEV -.-> S1
+    DEV -.-> S3
+```
+
+> 实线为常见交接方向，虚线表示研发底座为各技能的开发与日常使用提供辅助；UMH、RTK 需要各自的服务或钩子安装，不是流程的强制依赖。真实视频生成需自备授权素材与服务。
+
+## 🚀 从这里开始
 
 | 你的目标 | 推荐路线 |
 | --- | --- |
@@ -36,11 +87,13 @@
 | 准备视频提示词、资产与成片计划 | MiniMax H3 / 资产提取 / 成片合成 |
 | 管理研发流程与本地工具能力 | 柠檬思考 / 技能优化 / UMH / RTK |
 
-## 技能目录
+<a id="技能目录"></a>
+
+## 📚 技能目录
 
 **使用指南**面向使用者，包含准备条件、步骤、示例、边界和排错；**技能入口**供支持 Agent Skills 的宿主读取。版本与状态以 catalog 为准。
 
-### 资料采集与检索
+### 🎙️ 资料采集与检索
 
 | 产品与使用指南 | 版本 | 用途 / 提醒 | 技能入口 |
 | --- | --- | --- | --- |
@@ -51,7 +104,7 @@
 | [小说索引](docs/skills/novel-index.md) | 4.6.2 | 小说资料 · 分段与检索 | [SKILL.md](小说索引_v4.6.2/SKILL.md) |
 | [知识转录索引](docs/skills/transcript-index.md) | 1.5.0 | 转录资料 · 待独立核验 | [SKILL.md](知识转录索引_v1.5.0/SKILL.md) |
 
-### 文本与短剧制作
+### 🎬 文本与短剧制作
 
 | 产品与使用指南 | 版本 | 用途 / 提醒 | 技能入口 |
 | --- | --- | --- | --- |
@@ -62,7 +115,7 @@
 | [资产提取](docs/skills/asset-extract.md) | 2.17.0-rc.7 | 文本资产 · 公开能力受限 | [SKILL.md](资产提取_v2.17.0-rc.7/SKILL.md) |
 | [成片合成](docs/skills/media-assembly.md) | 0.1.4 | 媒体工程 · 计划与组装 | [SKILL.md](成片合成_v0.1.4/SKILL.md) |
 
-### 研发与客户端辅助
+### 🛠️ 研发与客户端辅助
 
 | 产品与使用指南 | 版本 | 用途 / 提醒 | 技能入口 |
 | --- | --- | --- | --- |
@@ -71,7 +124,7 @@
 | [全局记忆 UMH](docs/skills/universal-memory-hub.md) | 1.0.2 | 跨客户端 · 本地记忆 | [SKILL.md](全局记忆UMH_v1.0.2/SKILL.md) |
 | [RTK 压缩器](docs/skills/rtk-token-reducer.md) | 92cc75f-r2 | 开发工具 · 输出压缩 | [SKILL.md](rtk-token-reducer_v92cc75f-r2/SKILL.md) |
 
-## 下载后怎么用
+## 📦 下载后怎么用
 
 1. 下载 ZIP 并解压，或克隆仓库；选择需要的**完整技能目录**。
 2. 阅读上表的使用指南，按原始安装文档准备宿主、依赖与配置。
@@ -79,13 +132,18 @@
 
 详细步骤、安装与脚本的区别、更新和备份方法见[从下载到第一次使用](docs/getting-started.md)。无需安装全部 16 套，也不要只复制一个 SKILL.md。
 
-## 使用前需要知道
+## ⚠️ 使用前需要知道
+
+<details>
+<summary><strong>外部服务与费用 · 数据与恢复 · 资产提取公开档 · 知识转录索引 · 系统与宿主（点击展开）</strong></summary>
 
 - **外部服务与费用**：索引、改写、识别和生成按实际配置调用本地或外部能力；先确认账号、内容授权、隐私和预算。
 - **数据与恢复**：密钥、Cookie、会话、原稿和数据库留在本机；改写、批处理和更新前备份数据及状态。
 - **资产提取公开档**：公开版不含部分图片素材，相关视觉能力不可用；完整发布校验仍有缺口，不能按完整视觉发行包理解。
 - **知识转录索引**：历史来源与独立验收尚未闭合，保留待核验状态，只建议隔离试用。
 - **系统与宿主**：完整跨系统、多宿主和真实账号链路尚无统一全部通过结论；请按接收者环境验证。
+
+</details>
 
 更多已知问题见[验证范围与限制](docs/verification.md)，下载或运行失败先看[常见问题](docs/faq.md)。
 
