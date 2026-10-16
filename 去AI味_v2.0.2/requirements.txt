@@ -1,0 +1,3 @@
+# CI 测试依赖（最小集）：tests 会实跑 scripts/v2_embeddings.py，需要 numpy。
+# 完整运行时依赖以 requirements-v2.lock（核心锁）/ requirements-v2-similarity.lock 为准，安装方式见 USAGE.md。
+numpy
