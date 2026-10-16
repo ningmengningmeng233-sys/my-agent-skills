@@ -157,10 +157,10 @@ def test_version_aligned_across_docs_and_pyproject():
     from engine.common import toml_module
 
     version = toml_module().loads((REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]["version"]
-    assert version == "2.17.0rc5", version
+    assert version == "2.17.0rc7", version
     skill = (REPO_ROOT / "SKILL.md").read_text(encoding="utf-8")
-    assert skill_meta.skill_version(skill) == "2.17.0-rc.5"
-    assert "2.17.0-rc.5" in (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    assert skill_meta.skill_version(skill) == "2.17.0-rc.7"
+    assert "2.17.0-rc.7" in (REPO_ROOT / "README.md").read_text(encoding="utf-8")
 
 
 def test_requirements_declare_source_format_deps():
