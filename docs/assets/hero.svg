@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-labelledby="t d">
+<title id="t">my-agent-skills</title><desc id="d">面向 Claude Code / Codex 的中文 Agent 技能库</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#070b1a"/><stop offset=".55" stop-color="#0f1638"/><stop offset="1" stop-color="#1a0f3a"/></linearGradient>
+<linearGradient id="ac" x1="0" x2="1"><stop offset="0" stop-color="#5eead4"/><stop offset=".5" stop-color="#818cf8"/><stop offset="1" stop-color="#f472b6"/></linearGradient>
+<radialGradient id="o1"><stop offset="0" stop-color="#6366f1" stop-opacity=".55"/><stop offset="1" stop-color="#6366f1" stop-opacity="0"/></radialGradient>
+<radialGradient id="o2"><stop offset="0" stop-color="#14b8a6" stop-opacity=".45"/><stop offset="1" stop-color="#14b8a6" stop-opacity="0"/></radialGradient>
+<radialGradient id="o3"><stop offset="0" stop-color="#ec4899" stop-opacity=".35"/><stop offset="1" stop-color="#ec4899" stop-opacity="0"/></radialGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#94a3b8" opacity=".18"/></pattern>
+<linearGradient id="card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".09"/><stop offset="1" stop-color="#ffffff" stop-opacity=".03"/></linearGradient>
+<style>
+.f{font-family:'Segoe UI','PingFang SC','Microsoft YaHei','Noto Sans SC',system-ui,sans-serif}
+.m{font-family:'JetBrains Mono','Cascadia Code',Consolas,'SFMono-Regular',monospace}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+@keyframes flow{to{stroke-dashoffset:-40}}
+.p{animation:pulse 2.4s ease-in-out infinite}
+.fl{stroke-dasharray:6 6;animation:flow 1.6s linear infinite}
+</style>
+</defs>
+<rect width="1280" height="400" rx="24" fill="url(#bg)"/>
+<rect width="1280" height="400" rx="24" fill="url(#dots)"/>
+<circle cx="1080" cy="40" r="260" fill="url(#o1)"/>
+<circle cx="140" cy="380" r="240" fill="url(#o2)"/>
+<circle cx="760" cy="420" r="200" fill="url(#o3)"/>
+<rect x="0.5" y="0.5" width="1279" height="399" rx="24" fill="none" stroke="#ffffff" stroke-opacity=".08"/>
+
+<g transform="translate(64 70)">
+ <rect width="214" height="30" rx="15" fill="#ffffff" fill-opacity=".06" stroke="#5eead4" stroke-opacity=".5"/>
+ <circle class="p" cx="18" cy="15" r="5" fill="#5eead4"/>
+ <text class="m" x="32" y="20" font-size="13" fill="#99f6e4" letter-spacing="1.5">CI PASSING · v2026.10</text>
+ <text class="f" x="-2" y="102" font-size="64" font-weight="800" fill="#f8fafc" letter-spacing="-1">my-agent-skills</text>
+ <rect x="0" y="122" width="120" height="5" rx="2.5" fill="url(#ac)"/>
+ <text class="f" x="0" y="168" font-size="24" font-weight="600" fill="#e2e8f0">面向 Claude Code / Codex 的中文 Agent 技能库</text>
+ <text class="f" x="0" y="204" font-size="17" fill="#94a3b8">资料转录 → 索引检索 → 小说改编 → 短剧制作 → 研发交付，每一步都有质量闸门</text>
+ <g class="m" font-size="13" fill="#c7d2fe">
+  <rect x="0" y="236" width="118" height="28" rx="8" fill="#818cf8" fill-opacity=".14" stroke="#818cf8" stroke-opacity=".4"/><text x="14" y="255">Claude Code</text>
+  <rect x="128" y="236" width="76" height="28" rx="8" fill="#818cf8" fill-opacity=".14" stroke="#818cf8" stroke-opacity=".4"/><text x="142" y="255">Codex</text>
+  <rect x="214" y="236" width="112" height="28" rx="8" fill="#818cf8" fill-opacity=".14" stroke="#818cf8" stroke-opacity=".4"/><text x="228" y="255">Python 3.12</text>
+  <rect x="336" y="236" width="142" height="28" rx="8" fill="#818cf8" fill-opacity=".14" stroke="#818cf8" stroke-opacity=".4"/><text x="350" y="255">GitHub Actions</text>
+ </g>
+</g>
+
+<g transform="translate(840 58)" class="f">
+ <rect width="380" height="284" rx="20" fill="url(#card)" stroke="#ffffff" stroke-opacity=".12"/>
+ <text class="m" x="24" y="38" font-size="12" fill="#64748b" letter-spacing="2">// REPOSITORY STATS</text>
+ <g transform="translate(24 58)">
+  <text x="0" y="44" font-size="46" font-weight="800" fill="#5eead4">16</text>
+  <text x="0" y="70" font-size="14" fill="#94a3b8">公开技能</text>
+  <text x="178" y="44" font-size="46" font-weight="800" fill="#a5b4fc">4,588</text>
+  <text x="178" y="70" font-size="14" fill="#94a3b8">自动化测试通过</text>
+ </g>
+ <line x1="24" y1="148" x2="356" y2="148" stroke="#ffffff" stroke-opacity=".08"/>
+ <g transform="translate(24 152)">
+  <text x="0" y="44" font-size="46" font-weight="800" fill="#f9a8d4">2×13</text>
+  <text x="0" y="70" font-size="14" fill="#94a3b8">平台 × 包 CI 矩阵</text>
+  <text x="178" y="44" font-size="46" font-weight="800" fill="#fcd34d">192→16</text>
+  <text x="178" y="70" font-size="14" fill="#94a3b8">精选开源比例</text>
+ </g>
+</g>
+<path class="fl" d="M770 200 C 800 200, 810 200, 836 200" stroke="url(#ac)" stroke-width="2" fill="none"/>
+</svg>
