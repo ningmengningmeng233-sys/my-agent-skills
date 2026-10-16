@@ -6,7 +6,7 @@
 - `docs/验收/人工画质表.json` 十项（画风/身份/年龄/构图/裁切/比例/材质/光影/禁项/系列一致性）
   **全部为「待人工」**，本机没有任何出图密钥（六节点池 key 全为字面量 `REPLACE`），
   真实两图冒烟只能是 `BLOCKED-CRED`；
-- 因此 `SKILL.md` 必须停在 `2.17.0-rc.5`，任何文档都不许正面宣称「正式版已完成」。
+- 因此 `SKILL.md` 必须停在 `2.17.0-rc.7`，任何文档都不许正面宣称「正式版已完成」。
 
 本文件钉死两件事：
 1. 真实表 + 真实版本 → 校验器认为口径自洽（返回空列表），CLI 退出码 0，
@@ -31,7 +31,7 @@ import check_manual_qc as gate  # noqa: E402
 
 TABLE_PATH = REPO_ROOT / "docs" / "验收" / "人工画质表.json"
 ALL_IDS = list(gate.EXPECTED_IDS)
-RC_VER = "2.17.0-rc.5"
+RC_VER = "2.17.0-rc.7"
 REL_VER = "2.17.0"
 
 
