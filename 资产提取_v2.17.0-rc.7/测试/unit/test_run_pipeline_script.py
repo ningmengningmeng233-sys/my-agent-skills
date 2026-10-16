@@ -1,8 +1,32 @@
+import os
+import shutil
 import subprocess
 from pathlib import Path
 
+import pytest
+
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 ENTRY = REPO_ROOT / "run_pipeline.sh"
+
+
+def _posix_bash():
+    """返回可执行 run_pipeline.sh 的 POSIX bash。
+
+    Windows 上 PATH 里排在前面的 bash 往往是 System32\\bash.exe（WSL 启动器），
+    未安装发行版时直接报错；优先使用 Git for Windows 自带的 bash。
+    """
+    if os.name != "nt":
+        return shutil.which("bash")
+    git = shutil.which("git")
+    if git:
+        root = Path(git).resolve().parent.parent
+        for cand in (root / "bin" / "bash.exe", root / "usr" / "bin" / "bash.exe"):
+            if cand.is_file():
+                return str(cand)
+    found = shutil.which("bash")
+    if found and "system32" not in found.lower():
+        return found
+    return None
 
 
 def test_entry_script_exists_at_repo_root():
@@ -18,7 +42,10 @@ def test_entry_script_exists_at_repo_root():
 
 
 def test_dry_run_lists_steps(tmp_path):
-    out = subprocess.run(["bash", str(ENTRY), "--lib", str(tmp_path), "--dry-run"],
+    bash = _posix_bash()
+    if bash is None:
+        pytest.skip("找不到可用的 POSIX bash（Windows 需 Git for Windows）")
+    out = subprocess.run([bash, str(ENTRY), "--lib", str(tmp_path), "--dry-run"],
                          capture_output=True, text=True, encoding="utf-8",
                          cwd=str(REPO_ROOT))
     assert out.returncode == 0, out.stdout + out.stderr
