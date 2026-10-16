@@ -96,6 +96,7 @@ def _accept_chain(lib, task_ids, image_bytes=PNG):
 
 # --- 权威包成为唯一真相源 ---------------------------------------------------------
 
+@pytest.mark.requires_private_stylepack
 def test_stylepack_is_actually_used(tmp_path):
     """stylepack 参数不得再是未使用参数：提示词必须含权威包内容。"""
     lib = _lib_with_plan(tmp_path)
@@ -105,6 +106,7 @@ def test_stylepack_is_actually_used(tmp_path):
     assert c.style_name == "仙侠国风电影CG"
 
 
+@pytest.mark.requires_private_stylepack
 def test_negative_prompt_comes_from_authoritative_pack(tmp_path):
     """负面提示词必须来自权威包的 negative_prompt.md（含其特征项）。"""
     lib = _lib_with_plan(tmp_path)
@@ -115,6 +117,7 @@ def test_negative_prompt_comes_from_authoritative_pack(tmp_path):
                ("真人", "相机", "噪点", "塑料", "蜡质")), negative[:200]
 
 
+@pytest.mark.requires_private_stylepack
 def test_generation_formula_blocks_present(tmp_path):
     """生成公式的分块（BASE_STYLE / LIGHT_COLOR / COMPOSITION）必须进入编译。"""
     lib = _lib_with_plan(tmp_path)
@@ -124,6 +127,7 @@ def test_generation_formula_blocks_present(tmp_path):
         assert token in prompt, f"生成公式缺少 {token} 块"
 
 
+@pytest.mark.requires_private_stylepack
 def test_shared_invariants_entered(tmp_path):
     """共同风格约束（shared_style_invariants）必须进入编译。"""
     lib = _lib_with_plan(tmp_path)
@@ -133,6 +137,7 @@ def test_shared_invariants_entered(tmp_path):
 
 # --- 每种任务类型都必须带权威模板规则 ---------------------------------------------
 
+@pytest.mark.requires_private_stylepack
 def test_face_task_has_clean_crop_and_safety_margins(tmp_path):
     lib = _lib_with_plan(tmp_path)
     prompt = _compiled(lib, "CH_林姑娘-正脸-v01").request.prompt
@@ -143,6 +148,7 @@ def test_face_task_has_clean_crop_and_safety_margins(tmp_path):
         assert forbidden in prompt, f"正脸缺少禁用项：{forbidden}"
 
 
+@pytest.mark.requires_private_stylepack
 def test_full_body_task_has_head_to_toe_rules(tmp_path):
     lib = _lib_with_plan(tmp_path)
     _accept_chain(lib, [
@@ -153,6 +159,7 @@ def test_full_body_task_has_head_to_toe_rules(tmp_path):
         assert token in prompt, f"全身缺少规则：{token}"
 
 
+@pytest.mark.requires_private_stylepack
 def test_full_body_does_not_inherit_face_crop_rule(tmp_path):
     """全身图不得继承正脸裁切与正脸基线（否则会出现裁头/半身/脸部特写基线）。"""
     lib = _lib_with_plan(tmp_path)
@@ -171,6 +178,7 @@ def test_full_body_does_not_inherit_face_crop_rule(tmp_path):
         "全身任务不得把正脸基线当主体基线"
 
 
+@pytest.mark.requires_private_stylepack
 def test_back_head_task_forbids_face(tmp_path):
     lib = _lib_with_plan(tmp_path)
     _accept_chain(lib, ["CH_林姑娘-正脸-v01"])
@@ -178,6 +186,7 @@ def test_back_head_task_forbids_face(tmp_path):
     assert "面部" in prompt or "脸" in prompt, "后脑必须显式禁止面部"
 
 
+@pytest.mark.requires_private_stylepack
 def test_costume_task_forbids_head_crop_and_neck_stump(tmp_path):
     lib = _lib_with_plan(tmp_path)
     _accept_chain(lib, ["CH_林姑娘-正脸-v01", "CH_林姑娘-后脑-v01"])
@@ -186,12 +195,14 @@ def test_costume_task_forbids_head_crop_and_neck_stump(tmp_path):
         "服装独立图必须说明无头身体支撑"
 
 
+@pytest.mark.requires_private_stylepack
 def test_scene_task_has_no_people(tmp_path):
     lib = _lib_with_plan(tmp_path)
     prompt = _compiled(lib, "SC_茶楼-场景母版-v01").request.prompt
     assert "无人物" in prompt or "画面中无任何人物" in prompt, "场景母版必须禁止人物"
 
 
+@pytest.mark.requires_private_stylepack
 def test_prop_task_has_three_view_policy(tmp_path):
     lib = _lib_with_plan(tmp_path)
     prompt = _compiled(lib, "PR_算盘-道具-v01").request.prompt
@@ -200,6 +211,7 @@ def test_prop_task_has_three_view_policy(tmp_path):
 
 # --- 旧 H7 标记必须为 0 ------------------------------------------------------------
 
+@pytest.mark.requires_private_stylepack
 def test_no_legacy_h7_markers_in_new_prompt(tmp_path):
     lib = _lib_with_plan(tmp_path)
     for task_id in ("CH_林姑娘-正脸-v01", "SC_茶楼-场景母版-v01", "PR_算盘-道具-v01"):
@@ -209,6 +221,7 @@ def test_no_legacy_h7_markers_in_new_prompt(tmp_path):
         assert not hits, f"{task_id} 提示词含旧 H7 独有标记：{hits}"
 
 
+@pytest.mark.requires_private_stylepack
 def test_no_video_rules_in_static_prompt(tmp_path):
     """静态图不得注入视频维度规则（E1 运镜/时长/节奏）。"""
     lib = _lib_with_plan(tmp_path)
@@ -261,6 +274,7 @@ def test_deleting_pack_file_blocks_task(tmp_path):
 
 # --- 模板不得凭空添加事实 -----------------------------------------------------------
 
+@pytest.mark.requires_private_stylepack
 def test_template_does_not_invent_facts(tmp_path):
     """模板不得凭空添加服装、年龄、身份与道具：仅原文出现的事实可入提示词。"""
     lib = _lib_with_plan(tmp_path)
@@ -269,6 +283,7 @@ def test_template_does_not_invent_facts(tmp_path):
         assert invented not in prompt, f"提示词凭空出现未在原文声明的事实：{invented}"
 
 
+@pytest.mark.requires_private_stylepack
 def test_user_locked_facts_win_over_template(tmp_path):
     """用户锁定的事实优先于模板可变项。"""
     from scripts.engine.visual_schema import VisualTask, load_visual_plan
