@@ -32,7 +32,7 @@ class ParseIngestPayloadTests(unittest.TestCase):
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self._tmp.cleanup)
-        self.audio = Path(self._tmp.name) / "speech.mp3"
+        self.audio = Path(self._tmp.name).resolve() / "speech.mp3"  # resolve：Windows 临时目录常是 8.3 短名（RUNNER~1）
         self.audio.write_bytes(b"ID3fake-audio-bytes")
 
     def test_valid_payload_returns_result(self):
