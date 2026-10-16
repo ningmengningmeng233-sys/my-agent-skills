@@ -273,6 +273,7 @@ def test_visual_cli_reports_missing_config(tmp_path):
 DOCTOR_TIMEOUT = 300
 
 
+@pytest.mark.requires_private_stylepack
 def test_visual_doctor_exists_and_runs_offline(tmp_path):
     """doctor 无密钥时必须如实报告未配置，且不发起收费调用。"""
     lib = _lib(tmp_path)
