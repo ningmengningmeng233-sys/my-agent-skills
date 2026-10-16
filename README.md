@@ -1,23 +1,31 @@
 <div align="center">
 
-![Agent Skill Cabinet · 16 套实用技能](docs/assets/skill-cabinet-banner.svg)
+<img src="docs/assets/hero.svg" alt="my-agent-skills · 面向 Claude Code / Codex 的中文 Agent 技能库" width="100%">
 
-# 自制 Agent 技能柜
+<h3>从资料到检索，从小说到短剧，从需求到交付</h3>
 
-**从资料到检索，从小说到短剧，从需求到交付。**
+<p><sub>16 套独立技能 · 中文使用指南 · 明确输入输出与能力边界 · 每一步都有质量闸门</sub></p>
 
-16 套独立技能 · 中文使用指南 · 明确输入输出与能力边界
-
-[开始使用](docs/getting-started.md) · [浏览技能](#技能目录) · [组合流程](PIPELINE.md) · [常见问题](docs/faq.md) · [验证范围](docs/verification.md)
+<p>
+<a href="docs/getting-started.md"><b>🚀 开始使用</b></a> &nbsp;·&nbsp;
+<a href="#技能目录"><b>📚 浏览技能</b></a> &nbsp;·&nbsp;
+<a href="PIPELINE.md"><b>🔗 组合流程</b></a> &nbsp;·&nbsp;
+<a href="docs/faq.md"><b>❓ 常见问题</b></a> &nbsp;·&nbsp;
+<a href="docs/verification.md"><b>🧪 验证范围</b></a>
+</p>
 
 [![CI](https://github.com/ningmengningmeng233-sys/my-agent-skills/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ningmengningmeng233-sys/my-agent-skills/actions/workflows/ci.yml)
-![Skills](https://img.shields.io/badge/skills-16-6f42c1)
-![Tests](https://img.shields.io/badge/tests-4588%20passing%20%28Linux%29-2ea44f)
-![Python](https://img.shields.io/badge/python-3.12-3776ab?logo=python&logoColor=white)
-![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-0078d4)
-![Format](https://img.shields.io/badge/format-Agent%20Skills%20%28SKILL.md%29-orange)
+![Skills](https://img.shields.io/badge/skills-16-8b5cf6?style=flat-square)
+![Tests](https://img.shields.io/badge/tests-4%2C588%20passing-10b981?style=flat-square)
+![Python](https://img.shields.io/badge/python-3.12-3776ab?style=flat-square&logo=python&logoColor=white)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-0ea5e9?style=flat-square)
+![Claude Code](https://img.shields.io/badge/Claude%20Code-ready-d97757?style=flat-square&logo=anthropic&logoColor=white)
+![Codex](https://img.shields.io/badge/Codex-ready-111827?style=flat-square&logo=openai&logoColor=white)
+![Format](https://img.shields.io/badge/format-SKILL.md-f59e0b?style=flat-square)
 
-[**下载完整 ZIP**](https://codeload.github.com/ningmengningmeng233-sys/my-agent-skills/zip/refs/heads/main) · [查看版本清单](catalog.json)
+<br>
+
+[**⬇️ 下载完整 ZIP**](https://codeload.github.com/ningmengningmeng233-sys/my-agent-skills/zip/refs/heads/main) · [查看版本清单](catalog.json)
 
 </div>
 
@@ -28,7 +36,34 @@
 | **16 套** | **4,588 项**通过 | **13 包 × 2 平台** | **192 → 16** |
 | 独立安装、独立验证 | 2026-10 Linux 实测 | Windows / Linux | 只收录边界清晰的技能 |
 
+## ✨ 亮点
+
+<table>
+<tr>
+<td width="33%" valign="top">
+
+### 🧪 测试先行
+13 个包自带 pytest 套件，**4,588 项**用例在 Windows / Linux 双平台 CI 矩阵中全绿，改动不靠感觉靠证据。
+
+</td>
+<td width="33%" valign="top">
+
+### 🛡️ 质量闸门
+篇幅、节奏、纯度、原创性等闸门把关输出；终验前由**独立上下文的评审者**对抗式挑错，问题修复复验后才放行。
+
+</td>
+<td width="33%" valign="top">
+
+### 🧠 多 Agent 协作
+需求拷问、原子工单、TDD 推进、终验交付四阶段协议，配合**跨客户端共享记忆**，让多个 Agent 按同一套规矩干活。
+
+</td>
+</tr>
+</table>
+
 ## 💡 设计理念
+
+<img src="docs/assets/protocol.svg" alt="柠檬思考四阶段研发协议" width="100%">
 
 - **四阶段研发协议（柠檬思考）**：Grilling 拷问对齐需求与设计 → 拆解原子工单 → 按 TDD 红绿推进 → 终验把关与交付，按工作区物理文件证据判定所处阶段，未经人类同意不写业务代码。
 - **交付前对抗式评审**：终验前由独立的新上下文评审者通读整条分支挑错，Critical / Important 问题修复并复验后才放行。
@@ -153,6 +188,13 @@ flowchart LR
 各产品和第三方组件分别遵循自己的许可、来源与分发声明，本仓库不统一授予 MIT。公开可下载不自动表示可商用、可转授权或可重新分发素材。B 站转录的 README 与入口许可表述冲突仍待裁决。使用具体组件前请查看所在包的许可文件、UPSTREAM、PROVENANCE 或 THIRD_PARTY_NOTICES。
 
 </details>
+
+## 👤 关于作者
+
+**宋嘉诚** · AI 应用工程师 / Agent 工作流架构。工程造价与施工现场出身，把工序拆解、质量验收、过程留痕和风险控制带进 AI 工作流：让 Agent 的每一步都可拆、可测、可追溯。
+
+如果这个仓库对你有帮助，欢迎点一个 ⭐ Star。
+
 
 ---
 
