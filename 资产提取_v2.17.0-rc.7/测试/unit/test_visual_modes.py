@@ -11,6 +11,7 @@
 - 已有设置时再次运行不重复询问，也不改写设置（除非显式传参）；
 - 显式命令行参数覆盖并持久化为新值。
 """
+import pytest
 import json
 import sys
 from pathlib import Path
@@ -148,6 +149,7 @@ def test_prompt_only_blocks_automatic_generation(tmp_path):
     assert not (lib / "视觉资产" / "任务包" / "CH_林姑娘-正脸-v01").exists(), "run 不得顺手导包"
 
 
+@pytest.mark.requires_private_stylepack
 def test_prompt_only_still_exports_task_package(tmp_path):
     lib = _lib(tmp_path, mode="prompt_only")
     _cli(MAINTENANCE, "visual-plan", "--lib", lib, "--style", STYLE)
