@@ -208,6 +208,7 @@ def _delivered_visual_lib(tmp_path):
     return lib
 
 
+@pytest.mark.requires_private_stylepack
 def test_delivered_visual_line_reports_signed(tmp_path):
     from scripts.engine.pipeline_state import visual_delivery_state
 
@@ -217,6 +218,7 @@ def test_delivered_visual_line_reports_signed(tmp_path):
     assert state["stage"] == "SIGNED"
 
 
+@pytest.mark.requires_private_stylepack
 def test_latest_failure_event_revokes_delivered_immediately(tmp_path):
     """写前日志里的最新失败必须先于计划生效：不得因计划仍写「已通过」而保持 DELIVERED。"""
     from scripts.engine.pipeline_state import visual_delivery_state
@@ -358,6 +360,7 @@ def test_visual_review_blocks_when_generation_chosen_but_unreviewed(checks, tmp_
     assert "图片" in detail or "视觉" in detail
 
 
+@pytest.mark.requires_private_stylepack
 def test_visual_review_passes_after_publish(checks, tmp_path):
     lib = _delivered_visual_lib(tmp_path)
     rc, detail = checks.check_visual_review(lib)
@@ -417,6 +420,7 @@ def test_deleting_source_evidence_leaves_delivered(tmp_path):
     assert derive_pipeline_state(lib)["state"] != "DELIVERED"
 
 
+@pytest.mark.requires_private_stylepack
 def test_breaking_visual_review_leaves_delivered_visual_line(tmp_path):
     from scripts.engine.pipeline_state import visual_delivery_state
 
