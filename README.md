@@ -1,18 +1,28 @@
 <div align="center">
 
-![Agent Skill Cabinet · 17 套实用技能](docs/assets/skill-cabinet-banner.svg)
+![Agent Skill Cabinet · 16 套实用技能](docs/assets/skill-cabinet-banner.svg)
 
 # 自制 Agent 技能柜
 
 **从资料到检索，从小说到短剧，从需求到交付。**
 
-17 套独立技能 · 中文使用指南 · 明确输入输出与能力边界
+16 套独立技能 · 中文使用指南 · 明确输入输出与能力边界
 
 [开始使用](docs/getting-started.md) · [浏览技能](#技能目录) · [组合流程](PIPELINE.md) · [常见问题](docs/faq.md) · [验证范围](docs/verification.md)
+
+[![CI](https://github.com/ningmengningmeng233-sys/my-agent-skills/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ningmengningmeng233-sys/my-agent-skills/actions/workflows/ci.yml)
 
 [**下载完整 ZIP**](https://codeload.github.com/ningmengningmeng233-sys/my-agent-skills/zip/refs/heads/main) · [查看版本清单](catalog.json)
 
 </div>
+
+## 设计理念
+
+- **五阶段研发协议（柠檬思考）**：需求拷问对齐 → 设计方案 → 原子工单 → TDD 红绿推进 → 终验交付，按工作区文件证据判定阶段，未经同意不开工。
+- **交付前对抗式评审**：终验前由独立的新上下文评审者通读整条分支挑错，Critical / Important 问题修复并复验后才放行。
+- **质量闸门 + 自动化回归测试**：各包自带 pytest 套件，根目录 CI 按「包 × Windows/Linux」矩阵运行；13 个包合计 4588 项用例通过（2026-10 Linux 实测）。
+- **由 192 套技能精简、择优开源**：只收录边界清晰、可独立安装与验证的技能。
+- **跨客户端记忆 UMH**：本地共享记忆中枢，Codex、Qoder、Cherry 等客户端可共享与召回同一份记忆。
 
 > **先选一套，用小样本跑通。** 每套技能独立安装；账号、模型、客户端与本地数据按对应指南准备。目录收录和工程检查不等于完整真实业务验收。
 
@@ -21,7 +31,7 @@
 | 你的目标 | 推荐路线 |
 | --- | --- |
 | 视频、消息转成可整理资料 | B 站转录 / 抖音转录 / Telegram 归档 |
-| 在原文里定位知识、情节和作者风格 | 知识库转录 / 小说索引 / 成人文学索引 |
+| 在原文里定位知识、情节和作者风格 | 知识库转录 / 小说索引 |
 | 修改中文表达、组织小说改编 | 去 AI 味 / 日系小说本地化 / 小说转短剧 |
 | 准备视频提示词、资产与成片计划 | MiniMax H3 / 资产提取 / 成片合成 |
 | 管理研发流程与本地工具能力 | 柠檬思考 / 技能优化 / UMH / RTK |
@@ -39,7 +49,6 @@
 | [Telegram 归档](docs/skills/tg-transcript.md) | 1.0.2 | 消息归档 · 附件整理 | [SKILL.md](tg转录_v1.0.2/SKILL.md) |
 | [知识库转录](docs/skills/knowledge-index.md) | 5.4.8 | 非虚构资料 · 可追溯问答 | [SKILL.md](知识库转录_v5.4.8/SKILL.md) |
 | [小说索引](docs/skills/novel-index.md) | 4.6.2 | 小说资料 · 分段与检索 | [SKILL.md](小说索引_v4.6.2/SKILL.md) |
-| [成人文学索引](docs/skills/adult-literature-index.md) | 4.8.6 | 小说资料 · 作者风格 | [SKILL.md](成人文学索引_v4.8.6/SKILL.md) |
 | [知识转录索引](docs/skills/transcript-index.md) | 1.5.0 | 转录资料 · 待独立核验 | [SKILL.md](知识转录索引_v1.5.0/SKILL.md) |
 
 ### 文本与短剧制作
@@ -68,13 +77,13 @@
 2. 阅读上表的使用指南，按原始安装文档准备宿主、依赖与配置。
 3. 先检查环境，再用一个小样本核对状态和实际产物，最后才扩大批次。
 
-详细步骤、安装与脚本的区别、更新和备份方法见[从下载到第一次使用](docs/getting-started.md)。无需安装全部 17 套，也不要只复制一个 SKILL.md。
+详细步骤、安装与脚本的区别、更新和备份方法见[从下载到第一次使用](docs/getting-started.md)。无需安装全部 16 套，也不要只复制一个 SKILL.md。
 
 ## 使用前需要知道
 
 - **外部服务与费用**：索引、改写、识别和生成按实际配置调用本地或外部能力；先确认账号、内容授权、隐私和预算。
 - **数据与恢复**：密钥、Cookie、会话、原稿和数据库留在本机；改写、批处理和更新前备份数据及状态。
-- **资产提取公开档**：排除 32 张受限风格/来源图，相关视觉能力不可用；完整发布校验仍有缺口，不能按完整视觉发行包理解。
+- **资产提取公开档**：公开版不含部分图片素材，相关视觉能力不可用；完整发布校验仍有缺口，不能按完整视觉发行包理解。
 - **知识转录索引**：历史来源与独立验收尚未闭合，保留待核验状态，只建议隔离试用。
 - **系统与宿主**：完整跨系统、多宿主和真实账号链路尚无统一全部通过结论；请按接收者环境验证。
 
