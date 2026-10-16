@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-labelledby="title desc">
-<title id="title">Agent Skill Cabinet</title><desc id="desc">17 practical skills for research, writing, media and development</desc>
+<title id="title">Agent Skill Cabinet</title><desc id="desc">16 practical skills for research, writing, media and development</desc>
 <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0b162a"/><stop offset="1" stop-color="#19364b"/></linearGradient><linearGradient id="accent"><stop stop-color="#61e8d2"/><stop offset="1" stop-color="#a6a3ff"/></linearGradient></defs>
 <rect width="1200" height="280" rx="22" fill="url(#bg)"/>
 <g fill="none" stroke="#4a7a92" opacity=".22"><path d="M790 0v280M890 0v280M990 0v280M1090 0v280M690 60h510M690 140h510M690 220h510"/></g>
@@ -7,5 +7,5 @@
 <text x="58" y="107" font-family="Segoe UI,Arial,sans-serif" font-size="18" letter-spacing="4" fill="#81dccc">BUILD WITH CLEAR BOUNDARIES</text>
 <text x="55" y="172" font-family="Segoe UI,Arial,sans-serif" font-weight="700" font-size="54" fill="#f4f9ff">Agent Skill Cabinet</text>
 <text x="58" y="219" font-family="Segoe UI,Arial,sans-serif" font-size="19" fill="#b9cadb">Research / Writing / Media / Development</text>
-<g transform="translate(947 73)"><rect width="160" height="137" rx="20" fill="#112638" stroke="#47728a"/><text x="80" y="72" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="54" font-weight="700" fill="#87e4d5">17</text><text x="80" y="106" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" letter-spacing="3" fill="#c4cfef">SKILLS</text></g>
+<g transform="translate(947 73)"><rect width="160" height="137" rx="20" fill="#112638" stroke="#47728a"/><text x="80" y="72" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="54" font-weight="700" fill="#87e4d5">16</text><text x="80" y="106" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" letter-spacing="3" fill="#c4cfef">SKILLS</text></g>
 </svg>

@@ -484,7 +484,19 @@ class _MockHandler(http.server.BaseHTTPRequestHandler):
         pass
 
 
+def _bypass_proxy_for_loopback():
+    """mock 服务只监听本机回环；宿主若设了 HTTP(S)_PROXY 却没配 NO_PROXY，
+    请求会被送进代理而不是 mock，导致直调用例与依赖它的体检用例连锁误红。"""
+    for key in ("NO_PROXY", "no_proxy"):
+        items = [x.strip() for x in os.environ.get(key, "").split(",") if x.strip()]
+        for host in ("127.0.0.1", "localhost"):
+            if host not in items:
+                items.append(host)
+        os.environ[key] = ",".join(items)
+
+
 def start_mock_server():
+    _bypass_proxy_for_loopback()
     srv = http.server.HTTPServer(("127.0.0.1", 0), _MockHandler)
     threading.Thread(target=srv.serve_forever, daemon=True).start()
     return srv

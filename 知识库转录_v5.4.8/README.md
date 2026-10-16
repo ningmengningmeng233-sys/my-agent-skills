@@ -1,4 +1,4 @@
-# Knowledge Base Index · 知识库索引 v5.4.7
+# Knowledge Base Index · 知识库索引 v5.4.8
 
 这是一个用于长篇专著与独立文档知识建库、追更·重建、带精准原文引用的知识问答、知识提取卡构建与知识库运维的专业 Agent Skill。
 

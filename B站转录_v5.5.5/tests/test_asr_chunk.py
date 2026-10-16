@@ -27,6 +27,8 @@ from scripts import asr_budget, asr_chunk, asr_runner
 import importlib  # noqa: E402
 
 _impl_asr_chunk = importlib.import_module("asr_chunk")
+# 同理：asr_runner/asr_budget 在函数内 `from fw_whisper_main import cuda_available`，
+# 取的是顶层 `fw_whisper_main` 实例；只打 `scripts.fw_whisper_main` 时，无 GPU 的 CI 机会读到真实的 False。
 
 CHUNKING_ON = {"BILI_ASR_CHUNKING": "1"}
 
@@ -374,6 +376,8 @@ class RunnerRefusalTests(unittest.TestCase):
                                   lambda: free_gb), \
                 mock.patch("scripts.fw_whisper_main.cuda_available",
                            lambda: True), \
+                mock.patch("fw_whisper_main.cuda_available",
+                           lambda: True), \
                 contextlib.redirect_stderr(buffer):
             code = asr_runner.main(["--audio", "fake.m4a", "--output-dir", ".",
                                     "--model", "medium", "--json"])
@@ -400,6 +404,8 @@ class BudgetCliTests(unittest.TestCase):
                 mock.patch.object(_impl_asr_chunk, "free_vram_gb",
                                   lambda: free_gb), \
                 mock.patch("scripts.fw_whisper_main.cuda_available",
+                           lambda: True), \
+                mock.patch("fw_whisper_main.cuda_available",
                            lambda: True), \
                 contextlib.redirect_stdout(buffer):
             code = asr_budget.main(["--seconds", str(seconds),

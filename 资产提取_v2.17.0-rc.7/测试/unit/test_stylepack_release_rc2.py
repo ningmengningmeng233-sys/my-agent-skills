@@ -119,6 +119,7 @@ def test_install_stylepack_refuses_unknown_zip(tmp_path):
     assert ctx.value.code in ("STYLEPACK_MANIFEST_MISSING", "STYLEPACK_INCOMPLETE")
 
 
+@pytest.mark.requires_private_stylepack
 def test_install_stylepack_refuses_hash_mismatch(tmp_path):
     """包内文件被改坏（哈希与清单不符）必须拒绝安装。"""
     from scripts.install_stylepack import StylepackInstallError, install_stylepack
@@ -159,6 +160,7 @@ def test_install_is_atomic_no_partial_leftover(tmp_path):
     assert not (target / STYLE.pack_slug).exists(), "失败不得留下半个包"
 
 
+@pytest.mark.requires_private_stylepack
 def test_verify_stylepack_cli_reports_and_exits(tmp_path, capsys):
     """verify-stylepack 对完整包返回 0。"""
     from scripts.install_stylepack import main as install_main
@@ -169,6 +171,7 @@ def test_verify_stylepack_cli_reports_and_exits(tmp_path, capsys):
     assert "file_count" in out
 
 
+@pytest.mark.requires_private_stylepack
 def test_verify_stylepack_cli_fails_on_damage(tmp_path, capsys):
     from scripts.install_stylepack import main as install_main
 
@@ -195,6 +198,7 @@ def test_release_plan_includes_registered_pack_images():
     assert len(images) == 32, f"私有包应含 32 张权威图，实际 {len(images)}"
 
 
+@pytest.mark.requires_private_stylepack
 def test_release_preflight_rejects_missing_pack_image(tmp_path):
     """发布前置校验：权威包少一张图必须失败（不得静默出包）。"""
     from scripts.build_release import ReleasePreflightError, preflight_stylepack
@@ -380,6 +384,7 @@ def test_package_build_is_byte_reproducible(tmp_path):
     assert sha_a == sha_b, f"两次构建哈希不同：{sha_a[:16]}… vs {sha_b[:16]}…"
 
 
+@pytest.mark.requires_private_stylepack
 def test_package_zip_entries_use_fixed_timestamp(tmp_path):
     """包内条目必须使用固定时间戳（可复现性的来源）。"""
     import zipfile

@@ -40,7 +40,7 @@ class RenderTxtTests(unittest.TestCase):
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self._tmp.cleanup)
-        self.output_root = Path(self._tmp.name) / "output"
+        self.output_root = Path(self._tmp.name).resolve() / "output"  # resolve：Windows 临时目录常是 8.3 短名（RUNNER~1）
 
     def test_archive_path_uses_publish_year_month_and_sanitized_title(self):
         path = Path(render_record(_record(), self.output_root))

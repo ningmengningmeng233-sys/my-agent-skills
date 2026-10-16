@@ -12,7 +12,16 @@ import os
 import subprocess
 from pathlib import Path
 
+import shutil
+
 import pytest
+
+# start_web.ps1 是 Windows 启动器，用例直接调 Windows PowerShell（`powershell`）实跑；
+# Linux/macOS runner 上没有该解释器，属于平台前提不满足，而非行为缺陷。
+pytestmark = pytest.mark.skipif(
+    shutil.which("powershell") is None,
+    reason="需要 Windows PowerShell（powershell）实跑 start_web.ps1；非 Windows 平台无此解释器",
+)
 
 LAUNCHER = Path(__file__).resolve().parents[1] / "start_web.ps1"
 

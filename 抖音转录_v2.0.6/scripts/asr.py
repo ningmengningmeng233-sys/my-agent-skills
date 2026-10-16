@@ -375,6 +375,9 @@ def transcribe(
     profile = select_profile(cuda, duration_seconds, vram_gb)
     if os.environ.get("DOUYIN_WHISPER_MODEL", "").strip():
         reason = f"环境变量 DOUYIN_WHISPER_MODEL 覆盖为 {profile.model}"
+    elif cuda and vram_gb is None:
+        # 有 CUDA 但 nvidia-smi 读不到显存（不在 PATH／驱动未暴露）：select_profile 已保守取 small
+        reason = "GPU 吞吐优先（显存未知，保守取 small）"
     elif cuda:
         reason = (f"GPU 吞吐优先（显存约 {vram_gb:.0f}GB，"
                   f"{'≥6GB → medium' if profile.model == 'medium' else '<6GB → small'}）")

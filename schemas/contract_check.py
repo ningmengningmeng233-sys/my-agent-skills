@@ -59,7 +59,7 @@ SKILL_FILES = [
     "MiniMaxH3提示词_v7.4.6/SKILL.md",
     # 两份索引库：只为双胞胎内核配对（twin_of）进门，不参与 JSON Schema 接缝
     "知识库转录_v5.4.8/SKILL.md",
-    "成人文学索引_v4.8.6/SKILL.md",
+    # 定制侧「成人文学索引」未随公开仓发布（仅存于作者本机），不在静态清单中
 ]
 
 

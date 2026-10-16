@@ -6,6 +6,7 @@
 正向提示词、独立禁止项、参考图副本与职责、画幅、构图卡、输入哈希与建议保存路径。
 不得发出网络请求；状态为 `AWAITING_MANUAL_RESULT`，不冒充已生成。
 """
+import pytest
 import json
 import sys
 from pathlib import Path
@@ -52,6 +53,7 @@ def _cli(*args):
     return run_py([str(VISUAL), *[str(a) for a in args]], cwd=str(REPO_ROOT), env=base)
 
 
+@pytest.mark.requires_private_stylepack
 def test_export_all_exports_ready_tasks(tmp_path):
     lib = _lib(tmp_path, mode="prompt_only")
     r = _cli("export-all", "--lib", lib)
@@ -61,6 +63,7 @@ def test_export_all_exports_ready_tasks(tmp_path):
         assert (pkg / name).is_file(), name
 
 
+@pytest.mark.requires_private_stylepack
 def test_export_all_skips_tasks_with_unmet_dependencies(tmp_path):
     lib = _lib(tmp_path, mode="prompt_only")
     _cli("export-all", "--lib", lib)
@@ -70,6 +73,7 @@ def test_export_all_skips_tasks_with_unmet_dependencies(tmp_path):
     assert plan.by_id(BACK).status == "PLANNED"
 
 
+@pytest.mark.requires_private_stylepack
 def test_export_all_is_zero_network(tmp_path):
     lib = _lib(tmp_path, mode="prompt_only")
     r = _cli("export-all", "--lib", lib)
@@ -79,6 +83,7 @@ def test_export_all_is_zero_network(tmp_path):
     assert "已生成" not in out.replace("已生成待检查", ""), "不得冒充已生成"
 
 
+@pytest.mark.requires_private_stylepack
 def test_export_all_does_not_mark_direct_generation(tmp_path):
     lib = _lib(tmp_path)
     _cli("export-all", "--lib", lib)
@@ -86,6 +91,7 @@ def test_export_all_does_not_mark_direct_generation(tmp_path):
     assert plan.by_id(FACE).status == "AWAITING_MANUAL_RESULT"
 
 
+@pytest.mark.requires_private_stylepack
 def test_export_all_is_idempotent(tmp_path):
     lib = _lib(tmp_path, mode="prompt_only")
     _cli("export-all", "--lib", lib)

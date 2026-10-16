@@ -2,8 +2,8 @@
 # 各包既有 pytest 按包目录自动运行：matrix.package × matrix.os。
 # 子包内残留的 .github/workflows/ci.yml 仅作历史/上游模板保留，不再作为门禁入口；
 # 凡 GitHub Actions 实际执行的 CI，以本文件为准。
-# matrix.package 清单派生自 catalog.json 的 folder 字段，仅收录含 pytest 套件的 14 个包；
-# 无 pytest 套件的 schemas、tg转录_v1.0.1、全局记忆UMH_v1.0.1、技能优化_v1.0.1 暂不进矩阵。
+# matrix.package 清单派生自 catalog.json 的 folder 字段，仅收录含 pytest 套件的 13 个包；
+# 无 pytest 套件的 schemas、tg转录_v1.0.2、全局记忆UMH_v1.0.2、技能优化_v1.0.1 暂不进矩阵。
 name: CI-skill-cabinet-root-matrix
 
 on:
@@ -24,7 +24,6 @@ jobs:
           - "去AI味_v2.0.2"
           - "小说索引_v4.6.2"
           - "小说转短剧_v1.5.5"
-          - "成人文学索引_v4.8.6"
           - "成片合成_v0.1.4"
           - "抖音转录_v2.0.6"
           - "日系小说本地化_v4.5.6"
@@ -36,13 +35,6 @@ jobs:
     env:
       # 不设这行，Windows runner 上任何中文断言失败都会被控制台编码吞成乱码
       PYTHONIOENCODING: "utf-8"
-      # 单测前提是不外呼：代理钉到丢弃端口，漏网请求立即失败而不是产生费用
-      HTTP_PROXY: "http://127.0.0.1:9"
-      HTTPS_PROXY: "http://127.0.0.1:9"
-      http_proxy: "http://127.0.0.1:9"
-      https_proxy: "http://127.0.0.1:9"
-      NO_PROXY: "127.0.0.1,localhost,::1"
-      no_proxy: "127.0.0.1,localhost,::1"
     defaults:
       run:
         shell: bash
@@ -52,9 +44,25 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      # B站转录的 doctor 体检把 ffmpeg/ffprobe 列为 error 级前提（test_real_environment_is_green），
+      # 新版 runner 镜像不再预装 ffmpeg，这里按系统补装；其余包不需要。
+      - name: 系统依赖 ffmpeg（仅 B站转录）
+        if: contains(matrix.package, 'B站转录')
+        working-directory: .
+        run: |
+          if command -v ffmpeg >/dev/null 2>&1 && command -v ffprobe >/dev/null 2>&1; then exit 0; fi
+          if [ "$RUNNER_OS" = "Windows" ]; then choco install ffmpeg -y --no-progress; else sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; fi
       - name: 依赖（缺包即红，不静默跳过）
         run: |
           python -m pip install pytest
           if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
+          if [ -f requirements-dev.txt ]; then python -m pip install -r requirements-dev.txt; fi
       - name: 单测（各包既有 pytest）
+        # 单测前提是不外呼：代理钉到丢弃端口，漏网请求立即失败而不是产生费用。
+        # 只挂在本步：挂在作业级会让 checkout / setup-python / pip 一起连不上网。
+        # GitHub Actions 的 env 键不区分大小写，只写大写一组；再写同名小写键会让整个工作流判为 Invalid workflow file。
+        env:
+          HTTP_PROXY: "http://127.0.0.1:9"
+          HTTPS_PROXY: "http://127.0.0.1:9"
+          NO_PROXY: "127.0.0.1,localhost,::1"
         run: python -m pytest -q -p no:cacheprovider

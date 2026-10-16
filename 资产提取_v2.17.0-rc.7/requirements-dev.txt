@@ -1,0 +1,3 @@
+# 开发/测试依赖：CI 在 requirements.txt 之后安装本文件
+# test_manual_qc_gate.py::test_checker_is_flake8_clean 以 `python -m flake8` 实跑 lint 门禁
+flake8>=6.0

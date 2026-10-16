@@ -4,7 +4,7 @@
   "notes": [
     "邮箱按用户要求保留",
     "跨系统及宿主完整验收仍未完成",
-    "素材公开版排除全部32张受限风格图，相关视觉能力不可用",
+    "资产提取公开版不含部分图片素材，相关视觉能力不可用",
     "补齐B站转录5.5.4、抖音转录2.0.5、小说索引4.6.1和知识转录索引1.5.0；目录收录不代表宿主安装或公开发布通过",
     "知识转录索引1.5.0的历史来源及独立验收尚未闭合，保持待核验；B站README许可口径冲突尚未裁决"
   ],
@@ -54,14 +54,6 @@
       "version": "1.5.5",
       "folder": "小说转短剧_v1.5.5",
       "source_version": "1.5.3",
-      "state": "LOCAL_CANDIDATE",
-      "profile": "portable"
-    },
-    {
-      "id": "adult-literature-index",
-      "version": "4.8.6",
-      "folder": "成人文学索引_v4.8.6",
-      "source_version": "4.8.4",
       "state": "LOCAL_CANDIDATE",
       "profile": "portable"
     },

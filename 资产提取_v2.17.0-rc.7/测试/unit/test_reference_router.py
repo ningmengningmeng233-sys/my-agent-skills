@@ -5,6 +5,7 @@
 参考图必须声明职责，路由器按资产类型与实际材质选择**最小集合**；
 职责不得越权；超出引擎上限时按 身份→结构→主风格→关键材质 裁剪，并记录被省略的参考。
 """
+import pytest
 import sys
 from pathlib import Path
 
@@ -48,6 +49,7 @@ def test_pack_loader_reads_master_routes():
     assert pack.root.is_dir()
 
 
+@pytest.mark.requires_private_stylepack
 def test_face_task_takes_face_skin_hair_only():
     task = _task("正脸", materials=("皮肤", "头发"))
     refs = route_references(task, _pack(), {}, limit=8)
@@ -68,6 +70,7 @@ def test_face_task_uses_accepted_face_as_identity():
     assert identity[0].path == "视觉资产/正脸.png"
 
 
+@pytest.mark.requires_private_stylepack
 def test_back_head_does_not_inherit_front_composition():
     task = _task("后脑", materials=("头发",))
     refs = route_references(task, _pack(), {}, limit=8)
@@ -76,6 +79,7 @@ def test_back_head_does_not_inherit_front_composition():
     assert "hair" in names
 
 
+@pytest.mark.requires_private_stylepack
 def test_costume_task_takes_full_body_and_real_materials():
     task = _task("服装独立正面", materials=("布料", "皮革"))
     refs = route_references(task, _pack(), {}, limit=8)
@@ -87,6 +91,7 @@ def test_costume_task_takes_full_body_and_real_materials():
     assert "style" in roles and "material" in roles
 
 
+@pytest.mark.requires_private_stylepack
 def test_scene_task_takes_environment_and_present_materials():
     task = _task("场景母版", asset_id="SC_茶楼", materials=("石材", "木材"))
     refs = route_references(task, _pack(), {}, limit=8)
@@ -96,6 +101,7 @@ def test_scene_task_takes_environment_and_present_materials():
     assert "face" not in names and "full_body" not in names
 
 
+@pytest.mark.requires_private_stylepack
 def test_prop_task_takes_object_and_matching_material():
     task = _task("道具", asset_id="PR_琴", materials=("木材",))
     refs = route_references(task, _pack(), {}, limit=8)
@@ -105,6 +111,7 @@ def test_prop_task_takes_object_and_matching_material():
     assert "skin" not in names and "hair" not in names
 
 
+@pytest.mark.requires_private_stylepack
 def test_unregistered_material_is_not_invented():
     task = _task("道具", asset_id="PR_琴", materials=("不存在的材质",))
     refs = route_references(task, _pack(), {}, limit=8)
@@ -114,6 +121,7 @@ def test_unregistered_material_is_not_invented():
     assert len(names) == 1
 
 
+@pytest.mark.requires_private_stylepack
 def test_limit_trims_by_priority_and_records_omissions():
     task = _task("人物全身正面", materials=("皮肤", "头发", "布料", "金属"),
                  depends_on=("CH_林姑娘-服装独立背面-v01",))
@@ -172,6 +180,7 @@ def test_reference_paths_are_pack_relative_or_accepted_image():
         assert "\\" not in r.path, r.path
 
 
+@pytest.mark.requires_private_stylepack
 def test_style_reference_never_overrides_target_costume():
     """风格参考只带 style 职责，备注显式声明不得复制其服装（规格 7）。"""
     task = _task("服装独立正面", materials=("布料",))

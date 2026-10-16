@@ -23,7 +23,7 @@ cd my-agent-skills
 | B 站或抖音视频转文字 | [B 站转录](skills/bilibili-auto-transcript.md) / [抖音转录](skills/douyin-auto-transcript.md) |
 | Telegram 消息与附件归档 | [Telegram 归档](skills/tg-transcript.md) |
 | 非虚构书籍、手册检索 | [知识库转录](skills/knowledge-index.md) |
-| 小说原文检索、作者风格资料 | [小说索引](skills/novel-index.md) / [成人文学索引](skills/adult-literature-index.md) |
+| 小说原文检索、作者风格资料 | [小说索引](skills/novel-index.md) |
 | 小说改编、视频提示词、合成 | [小说转短剧](skills/dramacraft.md) → [组合流程](../PIPELINE.md) |
 | 中文文本编辑 | [去 AI 味](skills/lieflat-less-ai-tone.md) / [日系小说本地化](skills/jp-novel-localization.md) |
 | 研发任务与代码精简 | [柠檬思考](skills/lemon-thinking.md) / [技能优化](skills/skill-optimization.md) |
@@ -44,7 +44,7 @@ RTK 另需安装客户端钩子；UMH 另需本地服务和逐端接入。并非
 - 为运行环境和用户数据各设独立目录；不要把真实资料、Cookie、会话和 API Key 放进仓库。
 - `.env.example` 是字段模板，不能直接当作已经可用的账号配置。
 - 有分发校验清单的包先验证原始包，再按说明创建运行副本；不要在封存包里改依赖和清单。
-- 模型、字幕、OCR、转码、下载器和向量模型按需准备，不要一次安装 17 套依赖。
+- 模型、字幕、OCR、转码、下载器和向量模型按需准备，不要一次安装 16 套依赖。
 - 索引、摘要、改写和生图可能向所配置的服务发送输入并计费。先确认内容可传输、服务提供方和调用上限。
 - Windows 示例中的 `.venv/Scripts/python.exe` 不适用于直接照抄到 macOS/Linux；后两者还需自行验证对应入口与依赖。
 

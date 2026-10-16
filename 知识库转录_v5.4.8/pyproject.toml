@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "knowledge-index"
-version = "5.4.7"
+version = "5.4.8"
 description = "知识库索引：精准可溯、有据可查、可复核、可恢复的专业知识库与问答引擎"
 requires-python = ">=3.10"
 dependencies = [

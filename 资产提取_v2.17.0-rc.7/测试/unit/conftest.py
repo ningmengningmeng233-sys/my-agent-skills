@@ -350,3 +350,37 @@ def fake_endpoint():
     yield _Fake()
     server.shutdown()
     server.server_close()
+
+# ---- 私有风格包参考图（公开仓不含）-------------------------------------------------
+# 「仙侠国风电影CG」权威风格包的 20 张运行必需参考图（及来源图）按分享策略不入 Git，
+# 公开检出只有清单与文字层；需要真实图片字节/哈希的视觉链路用例在此标记
+# `@pytest.mark.requires_private_stylepack`。参考图齐备（作者本机或用
+# `scripts/install_stylepack.py` 从私有 zip 安装后）时这些用例照常执行、断言不变。
+_STYLEPACK_DIR = SKILL_DIR / "references" / "styles" / "仙侠国风电影CG" / "1.0.0" / "private"
+
+
+def _private_stylepack_missing() -> list:
+    from engine.stylepack_verify import runtime_image_issues
+
+    return runtime_image_issues(_STYLEPACK_DIR)
+
+
+def pytest_configure(config):
+    config.addinivalue_line(
+        "markers",
+        "requires_private_stylepack: 需要公开仓未收录的私有风格包参考图（缺失时跳过）",
+    )
+
+
+def pytest_collection_modifyitems(config, items):
+    marked = [item for item in items if item.get_closest_marker("requires_private_stylepack")]
+    if not marked:
+        return
+    missing = _private_stylepack_missing()
+    if not missing:
+        return
+    skip = pytest.mark.skip(
+        reason=f"公开版不含私有风格包参考图（缺 {len(missing)} 项，如 {missing[0]}）；"
+               "用 scripts/install_stylepack.py 安装私有包后此用例会执行")
+    for item in marked:
+        item.add_marker(skip)

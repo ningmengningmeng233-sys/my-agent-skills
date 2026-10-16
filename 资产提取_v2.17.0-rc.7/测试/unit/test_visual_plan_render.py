@@ -5,6 +5,7 @@
 TOML 是唯一机器事实源；Markdown 只由 TOML 渲染——改 Markdown 不得改变状态，
 改 TOML 后重渲染必须覆盖阅读稿。
 """
+import pytest
 import json
 import sys
 from pathlib import Path
@@ -110,6 +111,7 @@ def test_write_reading_copy_writes_file(tmp_path):
     assert "仙侠国风电影CG" in path.read_text(encoding="utf-8")
 
 
+@pytest.mark.requires_private_stylepack
 def test_editing_markdown_does_not_change_state(tmp_path):
     lib, plan = _lib_with_plan(tmp_path)
     write_reading_copy(plan, lib)
@@ -151,6 +153,7 @@ def test_visual_delivery_not_enabled_without_plan(delivered_lib):
     assert state["reason_code"] == "VISUAL_OPTION_NOT_ENABLED"
 
 
+@pytest.mark.requires_private_stylepack
 def test_visual_delivery_planned_with_plan(tmp_path):
     lib, _plan0 = _lib_with_plan(tmp_path)
     state = collect_pipeline_state(lib)["visual_delivery"]
@@ -158,6 +161,7 @@ def test_visual_delivery_planned_with_plan(tmp_path):
     assert state["counts"]["PLANNED"] == len(_plan0.tasks)
 
 
+@pytest.mark.requires_private_stylepack
 def test_visual_delivery_partial_when_some_accepted(tmp_path):
     lib, plan = _lib_with_plan(tmp_path)
     from conftest import accept_task_with_artifact
@@ -170,6 +174,7 @@ def test_visual_delivery_partial_when_some_accepted(tmp_path):
     assert state["counts"].get("ACCEPTED") == 1
 
 
+@pytest.mark.requires_private_stylepack
 def test_visual_delivery_needs_manifest_to_deliver(tmp_path):
     lib, plan = _lib_with_plan(tmp_path)
     from conftest import accept_all_with_artifacts
@@ -212,6 +217,7 @@ def test_visual_plan_cli_writes_both_files(tmp_path):
     assert "仙侠国风电影CG" in r.stdout
 
 
+@pytest.mark.requires_private_stylepack
 def test_status_json_exposes_visual_stats_without_losing_legacy_fields(delivered_lib):
     lib, plan = delivered_lib, _plan()
     write_visual_plan(plan, lib / "视觉资产" / "计划.toml")

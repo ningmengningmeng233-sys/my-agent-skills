@@ -7,6 +7,7 @@
 - `composition_mode=preview` 时未批准的构图卡**不得进入生成/导出**（`COMPOSITION_NOT_APPROVED`）；
 - `composition_mode=auto`（默认）不要求批准，行为与旧版一致。
 """
+import pytest
 import json
 import sys
 from pathlib import Path
@@ -97,6 +98,7 @@ def test_preview_blocks_export_until_approved(tmp_path):
     assert "COMPOSITION_NOT_APPROVED" in (r.stdout + r.stderr)
 
 
+@pytest.mark.requires_private_stylepack
 def test_approve_then_export_succeeds(tmp_path):
     lib = _lib(tmp_path, mode="preview")
     _cli(VISUAL, "compose", "--lib", lib)
@@ -117,6 +119,7 @@ def test_changed_card_invalidates_approval(tmp_path):
     assert "COMPOSITION_NOT_APPROVED" in (r.stdout + r.stderr)
 
 
+@pytest.mark.requires_private_stylepack
 def test_auto_mode_does_not_require_approval(tmp_path):
     lib = _lib(tmp_path, mode="auto")
     _cli(VISUAL, "compose", "--lib", lib)
@@ -124,6 +127,7 @@ def test_auto_mode_does_not_require_approval(tmp_path):
     assert r.returncode == 0, r.stdout + r.stderr
 
 
+@pytest.mark.requires_private_stylepack
 def test_no_settings_means_auto(tmp_path):
     lib = _lib(tmp_path)
     _cli(VISUAL, "compose", "--lib", lib)

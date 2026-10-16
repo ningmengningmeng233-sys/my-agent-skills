@@ -107,8 +107,9 @@ class NvidiaDllDirTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             bin_dir = Path(tmp) / "nvidia" / "cublas" / "bin"
             bin_dir.mkdir(parents=True)
-            with mock.patch.object(asr.os, "add_dll_directory") as fake_add, \
-                 mock.patch.object(asr.os, "name", "nt", create=True):
+            # 注册逻辑只看 os.add_dll_directory 是否存在（Windows 专有），create=True 让非 Windows 也能验；
+            # 不再伪造 os.name="nt"：那会让 pathlib 在 POSIX 上实例化 WindowsPath 直接崩。
+            with mock.patch.object(asr.os, "add_dll_directory", create=True) as fake_add:
                 asr._register_nvidia_dll_dirs(Path(tmp))
                 fake_add.assert_called_once_with(str(bin_dir))
 
@@ -118,7 +119,7 @@ class NvidiaDllDirTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             missing = Path(tmp) / "definitely-missing-xyz"
             self.assertFalse(missing.exists())
-            with mock.patch.object(asr.os, "add_dll_directory") as fake_add:
+            with mock.patch.object(asr.os, "add_dll_directory", create=True) as fake_add:
                 asr._register_nvidia_dll_dirs(missing)
             fake_add.assert_not_called()
 

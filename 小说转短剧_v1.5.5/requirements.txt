@@ -1,2 +1,4 @@
 requests>=2.28
 pytest>=7.0
+# tests/test_lip_sync_decision_c4.py 解析 SKILL.md 中的 YAML 声明块
+PyYAML>=6.0

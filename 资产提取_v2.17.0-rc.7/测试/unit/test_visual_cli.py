@@ -90,6 +90,7 @@ def test_run_without_key_fails_loudly(tmp_path):
     assert "export" in out, "无密钥时必须指出可改用手工导出"
 
 
+@pytest.mark.requires_private_stylepack
 def test_export_without_key_succeeds(tmp_path):
     lib = _lib(tmp_path)
     r = _cli(VISUAL, "export", "--lib", lib, "--task", "CH_林姑娘-正脸-v01")
@@ -99,6 +100,7 @@ def test_export_without_key_succeeds(tmp_path):
         assert (pkg / name).is_file(), name
 
 
+@pytest.mark.requires_private_stylepack
 def test_export_marks_task_awaiting_manual(tmp_path):
     lib = _lib(tmp_path)
     _cli(VISUAL, "export", "--lib", lib, "--task", "CH_林姑娘-正脸-v01")
@@ -243,6 +245,7 @@ def test_delivery_blocked_when_tasks_pending(tmp_path):
     assert result["blocking"]
 
 
+@pytest.mark.requires_private_stylepack
 def test_delivery_signed_when_all_required_accepted(tmp_path):
     lib = _lib(tmp_path)
     _accept_all(lib)
@@ -251,6 +254,7 @@ def test_delivery_signed_when_all_required_accepted(tmp_path):
     assert (lib / "视觉资产" / DELIVERY_MANIFEST_NAME).is_file()
 
 
+@pytest.mark.requires_private_stylepack
 def test_optional_failure_does_not_block_but_is_listed(tmp_path):
     lib = _lib(tmp_path)
     _accept_all(lib)
@@ -267,6 +271,7 @@ def test_optional_failure_does_not_block_but_is_listed(tmp_path):
     assert any("拼版" in item for item in result["incomplete"])
 
 
+@pytest.mark.requires_private_stylepack
 def test_cli_exit_code_reflects_delivery(tmp_path):
     lib = _lib(tmp_path)
     blocked = _cli(DELIVERY_CLI, "--lib", lib)
@@ -284,6 +289,7 @@ def test_maintenance_verify_visual_isolated_from_verify(tmp_path):
     assert "视觉" in (r.stdout + r.stderr)
 
 
+@pytest.mark.requires_private_stylepack
 def test_status_json_shows_both_lines_with_visual_stats(tmp_path):
     lib = _lib(tmp_path)
     r = _cli(REPO_ROOT / "scripts" / "maintenance.py", "status", "--lib", lib, "--json")
