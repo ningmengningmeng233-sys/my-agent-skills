@@ -22,7 +22,8 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
-_FUNC_ENV_KEYS = ("INDEX_LIB_DIR", "OPENAI_API_KEY", "SUMMARY_API_MODEL")
+_FUNC_ENV_KEYS = ("INDEX_LIB_DIR", "OPENAI_API_KEY", "SUMMARY_API_MODEL",
+                  "NO_PROXY", "no_proxy")
 
 _host_env = {key: os.environ.get(key) for key in _FUNC_ENV_KEYS}
 _func = importlib.import_module("_功能测试")
