@@ -11,8 +11,10 @@ from datetime import datetime, timezone
 import json
 import math
 import os
+import random
 import sys
 import threading
+import time
 from typing import Any, List, Optional
 
 # 注入根目录
@@ -59,7 +61,16 @@ def _atomic_write(path: str, write_fn) -> None:
             write_fn(fp)
             fp.flush()
             os.fsync(fp.fileno())
-        os.replace(tmp_path, path)
+        delay = 0.01
+        for attempt in range(8):
+            try:
+                os.replace(tmp_path, path)
+                break
+            except PermissionError:
+                if attempt == 7:
+                    raise
+                time.sleep(delay * random.uniform(0.6, 1.0))
+                delay = min(delay * 1.8, 0.1)
     finally:
         if os.path.exists(tmp_path):
             try:

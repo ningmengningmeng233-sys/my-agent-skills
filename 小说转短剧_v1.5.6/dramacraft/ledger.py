@@ -13,6 +13,7 @@
 """
 import json
 import os
+import random
 import threading
 import time
 from datetime import datetime, timezone
@@ -30,9 +31,9 @@ except ImportError:  # POSIX
 #: 账本是伏笔核销与预算熔断的真值源，丢行等于账本不可信，宁可等也不许丢。
 #: 抢锁用**有上限的等待 + 指数退避**（非阻塞尝试，轮询到预算用尽为止）：
 #: 既不无限等（msvcrt.LK_LOCK 曾实测 9s+ 无上限，会把产线挂死），也不抢不到就走。
-LOCK_WAIT_SECONDS = 2.5
-_LOCK_POLL_MIN_SECONDS = 0.01
-_LOCK_POLL_MAX_SECONDS = 0.2
+LOCK_WAIT_SECONDS = 5.0
+_LOCK_POLL_MIN_SECONDS = 0.005
+_LOCK_POLL_MAX_SECONDS = 0.05
 
 
 class _LockedAppend:
@@ -76,14 +77,15 @@ class _LockedAppend:
             except OSError:
                 if time.monotonic() >= deadline:
                     return False
-                time.sleep(delay)
-                delay = min(delay * 2, _LOCK_POLL_MAX_SECONDS)
+                time.sleep(delay * random.uniform(0.5, 1.0))
+                delay = min(delay * 1.6, _LOCK_POLL_MAX_SECONDS)
 
     @property
     def locked(self) -> bool:
         return self._fp is not None
 
     def append(self, payload: bytes) -> None:
+        self._fp.seek(0, os.SEEK_END)
         self._fp.write(payload)
         self._fp.flush()
 
