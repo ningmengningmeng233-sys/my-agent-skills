@@ -2,7 +2,7 @@
 
 # 抖音转录
 
-> 音视频 · 批次与恢复 · **2.0.6** · [原始技能入口](../../抖音转录_v2.0.6/SKILL.md)
+> 音视频 · 批次与恢复 · **2.0.7** · [原始技能入口](../../抖音转录_v2.0.7/SKILL.md)
 
 将抖音链接、分享文案或清单整理为转录文本、摘要与时间戳，保存原始记录、数据库状态和重试信息。
 
@@ -18,7 +18,7 @@
 
 以 Python ≥ 3.12 和当前 doctor 要求准备；需要 FFmpeg/FFprobe、识别模型及按用途准备的浏览器登录。历史说明提到的 requirements.lock 未随当前包提供，不能假称可按该锁一键安装；先核对 requirements.txt 和上游依赖。
 
-安装时完整复制 `抖音转录_v2.0.6/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
+安装时完整复制 `抖音转录_v2.0.7/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
 
 ## 使用流程
 
@@ -74,10 +74,10 @@
 
 ## 原始说明与验收状态
 
-- [README.md](../../抖音转录_v2.0.6/README.md)
-- [INSTALL.md](../../抖音转录_v2.0.6/INSTALL.md)
-- [KNOWN-LIMITS.md](../../抖音转录_v2.0.6/KNOWN-LIMITS.md)
-- [ROLLBACK.md](../../抖音转录_v2.0.6/ROLLBACK.md)
-- [UPSTREAM.md](../../抖音转录_v2.0.6/UPSTREAM.md)
+- [README.md](../../抖音转录_v2.0.7/README.md)
+- [INSTALL.md](../../抖音转录_v2.0.7/INSTALL.md)
+- [KNOWN-LIMITS.md](../../抖音转录_v2.0.7/KNOWN-LIMITS.md)
+- [ROLLBACK.md](../../抖音转录_v2.0.7/ROLLBACK.md)
+- [UPSTREAM.md](../../抖音转录_v2.0.7/UPSTREAM.md)
 
 本页提供阅读导航，不改写包内契约或分发身份。完整工程与真实使用的区别见[验证范围](../verification.md)。遇到包内历史说明冲突时，以对应版本的实际入口、当前文件和检查器为依据，并保留冲突记录。

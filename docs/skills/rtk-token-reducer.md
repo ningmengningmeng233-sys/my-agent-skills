@@ -2,7 +2,7 @@
 
 # RTK 压缩器
 
-> 开发工具 · 输出压缩 · **92cc75f-r2** · [原始技能入口](../../rtk-token-reducer_v92cc75f-r2/SKILL.md)
+> 开发工具 · 输出压缩 · **92cc75f-r3** · [原始技能入口](../../rtk-token-reducer_v92cc75f-r3/SKILL.md)
 
 为 Qoder CLI 的工具输出提供压缩钩子，减少可压缩文本占用；保留原文回读与用量记录。适合日志、构建和测试输出较多的工作流。
 
@@ -18,7 +18,7 @@
 
 需要 Qoder CLI、可用的 `rtk` 二进制与 Python。它使用 PostToolUse(Bash) 和 PreCompact 钩子；其他客户端不能直接照搬。先备份客户端设置。
 
-安装时完整复制 `rtk-token-reducer_v92cc75f-r2/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
+安装时完整复制 `rtk-token-reducer_v92cc75f-r3/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
 
 ## 使用流程
 
@@ -71,8 +71,8 @@ python -X utf8 install.py --scope user --remove --apply
 
 ## 原始说明与验收状态
 
-- [README.md](../../rtk-token-reducer_v92cc75f-r2/README.md)
-- [INSTALL.md](../../rtk-token-reducer_v92cc75f-r2/INSTALL.md)
-- [PROVENANCE.md](../../rtk-token-reducer_v92cc75f-r2/PROVENANCE.md)
+- [README.md](../../rtk-token-reducer_v92cc75f-r3/README.md)
+- [INSTALL.md](../../rtk-token-reducer_v92cc75f-r3/INSTALL.md)
+- [PROVENANCE.md](../../rtk-token-reducer_v92cc75f-r3/PROVENANCE.md)
 
 本页提供阅读导航，不改写包内契约或分发身份。完整工程与真实使用的区别见[验证范围](../verification.md)。遇到包内历史说明冲突时，以对应版本的实际入口、当前文件和检查器为依据，并保留冲突记录。

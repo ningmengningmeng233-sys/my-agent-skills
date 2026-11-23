@@ -1,0 +1,10 @@
+# License Notice (rtk-token-reducer)
+
+Copyright (c) 2026 柠檬才不萌. All rights reserved.
+
+本技能包与钩子扩展脚本（`hooks/`、`install.py`、`SKILL.md`）为作者自有实现（Proprietary），
+供个人学习与本机验证使用。
+
+外部依赖说明：本扩展运行时仅从系统 PATH 调用独立的 `rtk` CLI，不打包或内嵌其二进制。
+上游 `rtk`（https://github.com/rtk-ai/rtk）v1.x 采用 Apache-2.0（CLI）+ BUSL-1.1（rtk-engine）双许可，
+使用者须自行遵守上游 `rtk` 的许可条款。

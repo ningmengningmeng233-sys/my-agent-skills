@@ -1,9 +1,5 @@
-# 自制 skill 柜 · 根目录矩阵 CI（全包 pytest 门禁，正式有效入口）。
-# 各包既有 pytest 按包目录自动运行：matrix.package × matrix.os。
-# 子包内残留的 .github/workflows/ci.yml 仅作历史/上游模板保留，不再作为门禁入口；
+# 自制 skill 柜 · 根目录矩阵 CI（全 16 套公开技能 pytest + 跨技能契约门 + UMH Node 双检）。
 # 凡 GitHub Actions 实际执行的 CI，以本文件为准。
-# matrix.package 清单派生自 catalog.json 的 folder 字段，仅收录含 pytest 套件的 13 个包；
-# 无 pytest 套件的 schemas、tg转录_v1.0.2、全局记忆UMH_v1.0.2、技能优化_v1.0.1 暂不进矩阵。
 name: CI-skill-cabinet-root-matrix
 
 on:
@@ -12,28 +8,55 @@ on:
   workflow_dispatch:
 
 jobs:
+  cabinet-contracts:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONIOENCODING: "utf-8"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: 安装根契约校验依赖
+        run: python -m pip install pytest pyyaml
+      - name: 跨技能契约与公开树对账
+        run: python -X utf8 schemas/contract_check.py
+      - name: 发布身份与全仓规范测试
+        run: python -m pytest -q -p no:cacheprovider schemas/tests
+      - name: 全仓一致性自动化体检
+        run: python -X utf8 scripts/cabinet_tools.py check
+      - name: 全局记忆 UMH Node 分发包完整性与单测
+        run: |
+          node --test "全局记忆UMH_v1.0.3/scripts/verify-bundle.test.mjs"
+          node "全局记忆UMH_v1.0.3/scripts/setup.mjs" --check
+
   test:
     strategy:
       fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest]
         package:
-          - "B站转录_v5.5.5"
           - "MiniMaxH3提示词_v7.4.6"
-          - "rtk-token-reducer_v92cc75f-r2"
-          - "去AI味_v2.0.2"
-          - "小说索引_v4.6.2"
-          - "小说转短剧_v1.5.5"
-          - "成片合成_v0.1.4"
-          - "抖音转录_v2.0.6"
-          - "日系小说本地化_v4.5.6"
-          - "柠檬思考_v1.1.5"
-          - "知识库转录_v5.4.8"
-          - "知识转录索引_v1.5.0"
-          - "资产提取_v2.17.0-rc.7"
+          - "rtk-token-reducer_v92cc75f-r3"
+          - "tg转录_v1.0.3"
+          - "全局记忆UMH_v1.0.3"
+          - "去AI味_v2.0.3"
+          - "小说转短剧_v1.5.6"
+          - "成片合成_v0.1.5"
+          - "技能优化_v1.1.0"
+          - "日系小说本地化_v4.5.7"
+          - "柠檬思考_v1.2.0"
+          - "知识库转录_v5.4.9"
+          - "资产提取_v2.17.0-rc.8"
+          - "抖音转录_v2.0.7"
+          - "小说索引_v4.6.3"
+          - "B站转录_v5.5.6"
+          - "知识转录索引_v1.5.1"
     runs-on: ${{ matrix.os }}
     env:
-      # 不设这行，Windows runner 上任何中文断言失败都会被控制台编码吞成乱码
       PYTHONIOENCODING: "utf-8"
     defaults:
       run:
@@ -44,8 +67,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      # B站转录的 doctor 体检把 ffmpeg/ffprobe 列为 error 级前提（test_real_environment_is_green），
-      # 新版 runner 镜像不再预装 ffmpeg，这里按系统补装；其余包不需要。
       - name: 系统依赖 ffmpeg（仅 B站转录）
         if: contains(matrix.package, 'B站转录')
         working-directory: .
@@ -57,10 +78,7 @@ jobs:
           python -m pip install pytest
           if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
           if [ -f requirements-dev.txt ]; then python -m pip install -r requirements-dev.txt; fi
-      - name: 单测（各包既有 pytest）
-        # 单测前提是不外呼：代理钉到丢弃端口，漏网请求立即失败而不是产生费用。
-        # 只挂在本步：挂在作业级会让 checkout / setup-python / pip 一起连不上网。
-        # GitHub Actions 的 env 键不区分大小写，只写大写一组；再写同名小写键会让整个工作流判为 Invalid workflow file。
+      - name: 单测（各包既有 pytest，隔离断网防外呼）
         env:
           HTTP_PROXY: "http://127.0.0.1:9"
           HTTPS_PROXY: "http://127.0.0.1:9"

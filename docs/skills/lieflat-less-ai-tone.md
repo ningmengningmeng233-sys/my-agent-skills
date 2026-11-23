@@ -2,7 +2,7 @@
 
 # 去 AI 味
 
-> 文本编辑 · 保留作者声音 · **2.0.2** · [原始技能入口](../../去AI味_v2.0.2/SKILL.md)
+> 文本编辑 · 保留作者声音 · **2.0.3** · [原始技能入口](../../去AI味_v2.0.3/SKILL.md)
 
 审阅和改写已有中文或中文为主的混合文本，减少模板化表达，保留事实、叙述视角与作者声音。可只审阅，也可对文件执行有备份的改写。
 
@@ -18,7 +18,7 @@
 
 Python ≥ 3.12、Node.js ≥ 20.18.0。按 USAGE.md 先准备独立运行副本，再装对应依赖与 Node 工具。核心锁与可选相似度锁分开，默认核心不拉入 torch；需要语义相似度时再准备可选依赖和指定模型快照。
 
-安装时完整复制 `去AI味_v2.0.2/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
+安装时完整复制 `去AI味_v2.0.3/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
 
 ## 使用流程
 
@@ -71,8 +71,8 @@ python scripts/validate-rewrite.py before.md after.md
 
 ## 原始说明与验收状态
 
-- [USAGE.md](../../去AI味_v2.0.2/USAGE.md)
-- [INSTALL.md](../../去AI味_v2.0.2/INSTALL.md)
-- [THIRD_PARTY_NOTICES.md](../../去AI味_v2.0.2/THIRD_PARTY_NOTICES.md)
+- [USAGE.md](../../去AI味_v2.0.3/USAGE.md)
+- [INSTALL.md](../../去AI味_v2.0.3/INSTALL.md)
+- [THIRD_PARTY_NOTICES.md](../../去AI味_v2.0.3/THIRD_PARTY_NOTICES.md)
 
 本页提供阅读导航，不改写包内契约或分发身份。完整工程与真实使用的区别见[验证范围](../verification.md)。遇到包内历史说明冲突时，以对应版本的实际入口、当前文件和检查器为依据，并保留冲突记录。

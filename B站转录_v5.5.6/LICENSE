@@ -1,0 +1,16 @@
+# License Notice (B站转录 / bilibili-auto-transcript)
+
+本技能包包含两个清晰分层的许可边界，不再混用单一宽泛声明：
+
+1. **上游派生基础（MIT License）**
+   基础转录思路与部分初始参考源自 `54Lynnn/bilibili-auto-transcript`
+   （https://github.com/54Lynnn/bilibili-auto-transcript ，固定核查提交 `c73d149d458f6d680745f6b8e3027d08f99009a7`，MIT License）。
+   上游派生部分保留原 MIT 版权与许可条款。
+
+2. **本地自有重写与新增能力（Proprietary，作者：柠檬才不萌）**
+   本包新增与重写的工程组件——包括多 P SQLite 数据库架构（`(bvid, page)` 唯一键与迁移）、
+   收藏夹双槽并发批处理调度、看门狗自动续跑、受约束画面证据校正（RapidOCR）、
+   双 TXT 交付渲染、显存预算分块与本套测试套件——版权归 `柠檬才不萌` 所有。
+   公开仓下载供个人学习与本机验证使用；未经授权不得将整包作为 MIT 开源组件再分发或商用。
+
+详见同目录 `UPSTREAM.md`（来源与归属逐项台账）。

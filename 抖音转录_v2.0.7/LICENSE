@@ -1,0 +1,6 @@
+# License Notice (抖音转录 / douyin-auto-transcript)
+
+Copyright (c) 2026 柠檬才不萌. All rights reserved.
+
+本技能包（`douyin-auto-transcript`）的自有转录编排、数据库、证据融合与测试套件遵循 Proprietary 边界
+（与 `SKILL.md` 声明一致）。参考来源与第三方依赖归属见同目录 `UPSTREAM.md` 与 `third-party/`。

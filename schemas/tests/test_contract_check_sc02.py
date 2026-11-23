@@ -27,7 +27,7 @@ EXPECTED_CONTRACT_IDS = {
     "asset-ledger-producer",
     "h3-shot-table",
     "knowledge-index-twin-kernel",
-    # adult-index-twin-kernel：声明方「成人文学索引」未随公开仓发布，公开树内不再有该契约
+    # adult-index-twin-kernel：定制侧「成人文学索引」未随公开仓发布，公开树内不再有该契约
 }
 
 # SC-02 之前烂掉的旧版本目录签名：发现结果里一个都不许再出现。

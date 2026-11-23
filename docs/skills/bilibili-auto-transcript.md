@@ -2,7 +2,7 @@
 
 # B 站转录
 
-> 音视频 · 字幕与识别 · **5.5.5** · [原始技能入口](../../B站转录_v5.5.5/SKILL.md)
+> 音视频 · 字幕与识别 · **5.5.6** · [原始技能入口](../../B站转录_v5.5.6/SKILL.md)
 
 将 B 站视频整理为可归档转录，优先使用可用字幕，再按配置回退语音识别。支持分 P、收藏夹批次与摘要补齐。
 
@@ -18,7 +18,7 @@
 
 Python ≥ 3.10、FFmpeg/FFprobe，以及包内要求的下载/识别依赖。Windows 的 .sh 入口需要 Git Bash 等 Bash 环境。识别模型首次下载可能占用数百 MB 至数 GB，按用途准备账号会话。
 
-安装时完整复制 `B站转录_v5.5.5/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
+安装时完整复制 `B站转录_v5.5.6/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
 
 ## 使用流程
 
@@ -75,8 +75,8 @@ bash scripts/bilibili_transcript.sh "https://www.bilibili.com/video/<BV号>/?p=3
 
 ## 原始说明与验收状态
 
-- [README.md](../../B站转录_v5.5.5/README.md)
-- [references/SETUP.md](../../B站转录_v5.5.5/references/SETUP.md)
-- [UPSTREAM.md](../../B站转录_v5.5.5/UPSTREAM.md)
+- [README.md](../../B站转录_v5.5.6/README.md)
+- [references/SETUP.md](../../B站转录_v5.5.6/references/SETUP.md)
+- [UPSTREAM.md](../../B站转录_v5.5.6/UPSTREAM.md)
 
 本页提供阅读导航，不改写包内契约或分发身份。完整工程与真实使用的区别见[验证范围](../verification.md)。遇到包内历史说明冲突时，以对应版本的实际入口、当前文件和检查器为依据，并保留冲突记录。

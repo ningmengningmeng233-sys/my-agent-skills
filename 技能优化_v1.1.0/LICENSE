@@ -1,0 +1,9 @@
+# License Notice (技能优化 / skill-optimization)
+
+Copyright (c) 2026 柠檬才不萌. All rights reserved.
+
+本技能包的本地流程编排与审核规范（`SKILL.md`、`references/graphify.md`、`references/reviewer.md`、`tests/`）
+为作者自有内容（Proprietary）。
+
+随包附带的上游原文快照 `references/ponytail-audit.md` 取自 `DietrichGebert/ponytail`（MIT License），
+其完整上游许可原文见同目录 `LICENSE-PONYTAIL`。

@@ -2,7 +2,7 @@
 
 # 小说索引
 
-> 小说资料 · 分段与检索 · **4.6.2** · [原始技能入口](../../小说索引_v4.6.2/SKILL.md)
+> 小说资料 · 分段与检索 · **4.6.3** · [原始技能入口](../../小说索引_v4.6.3/SKILL.md)
 
 为已有小说建立原文段文件与章节导航，支持检索、追更与库维护。适合需要按原文定位人物、事件和章节的用户。
 
@@ -18,7 +18,7 @@
 
 按 INSTALL.md / README_CN.md 准备 Python ≥ 3.10、uv 与索引接口配置。正文和索引库放在用户数据目录，原始文件另存备份。
 
-安装时完整复制 `小说索引_v4.6.2/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
+安装时完整复制 `小说索引_v4.6.3/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
 
 ## 使用流程
 
@@ -68,9 +68,9 @@ uv run --with requests --with python-dotenv python scripts/build_segment_index.p
 
 ## 原始说明与验收状态
 
-- [README_CN.md](../../小说索引_v4.6.2/README_CN.md)
-- [INSTALL.md](../../小说索引_v4.6.2/INSTALL.md)
-- [KNOWN-LIMITS.md](../../小说索引_v4.6.2/KNOWN-LIMITS.md)
-- [ROLLBACK.md](../../小说索引_v4.6.2/ROLLBACK.md)
+- [README_CN.md](../../小说索引_v4.6.3/README_CN.md)
+- [INSTALL.md](../../小说索引_v4.6.3/INSTALL.md)
+- [KNOWN-LIMITS.md](../../小说索引_v4.6.3/KNOWN-LIMITS.md)
+- [ROLLBACK.md](../../小说索引_v4.6.3/ROLLBACK.md)
 
 本页提供阅读导航，不改写包内契约或分发身份。完整工程与真实使用的区别见[验证范围](../verification.md)。遇到包内历史说明冲突时，以对应版本的实际入口、当前文件和检查器为依据，并保留冲突记录。

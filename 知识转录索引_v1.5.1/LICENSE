@@ -1,0 +1,7 @@
+# License Notice (知识转录索引 / knowledge-transcript-index)
+
+Copyright (c) 2026 柠檬才不萌. All rights reserved.
+
+本技能包（`knowledge-transcript-index`）为作者本地自有设计与实现，
+用于个人学习、本地研究与离线验证。未经作者明确书面授权，不得商用或作为开源组件再分发。
+第三方依赖库（如 `sentence-transformers`、`numpy`、`requests`、`python-dotenv`）各自遵循其上游许可协议。

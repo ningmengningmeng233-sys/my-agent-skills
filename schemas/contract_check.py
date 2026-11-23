@@ -54,11 +54,11 @@ except ImportError:  # pragma: no cover
 # SKILL.md 里含 pipeline-contract 声明块的才进门，目录改名/升版不再烂门。
 # 本清单只做三件事：文档化当前参与者、动态发现扫空时的回退、单测可解析的稳定常量。
 SKILL_FILES = [
-    "小说转短剧_v1.5.5/SKILL.md",
-    "资产提取_v2.17.0-rc.7/SKILL.md",
+    "小说转短剧_v1.5.6/SKILL.md",
+    "资产提取_v2.17.0-rc.8/SKILL.md",
     "MiniMaxH3提示词_v7.4.6/SKILL.md",
     # 两份索引库：只为双胞胎内核配对（twin_of）进门，不参与 JSON Schema 接缝
-    "知识库转录_v5.4.8/SKILL.md",
+    "知识库转录_v5.4.9/SKILL.md",
     # 定制侧「成人文学索引」未随公开仓发布（仅存于作者本机），不在静态清单中
 ]
 
@@ -433,6 +433,9 @@ def _check_twin_kernel(root, contracts, registry_rel, drift):
         custom = str((entry or {}).get("customization") or sorted(names)[-1])
         tdir = root / trunk / str((entry or {}).get("trunk_scripts") or "scripts")
         cdir = root / custom / str((entry or {}).get("customization_scripts") or "scripts")
+        if not (root / custom).is_dir() and tdir.is_dir():
+            # 公开展示树未随仓发布私有定制侧目录时，跳过双胞胎磁盘比对（不误判为工具错误）
+            continue
         if not tdir.is_dir() or not cdir.is_dir():
             tool_errors.append(f"twin_of 配对 {who} 的脚本目录不存在：{tdir} / {cdir}")
             continue

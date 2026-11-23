@@ -2,7 +2,7 @@
 
 # 知识库转录
 
-> 非虚构资料 · 可追溯问答 · **5.4.8** · [原始技能入口](../../知识库转录_v5.4.8/SKILL.md)
+> 非虚构资料 · 可追溯问答 · **5.4.9** · [原始技能入口](../../知识库转录_v5.4.9/SKILL.md)
 
 把长篇非虚构资料或独立文档切段建索引，结合原文做可追溯检索与问答。适合课程、书籍、手册与研究笔记。
 
@@ -18,7 +18,7 @@
 
 按 QUICKSTART.md 准备 uv/Python、requests 与 python-dotenv，配置索引模型接口。PDF / Word / EPUB 需要对应转换能力和检查；不能假设扫描 PDF 已具备 OCR。
 
-安装时完整复制 `知识库转录_v5.4.8/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
+安装时完整复制 `知识库转录_v5.4.9/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
 
 ## 使用流程
 
@@ -67,9 +67,9 @@ uv run --with requests --with python-dotenv python scripts/orchestrate.py --lib 
 
 ## 原始说明与验收状态
 
-- [QUICKSTART.md](../../知识库转录_v5.4.8/QUICKSTART.md)
-- [README_CN.md](../../知识库转录_v5.4.8/README_CN.md)
-- [FAQ.md](../../知识库转录_v5.4.8/FAQ.md)
-- [INSTALL.md](../../知识库转录_v5.4.8/INSTALL.md)
+- [QUICKSTART.md](../../知识库转录_v5.4.9/QUICKSTART.md)
+- [README_CN.md](../../知识库转录_v5.4.9/README_CN.md)
+- [FAQ.md](../../知识库转录_v5.4.9/FAQ.md)
+- [INSTALL.md](../../知识库转录_v5.4.9/INSTALL.md)
 
 本页提供阅读导航，不改写包内契约或分发身份。完整工程与真实使用的区别见[验证范围](../verification.md)。遇到包内历史说明冲突时，以对应版本的实际入口、当前文件和检查器为依据，并保留冲突记录。

@@ -2,7 +2,7 @@
 
 # 小说转短剧
 
-> 创作流程 · 大纲到分镜 · **1.5.5** · [原始技能入口](../../小说转短剧_v1.5.5/SKILL.md)
+> 创作流程 · 大纲到分镜 · **1.5.6** · [原始技能入口](../../小说转短剧_v1.5.6/SKILL.md)
 
 把小说材料与结构化大纲转为分集剧本，并输出质量报告。随包五个子技能可继续处理大纲、人物、美术、剧本与分镜。
 
@@ -18,7 +18,7 @@
 
 按 INSTALL.md 准备 Python 依赖与模型网关配置。在技能根目录运行。外部模型需自备权限和预算，配置完成前先运行 doctor，不默认启用在线探测。
 
-安装时完整复制 `小说转短剧_v1.5.5/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
+安装时完整复制 `小说转短剧_v1.5.6/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
 
 ## 使用流程
 
@@ -72,8 +72,8 @@ python run_batch.py --validate-only "script.json" --outline "outline.json"
 
 ## 原始说明与验收状态
 
-- [README.md](../../小说转短剧_v1.5.5/README.md)
-- [INSTALL.md](../../小说转短剧_v1.5.5/INSTALL.md)
-- [references/repo-layout.md](../../小说转短剧_v1.5.5/references/repo-layout.md)
+- [README.md](../../小说转短剧_v1.5.6/README.md)
+- [INSTALL.md](../../小说转短剧_v1.5.6/INSTALL.md)
+- [references/repo-layout.md](../../小说转短剧_v1.5.6/references/repo-layout.md)
 
 本页提供阅读导航，不改写包内契约或分发身份。完整工程与真实使用的区别见[验证范围](../verification.md)。遇到包内历史说明冲突时，以对应版本的实际入口、当前文件和检查器为依据，并保留冲突记录。

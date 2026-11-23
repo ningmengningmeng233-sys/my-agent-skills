@@ -17,3 +17,6 @@ Thumbs.db
 */output/
 */logs/
 llm_nodes.json
+# 根级自动打包输出与手工临时压缩包不入 Git
+dist/
+/*.zip

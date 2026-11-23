@@ -14,41 +14,39 @@
   "hash_algo": "sha256（文件原始字节）",
   "pairs": [
     {
-      "trunk": "知识库转录_v5.4.8",
+      "trunk": "知识库转录_v5.4.9",
       "trunk_scripts": "scripts",
       "trunk_head": "9e98d198720ff07f79d9c6ad94cf3a32f097f790",
-      "customization": "成人文学索引_v4.8.6",
+      "customization": "成人文学索引_v4.9.0",
       "customization_scripts": "scripts",
       "customization_head": "9e98d198720ff07f79d9c6ad94cf3a32f097f790",
       "declared_by": [
-        "知识库转录_v5.4.8/SKILL.md#knowledge-index-twin-kernel",
-        "成人文学索引_v4.8.6/SKILL.md#adult-index-twin-kernel"
+        "知识库转录_v5.4.9/SKILL.md#knowledge-index-twin-kernel",
+        "成人文学索引_v4.9.0/SKILL.md#adult-index-twin-kernel"
       ],
-      "same_named_files": 19,
+      "same_named_files": 20,
       "status_counts": {
         "customized": 9,
-        "identical": 3,
-        "trunk-ahead": 7,
+        "identical": 5,
+        "trunk-ahead": 6,
         "pending-rebase": 0
       },
       "files": [
         {
           "file": "_common.py",
-          "status": "customized",
-          "reason": "定制侧独有 prefixed_files（iterdir + startswith 字面量前缀匹配，替代 glob，书名含 [ 等元字符时不失效，+14 行）与 pathlib 导入；主干 _common 无此函数（同语义逻辑只私藏在主干 delete_novel/rename_novel 各自的 _prefixed_files 里）。定制侧超前、方向与 trunk-ahead 相反：禁止从主干回填覆盖，主干应把该安全修复正向合入共享层。",
+          "status": "identical",
+          "reason": "两份逐字相同：已将成人侧 prefixed_files 安全前缀匹配正向合入知识库转录主干，共享底座完全对齐。",
           "evidence": {
-            "trunk_sha256": "50514890912c8b4eb24291cd9d81ed2701586fb0f0fd70ea2d8657926f5c6f7f",
+            "trunk_sha256": "b187536e7905a2cc8be1e23bb0f6e749e743fc28bcc3a2c3491dc265dd834288",
             "customization_sha256": "b187536e7905a2cc8be1e23bb0f6e749e743fc28bcc3a2c3491dc265dd834288",
-            "byte_identical": false,
-            "trunk_bytes": 4482,
+            "byte_identical": true,
+            "trunk_bytes": 4984,
             "customization_bytes": 4984,
-            "trunk_lines": 109,
+            "trunk_lines": 123,
             "customization_lines": 123,
-            "changed_diff_lines": 14,
+            "changed_diff_lines": 0,
             "trunk_only_defs": [],
-            "customization_only_defs": [
-              "prefixed_files"
-            ]
+            "customization_only_defs": []
           }
         },
         {
@@ -77,15 +75,13 @@
             "customization_sha256": "212b228ac1fa681ad7d0728eb71417d62991698b41441fc7a82f52e44c81b767",
             "byte_identical": false,
             "trunk_bytes": 42882,
-            "customization_bytes": 39571,
+            "customization_bytes": 39704,
             "trunk_lines": 794,
-            "customization_lines": 735,
-            "changed_diff_lines": 207,
+            "customization_lines": 736,
+            "changed_diff_lines": 210,
             "trunk_only_defs": [],
             "customization_only_defs": []
-          },
-          "mainline_sha256": "eed50a61277fb88648a79517a32a435ca945420049a06ea2a6f1de25a89a85fe",
-          "customization_sha256": "212b228ac1fa681ad7d0728eb71417d62991698b41441fc7a82f52e44c81b767"
+          }
         },
         {
           "file": "_验证批次.py",
@@ -100,6 +96,23 @@
             "trunk_lines": 183,
             "customization_lines": 184,
             "changed_diff_lines": 45,
+            "trunk_only_defs": [],
+            "customization_only_defs": []
+          }
+        },
+        {
+          "file": "api_pool.py",
+          "status": "identical",
+          "reason": "两份逐字相同：多节点 API 故障转移池（OpenAI/Anthropic 双协议、额度顺切与退避重试），已反向回填至成人文学索引。",
+          "evidence": {
+            "trunk_sha256": "e1225b0d168682830cc4c4930095fcf116b93c40ca5fe9f24ca0db5265729938",
+            "customization_sha256": "e1225b0d168682830cc4c4930095fcf116b93c40ca5fe9f24ca0db5265729938",
+            "byte_identical": true,
+            "trunk_bytes": 21218,
+            "customization_bytes": 21218,
+            "trunk_lines": 544,
+            "customization_lines": 544,
+            "changed_diff_lines": 0,
             "trunk_only_defs": [],
             "customization_only_defs": []
           }
@@ -124,25 +137,23 @@
         {
           "file": "build_segment_index.py",
           "status": "trunk-ahead",
-          "reason": "主干为超集（563 行 vs 482 行）：主干独有 api_pool 多节点白名单池（get_pool/configure_pool_log/pool_summary）、expand_merged_sections、autofix_source_path 与 strip_code_fence；KB-01 后 expand_merged_sections 删除首节模板复制伪造逻辑，缺失章节仅生成 NEEDS_REVIEW 占位节并走段文件真实行号定位。成人侧仍是单 OPENAI_API_KEY 直连 + _unwrap_fence。属主干新增未回填，成人侧无独有功能。",
+          "reason": "成人侧已回填多节点 api_pool 故障转移池（get_pool/configure_pool_log/pool_summary）并保留单 OPENAI_API_KEY 无缝回退；主干仍额外持有 expand_merged_sections/autofix_source_path/strip_code_fence 与段索引目录约定。",
           "evidence": {
             "trunk_sha256": "f315c66c1d9033d8299a286285a4de77b4c04caaaad19672055679bf62844218",
-            "customization_sha256": "0d059d9a5a23ffc43c7d3ac333417e627f4d40d4846e5866fa060b11be188215",
+            "customization_sha256": "df1ebbc71e7ce2e20bea0f8446a5ab16c2830f496b5072a61f234651612f2f1a",
             "byte_identical": false,
             "trunk_bytes": 25062,
-            "customization_bytes": 22923,
+            "customization_bytes": 24772,
             "trunk_lines": 563,
-            "customization_lines": 482,
-            "changed_diff_lines": 437,
+            "customization_lines": 535,
+            "changed_diff_lines": 422,
             "trunk_only_defs": [
               "autofix_source_path",
-              "configure_pool_log",
               "expand_merged_sections",
-              "get_pool",
-              "pool_summary",
               "strip_code_fence"
             ],
             "customization_only_defs": [
+              "_has_pool_config",
               "_unwrap_fence"
             ]
           }
@@ -166,21 +177,18 @@
         },
         {
           "file": "check_line_refs.py",
-          "status": "trunk-ahead",
-          "reason": "主干为超集（241 行 vs 177 行）：主干独有 KB-01 自区间严格校验（parse_ch_ranges_with_pos/find_own_range/own_range 版 classify）、--strict 门禁、stdout+stderr 双流编码防御，寻址段索引；成人侧为旧版 classify（无自区间）+ 章节索引寻址，无独有能力。属主干新增未回填。",
+          "status": "customized",
+          "reason": "已将主干 KB-01 自区间严格校验（parse_ch_ranges_with_pos/find_own_range/own_range 版 classify）、--strict 门禁与双流编码防御回填至成人侧；仅保留目录布局寻址差异（段索引 vs 章节索引）。",
           "evidence": {
             "trunk_sha256": "cadc6617e19fa95bf3936698908ed15f1ef9f1a0fe61b1190e478de4be747799",
-            "customization_sha256": "023a3540c54aafd837f1f3a8ac5d0be04d934893e9c4683860fc959cbad262d2",
+            "customization_sha256": "0b24d2c58eb5a662a56ef075f07f036c0aaf63c17f6c2570ce824373ca28e575",
             "byte_identical": false,
             "trunk_bytes": 10066,
-            "customization_bytes": 7460,
+            "customization_bytes": 9986,
             "trunk_lines": 241,
-            "customization_lines": 177,
-            "changed_diff_lines": 84,
-            "trunk_only_defs": [
-              "find_own_range",
-              "parse_ch_ranges_with_pos"
-            ],
+            "customization_lines": 237,
+            "changed_diff_lines": 12,
+            "trunk_only_defs": [],
             "customization_only_defs": []
           }
         },
@@ -238,22 +246,18 @@
         {
           "file": "index_db.py",
           "status": "customized",
-          "reason": "真双向分叉：v4.6.5 的 normpath 主键归一化修复（normalize_path + _dedupe_separators，Windows 下 \\ 与 / 混写会绕过 segment_path 判重、虚报段数与 token）以及 W03 交付清单摄取状态（ingested_sources 表、get_ingested_sources、record_ingested_source）在成人侧；主干侧同 bug 仍在；主干侧另有本库独有的库元数据分支。两侧 db 层已不能互换。",
+          "reason": "已将成人侧 v4.6.5 的 normalize_path 路径归一化与 _dedupe_separators 重复行在线归并修复正向合入主干；剩余差异为成人侧独有的 W03 清单摄取表（ingested_sources/get_ingested_sources/record_ingested_source）。",
           "evidence": {
-            "trunk_sha256": "9180d1195faff712f8aa63fab715870af5c586da88a6b27d4cc7809ef10bf367",
+            "trunk_sha256": "ed91c5b7b3708863e2a56406fca517d47648d9d8039b98f5e10b8e2dc6322d9a",
             "customization_sha256": "e79e331323db54bda2d2126778230f436512a723030556106ee544eae69e5b2a",
             "byte_identical": false,
-            "trunk_bytes": 10343,
+            "trunk_bytes": 13888,
             "customization_bytes": 16831,
-            "trunk_lines": 242,
+            "trunk_lines": 313,
             "customization_lines": 377,
-            "changed_diff_lines": 205,
+            "changed_diff_lines": 70,
             "trunk_only_defs": [],
-            "customization_only_defs": [
-              "get_ingested_sources",
-              "normalize_path",
-              "record_ingested_source"
-            ]
+            "customization_only_defs": []
           }
         },
         {
@@ -403,17 +407,17 @@
             "customization_sha256": "be09af26fe2d9a4c34c45086cdf1a89809351b7573107b271fc095556f94df0b",
             "byte_identical": false,
             "trunk_bytes": 24896,
-            "customization_bytes": 22070,
+            "customization_bytes": 28035,
             "trunk_lines": 519,
-            "customization_lines": 448,
-            "changed_diff_lines": 127,
+            "customization_lines": 577,
+            "changed_diff_lines": 260,
             "trunk_only_defs": [
               "split_single_doc"
             ],
-            "customization_only_defs": []
-          },
-          "mainline_sha256": "65987ed7e75af123830707f05e0481e9bd061e33678045f608a9007a7835143a",
-          "customization_sha256": "be09af26fe2d9a4c34c45086cdf1a89809351b7573107b271fc095556f94df0b"
+            "customization_only_defs": [
+              "Stager"
+            ]
+          }
         },
         {
           "file": "tags.py",

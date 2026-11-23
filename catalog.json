@@ -1,12 +1,12 @@
 {
-  "cabinet_revision": "2026.10.13.2",
+  "cabinet_revision": "2026.11.24.1",
   "state": "LOCAL_CANDIDATE",
   "notes": [
     "邮箱按用户要求保留",
-    "跨系统及宿主完整验收仍未完成",
-    "资产提取公开版不含部分图片素材，相关视觉能力不可用",
-    "补齐B站转录5.5.4、抖音转录2.0.5、小说索引4.6.1和知识转录索引1.5.0；目录收录不代表宿主安装或公开发布通过",
-    "知识转录索引1.5.0的历史来源及独立验收尚未闭合，保持待核验；B站README许可口径冲突尚未裁决"
+    "2026-11-24 全量升级：同步上游原版（superpowers v7.0.2 / ponytail v5.3.3+ / rtk v1.2.1 过滤器 / humanizer v4.0.0+ 择优规则）、双向收口双胞胎内核、统一 17 套 SKILL.md 英文名与元数据、补齐缺失 LICENSE 与抖音 requirements.lock、裁决 B 站分层许可并接入全 17 包根 CI",
+    "资产提取公开档按 CAPABILITIES.md 排除 32 张受限风格参考图（保持 -rc.8 预发布号），SHA256SUMS.txt 已重算闭合，离线文本核心测试全绿",
+    "知识转录索引 1.5.1 已修复导入崩溃与零依赖 JSON 容错并补齐 9 项离线核心回归测试，保持 LOCAL_CANDIDATE（真实本地 Obsidian 数据与模型仍需接收机验证）",
+    "跨系统、多宿主及真实账号/付费模型验收仍按接收者本机环境实测为准，见 docs/verification.md"
   ],
   "products": [
     {
@@ -15,127 +15,143 @@
       "folder": "MiniMaxH3提示词_v7.4.6",
       "source_version": "7.4.4",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable"
+      "profile": "portable",
+      "skill_name": "minimax-h3-craft"
     },
     {
       "id": "rtk-token-reducer",
-      "version": "92cc75f-r2",
-      "folder": "rtk-token-reducer_v92cc75f-r2",
+      "version": "92cc75f-r3",
+      "folder": "rtk-token-reducer_v92cc75f-r3",
       "source_version": "92cc75f",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable"
+      "profile": "portable",
+      "skill_name": "rtk-token-reducer"
     },
     {
       "id": "tg-transcript",
-      "version": "1.0.2",
-      "folder": "tg转录_v1.0.2",
+      "version": "1.0.3",
+      "folder": "tg转录_v1.0.3",
       "source_version": "1.0.0",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable"
+      "profile": "portable",
+      "skill_name": "tg-transcript"
     },
     {
       "id": "universal-memory-hub",
-      "version": "1.0.2",
-      "folder": "全局记忆UMH_v1.0.2",
+      "version": "1.0.3",
+      "folder": "全局记忆UMH_v1.0.3",
       "source_version": "1.0.0",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable"
+      "profile": "portable",
+      "skill_name": "universal-memory-hub"
     },
     {
       "id": "lieflat-less-ai-tone",
-      "version": "2.0.2",
-      "folder": "去AI味_v2.0.2",
+      "version": "2.0.3",
+      "folder": "去AI味_v2.0.3",
       "source_version": "2.0.0",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable"
+      "profile": "portable",
+      "skill_name": "lieflat-less-ai-tone"
     },
     {
       "id": "dramacraft",
-      "version": "1.5.5",
-      "folder": "小说转短剧_v1.5.5",
+      "version": "1.5.6",
+      "folder": "小说转短剧_v1.5.6",
       "source_version": "1.5.3",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable"
+      "profile": "portable",
+      "skill_name": "dramacraft"
     },
     {
       "id": "media-assembly",
-      "version": "0.1.4",
-      "folder": "成片合成_v0.1.4",
+      "version": "0.1.5",
+      "folder": "成片合成_v0.1.5",
       "source_version": "0.1.2",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable"
+      "profile": "portable",
+      "skill_name": "media-assembly"
     },
     {
       "id": "skill-optimization",
-      "version": "1.0.1",
-      "folder": "技能优化_v1.0.1",
+      "version": "1.1.0",
+      "folder": "技能优化_v1.1.0",
       "source_version": "1.0.0",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable"
+      "profile": "portable",
+      "skill_name": "skill-optimization"
     },
     {
       "id": "jp-novel-localization",
-      "version": "4.5.6",
-      "folder": "日系小说本地化_v4.5.6",
+      "version": "4.5.7",
+      "folder": "日系小说本地化_v4.5.7",
       "source_version": "4.5.4",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable"
+      "profile": "portable",
+      "skill_name": "jp-novel-localization"
     },
     {
       "id": "lemon-thinking",
-      "version": "1.1.5",
-      "folder": "柠檬思考_v1.1.5",
+      "version": "1.2.0",
+      "folder": "柠檬思考_v1.2.0",
       "source_version": "1.1.4",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable"
+      "profile": "portable",
+      "skill_name": "lemon-thinking"
     },
     {
       "id": "knowledge-index",
-      "version": "5.4.8",
-      "folder": "知识库转录_v5.4.8",
+      "version": "5.4.9",
+      "folder": "知识库转录_v5.4.9",
       "source_version": "5.4.6",
       "state": "LOCAL_CANDIDATE",
-      "profile": "portable"
+      "profile": "portable",
+      "skill_name": "knowledge-index"
     },
     {
       "id": "asset-extract",
-      "version": "2.17.0-rc.7",
-      "folder": "资产提取_v2.17.0-rc.7",
+      "version": "2.17.0-rc.8",
+      "folder": "资产提取_v2.17.0-rc.8",
       "source_version": "2.17.0-rc.5",
       "state": "LOCAL_CANDIDATE",
-      "profile": "shareable-text-and-offline"
+      "profile": "shareable-text-and-offline",
+      "skill_name": "asset-extract"
     },
     {
       "id": "douyin-auto-transcript",
-      "version": "2.0.6",
-      "folder": "抖音转录_v2.0.6",
+      "version": "2.0.7",
+      "folder": "抖音转录_v2.0.7",
       "source_version": "2.0.5",
       "state": "LOCAL_CANDIDATE",
-      "profile": "shareable-candidate"
+      "profile": "shareable-candidate",
+      "skill_name": "douyin-auto-transcript"
     },
     {
       "id": "novel-index",
-      "version": "4.6.2",
-      "folder": "小说索引_v4.6.2",
+      "version": "4.6.3",
+      "folder": "小说索引_v4.6.3",
       "source_version": "4.6.1",
       "state": "LOCAL_CANDIDATE",
-      "profile": "shareable-candidate"
+      "profile": "shareable-candidate",
+      "skill_name": "novel-index"
     },
     {
       "id": "bilibili-auto-transcript",
-      "version": "5.5.5",
-      "folder": "B站转录_v5.5.5",
+      "version": "5.5.6",
+      "folder": "B站转录_v5.5.6",
       "source_version": "5.5.4",
       "state": "LOCAL_CANDIDATE",
-      "profile": "shareable-candidate"
+      "profile": "shareable-candidate",
+      "skill_name": "bilibili-transcript"
     },
     {
       "id": "transcript-index",
-      "version": "1.5.0",
-      "folder": "知识转录索引_v1.5.0",
+      "version": "1.5.1",
+      "folder": "知识转录索引_v1.5.1",
       "source_version": "1.5.0",
-      "state": "LOCAL_CANDIDATE_PENDING_VERIFICATION",
-      "profile": "candidate-pending-verification"
+      "state": "LOCAL_CANDIDATE",
+      "profile": "shareable-candidate",
+      "skill_name": "knowledge-transcript-index"
     }
   ]
 }
