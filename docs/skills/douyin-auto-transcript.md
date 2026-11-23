@@ -16,7 +16,7 @@
 
 ## 开始之前
 
-以 Python ≥ 3.12 和当前 doctor 要求准备；需要 FFmpeg/FFprobe、识别模型及按用途准备的浏览器登录。历史说明提到的 requirements.lock 未随当前包提供，不能假称可按该锁一键安装；先核对 requirements.txt 和上游依赖。
+以 Python ≥ 3.12 和当前 doctor 要求准备；需要 FFmpeg/FFprobe、识别模型及按用途准备的浏览器登录。v2.0.7 起已随包提供 `requirements.lock` 与 `requirements.txt`，安装前请结合 doctor 核对本机环境与上游依赖。
 
 安装时完整复制 `抖音转录_v2.0.7/`，由宿主按入口的 `name` 识别。宿主加载与脚本依赖是两件事；先看[通用安装说明](../getting-started.md)，再按下方原始文档准备。
 

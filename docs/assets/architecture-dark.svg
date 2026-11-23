@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="328" viewBox="0 0 1280 328" role="img" aria-labelledby="at ad">
+<title id="at">技能生态全景与衔接流向</title>
+<desc id="ad">资料采集、溯源检索、文本改编、视觉成片四段主线，由研发与客户端底座横向支撑。</desc>
+<defs>
+  <style>
+    .s { font-family: 'Inter','SF Pro Display','PingFang SC','HarmonyOS Sans SC','Microsoft YaHei',system-ui,-apple-system,sans-serif; }
+    .m { font-family: 'JetBrains Mono','SFMono-Regular','Cascadia Code',Consolas,monospace; }
+  </style>
+</defs>
+
+<rect x="0.5" y="0.5" width="1279" height="327" rx="14" fill="#0D1117" stroke="#262D38" stroke-width="1"/>
+<text class="m" x="48" y="34" font-size="11" font-weight="600" fill="#636C76" letter-spacing="2">SYSTEM ARCHITECTURE  ·  四段内容产线与研发底座（按需独立组合）</text>
+
+
+  <g transform="translate(48 54)">
+    <rect width="278" height="162" rx="10" fill="#131922" stroke="#262D38" stroke-width="1"/>
+    <text class="m" x="18" y="26" font-size="10.5" font-weight="600" fill="#EAB308" letter-spacing="1.4">01 · ACQUISITION</text>
+    <text class="s" x="18" y="48" font-size="17" font-weight="600" fill="#F3F4F6">资料采集</text>
+    <line x1="18" y1="56" x2="260" y2="56" stroke="#1F2630" stroke-width="1"/>
+    <circle cx="20" cy="68" r="2" fill="#EAB308"/><text class="s" x="30" y="72" font-size="13.5" fill="#D1D5DB">B 站转录</text><circle cx="20" cy="92" r="2" fill="#EAB308"/><text class="s" x="30" y="96" font-size="13.5" fill="#D1D5DB">抖音转录</text><circle cx="20" cy="116" r="2" fill="#EAB308"/><text class="s" x="30" y="120" font-size="13.5" fill="#D1D5DB">Telegram 归档</text>
+    <text class="s" x="18" y="146" font-size="11.5" fill="#8B949E">音视频与消息 → 结构化原文</text>
+  </g>
+  <line x1="328" y1="125" x2="346" y2="125" stroke="#3B4454" stroke-width="1.2"/><path d="M341 121 L347 125 L341 129" fill="none" stroke="#3B4454" stroke-width="1.2"/>
+  <g transform="translate(350 54)">
+    <rect width="278" height="162" rx="10" fill="#131922" stroke="#262D38" stroke-width="1"/>
+    <text class="m" x="18" y="26" font-size="10.5" font-weight="600" fill="#EAB308" letter-spacing="1.4">02 · INDEXING</text>
+    <text class="s" x="18" y="48" font-size="17" font-weight="600" fill="#F3F4F6">溯源检索</text>
+    <line x1="18" y1="56" x2="260" y2="56" stroke="#1F2630" stroke-width="1"/>
+    <circle cx="20" cy="68" r="2" fill="#EAB308"/><text class="s" x="30" y="72" font-size="13.5" fill="#D1D5DB">知识库转录</text><circle cx="20" cy="92" r="2" fill="#EAB308"/><text class="s" x="30" y="96" font-size="13.5" fill="#D1D5DB">小说索引</text><circle cx="20" cy="116" r="2" fill="#EAB308"/><text class="s" x="30" y="120" font-size="13.5" fill="#D1D5DB">知识转录索引</text>
+    <text class="s" x="18" y="146" font-size="11.5" fill="#8B949E">长篇原文 → 精确行号本地库</text>
+  </g>
+  <line x1="630" y1="125" x2="648" y2="125" stroke="#3B4454" stroke-width="1.2"/><path d="M643 121 L649 125 L643 129" fill="none" stroke="#3B4454" stroke-width="1.2"/>
+  <g transform="translate(652 54)">
+    <rect width="278" height="162" rx="10" fill="#131922" stroke="#262D38" stroke-width="1"/>
+    <text class="m" x="18" y="26" font-size="10.5" font-weight="600" fill="#EAB308" letter-spacing="1.4">03 · EDITORIAL</text>
+    <text class="s" x="18" y="48" font-size="17" font-weight="600" fill="#F3F4F6">文本改编</text>
+    <line x1="18" y1="56" x2="260" y2="56" stroke="#1F2630" stroke-width="1"/>
+    <circle cx="20" cy="68" r="2" fill="#EAB308"/><text class="s" x="30" y="72" font-size="13.5" fill="#D1D5DB">去 AI 味</text><circle cx="20" cy="92" r="2" fill="#EAB308"/><text class="s" x="30" y="96" font-size="13.5" fill="#D1D5DB">日系小说本地化</text><circle cx="20" cy="116" r="2" fill="#EAB308"/><text class="s" x="30" y="120" font-size="13.5" fill="#D1D5DB">小说转短剧</text>
+    <text class="s" x="18" y="146" font-size="11.5" fill="#8B949E">原始成稿 → 干净人味与剧本分镜</text>
+  </g>
+  <line x1="932" y1="125" x2="950" y2="125" stroke="#3B4454" stroke-width="1.2"/><path d="M945 121 L951 125 L945 129" fill="none" stroke="#3B4454" stroke-width="1.2"/>
+  <g transform="translate(954 54)">
+    <rect width="278" height="162" rx="10" fill="#131922" stroke="#262D38" stroke-width="1"/>
+    <text class="m" x="18" y="26" font-size="10.5" font-weight="600" fill="#EAB308" letter-spacing="1.4">04 · PRODUCTION</text>
+    <text class="s" x="18" y="48" font-size="17" font-weight="600" fill="#F3F4F6">视觉成片</text>
+    <line x1="18" y1="56" x2="260" y2="56" stroke="#1F2630" stroke-width="1"/>
+    <circle cx="20" cy="68" r="2" fill="#EAB308"/><text class="s" x="30" y="72" font-size="13.5" fill="#D1D5DB">MiniMax H3 提示词</text><circle cx="20" cy="92" r="2" fill="#EAB308"/><text class="s" x="30" y="96" font-size="13.5" fill="#D1D5DB">资产提取</text><circle cx="20" cy="116" r="2" fill="#EAB308"/><text class="s" x="30" y="120" font-size="13.5" fill="#D1D5DB">成片合成</text>
+    <text class="s" x="18" y="146" font-size="11.5" fill="#8B949E">分镜资产 → 审计提示词与成片</text>
+  </g>
+  
+
+<!-- Support Dashed Connectors -->
+<g stroke="#3B4454" stroke-width="1" stroke-dasharray="3 4">
+  <line x1="187" y1="216" x2="187" y2="242"/>
+  <line x1="489" y1="216" x2="489" y2="242"/>
+  <line x1="791" y1="216" x2="791" y2="242"/>
+  <line x1="1093" y1="216" x2="1093" y2="242"/>
+</g>
+
+<!-- Foundation Bar -->
+<g transform="translate(48 242)">
+  <rect width="1184" height="60" rx="10" fill="#11161F" stroke="#262D38" stroke-width="1"/>
+  <text class="m" x="20" y="25" font-size="10.5" font-weight="600" fill="#34D399" letter-spacing="1.5">00 · FOUNDATION</text>
+  <text class="s" x="20" y="45" font-size="13.5" font-weight="600" fill="#F3F4F6">研发与客户端辅助底座</text>
+
+  <line x1="218" y1="14" x2="218" y2="46" stroke="#262D38" stroke-width="1"/>
+
+  <g transform="translate(242 22)">
+    <text class="s" x="0" y="4" font-size="13.5" font-weight="600" fill="#F3F4F6">柠檬思考</text>
+    <text class="s" x="0" y="24" font-size="11.5" fill="#8B949E">四阶段研发流程总控</text>
+  </g>
+  <g transform="translate(462 22)">
+    <text class="s" x="0" y="4" font-size="13.5" font-weight="600" fill="#F3F4F6">技能优化</text>
+    <text class="s" x="0" y="24" font-size="11.5" fill="#8B949E">依赖图谱与受控精简</text>
+  </g>
+  <g transform="translate(682 22)">
+    <text class="s" x="0" y="4" font-size="13.5" font-weight="600" fill="#F3F4F6">全局记忆 UMH</text>
+    <text class="s" x="0" y="24" font-size="11.5" fill="#8B949E">跨客户端本地记忆共享</text>
+  </g>
+  <g transform="translate(918 22)">
+    <text class="s" x="0" y="4" font-size="13.5" font-weight="600" fill="#F3F4F6">RTK 压缩器</text>
+    <text class="s" x="0" y="24" font-size="11.5" fill="#8B949E">终端长输出无损折叠省 Token</text>
+  </g>
+</g>
+</svg>

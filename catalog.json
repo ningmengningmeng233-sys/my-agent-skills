@@ -3,7 +3,7 @@
   "state": "LOCAL_CANDIDATE",
   "notes": [
     "邮箱按用户要求保留",
-    "2026-11-24 全量升级：同步上游原版（superpowers v7.0.2 / ponytail v5.3.3+ / rtk v1.2.1 过滤器 / humanizer v4.0.0+ 择优规则）、双向收口双胞胎内核、统一 17 套 SKILL.md 英文名与元数据、补齐缺失 LICENSE 与抖音 requirements.lock、裁决 B 站分层许可并接入全 17 包根 CI",
+    "2026-11-24 全量升级：同步上游原版（superpowers v7.0.2 / ponytail v5.3.3+ / rtk v1.2.1 过滤器 / humanizer v4.0.0+ 择优规则）、收口检索内核与跨平台兼容修复、统一 16 套公开技能 SKILL.md 英文名与元数据、补齐缺失 LICENSE 与抖音 requirements.lock、裁决 B 站分层许可并接入全 16 包根 CI",
     "资产提取公开档按 CAPABILITIES.md 排除 32 张受限风格参考图（保持 -rc.8 预发布号），SHA256SUMS.txt 已重算闭合，离线文本核心测试全绿",
     "知识转录索引 1.5.1 已修复导入崩溃与零依赖 JSON 容错并补齐 9 项离线核心回归测试，保持 LOCAL_CANDIDATE（真实本地 Obsidian 数据与模型仍需接收机验证）",
     "跨系统、多宿主及真实账号/付费模型验收仍按接收者本机环境实测为准，见 docs/verification.md"

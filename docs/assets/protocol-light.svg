@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="224" viewBox="0 0 1280 224" role="img" aria-labelledby="pt">
+<title id="pt">柠檬思考四阶段研发协议</title>
+<defs>
+  <style>
+    .s { font-family: 'Inter','SF Pro Display','PingFang SC','HarmonyOS Sans SC','Microsoft YaHei',system-ui,-apple-system,sans-serif; }
+    .m { font-family: 'JetBrains Mono','SFMono-Regular','Cascadia Code',Consolas,monospace; }
+  </style>
+</defs>
+
+<rect x="0.5" y="0.5" width="1279" height="223" rx="14" fill="#FAF9F6" stroke="#E5E2DC" stroke-width="1"/>
+<text class="m" x="48" y="34" font-size="11" font-weight="600" fill="#9C988F" letter-spacing="2">LEMON-THINKING PROTOCOL  ·  物理文件驱动的四阶段研发协议</text>
+
+<!-- Connecting Hairline -->
+<line x1="182" y1="96" x2="1098" y2="96" stroke="#E5E2DC" stroke-width="1.5"/>
+
+
+  <g transform="translate(160 96)" text-anchor="middle">
+    <circle r="22" fill="#FFFFFF" stroke="#141413" stroke-width="1.5"/>
+    <text class="m" y="5" font-size="13" font-weight="700" fill="#141413">01</text>
+    <text class="s" y="50" font-size="16" font-weight="600" fill="#141413">需求拷问对齐</text>
+    <text class="s" y="72" font-size="12.5" fill="#706D66">一次一问澄清边界 · 拒绝盲写</text>
+    <rect x="-82" y="84" width="164" height="22" rx="4" fill="#F4F2ED" stroke="#E2DFD7" stroke-width="0.9"/>
+    <text class="m" y="99" font-size="10.5" fill="#3F3E3B">产出：设计方案.md</text>
+  </g>
+  <g transform="translate(480 96)" text-anchor="middle">
+    <circle r="22" fill="#FFFFFF" stroke="#141413" stroke-width="1.5"/>
+    <text class="m" y="5" font-size="13" font-weight="700" fill="#141413">02</text>
+    <text class="s" y="50" font-size="16" font-weight="600" fill="#141413">原子工单拆解</text>
+    <text class="s" y="72" font-size="12.5" fill="#706D66">每步明确文件、断言与回滚点</text>
+    <rect x="-82" y="84" width="164" height="22" rx="4" fill="#F4F2ED" stroke="#E2DFD7" stroke-width="0.9"/>
+    <text class="m" y="99" font-size="10.5" fill="#3F3E3B">产出：实施计划.md</text>
+  </g>
+  <g transform="translate(800 96)" text-anchor="middle">
+    <circle r="22" fill="#FFFFFF" stroke="#141413" stroke-width="1.5"/>
+    <text class="m" y="5" font-size="13" font-weight="700" fill="#141413">03</text>
+    <text class="s" y="50" font-size="16" font-weight="600" fill="#141413">TDD 红绿推进</text>
+    <text class="s" y="72" font-size="12.5" fill="#706D66">先写失败测试，再写最小实现</text>
+    <rect x="-82" y="84" width="164" height="22" rx="4" fill="#F4F2ED" stroke="#E2DFD7" stroke-width="0.9"/>
+    <text class="m" y="99" font-size="10.5" fill="#3F3E3B">产出：全绿测试证据</text>
+  </g>
+  <g transform="translate(1120 96)" text-anchor="middle">
+    <circle r="22" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.5"/>
+    <text class="m" y="5" font-size="13" font-weight="700" fill="#0F766E">04</text>
+    <text class="s" y="50" font-size="16" font-weight="600" fill="#141413">终验对抗交付</text>
+    <text class="s" y="72" font-size="12.5" fill="#706D66">独立上下文挑错复验后方放行</text>
+    <rect x="-82" y="84" width="164" height="22" rx="4" fill="#F4F2ED" stroke="#0F766E" stroke-width="0.9"/>
+    <text class="m" y="99" font-size="10.5" fill="#3F3E3B">产出：零占位符交付</text>
+  </g>
+</svg>

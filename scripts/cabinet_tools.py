@@ -4,8 +4,8 @@
 
 用法：
   python scripts/cabinet_tools.py check                      # 全仓一致性与契约体检
-  python scripts/cabinet_tools.py status                     # 输出 17 套技能状态总览
-  python scripts/cabinet_tools.py pack --all                 # 打包全部 17 套技能至 dist/
+  python scripts/cabinet_tools.py status                     # 输出全部公开技能状态总览
+  python scripts/cabinet_tools.py pack --all                 # 打包全部公开技能至 dist/
   python scripts/cabinet_tools.py pack --id lemon-thinking   # 打包指定单套技能至 dist/
 """
 from __future__ import annotations
@@ -247,10 +247,10 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     sub.add_parser("check", help="全仓元数据、许可、CI 矩阵与跨技能契约体检")
-    sub.add_parser("status", help="输出 17 套技能状态总览")
+    sub.add_parser("status", help="输出全部公开技能状态总览")
 
     p_pack = sub.add_parser("pack", help="生成干净可分发 ZIP 压缩包与 SHA256SUMS")
-    p_pack.add_argument("--all", action="store_true", help="打包全部 17 套技能")
+    p_pack.add_argument("--all", action="store_true", help="打包全部公开技能")
     p_pack.add_argument("--id", help="仅打包指定 catalog id")
     p_pack.add_argument("--out", default="dist", help="输出目录（默认 dist/）")
 

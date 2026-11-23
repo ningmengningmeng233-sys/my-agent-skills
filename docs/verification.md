@@ -20,8 +20,8 @@
 
 本轮全量工程升级已完成并通过本地回归与根契约门禁的事项包括：
 - **上游原版同步**：`柠檬思考` 同步至 `obra/superpowers v7.0.2`、`技能优化` 同步至 `DietrichGebert/ponytail v5.3.3+`、`rtk-token-reducer` 适配 `rtk v1.2.1` 新增过滤器与旧版降级、`去AI味` 择优吸收 `blader/humanizer v4.0.0+` 口语防误伤与空洞收尾检查（同时明确拒绝其编造事实条款）。
-- **双胞胎内核收口**：`知识库转录 v5.4.9` 已正向合入 Windows 路径混写去重修复与安全前缀匹配；`成人文学索引 v4.9.0` 已反向回填多节点 `api_pool` 故障转移池与 KB-01 自区间严格行号校验；`schemas/twin-kernel.json` 与 `schemas/contract_check.py` 全绿对齐。
-- **历史工程缺口收口**：`B站转录 v5.5.6` 统一分层 `LICENSE` 并消除 README/SKILL.md 冲突；`抖音转录 v2.0.7` 补齐 `requirements.lock`；`知识转录索引 v1.5.1` 修复导入期崩溃与无 `demjson3` JSON 尾逗号容错，补齐 9 项离线全绿核心回归测试；`资产提取 v2.17.0-rc.8` 修复版本漂移与 `SHA256SUMS.txt` 全量重算（774 项）；全 17 包补齐 `LICENSE`/许可声明、统一英文 kebab-case 技能名与 Frontmatter 规范，并全部接入根 CI 矩阵及根级校验打包工具 `scripts/cabinet_tools.py`。
+- **检索内核收口**：`知识库转录 v5.4.9` 已合入 Windows 路径混写去重修复、安全前缀匹配与多节点 `api_pool` 故障转移池；`schemas/contract_check.py` 跨技能契约门禁全绿对齐。
+- **历史工程缺口收口**：`B站转录 v5.5.6` 统一分层 `LICENSE` 并消除 README/SKILL.md 冲突；`抖音转录 v2.0.7` 补齐 `requirements.lock`；`知识转录索引 v1.5.1` 修复导入期崩溃与无 `demjson3` JSON 尾逗号容错，补齐 9 项离线全绿核心回归测试；`资产提取 v2.17.0-rc.8` 修复版本漂移与 `SHA256SUMS.txt` 全量重算（774 项）；全 16 套公开技能包补齐 `LICENSE`/许可声明、统一英文 kebab-case 技能名与 Frontmatter 规范，并全部接入根 CI 矩阵及根级校验打包工具 `scripts/cabinet_tools.py`。
 
 上述依据属于**本地工程验证**，不能代替文学效果、接收者原生客户端或付费在线模型的真实业务结果。
 

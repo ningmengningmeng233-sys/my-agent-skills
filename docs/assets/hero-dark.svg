@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="370" viewBox="0 0 1280 370" role="img" aria-labelledby="ht hd">
+<title id="ht">my-agent-skills — 自制 Agent 技能柜</title>
+<desc id="hd">16 套面向 Claude Code、Codex 与 Antigravity 的中文独立技能，每一步可拆、可测、可追溯。</desc>
+<defs>
+  <pattern id="grid-dark" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FFFFFF" stroke-opacity="0.035" stroke-width="1"/>
+  </pattern>
+  <style>
+    .s { font-family: 'Inter','SF Pro Display','PingFang SC','HarmonyOS Sans SC','Microsoft YaHei',system-ui,-apple-system,sans-serif; }
+    .m { font-family: 'JetBrains Mono','SFMono-Regular','Cascadia Code',Consolas,monospace; }
+  </style>
+</defs>
+
+<!-- Canvas -->
+<rect x="0.5" y="0.5" width="1279" height="369" rx="16" fill="#0D1117" stroke="#262D38" stroke-width="1"/>
+<rect x="1" y="1" width="1278" height="368" rx="15" fill="url(#grid-dark)"/>
+
+<!-- Swiss Registration Marks -->
+<g stroke="#3B4454" stroke-width="1">
+  <path d="M24 28h12M30 22v12"/>
+  <path d="M1244 28h12M1250 22v12"/>
+  <path d="M24 342h12M30 336v12"/>
+  <path d="M1244 342h12M1250 336v12"/>
+</g>
+
+<!-- Left Column: Editorial Typography -->
+<g transform="translate(68 62)">
+  <!-- Eyebrow -->
+  <circle cx="5" cy="9" r="3.5" fill="#34D399"/>
+  <text class="m" x="18" y="13" font-size="11.5" font-weight="600" fill="#8B949E" letter-spacing="2.2">AGENT SKILL CABINET  ·  REV 2026.11</text>
+
+  <!-- Main Wordmark -->
+  <text class="s" x="-2" y="88" font-size="56" font-weight="700" fill="#F3F4F6" letter-spacing="-1.6">my-agent-skills</text>
+
+  <!-- Single Minimalist Accent Rule -->
+  <rect x="0" y="108" width="52" height="2.5" rx="1.25" fill="#EAB308"/>
+
+  <!-- Core Positioning -->
+  <text class="s" x="0" y="152" font-size="22" font-weight="600" fill="#F3F4F6">把 AI 代理做成可拆、可测、可追溯的确定性工程</text>
+  <text class="s" x="0" y="186" font-size="14.5" fill="#8B949E">从音视频转录与精确行号检索，到文本精修、小说短剧制作与四阶段研发总控。</text>
+  <text class="s" x="0" y="210" font-size="14.5" fill="#8B949E">每套技能独立安装、自带中文指南、明确输入输出边界与自动化回归测试。</text>
+
+  <!-- Minimal Monochrome Pills -->
+  <g class="m" font-size="11.5" fill="#C9D1D9" transform="translate(0 238)">
+    <rect x="0" y="0" width="96" height="26" rx="5" fill="#161D27" stroke="#28313E" stroke-width="1"/>
+    <text x="48" y="17" text-anchor="middle">SKILL.md</text>
+
+    <rect x="106" y="0" width="112" height="26" rx="5" fill="#161D27" stroke="#28313E" stroke-width="1"/>
+    <text x="162" y="17" text-anchor="middle">Claude Code</text>
+
+    <rect x="228" y="0" width="76" height="26" rx="5" fill="#161D27" stroke="#28313E" stroke-width="1"/>
+    <text x="266" y="17" text-anchor="middle">Codex</text>
+
+    <rect x="314" y="0" width="106" height="26" rx="5" fill="#161D27" stroke="#28313E" stroke-width="1"/>
+    <text x="367" y="17" text-anchor="middle">Antigravity</text>
+
+    <rect x="430" y="0" width="128" height="26" rx="5" fill="#161D27" stroke="#28313E" stroke-width="1"/>
+    <text x="494" y="17" text-anchor="middle">Win · Linux CI</text>
+  </g>
+</g>
+
+<!-- Vertical Architectural Divider -->
+<line x1="806" y1="54" x2="806" y2="316" stroke="#262D38" stroke-width="1"/>
+
+<!-- Right Column: 2x2 Swiss Metrics Grid -->
+<g transform="translate(848 64)">
+  <text class="m" x="0" y="12" font-size="11" font-weight="600" fill="#636C76" letter-spacing="2">VERIFIED METRICS</text>
+
+  <!-- Cell 1,1 -->
+  <g transform="translate(0 38)">
+    <text class="s" x="0" y="42" font-size="44" font-weight="600" fill="#F3F4F6" letter-spacing="-1">16</text>
+    <text class="s" x="0" y="68" font-size="13.5" font-weight="500" fill="#D1D5DB">公开精选技能</text>
+    <text class="s" x="0" y="88" font-size="12" fill="#8B949E">独立安装 · 边界清晰</text>
+  </g>
+
+  <!-- Cell 1,2 -->
+  <g transform="translate(198 38)">
+    <text class="s" x="0" y="42" font-size="44" font-weight="600" fill="#F3F4F6" letter-spacing="-1">4,514</text>
+    <text class="s" x="0" y="68" font-size="13.5" font-weight="500" fill="#D1D5DB">自动化测试通过</text>
+    <text class="s" x="0" y="88" font-size="12" fill="#8B949E">全仓实测 0 失败</text>
+  </g>
+
+  <!-- Horizontal Cell Divider -->
+  <line x1="0" y1="150" x2="366" y2="150" stroke="#1F2630" stroke-width="1"/>
+
+  <!-- Cell 2,1 -->
+  <g transform="translate(0 170)">
+    <text class="s" x="0" y="42" font-size="40" font-weight="600" fill="#F3F4F6" letter-spacing="-1">2×16</text>
+    <text class="s" x="0" y="68" font-size="13.5" font-weight="500" fill="#D1D5DB">跨平台 CI 矩阵</text>
+    <text class="s" x="0" y="88" font-size="12" fill="#8B949E">全包覆盖 + 契约门禁</text>
+  </g>
+
+  <!-- Cell 2,2 -->
+  <g transform="translate(198 170)">
+    <text class="s" x="0" y="42" font-size="40" font-weight="600" fill="#EAB308" letter-spacing="-1">192→16</text>
+    <text class="s" x="0" y="68" font-size="13.5" font-weight="500" fill="#D1D5DB">严选留存比例</text>
+    <text class="s" x="0" y="88" font-size="12" fill="#8B949E">只留真实跑通的精品</text>
+  </g>
+</g>
+</svg>
