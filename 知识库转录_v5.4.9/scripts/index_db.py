@@ -40,10 +40,10 @@ logger = get_logger(__name__)
 
 
 def normalize_path(path):
-    """统一路径分隔符（Windows 下 `\\` 与 `/` 混写会让主键判重失效）。"""
+    """统一路径分隔符（避免 Windows/Linux 混用 `\\` 与 `/` 导致主键判重失效）。"""
     if not path:
         return path
-    return os.path.normpath(str(path))
+    return os.path.normpath(str(path).replace("\\", "/"))
 
 
 def file_hash(path):
@@ -59,7 +59,7 @@ def _path_has_book_prefix(path: str | None, prefix: str) -> bool:
     """路径任一部分等于 prefix 或以 `prefix-` 开头（字面量，不解释元字符）。"""
     if not path or not prefix:
         return False
-    parts = [part for part in Path(str(path)).parts if part]
+    parts = [part for part in Path(str(path).replace("\\", "/")).parts if part]
     return any(part == prefix or part.startswith(prefix + "-") for part in parts)
 
 

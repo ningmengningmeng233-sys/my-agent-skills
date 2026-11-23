@@ -148,12 +148,34 @@ def test_twin_registry_names_resolve_to_real_dirs():
             assert (CABINET_ROOT / f).is_file(), f"declared_by 悬空：{ref}"
 
 
-def _official_authority_path():
-    return Path(os.path.expandvars(os.path.expanduser(cc.OFFICIAL_H3_SKELETON)))
+def test_h3_optional_external_authority_works_without_local_file(tmp_path):
+    """CI / 接收者机器未安装外部官方骨架时，optional_external 仍凭逻辑身份严查 derived_from。"""
+    (tmp_path / "schemas").mkdir()
+    (tmp_path / "schemas" / "s.schema.json").write_text(
+        json.dumps({"x-contract": {"version": "1.0.0"}, "type": "object"}), encoding="utf-8")
+    (tmp_path / "skillB").mkdir()
+    (tmp_path / "skillB" / "SKILL.md").write_text(_skill_md(
+        "1.0.0",
+        'id: h-ok\nnamespace: doc-x\n'
+        'schema: schemas/s.schema.json\nversion: "1.0.0"\nskill_version: "1.0.0"\n'
+        'h3_spec_source: "copy A"\nh3_spec_role: derived\nderived_from: "upstream-logical:h3.md"',
+        'id: h-bad\nnamespace: doc-y\n'
+        'schema: schemas/s.schema.json\nversion: "1.0.0"\nskill_version: "1.0.0"\n'
+        'h3_spec_source: "copy B"\nh3_spec_role: derived\nderived_from: "wrong-target"',
+    ), encoding="utf-8")
+    scan = [{
+        "path": str(tmp_path / "does-not-exist" / "h3.md"),
+        "name": "external authority",
+        "h3_spec_role": "authority",
+        "aliases": ["upstream-logical:h3.md"],
+        "optional_external": True,
+    }]
+    _code, drifts, _ = cc.run_check(tmp_path, skill_files=["skillB/SKILL.md"],
+                                    h3_scan_set=scan, exceptions=[], today="2026-10-14")
+    h3 = [(d["code"], d["contract"]) for d in drifts if d["code"].startswith("H3_")]
+    assert h3 == [("H3_DERIVATION_UNDECLARED", "h-bad")], h3
 
 
-@pytest.mark.skipif(not _official_authority_path().is_file(),
-                    reason="H3 唯一权威骨架只在作者机技能库在位时才可做整树验收")
 def test_real_tree_gate_is_clean():
     code, drifts, summary = cc.run_check(CABINET_ROOT)
     assert code == 0, f"整树门禁 exit {code}：{drifts}"

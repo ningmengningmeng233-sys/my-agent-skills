@@ -75,7 +75,7 @@
 
   <!-- Cell 1,2 -->
   <g transform="translate(198 38)">
-    <text class="s" x="0" y="42" font-size="44" font-weight="600" fill="#F3F4F6" letter-spacing="-1">4,514</text>
+    <text class="s" x="0" y="42" font-size="44" font-weight="600" fill="#F3F4F6" letter-spacing="-1">4,515</text>
     <text class="s" x="0" y="68" font-size="13.5" font-weight="500" fill="#D1D5DB">自动化测试通过</text>
     <text class="s" x="0" y="88" font-size="12" fill="#8B949E">全仓实测 0 失败</text>
   </g>

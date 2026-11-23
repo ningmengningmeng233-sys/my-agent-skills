@@ -104,6 +104,9 @@ H3_SPEC_SCAN_SET = [
         # SC-02：同一权威的可移植逻辑名（MiniMaxH3 包为去作者机绝对路径，
         # derived_from 只写该逻辑名）。别名仍走精确相等匹配，不做模糊/后缀匹配。
         "aliases": ["minimax-official-workflows:drama-series/reference/h3-video-prompt.md"],
+        # 位于工作区外的官方外部骨架：CI / 接收者机器未安装该外部技能时，
+        # 仍保留其逻辑权威身份用于严格核对各派生副本的 derived_from，不再误报缺件。
+        "optional_external": True,
     },
 ]
 
@@ -326,7 +329,7 @@ def _h3_authorities(root, contracts, h3_scan_set, drift):
         p = Path(_expand(raw).replace("\\", "/"))
         if not p.is_absolute():
             p = Path(_expand(root)) / p
-        if not p.is_file():
+        if not p.is_file() and not item.get("optional_external"):
             drift("H3_AUTHORITY_UNDECLARED", raw, "h3-prompt",
                   f"扫描集登记的 H3 唯一权威骨架在磁盘上不存在：{raw}——"
                   f"权威源失踪（换机/改名？），派生副本失去对齐目标，请同步 H3_SPEC_SCAN_SET")
